@@ -6,14 +6,13 @@
  -->
 <template>
 
-  <div class="user join wrapC position-absolute top-50 start-50 translate-middle">
+  <div class="user join wrap position-absolute top-50 start-50 translate-middle">
+    <div class="wrapC">
     <br><br>
     <div class="text-center wrap">
       <i class="fa-solid fa-coins fa-2x"></i><h1 class="text-center">QueÆnt</h1>
     </div>
     <p class="text-center">Inverst Your Money Safely</p>
-    <br><br>
-    <i class="fa-solid fa-user fa-4x"></i>
     <br><br>
     <div class="form-wrap">
       <div class="input-with-label">
@@ -74,6 +73,7 @@
     </div>
     <button class="btn-bottom"
     @click="join">가입하기</button>
+    </div>
   </div>
 </template>
 
@@ -97,16 +97,16 @@ export default {
       .letters();
   },
   watch: {
-    nickName: function(v) {
+    nickName() {
       this.checkForm();
     },
-    password: function(v) {
+    password() {
       this.checkForm();
     },
-    email: function(v) {
+    email() {
       this.checkForm();
     },
-    passwordConfirm: function(v) {
+    passwordConfirm() {
       this.checkForm();
     }
   },
@@ -142,18 +142,7 @@ export default {
     },
     join() {
       if (this.isSubmit) {
-        let { email, password, passwordConfirm, nickName } = this;
-        let data = {
-          email,
-          nickName,
-          passwordConfirm,
-          password
-        };
-
-        //요청 후에는 버튼 비활성화
-        this.isSubmit = false;
-
-        this.$router.push("/main");
+        this.$router.push('/user/joincomplete')
       }
     }
   },
@@ -180,5 +169,13 @@ export default {
   }
 };
 </script>
+<style>
+.user {
+  background-image: url('~@/assets/images/login_background.jpg');
+  background-size: cover;
+  height: 100vh;
+  width: 100wh;
+}
+</style>
 
 
