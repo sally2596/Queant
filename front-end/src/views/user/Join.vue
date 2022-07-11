@@ -8,57 +8,72 @@
 
   <div class="user join wrapC position-absolute top-50 start-50 translate-middle">
     <br><br>
-    <div class="text-center">
-      <i class="fa-solid fa-coins"><h1 class="text-center">QueÆnt</h1></i>
+    <div class="text-center wrap">
+      <i class="fa-solid fa-coins fa-2x"></i><h1 class="text-center">QueÆnt</h1>
     </div>
     <p class="text-center">Inverst Your Money Safely</p>
     <br><br>
+    <i class="fa-solid fa-user fa-4x"></i>
+    <br><br>
     <div class="form-wrap">
       <div class="input-with-label">
-        <input v-model="nickName" id="nickname" placeholder="닉네임을 입력하세요." type="text" />
+        <input 
+        v-model="nickName"
+        v-bind:class="{error : error.nickName, complete:!error.nickName&&nickName.length!==0}" 
+        id="nickname" 
+        placeholder="닉네임을 입력하세요." 
+        type="text" />
         <label for="nickname">닉네임</label>
+        <div class="error-text" v-if="error.nickName">{{error.nickName}}</div>
       </div>
 
       <div class="input-with-label">
         <input 
         v-model="email"
         v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}" 
+        @keyup.enter="Join"
         id="email" 
         placeholder="이메일을 입력하세요." 
         type="text" />
         <label for="email">이메일</label>
+        <div class="error-text" v-if="error.email">{{error.email}}</div>
       </div>
 
       <div class="input-with-label">
         <input 
         v-model="password"
         v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+        @keyup.enter="Join"
         id="password" 
         :type="passwordType" 
         placeholder="비밀번호를 입력하세요." />
         <label for="password">비밀번호</label>
+        <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
       <div class="input-with-label">
         <input
           v-model="passwordConfirm"
           :type="passwordConfirmType"
-          v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+          v-bind:class="{error : error.passwordConfirm, complete:!error.passwordConfirm&&passwordConfirm.length!==0}"
+          @keyup.enter="Join"
           id="password-confirm"
           placeholder="비밀번호를 다시한번 입력하세요."
         />
         <label for="password-confirm">비밀번호 확인</label>
+        <div class="error-text" v-if="error.passwordConfirm">{{error.passwordConfirm}}</div>
       </div>
     </div>
 
-    <label>
-      <input v-model="isTerm" type="checkbox" id="term" />
-      <span>약관을 동의합니다.</span>
-    </label>
-
-    <span @click="termPopup=true">약관보기</span>
-
-    <button class="btn-bottom">가입하기</button>
+    <div>
+      <label>
+        <input v-model="isTerm" type="checkbox" id="term" />
+        <span>약관을 동의합니다.</span>
+      </label>
+      <span class="text-center" @click="termPopup=true">약관보기</span>
+    </div>
+    <button class="btn-bottom"
+    @click="join">가입하기</button>
   </div>
 </template>
 
@@ -66,7 +81,6 @@
 import "../../components/css/user.scss";
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
-import UserApi from "../../api/UserApi";
 
 export default {
   created() {
@@ -83,25 +97,42 @@ export default {
       .letters();
   },
   watch: {
+    nickName: function(v) {
+      this.checkForm();
+    },
     password: function(v) {
       this.checkForm();
     },
     email: function(v) {
       this.checkForm();
+    },
+    passwordConfirm: function(v) {
+      this.checkForm();
     }
   },
   methods: {
     checkForm() {
-      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
+      if (this.nickName.length >= 8)
+        this.error.nickName = "8자 이하의 닉네임만 설정 가능합니다.";
+      else this.error.nickName = false;
+      
+      if (this.email.length >= 1 && !EmailValidator.validate(this.email))
         this.error.email = "이메일 형식이 아닙니다.";
       else this.error.email = false;
 
       if (
-        this.password.length >= 0 &&
+        this.password.length >= 1 &&
         !this.passwordSchema.validate(this.password)
       )
         this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
+      
+      if (
+        this.passwordConfirm.length >= 1 &&
+        !(this.passwordConfirm == this.password)
+      )
+        this.error.passwordConfirm = "입력한 패스워드와 다릅니다.";
+      else this.error.passwordConfirm = false;
 
       let isSubmit = true;
       Object.values(this.error).map(v => {
@@ -109,33 +140,20 @@ export default {
       });
       this.isSubmit = isSubmit;
     },
-    onLogin() {
+    join() {
       if (this.isSubmit) {
-        let { email, password } = this;
+        let { email, password, passwordConfirm, nickName } = this;
         let data = {
           email,
+          nickName,
+          passwordConfirm,
           password
         };
 
         //요청 후에는 버튼 비활성화
         this.isSubmit = false;
 
-        UserApi.requestLogin(
-          data,
-          res => {
-            //통신을 통해 전달받은 값 콘솔에 출력
-            //console.log(res);
-
-            //요청이 끝나면 버튼 활성화
-            this.isSubmit = true;
-
-            this.$router.push("/main");
-          },
-          error => {
-            //요청이 끝나면 버튼 활성화
-            this.isSubmit = true;
-          }
-        );
+        this.$router.push("/main");
       }
     }
   },
@@ -155,7 +173,6 @@ export default {
         passwordConfirm: false,
         term: false
       },
-      isSubmit: false,
       passwordType: "password",
       passwordConfirmType: "password",
       termPopup: false
