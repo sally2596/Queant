@@ -1,10 +1,10 @@
 <template>
-  <div class="user position-relative" id="login">
+  <div class="user" id="login">
     <br/><br/>
-    <div class="wrapC position-absolute top-0 start-0 mx-5 my-5">
+    <div class="wrapC">
       <h1>
-        Queant
-        <br />Invest Your Money Safely
+        로그인을 하고 나면
+        <br />좋은 일만 있을 거예요.
       </h1>
 
       <div class="input-with-label">
@@ -44,10 +44,9 @@
           <p>SNS 간편 로그인</p>
           <div class="bar"></div>
         </div>
-        <div class="text-center">
-          <kakaoLogin :component="component" />
-          <GoogleLogin :component="component" />
-        </div>
+
+        <kakaoLogin :component="component" />
+        <GoogleLogin :component="component" />
       </div>
       <div class="add-option">
         <div class="text">
@@ -165,11 +164,5 @@ export default {
   }
 };
 </script>
-<style>
-.user {
-  background-image: url('~@/assets/images/login_background.jpg');
-  background-size: cover;
-  height: 100vh;
-  width: 100wh;
-}
-</style>
+
+
