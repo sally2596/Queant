@@ -8,6 +8,7 @@ public class QueantApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(QueantApplication.class, args);
+        //aaa
     }
 
 }
