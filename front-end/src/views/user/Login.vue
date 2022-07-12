@@ -48,7 +48,7 @@
           <div class="bar"></div>
         </div>
         <div class="text-center">
-          <kakaoLogin :component="component" />
+          <KakaoLogin :component="component" />
           <GoogleLogin :component="component" />
         </div>
       </div>
@@ -80,8 +80,8 @@ import UserApi from "../../api/UserApi";
 
 export default {
   components: {
+    GoogleLogin,
     KakaoLogin,
-    GoogleLogin
   },
   created() {
     this.component = this;

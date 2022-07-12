@@ -6,6 +6,7 @@ import FeedMain from './views/feed/IndexFeed.vue'
 import Components from './views/Components.vue'
 import JoinComplete from './views/user/JoinComplete.vue'
 import FindPassword from './views/user/FindPassword.vue'
+import KaKao from './views/user/snsLogin/KaKao.vue'
 export default [
 
 
@@ -38,5 +39,10 @@ export default [
         path : '/user/joincomplete',
         name : 'JoinComplete',
         component : JoinComplete
-    }
+    },
+    {
+        path : '/user/snsLogin/Kakao',
+        name : 'KaKao',
+        component : KaKao
+    },
 ]
