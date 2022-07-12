@@ -1,6 +1,6 @@
-package com.ssafy.queant.repository;
+package com.ssafy.queant.model.repository;
 
-import com.ssafy.queant.entity.Member;
+import com.ssafy.queant.model.entity.Member;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
