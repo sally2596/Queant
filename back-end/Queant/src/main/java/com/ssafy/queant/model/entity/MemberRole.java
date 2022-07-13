@@ -1,5 +1,5 @@
 package com.ssafy.queant.model.entity;
 
 public enum MemberRole {
-    USER, ADMIN
+    ROLE_USER, ROLE_SUPER, ROLE_ADMIN
 }

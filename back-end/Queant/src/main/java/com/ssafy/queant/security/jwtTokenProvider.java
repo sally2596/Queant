@@ -17,6 +17,7 @@ public class jwtTokenProvider {
     private String secretKey;
     private Key key;
     private long tokenValidMilisecond = 1000L * 60 * 60; //1시간만 토큰 유효
+    private long refreshTokenValidMilisecond = 1000L * 60 * 60 * 24 * 3; //3일만 토큰 유효
 
     @PostConstruct
     protected void init(){key  = Keys.hmacShaKeyFor(secretKey.getBytes());}
@@ -36,7 +37,7 @@ public class jwtTokenProvider {
         Date now = new Date();
         return Jwts.builder()
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime()))
+                .setExpiration(new Date(now.getTime() + refreshTokenValidMilisecond))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
