@@ -1,36 +1,38 @@
 <template>
-  <div class="login">
+  <div class="d-grid gap-2 col-6 mx-auto">
     <!-- 서비스명 & 슬로건 -->
     <h1>Queant</h1>
     <h3>Invest Your Money Safely</h3>
-    <img alt="Vue logo" src="../assets/logo.png">
-    
+    <br><br>
     <!-- 로그인폼 -->
     <form @submit.prevent="login(credentials)">
       <div>
-        <label for="username"><i class="fa-solid fa-id-badge"></i> </label>
-        <input 
+        <label class="col-6">이메일</label>
+        <input
+          class="col-6"
           type="text"
           id="username"
-          placeholder="아이디"
           required>
       </div>
-
       <div>
-        <label for="password"><i class="fa-solid fa-key"></i> </label>
+        <label class="col-6">비밀번호</label>
         <input
+          class="col-6"
           type="text"
           id="password"
-          placeholder="비밀번호"
           required>
       </div>
+      <button class="btn btn-outline-dark" type="button">로그인</button>
+      <button class="btn btn-outline-primary" type="button">비회원 이용하기</button>
+  </form>
+  
+  <hr>
 
-      <div>
-        <button class="btn btn-primary">로그인</button>
-        <button class="btn btn-outline-primary">비회원 이용하기</button>
-      </div>
-    </form>
-
+  <button class="btn--text">회원가입</button>
+  <button class="btn--text">KAKAO</button>
+  <button class="btn--text">GOOGLE</button>
+  <button class="btn--text">NAVER</button>
+  
   </div>
 </template>
 
@@ -53,3 +55,6 @@ export default {
   }
 }
 </script>
+<style>
+@import '../assets/css/user.css';
+</style>
