@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class MemberServiceImpl implements MemberService, UserDetailsService {
+public class MemberServiceImpl implements MemberService{
 
     private final Logger LOGGER = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final MemberRepository memberRepository;
@@ -27,12 +27,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         this.memberRepository = memberRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LOGGER.info("[loadUserByUsername] loadUserByUsername 수행. memberemail : {}", username);
-        return memberRepository.findByEmail(username);
     }
 
     @Override
