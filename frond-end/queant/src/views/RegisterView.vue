@@ -87,11 +87,7 @@ export default {
 </script>
 
 <style>
-h3 {
-  color: aliceblue;
-}
 label {
-  color: aliceblue;
   width: 110px;
 }
 </style>
