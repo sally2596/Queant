@@ -1,39 +1,34 @@
 <template>
-  <div class="d-grid gap-2 col-6 mx-auto">
-    <!-- 서비스명 & 슬로건 -->
-    <h1>Queant</h1>
-    <h3>Invest Your Money Safely</h3>
-    <br><br>
-    <!-- 로그인폼 -->
-    <form @submit.prevent="login(credentials)">
-      <div>
-        <label class="col-6">이메일</label>
-        <input
-          class="col-6"
-          type="text"
-          id="username"
-          required>
+  <section class="login-form">
+    <h1>QueÆnt</h1>
+    <form action="">
+      <div class="int-area">
+        <input type="text" name="id" id="id"
+        autocomplete="off" required>
+        <label for="id">EMAIL</label>
       </div>
-      <div>
-        <label class="col-6">비밀번호</label>
-        <input
-          class="col-6"
-          type="text"
-          id="password"
-          required>
+      <div class="int-area">
+        <input type="password" name="pw" id="pw"
+        autocomplete="off" required>
+        <label for="pw">PASSWORD</label>
       </div>
-      <button class="btn btn-outline-dark" type="button">로그인</button>
-      <button class="btn btn-outline-primary" type="button">비회원 이용하기</button>
-  </form>
+      <div class="btn-area">
+        <button type="submit">LOGIN</button>
+      </div>
+    </form>
+    <div class="caption">
+      <a href="">비밀번호를 잊으셨나요?</a>
+      <br><br>
+      <a href="">아직 회원이 아니신가요?</a>
+    </div>
   
-  <hr>
-
-  <button class="btn--text">회원가입</button>
-  <button class="btn--text">KAKAO</button>
-  <button class="btn--text">GOOGLE</button>
-  <button class="btn--text">NAVER</button>
-  
+    <p>Social Login</p>
+  <div class="auth-area">
+    <button><img src="../assets/image/kakao_icon.png" alt=""> </button>
+    <button><img src="../assets/image/naver_icon.png" alt=""> </button>
+    <button><img src="../assets/image/google_icon.png" alt=""> </button>
   </div>
+  </section>
 </template>
 
 <script>

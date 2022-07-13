@@ -1,27 +1,101 @@
-*{
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@600&display=swap');
 
+* {margin: 0; padding: 0; box-sizing: border-box;}
 body {
-  background: url('../image/userimage.jpg') no-repeat center center/cover, rgba(0, 0, 0, 0.5);
-  background-blend-mode: multiply;
-  /* background-image: url('../image/userimage.jpg');
-  backdrop-filter: blur(3px); */
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('../image/userimage.jpg') no-repeat center;
+  background-size: cover;
+>>>>>>> 0e061f16b3e643d552ef58628cb20700899d0839
 }
 
-.wrap {
-  max-width: 1000px;
+body::before {
+  content: "";
+  position: absolute; z-index: 1;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0,0,0,.7);
+}
+
+.login-form {position: relative; z-index: 2;}
+.login-form h1 {
+  font-size: 32px; color: #fff;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.int-area {
+  width: 300px; position: relative;
+  margin-top: 20px;
+}
+.int-area:first-child {margin-top: 0;}
+.int-area input {
   width: 100%;
-  margin: 0 auto;
+  padding: 20px 10px 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #999;
+  font-size: 18px; color: #fff;
+  outline: none;
 }
 
-.login-box {
-  margin:auto;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+.int-area label {
+  position: absolute; left: 10px; top: 15px;
+  font-size: 18px; color: #999;
+  transition: top .5s ease;
 }
 
-.input-with-label {
-  box-sizing: border-box;
+.int-area input:focus + label,
+.int-area input:valid + label {
+  top: 0;
+  font-size: 13px; color: #166cea;
+}
+
+.btn-area {margin-top: 30px;}
+.btn-area button {
+  width: 100%; height: 50px;
+  background: #166cea;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+}
+
+.caption {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.caption a {
+  font-size: 15px; color: #999;
+  text-decoration: none;
+}
+.auth-area {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: auto;
+  
+}
+.auth-area button{
+  width : 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 0;
+  background-color: transparent;
+}
+
+.auth-area img{
+  padding-right: 10;
+  width : 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.login-form p {
+  margin-top: 100px;
+  color: #999;
 }
