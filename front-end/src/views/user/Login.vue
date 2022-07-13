@@ -1,11 +1,14 @@
+
 <template>
   <div class="user position-relative" id="login">
     <br/><br/>
-    <div class="wrapC position-absolute top-0 start-0 mx-5 my-5">
-      <h1>
-        Queant
-        <br />Invest Your Money Safely
-      </h1>
+    <div class="wrapC">
+      <div class="text-center wrap">
+        <i class="fa-solid fa-coins fa-2x"></i><h1 class="text-center">QueÆnt</h1>
+        <p class="text-center">Inverst Your Money Safely</p>
+      </div>
+      <br>
+      <br>
 
       <div class="input-with-label">
         <input
@@ -45,7 +48,7 @@
           <div class="bar"></div>
         </div>
         <div class="text-center">
-          <kakaoLogin :component="component" />
+          <KakaoLogin :component="component" />
           <GoogleLogin :component="component" />
         </div>
       </div>
@@ -56,7 +59,7 @@
         </div>
         <div class="wrap">
           <p>비밀번호를 잊으셨나요?</p>
-          <router-link to="/user/join" class="btn--text">비밀번호 찾기</router-link>
+          <router-link to="/user/findPassword" class="btn--text">비밀번호 찾기</router-link>
         </div>
         <div class="wrap">
           <p>아직 회원이 아니신가요?</p>
@@ -77,8 +80,8 @@ import UserApi from "../../api/UserApi";
 
 export default {
   components: {
+    GoogleLogin,
     KakaoLogin,
-    GoogleLogin
   },
   created() {
     this.component = this;
@@ -94,9 +97,11 @@ export default {
       .letters();
   },
   watch: {
+    /* eslint-disable */
     password: function(v) {
       this.checkForm();
     },
+    /* eslint-disable */
     email: function(v) {
       this.checkForm();
     }
@@ -133,6 +138,7 @@ export default {
 
         UserApi.requestLogin(
           data,
+          /* eslint-disable */
           res => {
             //통신을 통해 전달받은 값 콘솔에 출력
             //console.log(res);
@@ -142,6 +148,7 @@ export default {
 
             this.$router.push("/main");
           },
+          /* eslint-disable */
           error => {
             //요청이 끝나면 버튼 활성화
             this.isSubmit = true;

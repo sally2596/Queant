@@ -1,7 +1,7 @@
 <template>
     <div id="kakao-login">
 
-        <button>
+        <button @click="kakaoLogin">
             <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
                 <g id="그룹_247" data-name="그룹 247" transform="translate(-237 -406)">
                     <g id="구성_요소_2" data-name="구성 요소 2" transform="translate(237 406)">
@@ -24,5 +24,50 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+      methods: {
+        kakaoLogin() {
+            var self = this; 
+            //다른 method 사용하기 위해 사용 
+            window.Kakao.init('d3c82596bfac16ff92fb556e498b2a90');
+            //초기화 성공여부 확인
+            console.log("init:" + Kakao.isInitialized());
+            //처음에 카카오 로그인 세션을 없애준다. 
+            if (window.Kakao.Auth.getAccessToken()) { 
+                window.Kakao.API.request({ 
+                    url: '/v1/user/unlink', 
+                    success: function (response) { 
+                        console.log(response) 
+                    }, 
+                    fail: function (error) { 
+                        console.log(error) 
+                    }, 
+                }) 
+                window.Kakao.Auth.setAccessToken(undefined) 
+            } 
+            //로그인 시도 
+            window.Kakao.Auth.login({ 
+                success: function (response) { 
+                    console.log("로그인 성공", response);
+                    window.Kakao.API.request({ 
+                        url: '/v2/user/me',
+                        // data: { 
+                        //     property_keys: ["kakao_account.email"] },
+                             success: function (response) { 
+                                 let user = response.kakao_account //카카오 계정 정보
+                                 }, 
+                                 fail: function (error) { 
+                                     console.log(error) 
+                                }, 
+                            }) 
+                        }, 
+                        fail: function (error) {
+                             console.log(error) 
+                        }, 
+                    })
+
+
+        },
+    }
+    }
 </script>
