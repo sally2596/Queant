@@ -1,4 +1,4 @@
-# front-end
+# queant
 
 ## Project setup
 ```
