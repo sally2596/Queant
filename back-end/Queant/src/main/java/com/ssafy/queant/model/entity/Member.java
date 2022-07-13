@@ -31,6 +31,8 @@ public class Member implements UserDetails {
     @Builder.Default
     private Social social = Social.valueOf("ROLE_USER");
 
+    private String refreshToken;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
