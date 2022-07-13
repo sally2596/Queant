@@ -13,7 +13,7 @@
   color: #2c3e50;
 }
 
-body {;
+body {
   background-size: cover;
   height: 100vh;
   width: 100vw;

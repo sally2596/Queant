@@ -3,8 +3,10 @@
 }
 
 body {
-  background-image: url('../image/userimage.jpg');
-  backdrop-filter: blur(3px);
+  background: url('../image/userimage.jpg') no-repeat center center/cover, rgba(0, 0, 0, 0.5);
+  background-blend-mode: multiply;
+  /* background-image: url('../image/userimage.jpg');
+  backdrop-filter: blur(3px); */
 }
 
 .wrap {
