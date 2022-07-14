@@ -1,24 +1,9 @@
-# queant
+# Queant (Front-end)
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 이종은
 
-### Lints and fixes files
-```
-npm run lint
-```
+220714 (목)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+컨설턴트님에게 우리 서비스에 대해 상담을 받았다. 사용자들이 중요한 정보를 얻기 위해선 우리 서비스에서 반강제(?)로 게시글을 올려야하기 때문에 가치 없는 게시글로 도배되지 않을지, 우려를 하셨다. 다시 기획과 설계를 했고, 다양한 기능과 기술을 구현하는 것에 초점을 두어 진행하기로 했다.

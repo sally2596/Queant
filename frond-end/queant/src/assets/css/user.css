@@ -3,9 +3,9 @@
 * {margin: 0; padding: 0; box-sizing: border-box;}
 body {
   font-family: 'Edu VIC WA NT Beginner', cursive;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
   height: 100vh;
   background: url('../image/userimage.jpg') no-repeat center;
   background-size: cover;
