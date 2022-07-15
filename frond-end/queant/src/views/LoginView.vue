@@ -1,6 +1,7 @@
 <template>
   <section class="login-form">
     <h1>QueÆnt</h1>
+    <!-- Login Form -->
     <form action="">
       <div class="int-area">
         <input type="text" name="id" id="id"
@@ -19,15 +20,18 @@
     <div class="caption">
       <a href="">비밀번호를 잊으셨나요?</a>
       <br><br>
-      <a href="">아직 회원이 아니신가요?</a>
+      <router-link to="/register"><a href="">아직 회원이 아니신가요?</a></router-link>
     </div>
-  
-    <p>Social Login</p>
-  <div class="auth-area">
-    <button><img src="../assets/image/kakao_icon.png" alt=""> </button>
-    <button><img src="../assets/image/naver_icon.png" alt=""> </button>
-    <button><img src="../assets/image/google_icon.png" alt=""> </button>
-  </div>
+
+    
+    <div>
+      <p>Social Login</p>
+      <div class="auth-area">
+        <button><img src="../assets/image/kakao_icon.png" alt=""> </button>
+        <button><img src="../assets/image/naver_icon.png" alt=""> </button>
+        <button><img src="../assets/image/google_icon.png" alt=""> </button>
+      </div>
+    </div>
   </section>
 </template>
 
