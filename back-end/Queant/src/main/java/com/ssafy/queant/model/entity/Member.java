@@ -29,7 +29,7 @@ public class Member implements UserDetails {
     private String name;
     @Column(nullable = false)
     @Builder.Default
-    private Social social = Social.valueOf("ROLE_USER");
+    private Social social = Social.valueOf("None");
 
     private String refreshToken;
 
