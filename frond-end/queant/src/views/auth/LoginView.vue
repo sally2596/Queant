@@ -26,15 +26,13 @@
     <div>
       <p>Social Login</p>
       <div class="auth-area">
-        <button v-on:click="kakaoLogin"><img src="../assets/image/kakao_icon.png" alt=""> </button>
+        <button v-on:click="kakaoLogin"><img src="../../assets/image/kakao_icon.png" alt=""> </button>
         
         <div id="naver_id_login">
-          <button v-on:click="naverLogin"><img src="../assets/image/naver_icon.png" alt=""> </button>
+          <button v-on:click="naverLogin"><img src="../../assets/image/naver_icon.png" alt=""> </button>
         </div>
 
-        <button><img src="../assets/image/google_icon.png" alt=""> </button>
-
-        <button @click="logout">logout</button>
+        <button><img src="@/assets/image/google_icon.png" alt=""> </button>
       </div>
     </div>
   </section>
@@ -72,5 +70,5 @@ export default {
 }
 </script>
 <style>
-@import '../assets/css/user.css';
+@import '../../assets/css/user.css';
 </style>
