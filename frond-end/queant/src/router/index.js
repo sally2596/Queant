@@ -6,9 +6,9 @@ import ProfileFindView from '../views/profile/ProfileFindView.vue'
 import ProfileCheckView from '../views/profile/ProfileCheckView.vue'
 import ProfileEditView from '../views/profile/ProfileEditView.vue'
 
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import NaverView from '../views/NaverView.vue'
+import LoginView from '../views/auth/LoginView.vue'
+import RegisterView from '../views/auth/RegisterView.vue'
+import NaverView from '../views/auth/NaverView.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
 import AdminManageView from '../views/admin/AdminManageView.vue'
