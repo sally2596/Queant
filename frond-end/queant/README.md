@@ -1,5 +1,10 @@
 # Queant (Front-end)
 
+## 종합
+
+- 220718(월)
+
+    - 1차 Main Merge Request
 
 
 ## 이종은
