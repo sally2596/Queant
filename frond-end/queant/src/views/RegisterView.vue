@@ -1,13 +1,13 @@
 <template>
     <section class="register-form">
       <h1>회원가입</h1>
-        <!-- Social Register -->
-        <p>Social Sign in with</p>
-        <div class="auth-area">
-          <button><img src="../assets/image/kakao_icon.png" alt=""> </button>
-          <button><img src="../assets/image/naver_icon.png" alt=""> </button>
-          <button><img src="../assets/image/google_icon.png" alt=""> </button>
-        </div>
+      <!-- Social Register -->
+      <p>Social Sign in with</p>
+      <div class="auth-area">
+        <button><img src="../assets/image/kakao_icon.png" alt=""> </button>
+        <button><img src="../assets/image/naver_icon.png" alt=""> </button>
+        <button><img src="../assets/image/google_icon.png" alt=""> </button>
+      </div>
 
       <!-- Register Form -->
       <form @submit.prevent="register(credentials)">
@@ -74,39 +74,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['register']),
-    // GoogleLoginBtn: function() {
-    //   var self = this;
-
-    //   window.gapi.signin2.render('my-signin2', {
-    //     scope: 'profile email',
-    //     width: 240,
-    //     height: 50,
-    //     longtitle: true,
-    //     theme: 'dark',
-    //     onsuccess: this.GoogleLoginSuccess,
-    //     onfailure: this.GoogleLoginFailure,
-    //   })
-
-    //   setTimeout(function () {
-    //     if (!self.googleLoginCheck) {
-    //       const auth = window.gapi.auth2.getAuthInstance();
-    //       auth.isSignedIn.get();
-    //       document.querySelector('.abcRioButton').click();
-    //     }
-    //   }, 1500)
-
-    // },
-    // async GoogleLoginSuccess(googleUser) {
-    //   const googleEmail = googleUser.getBasicProfile().getEmail();
-    //   if (googleEmail !== 'undefined') {
-    //     console.log(googleEmail);
-    //   }
-    // },
-    // //구글 로그인 콜백함수 (실패)
-    // GoogleLoginFailure(error) {
-    //   console.log(error);
-    // },
+    ...mapActions(['register'])
   }
 }
 </script>
