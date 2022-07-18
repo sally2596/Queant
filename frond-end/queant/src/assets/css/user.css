@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('../image/userimage.jpg') no-repeat center;
+  /* background: url('../image/userimage.jpg') no-repeat center; */
   background-size: cover;
 }
 
@@ -55,6 +55,21 @@ body::before {
   position: absolute; left: 10px; top: 15px;
   font-size: 18px; color: #999;
   transition: top .5s ease;
+}
+
+.int-area a {
+  position: absolute; left: 230px; top: 20px;
+  font-size: 18px; color: #999;
+}
+
+.int-area button {
+  width: 70px;
+  height: 30px;
+  background: #166cea;
+  color: #fff;
+  font-size: 15px;
+  border: none;
+  border-radius: 25px;
 }
 
 .int-area input:focus + label,
