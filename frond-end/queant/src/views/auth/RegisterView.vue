@@ -4,9 +4,9 @@
       <!-- Social Register -->
       <p>Social Sign in with</p>
       <div class="auth-area">
-        <button><img src="../assets/image/kakao_icon.png" alt=""> </button>
-        <button><img src="../assets/image/naver_icon.png" alt=""> </button>
-        <button><img src="../assets/image/google_icon.png" alt=""> </button>
+        <button><img src="@/assets/image/kakao_icon.png" alt=""> </button>
+        <button><img src="@/assets/image/naver_icon.png" alt=""> </button>
+        <button><img src="@/assets/image/google_icon.png" alt=""> </button>
       </div>
 
       <!-- Register Form -->
@@ -108,5 +108,5 @@ export default {
 };
 </script>
 <style>
-  @import '../assets/css/user.css';
+  @import '@/assets/css/user.css';
 </style>
