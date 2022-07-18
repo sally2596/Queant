@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'CredentialsEditView'
+  name: 'ProfileFindView'
 }
 </script>
 
