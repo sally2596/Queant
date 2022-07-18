@@ -33,8 +33,6 @@
         </div>
 
         <button><img src="../assets/image/google_icon.png" alt=""> </button>
-
-        <button @click="logout">logout</button>
       </div>
     </div>
   </section>

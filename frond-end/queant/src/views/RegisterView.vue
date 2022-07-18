@@ -29,6 +29,16 @@
             <label class="form-label" for="email">이메일 주소</label>
         </div>
 
+        <div class="int-area confirm">
+          <input
+            type="text"
+            id="confirm"
+            autocomplete="off"
+            required>
+            <label class="form-label" for="email">인증 번호</label>
+            <a action=""><button class='confirm'>확인</button></a>
+        </div>
+
         <div class="int-area">
           <input
             type="password"
@@ -61,6 +71,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import * as EmailValidator from "email-validator";
 export default {
   name: 'RegisterView',
   data() {
@@ -73,10 +84,28 @@ export default {
       }
     }
   },
+  watch: {
+      
+    email: function(v) {
+      this.checkForm();
+    }
+  },
   methods: {
-    ...mapActions(['register'])
+    ...mapActions(['register']),
+    checkForm() {
+      
+      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
+        this.error.email = "이메일 형식이 아닙니다.";
+      else this.error.email = false;
+
+    }
+  },
+  data: () => {
+    return {
+      email: "",
+    };
   }
-}
+};
 </script>
 <style>
   @import '../assets/css/user.css';
