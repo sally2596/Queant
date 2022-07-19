@@ -4,6 +4,7 @@ import com.ssafy.queant.model.entity.Member;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
+@Slf4j
 public class MemberServiceImpl implements MemberService{
 
-    private final Logger LOGGER = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
@@ -31,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public String register(String email, String password, String name) {
-        LOGGER.info("[register] 회원가입 정보 전달");
+        log.info("[register] 회원가입 정보 전달");
         Member member = Member.builder()
                 .email(email)
                 .name(name)
@@ -47,5 +50,11 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public String login(String id, String password) throws RuntimeException {
         return null;
+    }
+
+    @Override
+    public boolean emailCheck(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        return member.isPresent();
     }
 }
