@@ -12,7 +12,6 @@ import RegisterView from '../views/auth/RegisterView.vue'
 import PwFindView from '../views/auth/PwFindView.vue'
 import PwEditView from '../views/auth/PwEditView.vue'
 import NaverView from '../views/auth/NaverView.vue'
-import EmailAuthentication from '@/views/auth/EmailAuthentication.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
 import AdminManageView from '../views/admin/AdminManageView.vue'
@@ -63,11 +62,6 @@ const routes = [
     path: '/pwfind',
     name: 'pwFind',
     component: PwFindView
-  },
-  {
-    path: '/emailauthen',
-    name: 'emailauthentication',
-    component: EmailAuthentication
   },
   {
     path: '/pwedit',
