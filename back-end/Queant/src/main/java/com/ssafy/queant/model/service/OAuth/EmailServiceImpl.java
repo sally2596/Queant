@@ -3,6 +3,8 @@ package com.ssafy.queant.model.service.OAuth;
 import com.ssafy.queant.model.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,13 @@ import javax.mail.internet.MimeMessage;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@PropertySource("classpath:application-mail.properties")
 public class EmailServiceImpl implements EmailService {
 
-    JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
     private static final String ePw = EmailService.createKey();
+    @Value("${AdminMail.id}")
+    private final String provider;
 
     @Override
     public MimeMessage createMessage(String to) throws Exception {
@@ -26,7 +31,7 @@ public class EmailServiceImpl implements EmailService {
         MimeMessage  message = emailSender.createMimeMessage();
 
         message.addRecipients(Message.RecipientType.TO, to);//보내는 대상
-        message.setSubject("BZshop 인증번호가 도착했습니다.");//제목
+        message.setSubject("Queant 인증번호가 도착했습니다.");//제목
 
         String msgg="";
         msgg+= "<div style='margin:100px;'>";
@@ -43,7 +48,7 @@ public class EmailServiceImpl implements EmailService {
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
-        message.setFrom(new InternetAddress("properties에 작성한 이메일","BZshop"));//보내는 사람
+        message.setFrom(new InternetAddress(provider,"Queant"));//보내는 사람
 
         return message;
     }
