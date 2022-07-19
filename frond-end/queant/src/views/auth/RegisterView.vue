@@ -30,19 +30,19 @@
             autocomplete="off"
             required>
             <label class="form-label" for="email">이메일 주소</label>
-            <a action=""><button class='mail-send'>인증</button></a>
+            <a action=""><button class='mail-send' @click="toggleOnOff">인증</button></a>
             <div class="error-text" v-if="error.email">{{error.email}}</div>
-            
         </div>
 
         <div class="int-area confirm">
           <input
+            v-if="isStatusOn"
             type="text"
             id="confirm"
             autocomplete="off"
             required>
-            <label class="form-label" for="email">인증</label>
-            <a action=""><button class='confirm'>확인</button></a>
+            <label v-if="isStatusOn" class="form-label" for="email">인증번호</label>
+            <a v-if="isStatusOn" action=""><button v-if="isStatusOn" class='confirm'>확인</button></a>
         </div>
 
         <div class="int-area">
@@ -116,6 +116,9 @@ export default {
         this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
     },
+      toggleOnOff: function() {
+      this.isStatusOn = !this.isStatusOn;
+    }
   },
   data: () => {
     return {
@@ -132,7 +135,9 @@ export default {
         password1: '',
         password2: ''
       },
-      timerCount : 300
+      timerCount : 300,
+      isStatusOn : false
+
     };
   }
 };
