@@ -1,14 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/home/HomeView.vue' 
 
+import PortfolioView from '../views/portfolio/PortfolioView.vue'
+import PortfolioEditView from '../views/portfolio/PortfolioEditView.vue'
+import PortfolioAddView from '../views/portfolio/PortfolioAddView.vue'
+
 import ProfileView from '../views/profile/ProfileView.vue'
-import ProfileCheckView from '../views/profile/ProfileCheckView.vue'
-import ProfileEditView from '../views/profile/ProfileEditView.vue'
-import PortfolioView from '../views/profile/PortfolioView.vue'
 
 import LoginView from '../views/auth/LoginView.vue'
 import RegisterView from '../views/auth/RegisterView.vue'
-import CredentialsFindView from '../views/auth/CredentialsFindView.vue'
+import PwFindView from '../views/auth/PwFindView.vue'
+import PwEditView from '../views/auth/PwEditView.vue'
 import NaverView from '../views/auth/NaverView.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
@@ -23,26 +25,27 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  // portfolio
+  {
+    path: '/portfolio',
+    name: 'portfolio',
+    component: PortfolioView
+  },
+  {
+    path: '/portfolio/edit',
+    name: 'portfolioEdit',
+    component: PortfolioEditView
+  },
+  {
+    path: '/portfolio/add',
+    name: 'portfolioAdd',
+    component: PortfolioAddView
+  },
   // profile
   {
     path: '/profile',
     name: 'profile',
     component: ProfileView
-  },
-  {
-    path: '/profile/check',
-    name: 'profileCheck',
-    component: ProfileCheckView
-  },
-  {
-    path: '/profile/edit',
-    name: 'profileEdit',
-    component: ProfileEditView
-  },
-  {
-    path: '/profile/portfolio',
-    name: 'portfolio',
-    component: PortfolioView
   },
   // auth
   {
@@ -56,9 +59,14 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/find',
-    name: 'credentialsFind',
-    component: CredentialsFindView
+    path: '/pwfind',
+    name: 'pwFind',
+    component: PwFindView
+  },
+  {
+    path: '/pwedit',
+    name: 'pwEdit',
+    component: PwEditView
   },
   {
     path: '/naver',
