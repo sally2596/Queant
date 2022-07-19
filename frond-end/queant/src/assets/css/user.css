@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background: url('../image/userimage.jpg') no-repeat center; */
+  background: url('../image/userimage.jpg') no-repeat center;
   background-size: cover;
 }
 
@@ -22,18 +22,13 @@ body::before {
 .login-form h1 {
   font-size: 32px; color: #fff;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .register-form {position: relative; z-index: 2;}
 .register-form h1 {
   font-size: 32px; color: #fff;
   text-align: center;
-  margin-bottom: 60px;
-}
-
-.register-form form {
-  margin-top: 80px;
 }
 
 .int-area {
@@ -58,16 +53,15 @@ body::before {
 }
 
 .int-area a {
-  position: absolute; left: 230px; top: 20px;
+  position: absolute; left: 220px; top: 15px;
   font-size: 18px; color: #999;
 }
-
 .int-area button {
-  width: 70px;
+  width: 75px;
   height: 30px;
   background: #166cea;
   color: #fff;
-  font-size: 15px;
+  font-size: 12px;
   border: none;
   border-radius: 25px;
 }
@@ -126,7 +120,7 @@ body::before {
 }
 
 .register-form p {
-  margin-top: 100px;
+  margin-top: 50px;
   color: #999;
 }
 
@@ -141,6 +135,8 @@ body::before {
 }
 
 .error-text {
+  margin-top: 2px;
+  text-align: left;
   font-size: 15px; color: red;
   text-decoration: none;
 }
