@@ -32,7 +32,7 @@
 
     </form>
     <div class="caption">
-      <a href="">비밀번호를 잊으셨나요?</a>
+      <router-link to="/pwfind"><a href="">비밀번호를 잊으셨나요?</a></router-link>
       <br><br>
       <router-link to="/register"><a href="">아직 회원이 아니신가요?</a></router-link>
     </div>
@@ -83,10 +83,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['token'])
+    // ...mapState(['token'])
   },
   methods: {
-    ...mapActions(['login', 'logout', 'kakaoLogin']),
+    // ...mapActions(['login', 'logout', 'kakaoLogin']),
     naverLogin() {
       const naver_id_login = new window.naver_id_login(process.env.VUE_APP_NAVER, "http://localhost:8080/naver");
       const state = naver_id_login.getUniqState();
