@@ -30,7 +30,8 @@
             autocomplete="off"
             required>
             <label class="form-label" for="email">이메일 주소</label>
-            <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff">인증</button>
+            <button @click="emailCheck(email)">중복체크</button>
+            <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff" id="check-email">인증</button>
             <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
 
@@ -106,7 +107,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['register']),
+    ...mapActions(['register', 'emailCheck']),
     checkForm() {
       
       if (this.email.length > 0 && !EmailValidator.validate(this.email))
