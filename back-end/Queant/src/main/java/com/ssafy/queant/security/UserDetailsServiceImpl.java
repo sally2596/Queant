@@ -1,5 +1,6 @@
 package com.ssafy.queant.security;
 
+import com.ssafy.queant.model.entity.Member;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.model.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.info("[loadUserByUsername] loadUserByUsername 수행. memberemail : {}", username);
-        return memberRepository.findByEmail(username);
+        return memberRepository.findByEmail(username).get();
     }
 }
