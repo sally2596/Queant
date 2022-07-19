@@ -51,11 +51,9 @@ body::before {
   transition: top .5s ease;
 }
 
-.int-area a {
+.int-area button {
   position: absolute; left: 220px; top: 15px;
   font-size: 18px; color: #999;
-}
-.int-area button {
   width: 75px;
   height: 30px;
   background: #166cea;

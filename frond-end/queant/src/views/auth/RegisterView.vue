@@ -30,7 +30,7 @@
             autocomplete="off"
             required>
             <label class="form-label" for="email">이메일 주소</label>
-            <a action=""><button class='mail-send' @click="toggleOnOff">인증</button></a>
+            <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff">인증</button>
             <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
 
@@ -118,7 +118,8 @@ export default {
     },
       toggleOnOff: function() {
       this.isStatusOn = !this.isStatusOn;
-    }
+      this.isStatusOff = !this.isStatusOff;
+    },
   },
   data: () => {
     return {
@@ -136,7 +137,8 @@ export default {
         password2: ''
       },
       timerCount : 300,
-      isStatusOn : false
+      isStatusOn : false,
+      isStatusOff : true
 
     };
   }
