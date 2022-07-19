@@ -2,12 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/home/HomeView.vue' 
 
 import ProfileView from '../views/profile/ProfileView.vue'
-import ProfileFindView from '../views/profile/ProfileFindView.vue'
 import ProfileCheckView from '../views/profile/ProfileCheckView.vue'
 import ProfileEditView from '../views/profile/ProfileEditView.vue'
+import PortfolioView from '../views/profile/PortfolioView.vue'
 
 import LoginView from '../views/auth/LoginView.vue'
 import RegisterView from '../views/auth/RegisterView.vue'
+import CredentialsFindView from '../views/auth/CredentialsFindView.vue'
 import NaverView from '../views/auth/NaverView.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
@@ -29,11 +30,6 @@ const routes = [
     component: ProfileView
   },
   {
-    path: '/profile/find',
-    name: 'profileFind',
-    component: ProfileFindView
-  },
-  {
     path: '/profile/check',
     name: 'profileCheck',
     component: ProfileCheckView
@@ -42,6 +38,11 @@ const routes = [
     path: '/profile/edit',
     name: 'profileEdit',
     component: ProfileEditView
+  },
+  {
+    path: '/profile/portfolio',
+    name: 'portfolio',
+    component: PortfolioView
   },
   // auth
   {
@@ -53,6 +54,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: RegisterView
+  },
+  {
+    path: '/find',
+    name: 'credentialsFind',
+    component: CredentialsFindView
   },
   {
     path: '/naver',
