@@ -1,6 +1,5 @@
-package com.ssafy.queant.model.service.OAuth;
+package com.ssafy.queant.model.service;
 
-import com.ssafy.queant.model.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

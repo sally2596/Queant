@@ -45,6 +45,10 @@ dependencies {
 
     //Email
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    //Swagger
+    //implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
 }
 
 tasks.named('test') {
