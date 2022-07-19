@@ -42,7 +42,7 @@
             autocomplete="off"
             required>
             <label class="form-label" for="email">인증</label>
-            <a action=""><button class='confirm'>{{timerCount}}</button></a>
+            <a action=""><button class='confirm'>확인</button></a>
         </div>
 
         <div class="int-area">
@@ -104,17 +104,6 @@ export default {
     email: function(v) {
       this.checkForm();
     },
-    timerCount: {
-      handler(value) {
-
-      if (value > 0) {
-        setTimeout(() => {
-          this.timerCount--;
-            }, 1000);
-        }
-      },
-      immediate: true // This ensures the watcher is triggered upon creation
-    }
   },
   methods: {
     ...mapActions(['register']),
