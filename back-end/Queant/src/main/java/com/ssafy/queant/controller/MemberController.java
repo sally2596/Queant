@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/member/")
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -22,7 +22,7 @@ public class MemberController {
         log.info("signup");
     }
 
-    @PostMapping("emailcheck")
+    @PostMapping("/emailcheck")
     //200은 성공 409중복되었다.
     public ResponseEntity<?> emailCheck(@RequestParam String email) throws Exception {
         if(memberService.emailCheck(email)) return new ResponseEntity<>(HttpStatus.CONFLICT);
