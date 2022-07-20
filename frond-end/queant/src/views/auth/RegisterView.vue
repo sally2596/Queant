@@ -30,11 +30,6 @@
             autocomplete="off"
             required>
             <label class="form-label" for="email">이메일 주소</label>
-<<<<<<< HEAD
-            <a v-if="isStatusOff" action=""><button class='mail-send' v-if="isStatusOff" @click="toggleOnOff">인증</button></a>
-            <div class="error-text" v-if="error.email">{{error.email}}</div>
-        </div>
-=======
             
             <!-- emailCheckedStatus가 빈값이면 초기상태 -->
             <div v-if="!emailCheckedStatus">
@@ -47,7 +42,6 @@
                 <!-- <button class="mail-send" id="check-email">중복검사</button> -->
                 <p>해당 메일로 인증번호를 보냈습니다.</p>
               </div>
->>>>>>> 3b58dd5a6c8e82a9b7bdf8c7e65647f617b69e9c
 
               <div class="int-area">
                 <input
