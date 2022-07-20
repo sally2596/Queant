@@ -19,7 +19,7 @@
         <label for="password2">새 비밀번호 확인</label>
       </div>
 
-      <div class="btn-edit">
+      <div class="btn-area">
         <router-link to="/login"><button type="submit">수정</button></router-link>
       </div>
     </form>
@@ -28,10 +28,12 @@
 
 <script>
 export default {
-  name: 'PwEditView'
+  name: 'PwEditView',
+  beforeCreate: function() {
+        document.body.className = 'auth';
+    },
 }
 </script>
 
-<style>
-@import '@/assets/css/user.css';
+<style scoped src='../../assets/css/user.css'>
 </style>

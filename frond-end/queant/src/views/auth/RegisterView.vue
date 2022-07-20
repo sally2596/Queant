@@ -30,7 +30,7 @@
             autocomplete="off"
             required>
             <label class="form-label" for="email">이메일 주소</label>
-            <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff">인증</button>
+            <a v-if="isStatusOff" action=""><button class='mail-send' v-if="isStatusOff" @click="toggleOnOff">인증</button></a>
             <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
 
@@ -84,6 +84,9 @@ import * as EmailValidator from "email-validator";
 import PV from "password-validator"
 export default {
   name: 'RegisterView',
+  beforeCreate: function() {
+        document.body.className = 'auth';
+    },
   created() {
     this.component = this;
 
@@ -144,6 +147,6 @@ export default {
   }
 };
 </script>
-<style>
-  @import '@/assets/css/user.css';
+<style scoped>
+@import '@/assets/css/user.css'
 </style>

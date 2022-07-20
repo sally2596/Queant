@@ -8,15 +8,13 @@
         id="email"
         autocomplete="off" required/>
         <label for="email">EMAIL</label>
-        <button @click="toggleOnOff" class='confirm'>확인</button>
+        <a><button @click="toggleOnOff" class='confirm'>확인</button></a>
       </div>
       <div class="caption">
         <router-link to="/login"><a href="">비밀번호가 생각나셨나요?</a></router-link>
       </div>
   </section>
   <section class="login-form" v-if="isStatusOn">
-    <h1>입력하신 이메일로</h1>
-    <h1>메일을 보내드렸습니다.</h1>
     <br><br>
     <div class="int-area">
         <input
@@ -33,6 +31,9 @@
 <script>
 export default {
   name: 'PwFindView',
+  beforeCreate: function() {
+        document.body.className = 'auth';
+    },
   methods: {
   toggleOnOff: function() {
       this.isStatusOn = !this.isStatusOn;
@@ -48,6 +49,5 @@ export default {
 }
 </script>
 
-<style>
-@import '@/assets/css/user.css';
+<style scoped src='../../assets/css/user.css'>
 </style>
