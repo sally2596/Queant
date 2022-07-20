@@ -1,7 +1,6 @@
 package com.ssafy.queant.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -14,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,13 +77,12 @@ public class SocialController {
             @RequestParam(value = "code") String authCode
     ) {
         // HTTP 통신을 위해 RestTemplate 활용
-        GoogleOAuthRequest googleOAuthRequest= googleService.getGoogleOAuthRequest(authCode);
+        LinkedMultiValueMap<String, String> googleOAuthRequest= googleService.getGoogleOAuthRequest(authCode);
 
         try {
             // Http Header 설정
             ResponseEntity<String> googleResponseJson = getResponseEntity(googleOAuthRequest);
 
-            
             ObjectMapper objectMapper = getObjectMapper();
 
             // ObjectMapper를 통해 String to Object로 변환
@@ -124,13 +124,19 @@ public class SocialController {
         return objectMapper;
     }
 
-    private ResponseEntity<String> getResponseEntity(GoogleOAuthRequest googleOAuthRequest) {
+    private ResponseEntity<String> getResponseEntity(LinkedMultiValueMap<String, String> params) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<GoogleOAuthRequest> googleRequestEntity = new HttpEntity<>(googleOAuthRequest, headers);
-        ResponseEntity<String> googleResponseJson =
-                restTemplate.postForEntity(googleService.getGoogleAccessTokenUrl() + "/token", googleRequestEntity, String.class);
-        return googleResponseJson;
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity(googleService.getGoogleAccessTokenUrl() + "/token", request, String.class);
+
+        return response;
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<GoogleOAuthRequest> googleRequestEntity = new HttpEntity<>(googleOAuthRequest, headers);
+//        ResponseEntity<String> googleResponseJson =
+//                restTemplate.postForEntity(googleService.getGoogleAccessTokenUrl() + "/token", googleRequestEntity, String.class);
+//        return googleResponseJson;
     }
 
     public ResponseEntity<Object> getInitUrl(String authUrl){
