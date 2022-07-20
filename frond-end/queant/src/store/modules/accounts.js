@@ -7,16 +7,22 @@ export default {
     token: '',
     currentUser: {},
     authError: null,
+    emailCheckedStatus: '',
+    isEmailVerified: ''
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
     isLoggedIn: state => !!state.token,
-    authHeader: state => ({ Authorization: `Token ${state.token}` })
+    authHeader: state => ({ Authorization: `Token ${state.token}` }),
+    emailCheckedStatus: state => state.emailCheckedStatus,
+    isEmailVerified: state => state.isEmailVerified
   },
   mutations: {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_TOKEN: (state, token) => state.token = token,
+    SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
+    SET_IS_EMAIL_VERIFIED: (state, status) => state.isEmailVerified = status
   },
   actions: {
     naverLogin({ commit, dispatch }, naverAccessToken) {
@@ -111,12 +117,32 @@ export default {
     // 회원가입 - 이메일 중복체크
     emailCheck({ commit }, email) {
       axios({
-        url: spring.member.emailcheck(email),
+        url: spring.member.emailcheck(),
         method: 'post',
-        data: email
+        data: {
+          email: email
+        }
       })
-      .then( ree => {
+      .then( res => {
+        console.log(res.status)
+        commit('SET_EMAIL_CHECKED_STATUS', res.status)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
+
+    emailVerify({ commit }, code) {
+      axios({
+        url: spring.member.emailverify(),
+        method: 'post',
+        data: {
+          code: code
+        }
+      })
+      .then( res => {
         console.log(res)
+        commit('SET_IS_EMAIL_VERIFIED', res.status)
       })
       .catch( err => {
         console.log(err)
