@@ -3,14 +3,10 @@ package com.ssafy.queant.model.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -24,6 +20,7 @@ public class Member {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(columnDefinition ="BINARY(16)")
     private UUID member_id;
     @Column(nullable = true, unique=true)
     private String email;
