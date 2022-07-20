@@ -17,12 +17,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //http://localhost/swagger-ui/index.html
 
 @Configuration
-@EnableSwagger2
-public class SwaggerConfig implements WebMvcConfigurer{
+public class SwaggerConfig{
 
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.OAS_30)
 				.groupName("Queant")
 				.apiInfo(apiInfo())
 				.select()

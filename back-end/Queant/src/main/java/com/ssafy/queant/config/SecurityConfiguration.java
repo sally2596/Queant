@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/member/*","/v2/api-docs",
                         "/v3/api-docs",
                         "/**/v3/api-docs",
-                        "/swagger-ui/index.html",
+                        "/swagger-ui/index",
                         "/swagger-resources",
                         "/swagger-resources/**",
                         "/configuration/ui",
@@ -59,6 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "**/swagger-ui.html",
                         "/**/swagger-ui.html**",
                         "/swagger-ui.html**",
+                        "/swagger-ui/**",
                         "/webjars/**").permitAll()
                 .anyRequest().hasAnyRole("USER","ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
