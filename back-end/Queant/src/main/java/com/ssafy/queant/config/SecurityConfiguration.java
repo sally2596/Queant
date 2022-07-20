@@ -46,7 +46,9 @@ public class SecurityConfiguration {
 
                 .and()
                 .authorizeRequests() // 다음 리퀘스트에 대한 사용권한 체크
-                .antMatchers("/*/login", "/*/register").permitAll() // 가입 및 인증 주소는 누구나 접근가능
+                .antMatchers("/*/login", "/*/register").permitAll() // 가입 및 인증 주소는 누구나
+                .antMatchers("/*","/social/**").permitAll() // 구글 로그인용 임시
+                // 접근가능
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui/**", "/webjars/**", "/swagger/**").permitAll()
                 .anyRequest().hasAnyRole("USER","ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
