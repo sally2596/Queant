@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.1'
+    id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -24,6 +24,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'org.json', name: 'json', version: '20210307'
+
 
     //DB
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -42,6 +44,19 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+
+    //Email
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    //Swagger
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+//    implementation("io.springfox:springfox-swagger-ui:3.0.0")
+//    implementation("io.springfox:springfox-swagger2:3.0.0")
+//    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+//    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+
+
+
 }
 
 tasks.named('test') {

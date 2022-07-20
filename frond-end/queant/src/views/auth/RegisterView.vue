@@ -30,19 +30,54 @@
             autocomplete="off"
             required>
             <label class="form-label" for="email">이메일 주소</label>
+<<<<<<< HEAD
             <a v-if="isStatusOff" action=""><button class='mail-send' v-if="isStatusOff" @click="toggleOnOff">인증</button></a>
             <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
+=======
+            
+            <!-- emailCheckedStatus가 빈값이면 초기상태 -->
+            <div v-if="!emailCheckedStatus">
+              <button class="mail-send" id="check-email" @click="emailCheck(email)">중복검사</button>
+            </div>
+            
+            <!-- emailCheckedStatus가 200이면 중복 이메일이 아니고, 인증 메일 발송 -->
+            <div v-else-if="emailCheckedStatus === 200">
+              <div>
+                <!-- <button class="mail-send" id="check-email">중복검사</button> -->
+                <p>해당 메일로 인증번호를 보냈습니다.</p>
+              </div>
+>>>>>>> 3b58dd5a6c8e82a9b7bdf8c7e65647f617b69e9c
 
-        <div class="int-area confirm">
-          <input
-            v-if="isStatusOn"
-            type="text"
-            id="confirm"
-            autocomplete="off"
-            required>
-            <label v-if="isStatusOn" class="form-label" for="email">인증번호</label>
-            <a v-if="isStatusOn" action=""><button v-if="isStatusOn" class='confirm'>확인</button></a>
+              <div class="int-area">
+                <input
+                  id="code"
+                  v-model="code"
+                  type="text"
+                  required>
+                <label class="form-label" for="code">인증번호</label>
+                <!-- 빈값 인증버튼 누르기 전 초기상태 -->
+                <button v-if="isEmailVerified !== 200" class="verified" @click="emailVerify(code)">인증</button>
+                <!-- 200 인증코드 일치 -->
+                <button v-else-if="isEmailVerified === 200" id="verified">인증성공</button>
+                <!-- 409 인증코드 불일치 -->
+                <div v-else-if="isEmailVerified === 409">
+                  <div>
+                    <p>인증번호가 다릅니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- emailCheckedStatus가 409면 중복 이메일 -->
+            <div v-else-if="emailCheckedStatus === 409">
+              <button class="mail-send" id="check-email" @click="emailCheck(email)">인증</button>
+              <p>이미 가입된 이메일입니다.</p>
+            </div>
+
+            <!-- 재익이가 처음에 해놓은 설정 -->
+            <!-- <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff" id="check-email">인증</button> -->
+            <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
 
         <div class="int-area">
@@ -79,14 +114,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import * as EmailValidator from "email-validator";
 import PV from "password-validator"
 export default {
   name: 'RegisterView',
-  beforeCreate: function() {
-        document.body.className = 'auth';
-    },
+  computed: {
+    ...mapGetters(['emailCheckedStatus', 'isEmailVerified'])
+  },
   created() {
     this.component = this;
 
@@ -109,7 +144,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['register']),
+    ...mapActions(['register', 'emailCheck', 'emailVerify']),
     checkForm() {
       
       if (this.email.length > 0 && !EmailValidator.validate(this.email))
@@ -127,6 +162,7 @@ export default {
   data: () => {
     return {
       email: "",
+      code: "",
       password : "",
       passwordSchema: new PV(),
       error: {
