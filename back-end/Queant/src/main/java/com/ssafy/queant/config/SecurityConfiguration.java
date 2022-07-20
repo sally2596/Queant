@@ -60,6 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/swagger-ui.html**",
                         "/swagger-ui.html**",
                         "/swagger-ui/**",
+                        "/img/**",
                         "/webjars/**").permitAll()
                 .anyRequest().hasAnyRole("USER","ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
