@@ -147,3 +147,13 @@ body::before {
   font-size: 15px; color: red;
   text-decoration: none;
 }
+
+#verified {
+  width: 75px;
+  height: 30px;
+  background: #00b345;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  border-radius: 25px;
+}
