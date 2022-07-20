@@ -13,18 +13,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@ToString
+@Data
 public class MemberDto implements UserDetails {
-    private UUID member_id;
+    private UUID memberId;
     private String email;
     private String password;
     private String name;
     private Gender gender;
     private Date birthdate;
-    private int portfolio_cnt;
+    private int portfolioCnt;
     private Social social;
     private String refreshToken;
 
@@ -46,7 +43,7 @@ public class MemberDto implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
