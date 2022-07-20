@@ -1,19 +1,8 @@
 package com.ssafy.queant.model.service.OAuth;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.ssafy.queant.model.oauth.GoogleOAuthRequest;
-import com.ssafy.queant.model.oauth.GoogleOAuthResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.util.LinkedMultiValueMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,14 +74,14 @@ public class GoogleService {
                 + paramStr;
     }
 
-    public GoogleOAuthRequest getGoogleOAuthRequest(String authCode){
-        return GoogleOAuthRequest.builder()
-                .clientId(getGoogleClientId())
-                .clientSecret(getGoogleClientSecret())
-                .code(authCode)
-                .redirectUri(getGoogleRedirectUri())
-                .grantType("authorization_code")
-                .build();
+    public LinkedMultiValueMap<String, String> getGoogleOAuthRequest(String authCode){
+        LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", getGoogleClientId());
+        params.add("redirect_uri", getGoogleRedirectUri());
+        params.add("code", authCode);
+        params.add("client_secret", getGoogleClientSecret());
+        return params;
     }
 
 //    public ResponseEntity<String> response(String authCode){
