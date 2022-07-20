@@ -8,3 +8,5 @@ back-end/Queant/src/main/resources/application-GOOGLE.properties
 back-end/Queant/src/main/resources/.DS_Store
 
 back-end/Queant/src/main/resources/static/.DS_Store
+
+back-end/Queant/src/main/resources/application-API-KEY.properties
