@@ -20,8 +20,8 @@ public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender emailSender;
     private static final String ePw = EmailService.createKey();
-    //@Value("${AdminMail.id}")
-    private final String provider = "inyoung.r@gmail.com";
+    @Value("${AdminMail.id}")
+    private String provider;
 
     @Override
     public MimeMessage createMessage(String to) throws Exception {

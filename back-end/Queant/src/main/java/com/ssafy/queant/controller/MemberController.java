@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -17,23 +19,23 @@ public class MemberController {
     private final MemberService memberService;
     private final EmailService emailService;
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public void signUp(){
         log.info("signup");
     }
 
     @PostMapping("/emailcheck")
     //200은 성공 409중복되었다.
-    public ResponseEntity<?> emailCheck(@RequestParam String email) throws Exception {
-        if(memberService.emailCheck(email)) return new ResponseEntity<>(HttpStatus.CONFLICT);
-        emailService.sendMessage(email);
+    public ResponseEntity<?> emailCheck(@RequestBody Map<String,String> email) throws Exception {
+        if(memberService.emailCheck(email.get("email"))) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        emailService.sendMessage(email.get("email"));
         log.info("[emailCheck] 이메일이 발송되었습니다. email : {}", email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/emailverify")
     @ResponseBody
-    public ResponseEntity<?> verifyCode(String code) throws Exception {
+    public ResponseEntity<?> verifyCode(@RequestBody String code) throws Exception {
 
         log.info("[verifyCode] 입력받은 코드 : {}" , code);
         if(emailService.verifyCode(code)) return new ResponseEntity<>(HttpStatus.OK);
