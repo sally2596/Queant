@@ -35,10 +35,10 @@ public class MemberController {
 
     @PostMapping("/emailverify")
     @ResponseBody
-    public ResponseEntity<?> verifyCode(@RequestBody String code) throws Exception {
+    public ResponseEntity<?> verifyCode(@RequestBody Map<String,String>  code) throws Exception {
 
-        log.info("[verifyCode] 입력받은 코드 : {}" , code);
-        if(emailService.verifyCode(code)) return new ResponseEntity<>(HttpStatus.OK);
+        log.info("[verifyCode] 입력받은 코드 : {}" , code.get("code"));
+        if(emailService.verifyCode(code.get("code"))) return new ResponseEntity<>(HttpStatus.OK);
         else log.info("[verifyCode] 입력받은 코드가 일치하지 않습니다.");
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }

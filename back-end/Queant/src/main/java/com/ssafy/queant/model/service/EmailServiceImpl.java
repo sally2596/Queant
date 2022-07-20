@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,8 @@ public class EmailServiceImpl implements EmailService {
     private static final String ePw = EmailService.createKey();
     @Value("${AdminMail.id}")
     private String provider;
+    private Long time = 1000L*60*5;
+    private Date expiration;
 
     @Override
     public MimeMessage createMessage(String to) throws Exception {
@@ -56,6 +59,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendMessage(String to) throws Exception {
         MimeMessage message = createMessage(to);
         try{
+            expiration = new Date(new Date().getTime() + time);
             emailSender.send(message);
         }catch(MailException es){
             es.printStackTrace();
@@ -66,6 +70,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public boolean verifyCode(String code) throws Exception {
+        if(!new Date().before(expiration)) return false;
         return code.equals(ePw);
     }
 }
