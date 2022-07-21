@@ -6,12 +6,14 @@ import com.ssafy.queant.model.dto.MemberRequestDto;
 import com.ssafy.queant.model.service.EmailService;
 import com.ssafy.queant.model.service.MemberService;
 import com.ssafy.queant.security.JwtTokenProvider;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,20 +27,31 @@ public class MemberController {
     private final MemberService memberService;
     private final EmailService emailService;
     private final JwtTokenProvider jwtTokenProvider;
-
     private final PasswordEncoder passwordEncoder;
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="사용 가능한 이메일주소입니다."),
+            @ApiResponse(code = 409, message="이미 존재하는 이메일입니다."),
+    })
+    @ApiImplicitParam(name="email", required = true, dataType = "string")
+    @ApiOperation(value = "이메일 중복 체크", notes = "가입 시 입력한 이메일이 DB에 존재하는지 확인하고 해당 이메일로 인증코드 발송")
     @PostMapping("/emailcheck")
     //200은 성공 409중복되었다.
-    public ResponseEntity<?> emailCheck(@RequestBody MemberRequestDto requestDto) throws Exception {
+    public ResponseEntity<?> emailCheck(@ApiIgnore@RequestBody MemberRequestDto requestDto) throws Exception {
         if(memberService.emailCheck(requestDto.getEmail())) return new ResponseEntity<>(HttpStatus.CONFLICT);
         emailService.sendMessage(requestDto.getEmail());
         log.info("[emailCheck] 이메일이 발송되었습니다. email : {}", requestDto.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="인증번호가 일치합니다."),
+            @ApiResponse(code = 409, message="인증번호가 일치하지 않습니다."),
+    })
+    @ApiImplicitParam(name="code", required = true, dataType = "string")
+    @ApiOperation(value="이메일 인증 코드 확인", notes="이메일 인증 코드가 일치하는지 확인")
     @PostMapping("/emailverify")
-    public ResponseEntity<?> verifyCode(@RequestBody MemberRequestDto requestDto) throws Exception {
+    public ResponseEntity<?> verifyCode(@ApiIgnore@RequestBody MemberRequestDto requestDto) throws Exception {
 
         log.info("[verifyCode] 입력받은 코드 : {}" , requestDto.getCode());
         if(emailService.verifyCode(requestDto.getCode())) return new ResponseEntity<>(HttpStatus.OK);
@@ -46,15 +59,18 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> Register(@RequestBody MemberDto memberDto){
-        log.info("[Register] 정보 확인 비번 : {}" , memberDto.getPassword());
-        if(memberService.register(memberDto)) return new ResponseEntity<>(HttpStatus.OK);
-        else return new ResponseEntity<>(HttpStatus.CONFLICT);
-    }
-
+    @ApiResponses({
+            @ApiResponse(code = 200, message="로그인 성공!"),
+            @ApiResponse(code = 404, message="이메일을 다시 확인해주세요."),
+            @ApiResponse(code = 409, message="비밀번호가 일치하지 않습니다."),
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "password", required = true, dataType = "string"),
+    })
+    @ApiOperation(value="로그인", notes="")
     @PostMapping("/login")
-    public ResponseEntity<?> LogIn(@RequestBody MemberRequestDto requestDto){
+    public ResponseEntity<?> LogIn(@ApiIgnore@RequestBody MemberRequestDto requestDto){
 
         LoginResultDto result = memberService.login(requestDto.getEmail(), requestDto.getPassword());
         if(result.getResult().equals("SUCCESS")){
@@ -71,29 +87,82 @@ public class MemberController {
 
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="회원가입에 성공하였습니다."),
+            @ApiResponse(code = 409, message="회원가입에 실패하였습니다."),
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="email", required = true, dataType = "string"),
+            @ApiImplicitParam(name="password", required = true, dataType = "string"),
+            @ApiImplicitParam(name="name", required = false, dataType = "string"),
+            @ApiImplicitParam(name="gender", required = false, dataType = "enum"),
+            @ApiImplicitParam(name="birthdate", required = false, dataType = "date"),
+    })
+    @ApiOperation(value="회원가입", notes="")
+    @PostMapping("/register")
+    public ResponseEntity<?> Register(@ApiIgnore@RequestBody MemberDto memberDto){
+        log.info("[Register] 정보 확인 비번 : {}" , memberDto.getPassword());
+        if(memberService.register(memberDto)) return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="회원 정보 조회 성공"),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+    })
+    @ApiImplicitParam(name="email", required = true, dataType = "string")
+    @ApiOperation(value="회원 정보 조회", notes="")
     @PostMapping("/info")
-    public ResponseEntity<?> Info(@RequestBody MemberRequestDto requestDto){
+    public ResponseEntity<?> Info(@ApiIgnore@RequestBody MemberRequestDto requestDto){
         MemberDto memberDto = memberService.findMember(requestDto.getEmail());
         if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="회원 정보 수정 성공"),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="email", required = true, dataType = "string"),
+            @ApiImplicitParam(name="password", required = true, dataType = "string"),
+            @ApiImplicitParam(name="name", required = false, dataType = "string"),
+            @ApiImplicitParam(name="gender", required = false, dataType = "enum"),
+            @ApiImplicitParam(name="birthdate", required = false, dataType = "date"),
+    })
+    @ApiOperation(value="회원 정보 수정", notes="")
     @PutMapping("/info")
-    public ResponseEntity<?> UpdateInfo(@RequestBody MemberDto memberDto){
+    public ResponseEntity<?> UpdateInfo(@ApiIgnore@RequestBody MemberDto memberDto){
         MemberDto result = memberService.updateMember(memberDto);
         if(result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<MemberDto>(result, HttpStatus.OK);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="계정 비활성화 성공"),
+            @ApiResponse(code = 409, message="계정 비활성화에 문제가 있습니다"),
+    })
+    @ApiImplicitParam(name="email", required = true, dataType = "string")
+    @ApiOperation(value="회원 탈퇴", notes="계정 비활성화")
     @DeleteMapping("/info")
-    public ResponseEntity<?> DeleteInfo(@RequestBody MemberRequestDto requestDto){
+    public ResponseEntity<?> DeleteInfo(@ApiIgnore@RequestBody MemberRequestDto requestDto){
         boolean result = memberService.disableMember(requestDto.getEmail());
         if(result) return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="비밀번호가 일치합니다."),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+            @ApiResponse(code = 409, message="비밀번호가 일치하지 않습니다."),
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "password", required = true, dataType = "string"),
+    })
+    @ApiOperation(value="비밀번호 확인", notes="")
     @PostMapping("/passwordcheck")
-    public ResponseEntity<?> PasswordCheck(@RequestBody MemberRequestDto requestDto){
+    public ResponseEntity<?> PasswordCheck(@ApiIgnore@RequestBody MemberRequestDto requestDto){
         MemberDto member = memberService.findMember(requestDto.getEmail());
         if(member == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         if(!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
@@ -102,8 +171,19 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="AccessToken 재발급 완료."),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+            @ApiResponse(code = 409, message="RefreshToken이 일치하지 않습니다."),
+            @ApiResponse(code = 406, message="RefreshToken 만료. 로그인이 필요합니다."),
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "refreshtoken", required = true, dataType = "string"),
+    })
+    @ApiOperation(value="AccessToken 재발급", notes="AccessToken이 만료되었을 때, refreshtoken을 통해 AccessToken 재발급")
     @PostMapping("/refreshtoken")
-    public ResponseEntity<?> RefreshToken(@RequestBody MemberRequestDto requestDto){
+    public ResponseEntity<?> RefreshToken(@ApiIgnore @RequestBody MemberRequestDto requestDto){
         MemberDto memberDto = memberService.findMember(requestDto.getEmail());
         if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
