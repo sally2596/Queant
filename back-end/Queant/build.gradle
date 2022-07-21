@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.1'
+    id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -24,6 +24,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'org.json', name: 'json', version: '20210307'
+
 
     //DB
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -43,8 +45,20 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 
+
+    //Email
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    //Swagger
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+
+    //ModelMapper
+    implementation 'org.modelmapper:modelmapper:2.4.2'
+
+
     //test를 위한 프론트 템플릿 -> 추후 삭제
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
 }
 
 tasks.named('test') {
