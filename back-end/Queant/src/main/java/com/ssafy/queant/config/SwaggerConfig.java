@@ -24,6 +24,7 @@ public class SwaggerConfig{
 		return new Docket(DocumentationType.OAS_30)
 				.groupName("Queant")
 				.apiInfo(apiInfo())
+				.useDefaultResponseMessages(false)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.ssafy.queant.controller"))
 //				.paths(PathSelectors.ant("/book/**"))
