@@ -22,6 +22,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/member")
 public class MemberController {
 
