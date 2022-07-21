@@ -117,12 +117,15 @@ import * as EmailValidator from "email-validator";
 import PV from "password-validator"
 export default {
   name: 'RegisterView',
+  beforeCreate: function() {
+        document.body.className = 'auth';
+    },
   computed: {
     ...mapGetters(['emailCheckedStatus', 'isEmailVerified'])
   },
   created() {
     this.component = this;
-
+    this.isEmailVerified = ''
     this.passwordSchema
       .is()
       .min(8)
@@ -183,5 +186,5 @@ export default {
 };
 </script>
 <style>
-  @import '@/assets/css/user.css';
+@import '@/assets/css/user.css';
 </style>

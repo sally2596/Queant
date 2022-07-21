@@ -61,6 +61,9 @@ import PV from "password-validator"
 export default {
   name: 'LoginView',
   components: {},
+  beforeCreate: function() {
+        document.body.className = 'auth';
+    },
   created() {
     this.component = this;
 
@@ -122,6 +125,6 @@ export default {
   },
 }
 </script>
-<style>
-@import '@/assets/css/user.css';
+<style scoped>
+@import url('../../assets/css/user.css');
 </style>
