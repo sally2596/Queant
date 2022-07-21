@@ -12,6 +12,24 @@ body.home_body {
 }
 
 .home h1 {
-  margin-top: 25vh;
+  margin-top: 10vh;
   
+}
+
+.news {
+  display: flex;
+  justify-content:space-evenly;
+}
+
+.news img {
+  width: 100px; height: 100px;
+  background: #166cea;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+}
+
+.news a {
+  justify-content: center;
 }
