@@ -1,3 +1,4 @@
+import spring from "@/api/spring"
 import router from "@/router"
 import axios from 'axios'
 
@@ -94,7 +95,7 @@ export default {
       axios({
         url: '',
         method: '',
-        data: credentials,
+        data: credentials
       })
       .then( res => {
         const token = res.data.key
@@ -106,6 +107,22 @@ export default {
         commit('SET_AUTH_ERROR', err.response.data)
       })
     },
+
+    // 회원가입 - 이메일 중복체크
+    emailCheck({ commit }, email) {
+      axios({
+        url: spring.member.emailcheck(email),
+        method: 'post',
+        data: email
+      })
+      .then( ree => {
+        console.log(res)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
+
     saveToken({ commit }, token) {
       commit('SET_TOKEN', token)
       localStorage.setItem('token', token)
