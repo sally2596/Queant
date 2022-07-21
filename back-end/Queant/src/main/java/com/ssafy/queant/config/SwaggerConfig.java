@@ -32,7 +32,9 @@ public class SwaggerConfig{
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Queant API")
-				.description("<h2>SSAFY Queant API Reference for Developers</h2><img src=\"./img/Queant.png\">")
+				.description("<h2>SSAFY Queant API Reference for Developers</h2>" +
+						"<img src=\"/img/Queant.png\" style=\"width:10px; height:10px;\">"
+				)
 				.termsOfServiceUrl("https://edu.ssafy.com")
 				.license("SSAFY License")
 				.licenseUrl("https://www.ssafy.com/ksp/jsp/swp/etc/swpPrivacy.jsp").version("1.0").build();
