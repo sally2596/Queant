@@ -2,12 +2,12 @@
   <section class="login-form">
     <h1>QueÆnt</h1>
     <!-- Login Form -->
-    <form action="">
+    <form @submit.prevent="login(credentials)">
 
       <div class="int-area">
         <input 
-        v-model="email"
-        v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+        v-model="credentials.email"
+        v-bind:class="{error : error.email, complete:!error.email&&credentials.email.length!==0}"
         type="text"
         id="email"
         autocomplete="off" required>
@@ -17,8 +17,8 @@
 
       <div class="int-area">
         <input
-        v-model="password"
-        v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+        v-model="credentials.password"
+        v-bind:class="{error : error.password, complete:!error.password&&credentials.password.length!==0}"
         type="password"
         id="pw"
         autocomplete="off" required>
@@ -27,7 +27,7 @@
       </div>
 
       <div class="btn-area">
-        <button type="submit">LOGIN</button>
+        <button :disabled="!isCheckedForm" type="submit">LOGIN</button>
       </div>
 
     </form>
@@ -42,13 +42,13 @@
     <div>
       <p>Social Login</p>
       <div class="auth-area">
-        <button v-on:click="kakaoLogin"><img src="@/assets/image/kakao_icon.png" alt=""> </button>
+        <button @click="kakaoLogin()"><img src="@/assets/image/kakao_icon.png" alt="kakao login"> </button>
         
         <div id="naver_id_login">
-          <button v-on:click="naverLogin"><img src="@/assets/image/naver_icon.png" alt=""> </button>
+          <button @click="naverLogin()"><img src="@/assets/image/naver_icon.png" alt="naver login"> </button>
         </div>
 
-        <button><img src="@/assets/image/google_icon.png" alt=""> </button>
+        <button @click="googleLogin()"><img src="@/assets/image/google_icon.png" alt="google login"> </button>
       </div>
     </div>
   </section>
@@ -56,7 +56,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import * as EmailValidator from "email-validator";
 import PV from "password-validator"
 
@@ -67,8 +67,8 @@ export default {
         document.body.className = 'auth';
     },
   created() {
-    this.component = this;
-
+    this.component = this
+    this.isCheckedForm = false
     this.passwordSchema
       .is()
       .min(8)
@@ -80,51 +80,63 @@ export default {
       .letters();
   },
   watch: {
-    password: function(v) {
-      this.checkForm();
-    },
-    email: function(v) {
-      this.checkForm();
+    credentials: {
+      deep: true,
+      handler() {
+        this.checkForm()
+      }
     }
   },
-  computed: {
-    // ...mapState(['token'])
-  },
+  computed: {},
   methods: {
-    // ...mapActions(['login', 'logout', 'kakaoLogin']),
-    naverLogin() {
-      const naver_id_login = new window.naver_id_login(process.env.VUE_APP_NAVER, "http://localhost:8080/naver");
-      const state = naver_id_login.getUniqState();
-      naver_id_login.setButton("white", 2,40); // 버튼 설정
-      naver_id_login.setState(state);
-      // naver_id_login.setPopup(); // popup 설정을 위한 코드
-      naver_id_login.init_naver_id_login();
-    },
+    ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
+    // naverLogin() {
+    //   const naver_id_login = new window.naver_id_login(process.env.VUE_APP_NAVER, "http://localhost:8080/naver");
+    //   const state = naver_id_login.getUniqState();
+    //   naver_id_login.setButton("white", 2,40); // 버튼 설정
+    //   naver_id_login.setState(state);
+    //   // naver_id_login.setPopup(); // popup 설정을 위한 코드
+    //   naver_id_login.init_naver_id_login();
+    // },
     checkForm() {
+      if (this.credentials.email.length > 4 && !EmailValidator.validate(this.credentials.email))
+        this.error.email = "올바른 이메일 형식이 아닙니다."
+      else this.error.email = ""
       
-      if (this.email.length > 4 && !EmailValidator.validate(this.email))
-        this.error.email = "올바른 이메일 형식이 아닙니다.";
-      else this.error.email = false;
-      if (this.password.length > 4 && !this.passwordSchema.validate(this.password))
-        this.error.password = "비밀번호는 영문,숫자 포함 8 자리이상이어야 합니다.";
-      else this.error.password = false;
+      if (this.credentials.password.length > 4 && !this.passwordSchema.validate(this.credentials.password))
+        this.error.password = "비밀번호는 영문,숫자 포함 8 자리이상이어야 합니다."
+      else this.error.password = ""
+
+      if (!this.error.email && !this.error.password && this.credentials.email && this.credentials.password)
+        this.isCheckedForm = true
     },
   },
   data() {
     return {
-      email: "",
-      password : "",
+      isCheckedForm: false,
+      credentials: {
+        email: '',
+        password: '',
+      },
       passwordSchema: new PV(),
       error: {
-        email : false,
-        password : false
-      },
-      credentials: {
-        username: '',
-        password: '',
+        email : "",
+        password : ""
       }
     }
   },
+  created() {
+    this.isCheckedForm = false,
+    this.passwordSchema
+      .is()
+      .min(8)
+      .is()
+      .max(100)
+      .has()  
+      .digits()
+      .has()
+      .letters();
+  }
 }
 </script>
 <style scoped>

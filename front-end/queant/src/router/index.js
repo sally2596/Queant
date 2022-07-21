@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/home/HomeView.vue' 
 
 // bankinfo
-import BankInfoView from '../views/bankinfo/BankInfo.vue'
+import BankInfoView from '../views/bankinfo/BankInfoView.vue'
 
 // portfolio
 import PortfolioView from '../views/portfolio/PortfolioView.vue'
@@ -26,12 +26,12 @@ import AdminManageView from '../views/admin/AdminManageView.vue'
 import AdminSpecialView from '../views/admin/AdminSpecialView.vue'
 
 // products
-import ProductRecommendationView from '@/views/product/ProductRecommendation.vue'
-import ProductCartView from '@/views/product/ProductCart.vue'
-import ProductSpecialPlusView from '@/views/product/ProductSpecialPlus.vue'
+import ProductRecommendationView from '@/views/product/ProductRecommendationView.vue'
+import ProductCartView from '@/views/product/ProductCartView.vue'
+import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 
 // content
-import ContentsView from '@/views/content/Contents.vue'
+import ContentsView from '@/views/content/ContentsView.vue'
 
 const routes = [
   // home

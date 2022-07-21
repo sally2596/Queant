@@ -19,7 +19,7 @@
     "sass-loader": "^13.0.2",
     "vue": "^3.2.13",
     "vue-loader": "^17.0.0",
-    "vue-router": "^4.1.2",
+    "vue-router": "^4.0.13",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

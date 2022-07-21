@@ -4,7 +4,8 @@ import axios from 'axios'
 
 export default {
   state: {
-    token: '',
+    accessToken: '',
+    refreshToken: '',
     currentUser: {},
     authError: null,
     emailCheckedStatus: '',
@@ -13,87 +14,57 @@ export default {
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
-    isLoggedIn: state => !!state.token,
+    isLoggedIn: state => !!state.accessToken,
+    currentUser: state => state.currentUser,
     authHeader: state => ({ Authorization: `Token ${state.token}` }),
     emailCheckedStatus: state => state.emailCheckedStatus,
     isEmailVerified: state => state.isEmailVerified,
     isCompletedRegister: state => state.isCompletedRegister
   },
   mutations: {
-    SET_CURRENT_USER: (state, user) => state.currentUser = user,
+    SET_CURRENT_USER: (state, userInfo) => state.currentUser = userInfo,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SET_TOKEN: (state, token) => state.token = token,
+    SET_ACCESS_TOKEN: (state, accessToken) => state.accessToken = accessToken,
+    SET_REFRESH_TOKEN: (state, refreshToken) => state.refreshToken = refreshToken,
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
     SET_IS_EMAIL_VERIFIED: (state, status) => state.isEmailVerified = status,
     SET_IS_COMPLETED_REGISTER: (state, bool) => state.isCompletedRegister = bool
   },
   actions: {
-    naverLogin({ commit, dispatch }, naverAccessToken) {
-      dispatch('saveToken', naverAccessToken)
-      router.push('/')
-    },
     logout({ commit, dispatch }) {
       dispatch('removeToken')
       commit('SET_CURRENT_USER', {})
-      router.push('/')
+      router.push({ name: 'login' })
+    },
+    removeToken({ commit }) {
+      const nullToken = {
+        accessToken: '',
+        refreshToken: ''
+      }
+      commit('SET_TOKEN', nullToken)
+      // commit('SET_AUTH_ERROR', null)
+      localStorage.removeItem('vuex')
+      localStorage.setItem('accessToken', '')
+      localStorage.setItem('refreshToken', '')
     },
     // LOGIN
     // 일반 로그인
     login({ commit, dispatch }, credentials) {
-      // 통신
       axios({
-        url: '',
-        method: '',
+        url: spring.member.login(),
+        method: 'post',
         data: credentials,
       })
       .then( res => {
-        const token = res.data.key
-        dispatch('saveToken', token)
-        dispatch('fetchCurrentUser')
-        router.push({ name: '로그인하고 이동할 views or componenets'})
+        const userCredentials = JSON.parse(res.config.data)
+        dispatch('saveAccessToken', res.data.AccessToken)
+        dispatch('saveRefreshToken', res.data.RefreshToken)
+        dispatch('fetchCurrentUser', userCredentials)
+        router.push({ name: 'home'})
       })
       .catch( err => {
-        commit('SET_AUTH_ERROR', err.response.data)
-      })
-    },
-
-    // 카카오 로그인
-    kakaoLogin() {
-
-      window.Kakao.init(process.env.VUE_APP_KAKAO)
-
-      if (window.Kakao.Auth.getAccessToken()) {
-        window.Kakao.API.request({
-          url: '/v1/user/unlink',
-          success(response) {
-            console.log(response)
-          },
-          fail(error) {
-            console.log(error)
-          },
-        })
-        window.Kakao.Auth.setAccessToken(undefined)
-      }
-
-
-      window.Kakao.Auth.login({
-        success() {
-          window.Kakao.API.request({
-            url: '/v2/user/me',
-            data: {
-              property_keys: ["kakao_account.email"]
-            },
-            success: async function (response) {
-              console.log(response);
-            },
-            fail(error) {
-              console.log(error)
-            },
-          })
-        },
-        fail(error) {
-          console.log(error)
-        },
+        console.log(err)
+        // commit('SET_AUTH_ERROR', err.response.data)
       })
     },
 
@@ -127,9 +98,11 @@ export default {
         }
       })
       .then( res => {
+        console.log(res)
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
+        console.log(err)
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
@@ -150,31 +123,28 @@ export default {
       })
     },
 
-    saveToken({ commit }, token) {
-      commit('SET_TOKEN', token)
-      localStorage.setItem('token', token)
+    saveAccessToken({ commit }, accessToken) {
+      commit('SET_ACCESS_TOKEN', accessToken)
+      localStorage.setItem('accessToken', accessToken)
     },
-    removeToken({ commit }) {
-      commit('SET_TOKEN', '')
-      commit('SET_AUTH_ERROR', null)
-      localStorage.removeItem('vuex')
-      localStorage.setItem('token', '')
+    saveRefreshToken({ commit }, refreshToken) {
+      commit('SET_REFRESH_TOKEN', refreshToken)
+      localStorage.setItem('refreshToken', refreshToken)
     },
-    fetchCurrentUser({ commit, getters, dispatch }) {
+    fetchCurrentUser({ commit, getters }, userCredentials) {
       if (getters.isLoggedIn) {
         axios({
-          url: '',
-          method: '',
-          headers: getters.authHeader
+          url: spring.member.info(),
+          method: 'post',
+          data: {
+            email: userCredentials.email
+          }
         })
         .then( res => {
           commit('SET_CURRENT_USER', res.data)
         })
         .catch( err => {
-          if (err.response.data === 401) {
-            dispatch('removeToken')
-            router.push({ name: 'login' })
-          }
+          console.log(err)
         })
       }
     }
