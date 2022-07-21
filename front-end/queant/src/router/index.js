@@ -29,6 +29,7 @@ import AdminSpecialView from '../views/admin/AdminSpecialView.vue'
 import ProductRecommendationView from '@/views/product/ProductRecommendationView.vue'
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
+import ComparisonView from '@/views/product/ComparisonView.vue'
 
 // content
 import ContentsView from '@/views/content/ContentsView.vue'
@@ -76,6 +77,11 @@ const routes = [
     path : '/product/special',
     name : 'productSpecialPlus',
     component: ProductSpecialPlusView
+  },
+  {
+    path : '/product/comparison',
+    name : 'productComparison',
+    component : ComparisonView
   },
   // contents
   {
