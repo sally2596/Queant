@@ -1,5 +1,6 @@
 <template>
-    <section class="register-form">
+  <div>
+    <section v-if="!isCompletedRegister" class="register-form">
       <br>
       <h1>회원가입</h1>
       <!-- Social Register -->
@@ -12,19 +13,19 @@
       <br>
       <!-- Register Form -->
       <form @submit.prevent="register(credentials)">
-
-        <!-- 이름 -->
+  
+        <!-- name -->
         <div class="int-area">
           <input
-            v-model="credentials.username"
+            v-model="credentials.name"
             type="text"
             id="name"
             autocomplete="off"
             required>
           <label class="form-label" for="name">이름</label>
         </div>
-
-        <!-- 이메일 -->
+  
+        <!-- email -->
         <div class="int-area">
           <input
             v-model="credentials.email"
@@ -48,7 +49,7 @@
           <!-- 중복검사 결과 200 성공 => 인증 메일 발송 -->
           <div v-else-if="emailCheckedStatus === 200">
             <p>해당 메일로 인증번호를 보냈습니다.</p>
-
+            {{ emailCheckedStatus }}
             <!-- 인증번호 검사  -->
             <div class="int-area">
               <input
@@ -63,30 +64,30 @@
               
               <!-- 409 인증코드 불일치 -->
               <p v-if="isEmailVerified === 409">인증번호가 다릅니다.</p>
-
+  
               <!-- 200 인증코드 일치 -->
               <button v-else-if="isEmailVerified === 200" id="verified">인증성공</button>
             </div>
           </div>
         </div>
-
+  
         <!-- 재익이가 처음에 해놓은 설정 -->
         <!-- <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff" id="check-email">인증</button> -->
         <div class="error-text" v-if="error.email">{{error.email}}</div>
       
-        <!-- 비밀번호 -->
+        <!-- password -->
         <div class="int-area">
           <input
-            v-model="credentials.password1"
-            v-bind:class="{error : error.password1, complete:!error.password1&&credentials.password1.length!==0}"
+            v-model="credentials.password"
+            v-bind:class="{error : error.password, complete:!error.password&&credentials.password.length!==0}"
             type="password"
-            id="password1"
+            id="password"
             autocomplete="off"
             required>
-          <label for="password1">비밀번호</label>
-          <div class="error-text" v-if="error.password1">{{error.password1}}</div>
+          <label for="password">비밀번호</label>
+          <div class="error-text" v-if="error.password">{{error.password}}</div>
         </div>
-
+  
         <div class="int-area">
           <input
             v-model="credentials.password2"
@@ -97,33 +98,66 @@
             required>
           <label for="password2">비밀번호 확인</label>
           <div class="error-text" v-if="error.password2">{{error.password2}}</div>
-        </div>  
-
+        </div>
+  
+        <!-- gender -->
+        <div>
+          <input 
+            v-model="credentials.gender"
+            type="radio"
+            value="Female">
+  
+          <input
+            v-model="credentials.gender"
+            type="radio"
+            value="Male">
+        </div>
+  
+        <!-- birthdate -->
+        <div>
+          <input
+            v-model="credentials.birthdate"
+            type="date"
+            id="birthdate">
+          <label for="birthdate">생년월일</label>
+        </div>
+  
         <!-- Submit Button -->
         <div class="btn-area">
-          <button type="submit">가입하기</button>
+          <!-- 이름, 이메일, 비밀번호 입력해야 가입하기 버튼 활성화 -->
+          <button :disabled="!isCheckedForm" type="submit">가입하기</button>
         </div>
       </form>
-      
+        
       <div class="register-comeback">
         <router-link :to="{ name: 'login' }">이미 회원이신가요?</router-link>
       </div>
-  </section>
+  
+    </section>
+    <!-- 가입이 완료되면 위에 화면은 안보이고, 가입완료 화면 보임 -->
+    <register-completed v-if="isCompletedRegister"></register-completed>
+  </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import RegisterCompleted from '@/components/RegisterCompleted.vue';
 import * as EmailValidator from "email-validator";
 import PV from "password-validator"
+
 export default {
   name: 'RegisterView',
+  components: {
+    RegisterCompleted
+  },
   beforeCreate: function() {
         document.body.className = 'auth';
-    },
+  },
   computed: {
-    ...mapGetters(['emailCheckedStatus', 'isEmailVerified'])
+    ...mapGetters(['emailCheckedStatus', 'isEmailVerified', 'isCompletedRegister'])
   },
   created() {
+    this.SET_IS_COMPLETED_REGISTER(false)
     this.component = this;
     this.isEmailVerified = ''
     this.passwordSchema
@@ -131,7 +165,7 @@ export default {
       .min(8)
       .is()
       .max(100)
-      .has()
+      .has()  
       .digits()
       .has()
       .letters();
@@ -145,18 +179,26 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['SET_IS_COMPLETED_REGISTER']),
     ...mapActions(['register', 'emailCheck', 'emailVerify']),
     checkForm() {
       
       if (this.credentials.email.length > 0 && !EmailValidator.validate(this.credentials.email))
-        this.error.email = "올바른 이메일 형식이 아닙니다.";
-      else this.error.email = "";
-      if (this.credentials.password1.length > 0 && !this.passwordSchema.validate(this.credentials.password1))
-        this.error.password1 = "영문,숫자 포함 8 자리이상이어야 합니다.";
-      else this.error.password1 = "";
-      if (this.credentials.password1 !== this.credentials.password2)
+        this.error.email = "올바른 이메일 형식이 아닙니다."
+      else this.error.email = ""
+      
+      if (this.credentials.password.length > 0 && !this.passwordSchema.validate(this.credentials.password))
+        this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다."
+      else
+        this.error.password = ""
+    
+      if (this.credentials.password !== this.credentials.password2) 
         this.error.password2 = "비밀번호가 일치하지 않습니다."
-      else this.error.password2 = "";
+      else 
+        this.error.password2 = ""
+
+      if (!this.error.email && !this.error.password && !this.error.password2 && this.credentials.name && this.credentials.email && this.credentials.password && this.credentials.password2)
+        this.isCheckedForm = true
     },
       toggleOnOff: function() {
       this.isStatusOn = !this.isStatusOn;
@@ -165,17 +207,20 @@ export default {
   },
   data() {
     return {
+      isCheckedForm: false,
       credentials: {
-        username: '',
-        email: '',
-        password1: '',
-        password2: ''
+        name: "",
+        email: "",
+        password: "",
+        password2: "",
+        birthdate: "",
+        gender: ""
       },
       code: "",
       passwordSchema: new PV(),
       error: {
         email : "",
-        password1 : "",
+        password : "",
         password2 : ""
       },
       timerCount : 300,
