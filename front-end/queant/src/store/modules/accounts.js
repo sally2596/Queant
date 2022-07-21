@@ -14,14 +14,15 @@ export default {
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
-    isLoggedIn: state => !!state.token,
+    isLoggedIn: state => !!state.accessToken,
+    currentUser: state => state.currentUser,
     authHeader: state => ({ Authorization: `Token ${state.token}` }),
     emailCheckedStatus: state => state.emailCheckedStatus,
     isEmailVerified: state => state.isEmailVerified,
     isCompletedRegister: state => state.isCompletedRegister
   },
   mutations: {
-    SET_CURRENT_USER: (state, user) => state.currentUser = user,
+    SET_CURRENT_USER: (state, userInfo) => state.currentUser = userInfo,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_TOKEN: (state, token) => {
       state.accessToken = token.accessToken,
@@ -32,14 +33,21 @@ export default {
     SET_IS_COMPLETED_REGISTER: (state, bool) => state.isCompletedRegister = bool
   },
   actions: {
-    naverLogin({ commit, dispatch }, naverAccessToken) {
-      dispatch('saveToken', naverAccessToken)
-      router.push('/')
-    },
     logout({ commit, dispatch }) {
       dispatch('removeToken')
       commit('SET_CURRENT_USER', {})
-      router.push('/')
+      router.push({ name: 'login' })
+    },
+    removeToken({ commit }) {
+      const nullToken = {
+        accessToken: '',
+        refreshToken: ''
+      }
+      commit('SET_TOKEN', nullToken)
+      // commit('SET_AUTH_ERROR', null)
+      localStorage.removeItem('vuex')
+      localStorage.setItem('accessToken', '')
+      localStorage.setItem('refreshToken', '')
     },
     // LOGIN
     // 일반 로그인
@@ -50,58 +58,18 @@ export default {
         data: credentials,
       })
       .then( res => {
-        console.log(res)
         const token = {
           accessToken: res.data.AccessToken,
           refreshToken: res.data.RefreshToken
         }
+        const userCredentials = JSON.parse(res.config.data)
         dispatch('saveToken', token)
-        // dispatch('fetchCurrentUser')
+        dispatch('fetchCurrentUser', userCredentials)
         router.push({ name: 'home'})
       })
       .catch( err => {
         console.log(err)
         // commit('SET_AUTH_ERROR', err.response.data)
-      })
-    },
-
-    // 카카오 로그인
-    kakaoLogin() {
-
-      window.Kakao.init(process.env.VUE_APP_KAKAO)
-
-      if (window.Kakao.Auth.getAccessToken()) {
-        window.Kakao.API.request({
-          url: '/v1/user/unlink',
-          success(response) {
-            console.log(response)
-          },
-          fail(error) {
-            console.log(error)
-          },
-        })
-        window.Kakao.Auth.setAccessToken(undefined)
-      }
-
-
-      window.Kakao.Auth.login({
-        success() {
-          window.Kakao.API.request({
-            url: '/v2/user/me',
-            data: {
-              property_keys: ["kakao_account.email"]
-            },
-            success: async function (response) {
-              console.log(response);
-            },
-            fail(error) {
-              console.log(error)
-            },
-          })
-        },
-        fail(error) {
-          console.log(error)
-        },
       })
     },
 
@@ -165,27 +133,20 @@ export default {
       localStorage.setItem('accessToken', token.accessToken)
       localStorage.setItem('refreshToken', token.refreshToken)
     },
-    removeToken({ commit }) {
-      commit('SET_TOKEN', '')
-      commit('SET_AUTH_ERROR', null)
-      localStorage.removeItem('vuex')
-      localStorage.setItem('token', '')
-    },
-    fetchCurrentUser({ commit, getters, dispatch }) {
+    fetchCurrentUser({ commit, getters }, userCredentials) {
       if (getters.isLoggedIn) {
         axios({
-          url: '',
-          method: '',
-          headers: getters.authHeader
+          url: spring.member.info(),
+          method: 'post',
+          data: {
+            email: userCredentials.email
+          }
         })
         .then( res => {
           commit('SET_CURRENT_USER', res.data)
         })
         .catch( err => {
-          if (err.response.data === 401) {
-            dispatch('removeToken')
-            router.push({ name: 'login' })
-          }
+          console.log(err)
         })
       }
     }

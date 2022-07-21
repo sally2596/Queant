@@ -40,13 +40,13 @@
     <div>
       <p>Social Login</p>
       <div class="auth-area">
-        <button><img src="@/assets/image/kakao_icon.png" alt=""> </button>
+        <button @click="kakaoLogin()"><img src="@/assets/image/kakao_icon.png" alt="kakao login"> </button>
         
         <div id="naver_id_login">
-          <button><img src="@/assets/image/naver_icon.png" alt=""> </button>
+          <button @click="naverLogin()"><img src="@/assets/image/naver_icon.png" alt="naver login"> </button>
         </div>
 
-        <button><img src="@/assets/image/google_icon.png" alt=""> </button>
+        <button @click="googleLogin()"><img src="@/assets/image/google_icon.png" alt="google login"> </button>
       </div>
     </div>
   </section>
@@ -85,11 +85,9 @@ export default {
       }
     }
   },
-  computed: {
-    // ...mapState(['token'])
-  },
+  computed: {},
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
     // naverLogin() {
     //   const naver_id_login = new window.naver_id_login(process.env.VUE_APP_NAVER, "http://localhost:8080/naver");
     //   const state = naver_id_login.getUniqState();
@@ -99,7 +97,6 @@ export default {
     //   naver_id_login.init_naver_id_login();
     // },
     checkForm() {
-      
       if (this.credentials.email.length > 4 && !EmailValidator.validate(this.credentials.email))
         this.error.email = "올바른 이메일 형식이 아닙니다."
       else this.error.email = ""
