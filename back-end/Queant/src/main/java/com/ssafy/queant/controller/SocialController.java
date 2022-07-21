@@ -1,9 +1,7 @@
 package com.ssafy.queant.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.ssafy.queant.model.oauth.*;
 import com.ssafy.queant.model.service.OAuth.GoogleService;
 import com.ssafy.queant.model.service.OAuth.KakaoService;
@@ -38,6 +36,9 @@ public class SocialController {
     private RestTemplate restTemplate;
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     SocialController(GoogleService googleService, KakaoService kakaoService) {
         this.googleService = googleService;
         this.kakaoService = kakaoService;
@@ -54,89 +55,103 @@ public class SocialController {
     }
 
     @GetMapping(value = "/kakao/login")
-    public ResponseEntity<KakaoLoginDto> getKakaoUser(
+    public ResponseEntity<String> getKakaoUser(
             @RequestParam(value = "code") String authCode
     ) {
         // HTTP 통신을 위해 RestTemplate 활용
-        KakaoOAuthRequest kakaoOAuthRequest= kakaoService.getKakaoOAuthRequest(authCode);
-        try{
-            // Http Header 설정
-            //ResponseEntity<String> kakaoResponseJson = getResponseEntity(kakaoOAuthRequest);
+        LinkedMultiValueMap<String, String> oAuthRequest= kakaoService.getKakaoOAuthRequest(authCode);
+        String accessTokenUrl = kakaoService.getKakaoTokenUrl();
+        String userUrl = kakaoService.getKakaoUserUrl();
 
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return ResponseEntity.badRequest().body(null);
-    }
-
-    // authorization -> access token
-    // access -> 사용자 정보
-    @GetMapping(value = "/google/login")
-    public ResponseEntity<GoogleLoginDto> getGoogleUser(
-            @RequestParam(value = "code") String authCode
-    ) {
-        // HTTP 통신을 위해 RestTemplate 활용
-        LinkedMultiValueMap<String, String> googleOAuthRequest= googleService.getGoogleOAuthRequest(authCode);
 
         try {
-            // Http Header 설정
-            ResponseEntity<String> googleResponseJson = getResponseEntity(googleOAuthRequest);
+            ResponseEntity<String> responseJson = getResponseEntity(oAuthRequest,accessTokenUrl);
 
-            ObjectMapper objectMapper = getObjectMapper();
+            /***
+             * 응답받은 Json ->token 추출
+             *
+             * google, kakao: openId 사용해서 idToken으로 정보 가져옴
+             * naver: openId 사용 안해서 AccessToken으로 가져와야함
+             */
+            OAuthResponseDto responseDto = objectMapper.readValue(responseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
+            String token = responseDto.getAccessToken();
 
-            // ObjectMapper를 통해 String to Object로 변환
-            GoogleOAuthResponse googleLoginResponse = objectMapper.readValue(googleResponseJson.getBody(),new TypeReference<GoogleOAuthResponse>() {});
 
-            LOGGER.info("[googleLoginResponse]"+googleLoginResponse);
-            // 사용자의 정보는 JWT Token으로 저장되어 있고, Id_Token에 값을 저장한다.
-            String jwtToken = googleLoginResponse.getIdToken();
-            LOGGER.info("[jwtToken]"+jwtToken);
-            // JWT Token을 전달해 JWT 저장된 사용자 정보 확인
-            String requestUrl = UriComponentsBuilder.fromHttpUrl(googleService.getGoogleAccessTokenUrl() + "/tokeninfo").queryParam(
-                    "id_token", jwtToken).toUriString();
-            LOGGER.info("[requestUrl]"+requestUrl);
-            String resultJson = restTemplate.getForObject(requestUrl, String.class);
-
-            if(resultJson != null) {
-                // member 저장
-                // 있는 멤버라면 디비에 있는애 반환해주면 될 듯
-                GoogleLoginDto userInfoDto = objectMapper.readValue(resultJson, new TypeReference<GoogleLoginDto>() {});
-                LOGGER.info("[google-auth]");
-                LOGGER.info(String.valueOf(userInfoDto));
-                return ResponseEntity.ok().body(userInfoDto);
-            }
-            else {
-                throw new Exception("Google OAuth failed!");
-            }
+            /***
+             * token 넣어서 data 가져올 url 생성 -> 사용자 data 받아오기
+             * google, kakao: openId를 통한 데이터 받아오기 가능
+             */
+           String resultData = getUserDatabyAccessToken(userUrl,token);
+           LOGGER.info("resultData:\n"+resultData);
+           return ResponseEntity.ok().body(resultData);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
         return ResponseEntity.badRequest().body(null);
     }
 
-    private ObjectMapper getObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // NULL이 아닌 값만 응답받기(NULL인 경우는 생략)
-        return objectMapper;
+    @GetMapping(value = "/google/login")
+    public ResponseEntity<String> getGoogleUser(
+            @RequestParam(value = "code") String authCode
+    ) {
+        // HTTP 통신을 위해 RestTemplate 활용
+        LinkedMultiValueMap<String, String> oAuthRequest= googleService.getGoogleOAuthRequest(authCode);
+        String accessTokenUrl = googleService.getGoogleTokenUrl();
+        String userUrl = googleService.getGoogleUserUrl();
+
+        try {
+            /***
+             * Authorization Code를 넣어 토큰을 가져오는 작업
+             *
+             * OAuthRequest: 소셜의 OAuth Request 파라미터들을 담음
+             * accessTokenUrl: 각 소셜의 accessToken을 받아올 Url (Authorization Code가 이미 들어가 있음)
+             */
+            ResponseEntity<String> responseJson = getResponseEntity(oAuthRequest,accessTokenUrl);
+
+            /***
+             * 응답받은 Json ->token 추출
+             *
+             * google, kakao: openId 사용해서 idToken으로 정보 가져옴
+             * naver: openId 사용 안해서 AccessToken으로 가져와야함
+             */
+            OAuthResponseDto responseDto = objectMapper.readValue(responseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
+            String token = responseDto.getAccessToken();
+
+            /***
+             * token 넣어서 data 가져올 url 생성 -> 사용자 data 받아오기
+             * google, kakao: openId를 통한 데이터 받아오기 가능
+             */
+            String userDataUrl = getUserDatabyAccessToken(userUrl,token);
+//            String userDataUrl = getUserDataUrlbyIdToken(userUrl,token);
+            //String resultJson = restTemplate.getForObject(userDataUrl, String.class);
+
+            String userData = getUserDatabyAccessToken(userUrl,token);
+            LOGGER.info("userData:\n"+userData);
+            return ResponseEntity.ok().body(userData);
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.badRequest().body(null);
     }
 
-    private ResponseEntity<String> getResponseEntity(LinkedMultiValueMap<String, String> params) {
+    private String getUserDatabyAccessToken(String url, String accessToken) {
+        // header 설정: AccessToken을 담음
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Bearer " + accessToken);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        return restTemplate.exchange(url,HttpMethod.GET,request,String.class).getBody();
+    }
+
+    private ResponseEntity<String> getResponseEntity(LinkedMultiValueMap<String, String> params,String accessTokenUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(googleService.getGoogleAccessTokenUrl() + "/token", request, String.class);
-
+        ResponseEntity<String> response = restTemplate.postForEntity(accessTokenUrl, request, String.class);
         return response;
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<GoogleOAuthRequest> googleRequestEntity = new HttpEntity<>(googleOAuthRequest, headers);
-//        ResponseEntity<String> googleResponseJson =
-//                restTemplate.postForEntity(googleService.getGoogleAccessTokenUrl() + "/token", googleRequestEntity, String.class);
-//        return googleResponseJson;
     }
 
     public ResponseEntity<Object> getInitUrl(String authUrl){
@@ -150,4 +165,65 @@ public class SocialController {
         }
         return ResponseEntity.badRequest().build();
     }
+
+//    private ResponseEntity<String> OLDVERSION_getResponseEntity(GoogleOAuthRequest googleOAuthRequest) {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<GoogleOAuthRequest> googleRequestEntity = new HttpEntity<>(googleOAuthRequest, headers);
+//        ResponseEntity<String> googleResponseJson =
+//                restTemplate.postForEntity(googleService.getGoogleTokenUrl() + "/token", googleRequestEntity, String.class);
+//        return googleResponseJson;
+//    }
+//
+//
+//    @GetMapping(value = "/OLDVERSION/google/login")
+//    public ResponseEntity<GoogleLoginDto> OLDVERSIONgetGoogleUser(
+//            @RequestParam(value = "code") String authCode
+//    ) {
+//        // HTTP 통신을 위해 RestTemplate 활용
+//        LinkedMultiValueMap<String, String> googleOAuthRequest= googleService.getGoogleOAuthRequest(authCode);
+//        String accessTokenUrl = googleService.getGoogleTokenUrl() + "/token";
+//
+//        try {
+//            /***
+//             * Authorization Code를 넣어 토큰을 가져오는 작업
+//             *
+//             * OAuthRequest: 소셜의 OAuth Request 파라미터들을 담음
+//             * accessTokenUrl: 각 소셜의 accessToken을 받아올 Url (Authorization Code가 이미 들어가 있음)
+//             */
+//            ResponseEntity<String> googleResponseJson = getResponseEntity(googleOAuthRequest,accessTokenUrl);
+//
+//
+//            /***
+//             * 응답받은 Json -> AccessToken 추출
+//             */
+//            OAuthResponseDto googleLoginResponse = objectMapper.readValue(googleResponseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
+//            String jwtToken = googleLoginResponse.getIdToken();
+//
+//
+//            // JWT Token을 전달해 JWT 저장된 사용자 정보 확인
+//            String requestUrl = UriComponentsBuilder.fromHttpUrl(googleService.getGoogleTokenUrl() + "/tokeninfo").queryParam(
+//                    "id_token", jwtToken).toUriString();
+//            LOGGER.info("[requestUrl]"+requestUrl);
+//            String resultJson = restTemplate.getForObject(requestUrl, String.class);
+//
+//            if(resultJson != null) {
+//                // member 저장
+//                // 있는 멤버라면 디비에 있는애 반환해주면 될 듯
+//                GoogleLoginDto userInfoDto = objectMapper.readValue(resultJson, new TypeReference<GoogleLoginDto>() {});
+//                LOGGER.info("[google-auth]");
+//                LOGGER.info(String.valueOf(userInfoDto));
+//                return ResponseEntity.ok().body(userInfoDto);
+//            }
+//            else {
+//                throw new Exception("Google OAuth failed!");
+//            }
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return ResponseEntity.badRequest().body(null);
+//    }
+
 }
