@@ -1,8 +1,6 @@
 <template>
   <div>
     <section v-if="!isCompletedRegister" class="register-form">
-      <br>
-      <h1>회원가입</h1>
       <!-- Social Register -->
       <p>Social Sign in with</p>
       <div class="auth-area">
@@ -33,8 +31,10 @@
             type="text"
             id="email"
             autocomplete="off"
-            required>
-          <label class="form-label" for="email">이메일 주소</label>
+            required
+            :readonly="emailCheckedStatus === 200">
+          <label class="form-label" for="email" :readonly="emailCheckedStatus === 200">이메일 주소</label>
+          <div class="error-text" v-if="error.email" style="margin-bottom:0px;">{{error.email}}</div>
             
           <!-- 중복검사 성공전에 버튼 활성화 -->
           <div v-if="emailCheckedStatus !== 200">
@@ -43,13 +43,12 @@
             
           <!-- 중복검사 결과 409 => 중복 이메일 -->
           <div v-else-if="emailCheckedStatus === 409">
-            <p>이미 가입된 이메일입니다.</p>
+            <p style="margin-bottom:0px; margin-top:1px" >이미 가입된 이메일입니다.</p>
           </div>
             
           <!-- 중복검사 결과 200 성공 => 인증 메일 발송 -->
           <div v-else-if="emailCheckedStatus === 200">
-            <p>해당 메일로 인증번호를 보냈습니다.</p>
-            {{ emailCheckedStatus }}
+            <p style="margin-bottom:0; margin-top:1px;">메일로 인증 번호가 전송되었습니다.</p>
             <!-- 인증번호 검사  -->
             <div class="int-area">
               <input
@@ -63,17 +62,13 @@
               <button v-if="isEmailVerified !== 200" class="verified" @click="emailVerify(code)">인증</button>
               
               <!-- 409 인증코드 불일치 -->
-              <p v-if="isEmailVerified === 409">인증번호가 다릅니다.</p>
+              <p v-if="isEmailVerified === 409" style="margin-bottom:0px; margin-top:1px;">인증번호가 다릅니다.</p>
   
               <!-- 200 인증코드 일치 -->
               <button v-else-if="isEmailVerified === 200" id="verified">인증성공</button>
             </div>
           </div>
         </div>
-  
-        <!-- 재익이가 처음에 해놓은 설정 -->
-        <!-- <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff" id="check-email">인증</button> -->
-        <div class="error-text" v-if="error.email">{{error.email}}</div>
       
         <!-- password -->
         <div class="int-area">
@@ -85,7 +80,7 @@
             autocomplete="off"
             required>
           <label for="password">비밀번호</label>
-          <div class="error-text" v-if="error.password">{{error.password}}</div>
+          <div class="error-text" v-if="error.password" style="margin-bottom:10px;">{{error.password}}</div>
         </div>
   
         <div class="int-area">
@@ -97,24 +92,28 @@
             autocomplete="off"
             required>
           <label for="password2">비밀번호 확인</label>
-          <div class="error-text" v-if="error.password2">{{error.password2}}</div>
+          <div class="error-text" v-if="error.password2" style="margin-bottom:0px;">{{error.password2}}</div>
         </div>
   
         <!-- gender -->
-        <div>
+        <div class="choose-area">
           <input 
             v-model="credentials.gender"
             type="radio"
-            value="Female">
-  
+            value="Female"
+            class="gender-input-female">
+          <p class="female">여성</p>
           <input
             v-model="credentials.gender"
             type="radio"
-            value="Male">
+            value="Male"
+            class="gender-input-male">
+          <p class="male">남성</p>
+          <label for="gender">성별</label>
         </div>
   
         <!-- birthdate -->
-        <div>
+        <div class="date-area">
           <input
             v-model="credentials.birthdate"
             type="date"

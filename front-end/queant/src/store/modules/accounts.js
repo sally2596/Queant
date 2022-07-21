@@ -24,10 +24,8 @@ export default {
   mutations: {
     SET_CURRENT_USER: (state, userInfo) => state.currentUser = userInfo,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SET_TOKEN: (state, token) => {
-      state.accessToken = token.accessToken,
-      state.refreshToken = token.refreshToken
-    },
+    SET_ACCESS_TOKEN: (state, accessToken) => state.accessToken = accessToken,
+    SET_REFRESH_TOKEN: (state, refreshToken) => state.refreshToken = refreshToken,
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
     SET_IS_EMAIL_VERIFIED: (state, status) => state.isEmailVerified = status,
     SET_IS_COMPLETED_REGISTER: (state, bool) => state.isCompletedRegister = bool
@@ -58,12 +56,9 @@ export default {
         data: credentials,
       })
       .then( res => {
-        const token = {
-          accessToken: res.data.AccessToken,
-          refreshToken: res.data.RefreshToken
-        }
         const userCredentials = JSON.parse(res.config.data)
-        dispatch('saveToken', token)
+        dispatch('saveAccessToken', res.data.AccessToken)
+        dispatch('saveRefreshToken', res.data.RefreshToken)
         dispatch('fetchCurrentUser', userCredentials)
         router.push({ name: 'home'})
       })
@@ -128,10 +123,13 @@ export default {
       })
     },
 
-    saveToken({ commit }, token) {
-      commit('SET_TOKEN', token)
-      localStorage.setItem('accessToken', token.accessToken)
-      localStorage.setItem('refreshToken', token.refreshToken)
+    saveAccessToken({ commit }, accessToken) {
+      commit('SET_ACCESS_TOKEN', accessToken)
+      localStorage.setItem('accessToken', accessToken)
+    },
+    saveRefreshToken({ commit }, refreshToken) {
+      commit('SET_REFRESH_TOKEN', refreshToken)
+      localStorage.setItem('refreshToken', refreshToken)
     },
     fetchCurrentUser({ commit, getters }, userCredentials) {
       if (getters.isLoggedIn) {

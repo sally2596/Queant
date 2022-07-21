@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("*")
 @Slf4j
 @RequiredArgsConstructor
 @CrossOrigin("*")

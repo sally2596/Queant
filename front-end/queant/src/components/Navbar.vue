@@ -1,17 +1,20 @@
 <template>
-  <div class="main" id="app">
+  <div class="main fixed-top" id="app">
+    
     <nav class="navbar navbar-expand-lg bg-none">
       <router-link to="/">
         <img class="logo mr-4" src="../assets/image/퀸트_로고.png" alt="">
       </router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+       data-bs-target="#navbar" aria-controls="navbar"
+        aria-expanded="false" aria-label="Toggle navigation">
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav col">
           <div>
             <li class="m-auto content">
-              <router-link to="/">Bank Info</router-link>
+              <router-link :to="{ name : 'bankInfo'}">Bank Info</router-link>
             </li>
           </div>
           <div>
@@ -19,20 +22,34 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left:8px;">
                 Product
               </a>
-              <ul class="dropdown-menu dropdown-menu-white">
-                <li><a class="dropdown-item" href="#">맞춤 상품 추천</a></li>
-                <li><a class="dropdown-item" href="#">장바구니</a></li>
-                <li><a class="dropdown-item" href="#">특판 상품 추가</a></li>
+              <ul class="dropdown-menu dropdown-menu-white dropdown-menu-right">
+                <li style="margin:8px"><router-link :to="{ name : 'productRecommend' }">맞춤 상품 추천</router-link></li>
+                <hr>
+                <li style="margin:8px"><router-link :to="{ name : 'productCart' }">장바구니</router-link></li>
+                <hr>
+                <li style="margin:8px"><router-link :to="{ name : 'productSpecialPlus' }">특판 상품 추가</router-link></li>
+              </ul>
+            </li>
+          </div>
+          <div>
+            <li class="dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left:8px;">
+                Portfolio
+              </a>
+              <ul class="dropdown-menu dropdown-menu-white dropdown-menu-right">
+                <li style="margin:8px"><router-link :to="{ name : 'portfolio' }">내 포트폴리오 보기</router-link></li>
+                <hr>
+                <li style="margin:8px"><router-link :to="{ name : 'portfolio' }">내 포트폴리오 관리</router-link></li>
               </ul>
             </li>
           </div>
           <div>
             <li class="m-auto content">
-              <router-link to="/">Content</router-link>
+              <router-link :to="{ name : 'contents'}">Contents</router-link>
             </li>
           </div>
-          <div class="ms-lg-auto mr-2 m-2" id="login-button">
-            <router-link to="/login">로그인</router-link>
+          <div class="ms-lg-auto" id="login-button" style="margin-right:30px; margin-top: 8px; margin-left:8px;">
+            <router-link :to="{ name : 'login' }">로그인</router-link>
           </div>
         </ul>
       </div>
@@ -42,34 +59,10 @@
 
 <script>
 export default {
- data() {
-     return {
-         mobile: null,
-         mobileNav: null,
-         windowWidth: null,
-     }
- },
- created() {
-     window.addEventListener('resize', this.checkScreen);
-     this.checkScreen();
- },
- methods: {
-     toogleMobileNav(){
-         this.mobileNav = !this.mobileNav
-         this.mobileNav
-     },
-     checkScreen(){
-         this.windowWidth = window.innerWidth;
-         if(this.windowWidth <= 750){
-             return this.mobile = true;
-         }
-         this.mobile = false;
-         this.mobileNav = false;
-     }
- },
+  name:"Navbar"
 }
 </script>
 
 <style>
-@import '../assets/css/home.css';
+@import '../assets/css/navbar.css';
 </style>
