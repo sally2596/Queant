@@ -158,8 +158,9 @@ export default {
   },
   created() {
     this.SET_IS_COMPLETED_REGISTER(false)
-    this.component = this;
+    this.component = this
     this.isEmailVerified = ''
+    this.isCheckedForm = false
     this.passwordSchema
       .is()
       .min(8)
@@ -189,13 +190,11 @@ export default {
       
       if (this.credentials.password.length > 0 && !this.passwordSchema.validate(this.credentials.password))
         this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다."
-      else
-        this.error.password = ""
+      else this.error.password = ""
     
       if (this.credentials.password !== this.credentials.password2) 
         this.error.password2 = "비밀번호가 일치하지 않습니다."
-      else 
-        this.error.password2 = ""
+      else this.error.password2 = ""
 
       if (!this.error.email && !this.error.password && !this.error.password2 && this.credentials.name && this.credentials.email && this.credentials.password && this.credentials.password2)
         this.isCheckedForm = true
@@ -226,7 +225,7 @@ export default {
       timerCount : 300,
       isStatusOn : false,
       isStatusOff : true
-    };
+    }
   }
 };
 </script>

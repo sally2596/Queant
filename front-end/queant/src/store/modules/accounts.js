@@ -4,7 +4,8 @@ import axios from 'axios'
 
 export default {
   state: {
-    token: '',
+    accessToken: '',
+    refreshToken: '',
     currentUser: {},
     authError: null,
     emailCheckedStatus: '',
@@ -22,7 +23,10 @@ export default {
   mutations: {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SET_TOKEN: (state, token) => state.token = token,
+    SET_TOKEN: (state, token) => {
+      state.accessToken = token.accessToken,
+      state.refreshToken = token.refreshToken
+    },
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
     SET_IS_EMAIL_VERIFIED: (state, status) => state.isEmailVerified = status,
     SET_IS_COMPLETED_REGISTER: (state, bool) => state.isCompletedRegister = bool
@@ -40,20 +44,24 @@ export default {
     // LOGIN
     // 일반 로그인
     login({ commit, dispatch }, credentials) {
-      // 통신
       axios({
-        url: '',
-        method: '',
+        url: spring.member.login(),
+        method: 'post',
         data: credentials,
       })
       .then( res => {
-        const token = res.data.key
+        console.log(res)
+        const token = {
+          accessToken: res.data.AccessToken,
+          refreshToken: res.data.RefreshToken
+        }
         dispatch('saveToken', token)
-        dispatch('fetchCurrentUser')
-        router.push({ name: '로그인하고 이동할 views or componenets'})
+        // dispatch('fetchCurrentUser')
+        router.push({ name: 'home'})
       })
       .catch( err => {
-        commit('SET_AUTH_ERROR', err.response.data)
+        console.log(err)
+        // commit('SET_AUTH_ERROR', err.response.data)
       })
     },
 
@@ -127,9 +135,11 @@ export default {
         }
       })
       .then( res => {
+        console.log(res)
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
+        console.log(err)
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
@@ -152,7 +162,8 @@ export default {
 
     saveToken({ commit }, token) {
       commit('SET_TOKEN', token)
-      localStorage.setItem('token', token)
+      localStorage.setItem('accessToken', token.accessToken)
+      localStorage.setItem('refreshToken', token.refreshToken)
     },
     removeToken({ commit }) {
       commit('SET_TOKEN', '')
