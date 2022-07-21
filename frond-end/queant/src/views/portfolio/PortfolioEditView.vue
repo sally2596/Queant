@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'ProfileEditView'
+  name: 'PortfolioEditView'
 }
 </script>
 

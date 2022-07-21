@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@600&display=swap');
 
 * {margin: 0; padding: 0; box-sizing: border-box;}
 body {
-  font-family: 'Edu VIC WA NT Beginner', cursive;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   height: 100vh;
-  /* background: url('../image/userimage.jpg') no-repeat center; */
+  background: url('../image/userimage.jpg') no-repeat center;
   background-size: cover;
 }
 
@@ -20,20 +19,15 @@ body::before {
 
 .login-form {position: relative; z-index: 2;}
 .login-form h1 {
-  font-size: 32px; color: #fff;
+  font-size: 22px; color: #fff;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .register-form {position: relative; z-index: 2;}
 .register-form h1 {
   font-size: 32px; color: #fff;
   text-align: center;
-  margin-bottom: 60px;
-}
-
-.register-form form {
-  margin-top: 80px;
 }
 
 .int-area {
@@ -57,17 +51,14 @@ body::before {
   transition: top .5s ease;
 }
 
-.int-area a {
-  position: absolute; left: 230px; top: 20px;
-  font-size: 18px; color: #999;
-}
-
 .int-area button {
-  width: 70px;
+  position: absolute; left: 220px; top: 15px;
+  font-size: 18px; color: #999;
+  width: 75px;
   height: 30px;
   background: #166cea;
   color: #fff;
-  font-size: 15px;
+  font-size: 12px;
   border: none;
   border-radius: 25px;
 }
@@ -81,6 +72,16 @@ body::before {
 .btn-area {margin-top: 30px;}
 .btn-area button {
   width: 100%; height: 50px;
+  background: #166cea;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+}
+
+.btn-edit {margin-top: 30px;}
+.btn-edit button {
+  width: 40%; height: 40px;
   background: #166cea;
   color: #fff;
   font-size: 20px;
@@ -126,7 +127,7 @@ body::before {
 }
 
 .register-form p {
-  margin-top: 100px;
+  margin-top: 50px;
   color: #999;
 }
 
@@ -141,6 +142,18 @@ body::before {
 }
 
 .error-text {
+  margin-top: 2px;
+  text-align: left;
   font-size: 15px; color: red;
   text-decoration: none;
+}
+
+#verified {
+  width: 75px;
+  height: 30px;
+  background: #00b345;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  border-radius: 25px;
 }

@@ -1,3 +1,4 @@
+import spring from "@/api/spring"
 import router from "@/router"
 import axios from 'axios'
 
@@ -6,16 +7,22 @@ export default {
     token: '',
     currentUser: {},
     authError: null,
+    emailCheckedStatus: '',
+    isEmailVerified: ''
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
     isLoggedIn: state => !!state.token,
-    authHeader: state => ({ Authorization: `Token ${state.token}` })
+    authHeader: state => ({ Authorization: `Token ${state.token}` }),
+    emailCheckedStatus: state => state.emailCheckedStatus,
+    isEmailVerified: state => state.isEmailVerified
   },
   mutations: {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_TOKEN: (state, token) => state.token = token,
+    SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
+    SET_IS_EMAIL_VERIFIED: (state, status) => state.isEmailVerified = status
   },
   actions: {
     naverLogin({ commit, dispatch }, naverAccessToken) {
@@ -94,7 +101,7 @@ export default {
       axios({
         url: '',
         method: '',
-        data: credentials,
+        data: credentials
       })
       .then( res => {
         const token = res.data.key
@@ -106,6 +113,41 @@ export default {
         commit('SET_AUTH_ERROR', err.response.data)
       })
     },
+
+    // 회원가입 - 이메일 중복체크
+    emailCheck({ commit }, email) {
+      axios({
+        url: spring.member.emailcheck(),
+        method: 'post',
+        data: {
+          email: email
+        }
+      })
+      .then( res => {
+        console.log(res.status)
+        commit('SET_EMAIL_CHECKED_STATUS', res.status)
+      })
+      .catch( err => {
+        commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
+      })
+    },
+
+    emailVerify({ commit }, code) {
+      axios({
+        url: spring.member.emailverify(),
+        method: 'post',
+        data: {
+          code: code
+        }
+      })
+      .then( res => {
+        commit('SET_IS_EMAIL_VERIFIED', res.status)
+      })
+      .catch( err => {
+        commit('SET_IS_EMAIL_VERIFIED', err.response.status)
+      })
+    },
+
     saveToken({ commit }, token) {
       commit('SET_TOKEN', token)
       localStorage.setItem('token', token)

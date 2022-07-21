@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'ProfileFindView'
+  name: 'PortfolioAddView'
 }
 </script>
 
