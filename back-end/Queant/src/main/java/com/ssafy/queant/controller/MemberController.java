@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
+@CrossOrigin("*")
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/member")
