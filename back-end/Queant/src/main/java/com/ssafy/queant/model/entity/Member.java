@@ -3,6 +3,7 @@ package com.ssafy.queant.model.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -20,7 +21,7 @@ public class Member {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(columnDefinition ="BINARY(16)")
+    @Type(type="org.hibernate.type.UUIDCharType")
     private UUID member_id;
     @Column(nullable = true, unique=true)
     private String email;
@@ -39,6 +40,9 @@ public class Member {
     @Column(nullable = false)
     @Builder.Default
     private Social social = Social.valueOf("None");
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean enabled = true;
 
     private String refreshToken;
 

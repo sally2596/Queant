@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -37,7 +38,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean register(MemberDto memberDto) {
         log.info("[register] 회원가입 정보 전달");
-        ModelMapper modelMapper = new ModelMapper();
         log.info("[register] 비밀번호 : {}", memberDto.getPassword());
         Member member = modelMapper.map(memberDto, Member.class);
         member.setPassword(passwordEncoder.encode(member.getPassword()));
@@ -87,6 +87,38 @@ public class MemberServiceImpl implements MemberService{
     public boolean emailCheck(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.isPresent();
+    }
+
+    @Override
+    public MemberDto findMember(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if(member.isPresent()){
+            MemberDto memberDto = modelMapper.map(member.get(), MemberDto.class);
+            return memberDto;
+        }
+        return null;
+    }
+
+    @Override
+    public MemberDto updateMember(MemberDto memberDto) {
+        Member member = modelMapper.map(memberDto,Member.class);
+        memberRepository.save(member);
+        Optional<Member> result = memberRepository.findByEmail(member.getEmail());
+        if(result.isPresent()){
+            memberDto = modelMapper.map(result.get(), MemberDto.class);
+            return memberDto;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean disableMember(String email) {
+        Optional<Member> result = memberRepository.findByEmail(email);
+        if(!result.isPresent()) return false;
+        Member member = result.get();
+        member.setEnabled(false);
+        memberRepository.save(member);
+        return true;
     }
 
 }

@@ -25,6 +25,7 @@ public class MemberDto implements UserDetails {
     private int portfolioCnt;
     private Social social;
     private String refreshToken;
+    private boolean enabled;
 
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
@@ -70,6 +71,6 @@ public class MemberDto implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
