@@ -27,6 +27,7 @@ public class MemberDto implements UserDetails {
     @Schema(description = "이메일")
     private String email;
     @Schema(description = "비밀번호")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Schema(description = "이름 혹은 닉네임")
     private String name;
@@ -39,6 +40,7 @@ public class MemberDto implements UserDetails {
     @ApiModelProperty(hidden = true)
     private Social social;
     @ApiModelProperty(hidden = true)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String refreshToken;
     @ApiModelProperty(hidden = true)
     private boolean enabled;

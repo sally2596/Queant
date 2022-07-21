@@ -103,8 +103,6 @@ public class MemberController {
     public ResponseEntity<?> Info(@RequestBody MemberRequestDto requestDto){
         MemberDto memberDto = memberService.findMember(requestDto.getEmail());
         if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        memberDto.setPassword(null);
-        memberDto.setRefreshToken(null);
         return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
     }
 
