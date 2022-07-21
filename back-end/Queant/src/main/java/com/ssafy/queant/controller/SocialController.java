@@ -63,15 +63,17 @@ public class SocialController {
         String accessTokenUrl = kakaoService.getKakaoTokenUrl();
         String userUrl = kakaoService.getKakaoUserUrl();
 
-
         try {
+            /***
+             * Authorization Code를 넣어 토큰을 가져오는 작업
+             *
+             * OAuthRequest: 소셜의 OAuth Request 파라미터들을 담음
+             * accessTokenUrl: 각 소셜의 accessToken을 받아올 Url (Authorization Code가 이미 들어가 있음)
+             */
             ResponseEntity<String> responseJson = getResponseEntity(oAuthRequest,accessTokenUrl);
 
             /***
              * 응답받은 Json ->token 추출
-             *
-             * google, kakao: openId 사용해서 idToken으로 정보 가져옴
-             * naver: openId 사용 안해서 AccessToken으로 가져와야함
              */
             OAuthResponseDto responseDto = objectMapper.readValue(responseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
             String token = responseDto.getAccessToken();
@@ -111,9 +113,6 @@ public class SocialController {
 
             /***
              * 응답받은 Json ->token 추출
-             *
-             * google, kakao: openId 사용해서 idToken으로 정보 가져옴
-             * naver: openId 사용 안해서 AccessToken으로 가져와야함
              */
             OAuthResponseDto responseDto = objectMapper.readValue(responseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
             String token = responseDto.getAccessToken();
@@ -122,14 +121,9 @@ public class SocialController {
              * token 넣어서 data 가져올 url 생성 -> 사용자 data 받아오기
              * google, kakao: openId를 통한 데이터 받아오기 가능
              */
-            String userDataUrl = getUserDatabyAccessToken(userUrl,token);
-//            String userDataUrl = getUserDataUrlbyIdToken(userUrl,token);
-            //String resultJson = restTemplate.getForObject(userDataUrl, String.class);
-
             String userData = getUserDatabyAccessToken(userUrl,token);
             LOGGER.info("userData:\n"+userData);
             return ResponseEntity.ok().body(userData);
-
         }
         catch (Exception e) {
             e.printStackTrace();
