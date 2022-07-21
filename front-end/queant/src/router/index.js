@@ -1,22 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// home
 import HomeView from '../views/home/HomeView.vue' 
 
+// bankinfo
+import BankInfoView from '../views/bankinfo/BankInfo.vue'
+
+// portfolio
 import PortfolioView from '../views/portfolio/PortfolioView.vue'
 import PortfolioEditView from '../views/portfolio/PortfolioEditView.vue'
 import PortfolioAddView from '../views/portfolio/PortfolioAddView.vue'
 
+// profile
 import ProfileView from '../views/profile/ProfileView.vue'
 
+// auth
 import LoginView from '../views/auth/LoginView.vue'
 import RegisterView from '../views/auth/RegisterView.vue'
 import PwFindView from '../views/auth/PwFindView.vue'
 import PwEditView from '../views/auth/PwEditView.vue'
 import NaverView from '../views/auth/NaverView.vue'
 
+// admin
 import AdminView from '../views/admin/AdminView.vue'
 import AdminManageView from '../views/admin/AdminManageView.vue'
 import AdminSpecialView from '../views/admin/AdminSpecialView.vue'
 
+// products
+import ProductRecommendationView from '@/views/product/ProductRecommendation.vue'
+import ProductCartView from '@/views/product/ProductCart.vue'
+import ProductSpecialPlusView from '@/views/product/ProductSpecialPlus.vue'
+
+// content
+import ContentsView from '@/views/content/Contents.vue'
 
 const routes = [
   // home
@@ -24,6 +39,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/bankinfo',
+    name: 'bankInfo',
+    component: BankInfoView
   },
   // portfolio
   {
@@ -40,6 +60,28 @@ const routes = [
     path: '/portfolio/add',
     name: 'portfolioAdd',
     component: PortfolioAddView
+  },
+  // product
+  {
+    path : '/product',
+    name : 'productRecommend',
+    component: ProductRecommendationView
+  },
+  {
+    path : '/product/cart',
+    name : 'productCart',
+    component: ProductCartView
+  },
+  {
+    path : '/product/special',
+    name : 'productSpecialPlus',
+    component: ProductSpecialPlusView
+  },
+  // contents
+  {
+    path : '/contents',
+    name : 'contents',
+    component : ContentsView
   },
   // profile
   {
