@@ -128,7 +128,7 @@ export default {
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
-        console.log(err)
+        commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
 
@@ -141,11 +141,10 @@ export default {
         }
       })
       .then( res => {
-        console.log(res)
         commit('SET_IS_EMAIL_VERIFIED', res.status)
       })
       .catch( err => {
-        console.log(err)
+        commit('SET_IS_EMAIL_VERIFIED', err.response.status)
       })
     },
 

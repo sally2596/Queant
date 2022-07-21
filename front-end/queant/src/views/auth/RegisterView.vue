@@ -12,8 +12,11 @@
       <br>
       <!-- Register Form -->
       <form @submit.prevent="register(credentials)">
+
+        <!-- 이름 -->
         <div class="int-area">
           <input
+            v-model="credentials.username"
             type="text"
             id="name"
             autocomplete="off"
@@ -21,74 +24,80 @@
           <label class="form-label" for="name">이름</label>
         </div>
 
+        <!-- 이메일 -->
         <div class="int-area">
           <input
-            v-model="email"
-            v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+            v-model="credentials.email"
+            v-bind:class="{error : error.email, complete:!error.email&&credentials.email.length!==0}"
             type="text"
             id="email"
             autocomplete="off"
             required>
-            <label class="form-label" for="email">이메일 주소</label>
+          <label class="form-label" for="email">이메일 주소</label>
             
-            <!-- emailCheckedStatus가 빈값이면 초기상태 -->
-            <div v-if="!emailCheckedStatus">
-              <button class="mail-send" id="check-email" @click="emailCheck(email)">중복검사</button>
-            </div>
-            <div class="error-text" v-if="error.email">{{error.email}}</div>
+          <!-- 중복검사 성공전에 버튼 활성화 -->
+          <div v-if="emailCheckedStatus !== 200">
+            <button class="mail-send" id="check-email" @click="emailCheck(credentials.email)">중복검사</button>
+          </div>
             
-            <!-- emailCheckedStatus가 200이면 중복 이메일이 아니고, 인증 메일 발송 -->
-            <div v-else-if="emailCheckedStatus === 200">
-              <div>
-                <p>해당 메일로 인증번호를 보냈습니다.</p>
-              </div>
+          <!-- 중복검사 결과 409 => 중복 이메일 -->
+          <div v-else-if="emailCheckedStatus === 409">
+            <p>이미 가입된 이메일입니다.</p>
+          </div>
+            
+          <!-- 중복검사 결과 200 성공 => 인증 메일 발송 -->
+          <div v-else-if="emailCheckedStatus === 200">
+            <p>해당 메일로 인증번호를 보냈습니다.</p>
 
-              <div class="int-area">
-                <input
-                  id="code"
-                  v-model="code"
-                  type="text"
-                  required>
-                <label class="form-label" for="code">인증번호</label>
-                <!-- 빈값 인증버튼 누르기 전 초기상태 -->
-                <button v-if="isEmailVerified !== 200" class="verified" @click="emailVerify(code)">인증</button>
-                <!-- 200 인증코드 일치 -->
-                <button v-else-if="isEmailVerified === 200" id="verified">인증성공</button>
-                <!-- 409 인증코드 불일치 -->
-              </div>
-              <!-- 409 인증코드 불일치하면 밑에 뜸-->
-              <div v-if="isEmailVerified === 409">
-                  <p>인증번호가 다릅니다.</p>
-              </div>
-            </div>
+            <!-- 인증번호 검사  -->
+            <div class="int-area">
+              <input
+                id="code"
+                v-model="code"
+                type="text"
+                required>
+              <label class="form-label" for="code">인증번호</label>
+              
+              <!-- 인증 성공전에 초기상태 -->
+              <button v-if="isEmailVerified !== 200" class="verified" @click="emailVerify(code)">인증</button>
+              
+              <!-- 409 인증코드 불일치 -->
+              <p v-if="isEmailVerified === 409">인증번호가 다릅니다.</p>
 
-            <!-- emailCheckedStatus가 409면 중복 이메일 -->
-            <div v-else-if="emailCheckedStatus === 409">
-              <button class="mail-send" id="check-email" @click="emailCheck(email)">중복검사</button>
-              <p>이미 가입된 이메일입니다.</p>
+              <!-- 200 인증코드 일치 -->
+              <button v-else-if="isEmailVerified === 200" id="verified">인증성공</button>
             </div>
+          </div>
         </div>
 
+        <!-- 재익이가 처음에 해놓은 설정 -->
+        <!-- <button class='mail-send' v-if="isStatusOff" @click="toggleOnOff" id="check-email">인증</button> -->
+        <div class="error-text" v-if="error.email">{{error.email}}</div>
+      
+        <!-- 비밀번호 -->
         <div class="int-area">
           <input
-            v-model="password"
-            v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+            v-model="credentials.password1"
+            v-bind:class="{error : error.password1, complete:!error.password1&&credentials.password1.length!==0}"
             type="password"
             id="password1"
             autocomplete="off"
             required>
           <label for="password1">비밀번호</label>
-          <div class="error-text" v-if="error.password">{{error.password}}</div>
+          <div class="error-text" v-if="error.password1">{{error.password1}}</div>
         </div>
 
         <div class="int-area">
           <input
+            v-model="credentials.password2"
+            v-bind:class="{error : error.password2, complete:!error.password2&&credentials.password2.length!==0}"
             type="password"
             id="password2"
             autocomplete="off"
             required>
           <label for="password2">비밀번호 확인</label>
-        </div>
+          <div class="error-text" v-if="error.password2">{{error.password2}}</div>
+        </div>  
 
         <!-- Submit Button -->
         <div class="btn-area">
@@ -97,7 +106,7 @@
       </form>
       
       <div class="register-comeback">
-        <router-link to="/login"><a href="">이미 회원이신가요?</a></router-link>
+        <router-link :to="{ name: 'login' }">이미 회원이신가요?</router-link>
       </div>
   </section>
 </template>
@@ -128,54 +137,50 @@ export default {
       .letters();
   },
   watch: {
-    password: function(v) {
-      this.checkForm();
-    },
-    email: function(v) {
-      this.checkForm();
+    credentials: {
+      deep: true,
+      handler() {
+        this.checkForm()
+      }
     },
   },
   methods: {
     ...mapActions(['register', 'emailCheck', 'emailVerify']),
     checkForm() {
       
-      if (this.email.length > 0 && !EmailValidator.validate(this.email))
+      if (this.credentials.email.length > 0 && !EmailValidator.validate(this.credentials.email))
         this.error.email = "올바른 이메일 형식이 아닙니다.";
-      else this.error.email = false;
-      if (this.emailCheck)
-      if (this.password.length > 0 && !this.passwordSchema.validate(this.password))
-        this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
-      else this.error.password = false;
+      else this.error.email = "";
+      if (this.credentials.password1.length > 0 && !this.passwordSchema.validate(this.credentials.password1))
+        this.error.password1 = "영문,숫자 포함 8 자리이상이어야 합니다.";
+      else this.error.password1 = "";
+      if (this.credentials.password1 !== this.credentials.password2)
+        this.error.password2 = "비밀번호가 일치하지 않습니다."
+      else this.error.password2 = "";
     },
       toggleOnOff: function() {
-      if (this.isEmailVerified === 409) {
-        this.isStatusOff = true
-      } else
-      {
-        this.isStatusOff = false
-      }
+      this.isStatusOn = !this.isStatusOn;
+      this.isStatusOff = !this.isStatusOff;
     },
   },
-  data: () => {
+  data() {
     return {
-      email: "",
-      code: "",
-      password : "",
-      passwordSchema: new PV(),
-      error: {
-        email : false,
-        password : false
-      },
       credentials: {
         username: '',
         email: '',
         password1: '',
         password2: ''
       },
+      code: "",
+      passwordSchema: new PV(),
+      error: {
+        email : "",
+        password1 : "",
+        password2 : ""
+      },
       timerCount : 300,
       isStatusOn : false,
       isStatusOff : true
-
     };
   }
 };
