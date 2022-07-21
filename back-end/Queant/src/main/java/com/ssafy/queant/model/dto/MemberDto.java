@@ -14,6 +14,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class MemberDto implements UserDetails {
     private UUID memberId;
