@@ -11,11 +11,15 @@ import java.util.stream.Collectors;
 @Service
 public class GoogleService {
 
-    @Value("${google.access-token.url}")
-    private String googleAccessTokenUrl;
+    // 구글은 access token 사용
+    @Value("${google.token.url}")
+    private String googleTokenUrl;
 
-    @Value("${google.auth-token.url}")
-    private String googleAuthTokenUrl;
+    @Value("${google.user.url}")
+    private String googleUserUrl;
+
+    @Value("${google.auth.url}")
+    private String googleAuthUrl;
 
     @Value("${google.redirect.uri}")
     private String googleRedirectUrl;
@@ -29,12 +33,16 @@ public class GoogleService {
     @Value("${google.auth.scope}")
     private String scopes;
 
-    public String getGoogleAccessTokenUrl() {
-        return googleAccessTokenUrl;
+    public String getGoogleTokenUrl() {
+        return googleTokenUrl;
     }
 
-    public String getGoogleAuthTokenUrl() {
-        return googleAuthTokenUrl;
+    public String getGoogleUserUrl() {
+        return googleUserUrl;
+    }
+
+    public String getGoogleAuthUrl() {
+        return googleAuthUrl;
     }
 
     public String getGoogleClientId() {
@@ -68,7 +76,7 @@ public class GoogleService {
                 .map(param -> param.getKey() + "=" + param.getValue())
                 .collect(Collectors.joining("&"));
 
-        return getGoogleAuthTokenUrl()
+        return getGoogleAuthUrl()
                 + "/o/oauth2/v2/auth"
                 + "?"
                 + paramStr;

@@ -1,9 +1,8 @@
 package com.ssafy.queant.model.service.OAuth;
 
-import com.ssafy.queant.model.oauth.GoogleOAuthRequest;
-import com.ssafy.queant.model.oauth.KakaoOAuthRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,11 +10,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class KakaoService {
-    @Value("${kakao.access-token.url}")
-    private String kakaoAccessTokenUrl;
 
-    @Value("${kakao.auth-token.url}")
-    private String kakaoAuthTokenUrl;
+    // kakao는 access token 사용
+    // token 요청할 url
+    @Value("${kakao.token.url}")
+    private String kakaoTokenUrl;
+
+    // 유저 정보 요청 url
+    @Value("${kakao.user.url}")
+    private String kakaoUserUrl;
+
+    // login 창 띄울 url
+    @Value("${kakao.auth.url}")
+    private String kakaoAuthUrl;
 
     @Value("${kakao.redirect.uri}")
     private String kakaoRedirectUrl;
@@ -23,12 +30,16 @@ public class KakaoService {
     @Value("${kakao.client.id}")
     private String kakaoClientId;
 
-    public String getKakaoAccessTokenUrl() {
-        return kakaoAccessTokenUrl;
+    public String getKakaoTokenUrl() {
+        return kakaoTokenUrl;
     }
 
-    public String getKakaoAuthTokenUrl() {
-        return kakaoAuthTokenUrl;
+    public String getKakaoUserUrl() {
+        return kakaoUserUrl;
+    }
+
+    public String getKakaoAuthUrl() {
+        return kakaoAuthUrl;
     }
 
     public String getKakaoRedirectUrl() {
@@ -50,17 +61,17 @@ public class KakaoService {
                 .map(param -> param.getKey() + "=" + param.getValue())
                 .collect(Collectors.joining("&"));
 
-        return getKakaoAuthTokenUrl()
+        return getKakaoAuthUrl()
                 + "?"
                 + paramStr;
     }
 
-    public KakaoOAuthRequest getKakaoOAuthRequest(String authCode){
-        return KakaoOAuthRequest.builder()
-                .clientId(getKakaoClientId())
-                .code(authCode)
-                .redirectUri(getKakaoRedirectUrl())
-                .grantType("authorization_code")
-                .build();
+    public LinkedMultiValueMap<String, String> getKakaoOAuthRequest(String authCode){
+        LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", getKakaoClientId());
+        params.add("redirect_uri", getKakaoRedirectUrl());
+        params.add("code", authCode);
+        return params;
     }
 }
