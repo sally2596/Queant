@@ -1,5 +1,5 @@
 <template>
-  <div class="main fixed-top" id="app">
+  <div class="main" id="app">
     
     <nav class="navbar navbar-expand-lg bg-none">
       <router-link to="/">
@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  name:"Navbar"
+  name:"Navbar",
 }
 </script>
 
