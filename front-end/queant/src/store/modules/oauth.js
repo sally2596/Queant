@@ -29,7 +29,7 @@ export default {
           window.location.href = res.data;
 
           // 새로운 창에서 띄워줌
-          window.open(res.data);
+          // window.open(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -44,6 +44,21 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          window.location.href = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    naverLogin() {
+      axios({
+        url: spring.social.naver(),
+        method: "get",
+      })
+        .then((res) => {
+          console.log(res);
+          window.location.href = res.data;
         })
         .catch((err) => {
           console.log(err);
