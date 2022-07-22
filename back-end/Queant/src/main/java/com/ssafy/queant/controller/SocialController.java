@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 
 @Controller
 @Log4j2
-@CrossOrigin("*")
 @RequestMapping("/social")
 public class SocialController {
 
@@ -215,6 +214,7 @@ public class SocialController {
             URI redirectUri = new URI(authUrl);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setLocation(redirectUri);
+            httpHeaders.add("Access-Control-Allow-Origin", "*");
             return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
         } catch (URISyntaxException e) {
             e.printStackTrace();

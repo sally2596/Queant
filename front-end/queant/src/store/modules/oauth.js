@@ -15,9 +15,19 @@ export default {
   actions: {
     // 구글 로그인
     googleLogin() {
+      // this.$http.get(sprigin.social.google(), {
+      //   headers: {
+      //     'Access-Control-Allow-Origin': '*',
+      //     'Content-Type': 'application/json; charset = utf-8'
+      //   }
+      // })
       axios({
-        url: spring.googlelogin(),
+        url: spring.social.google(),
         method: 'get',
+        // headers: {
+        //   'Access-Control-Allow-Origin': '*',
+        //   'Content-Type': 'application/json; charset = utf-8'
+        // }
       })
       .then( res => {
         console.log(res)
@@ -27,50 +37,58 @@ export default {
       })
     },
 
-    // 네이버 로그인
-    naverLogin({ commit, dispatch }, naverAccessToken) {
-      dispatch('saveToken', naverAccessToken)
-      router.push('/')
+    // 카카오 로그인
+    kakaoLogin() {
+      axios({
+        url: spring.social.kakao(),
+        method: 'get',
+      })
+      .then( res => {
+        console.log(res)
+      })
+      .catch( err => {
+        console.log(err)
+      })
     },
     
     // 카카오 로그인
-    kakaoLogin() {
+    // kakaoLogin() {
 
-      window.Kakao.init(process.env.VUE_APP_KAKAO)
+    //   window.Kakao.init(process.env.VUE_APP_KAKAO)
 
-      if (window.Kakao.Auth.getAccessToken()) {
-        window.Kakao.API.request({
-          url: '/v1/user/unlink',
-          success(response) {
-            console.log(response)
-          },
-          fail(error) {
-            console.log(error)
-          },
-        })
-        window.Kakao.Auth.setAccessToken(undefined)
-      }
+    //   if (window.Kakao.Auth.getAccessToken()) {
+    //     window.Kakao.API.request({
+    //       url: '/v1/user/unlink',
+    //       success(response) {
+    //         console.log(response)
+    //       },
+    //       fail(error) {
+    //         console.log(error)
+    //       },
+    //     })
+    //     window.Kakao.Auth.setAccessToken(undefined)
+    //   }
 
 
-      window.Kakao.Auth.login({
-        success() {
-          window.Kakao.API.request({
-            url: '/v2/user/me',
-            data: {
-              property_keys: ["kakao_account.email"]
-            },
-            success: async function (response) {
-              console.log(response);
-            },
-            fail(error) {
-              console.log(error)
-            },
-          })
-        },
-        fail(error) {
-          console.log(error)
-        },
-      })
-    },
+    //   window.Kakao.Auth.login({
+    //     success() {
+    //       window.Kakao.API.request({
+    //         url: '/v2/user/me',
+    //         data: {
+    //           property_keys: ["kakao_account.email"]
+    //         },
+    //         success: async function (response) {
+    //           console.log(response);
+    //         },
+    //         fail(error) {
+    //           console.log(error)
+    //         },
+    //       })
+    //     },
+    //     fail(error) {
+    //       console.log(error)
+    //     },
+    //   })
+    // },
   }
 }
