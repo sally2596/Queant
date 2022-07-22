@@ -28,10 +28,23 @@ export default {
     SET_EMAIL_VERIFIED_STATUS: (state, status) => state.emailVerifiedStatus = status,
   },
   actions: {
-    // resetRegisterCheckDatas({ commit }) {
-    //   commit('SET_IS_EMAIL_VERIFIED', '')
-    //   commit('SET_EMAIL_CHECKED_STATUS', '')
-    // },
+    passwordCheck({ commit }, password) {
+      const email = JSON.parse(localStorage.vuex).accounts.currentUser.email
+      axios({
+        url: spring.member.passwordcheck(),
+        method: 'post',
+        data: {
+          email: email,
+          password: password 
+        }
+      })
+      .then( res => {
+        console.log(res)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
     logout({ commit, dispatch }) {
       dispatch('removeToken')
       commit('SET_CURRENT_USER', {})
@@ -45,7 +58,6 @@ export default {
       localStorage.setItem('accessToken', '')
       localStorage.setItem('refreshToken', '')
     },
-    // LOGIN
     // 일반 로그인
     login({ dispatch }, credentials) {
       axios({
@@ -65,7 +77,6 @@ export default {
         // commit('SET_AUTH_ERROR', err.response.data)
       })
     },
-
     // 회원가입
     register({ commit }, credentials) {
       axios({
@@ -92,7 +103,6 @@ export default {
         // commit('SET_AUTH_ERROR', err.response.data)
       })
     },
-
     // 회원가입 - 이메일 중복체크
     emailCheck({ commit }, email) {
       axios({
@@ -109,7 +119,6 @@ export default {
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
-
     emailVerify({ commit }, code) {
       axios({
         url: spring.member.emailverify(),
@@ -150,6 +159,6 @@ export default {
           console.log(err)
         })
       }
-    }
+    },
   }
 }
