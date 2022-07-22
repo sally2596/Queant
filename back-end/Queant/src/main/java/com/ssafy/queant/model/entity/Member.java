@@ -26,7 +26,7 @@ public class Member {
     @Column(nullable = true, unique=true)
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
     @Column(nullable = false, unique = true)
     private String name;
