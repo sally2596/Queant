@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean register(MemberDto memberDto) {
+    public boolean register(MemberDto memberDto) throws RuntimeException{
         log.info("[register] 회원가입 정보 전달");
         log.info("[register] 비밀번호 : {}", memberDto.getPassword());
         Member member = modelMapper.map(memberDto, Member.class);
@@ -84,13 +84,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean emailCheck(String email) {
+    public boolean emailCheck(String email) throws RuntimeException{
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.isPresent();
     }
 
     @Override
-    public MemberDto findMember(String email) {
+    public MemberDto findMember(String email) throws RuntimeException{
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent()){
             MemberDto memberDto = modelMapper.map(member.get(), MemberDto.class);
@@ -100,7 +100,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDto updateMember(MemberDto memberDto) {
+    public MemberDto updateMember(MemberDto memberDto) throws RuntimeException{
         Member member = modelMapper.map(memberDto,Member.class);
         memberRepository.save(member);
         Optional<Member> result = memberRepository.findByEmail(member.getEmail());
@@ -112,11 +112,21 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean disableMember(String email) {
+    public boolean disableMember(String email) throws RuntimeException{
         Optional<Member> result = memberRepository.findByEmail(email);
         if(!result.isPresent()) return false;
         Member member = result.get();
         member.setEnabled(false);
+        memberRepository.save(member);
+        return true;
+    }
+
+    @Override
+    public boolean changePassword(String email, String password) throws RuntimeException {
+        Optional<Member> result = memberRepository.findByEmail(email);
+        if(!result.isPresent()) return false;
+        Member member = result.get();
+        member.setPassword(password);
         memberRepository.save(member);
         return true;
     }

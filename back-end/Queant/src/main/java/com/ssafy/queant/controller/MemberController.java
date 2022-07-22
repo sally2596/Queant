@@ -139,13 +139,42 @@ public class MemberController {
             @ApiResponse(code = 409, message="비밀번호가 일치하지 않습니다."),
     })
     @ApiOperation(value="비밀번호 확인", notes="email, password 입력")
-    @PostMapping("/passwordcheck")
-    public ResponseEntity<?> PasswordCheck(@RequestBody MemberRequestDto requestDto){
+    @PostMapping("/password")
+    public ResponseEntity<?> CheckPassword(@RequestBody MemberRequestDto requestDto){
         MemberDto member = memberService.findMember(requestDto.getEmail());
         if(member == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         if(!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="임시 비밀번호 발급 완료."),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다.")
+    })
+    @ApiOperation(value="임시 비밀번호 발급", notes="email입력")
+    @PatchMapping("/password")
+    public ResponseEntity<?> TemporaryPassword(@RequestBody MemberRequestDto requestDto) throws Exception{
+        boolean result = emailService.sendPassword(requestDto.getEmail());
+        if(!result) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="비밀번호 변경 완료."),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+            @ApiResponse(code = 409, message="기존의 비밀번호가 일치하지 않습니다.")
+    })
+    @ApiOperation(value="비밀번호 변경", notes="email, password, newPassword 입력")
+    @PutMapping("/password")
+    public ResponseEntity<?> ChangePassword(@RequestBody MemberRequestDto requestDto){
+        MemberDto member = memberService.findMember(requestDto.getEmail());
+        if(member == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        memberService.changePassword(requestDto.getEmail(), requestDto.getNewPassword());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -11,6 +11,8 @@ public class MemberRequestDto {
     String email;
     @Schema(description ="비밀번호")
     String password;
+    @Schema(description ="새 비밀번호")
+    String newPassword;
     @Schema(description = "이메일 인증 코드")
     String code;
     @Schema(description ="리프레시 토큰")
