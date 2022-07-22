@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 
 @Controller
@@ -95,7 +96,8 @@ public class SocialController {
              * google, kakao: openId를 통한 데이터 받아오기 가능
              */
             String resultData = getUserDatabyAccessTokenTEST(userUrl,token);
-            LOGGER.info("resultData:\n"+resultData);
+            LOGGER.info("resultData:\n"+uniToKor(resultData));
+
             return ResponseEntity.ok().body(resultData);
         }
         catch (Exception e) {
@@ -127,7 +129,6 @@ public class SocialController {
              */
             OAuthResponseDto responseDto = objectMapper.readValue(responseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
             String token = responseDto.getAccessToken();
-
 
             /***
              * token 넣어서 data 가져올 url 생성 -> 사용자 data 받아오기
@@ -218,5 +219,20 @@ public class SocialController {
             e.printStackTrace();
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    public String uniToKor(String uni){
+        StringBuffer result = new StringBuffer();
+
+        for(int i=0; i<uni.length(); i++){
+            if(uni.charAt(i) == '\\' &&  uni.charAt(i+1) == 'u'){
+                Character c = (char)Integer.parseInt(uni.substring(i+2, i+6), 16);
+                result.append(c);
+                i+=5;
+            }else{
+                result.append(uni.charAt(i));
+            }
+        }
+        return result.toString();
     }
 }
