@@ -34,35 +34,28 @@
             </li>
           </div>
           <div>
-            <li class="dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left:8px;">
-                Portfolio
-              </a>
-              <ul class="dropdown-menu dropdown-menu-white">
-                <li style="margin:8px"><router-link :to="{ name : 'portfolio' }">내 포트폴리오 보기</router-link></li>
-                <hr>
-                <li style="margin:8px"><router-link :to="{ name : 'portfolio' }">내 포트폴리오 관리</router-link></li>
-              </ul>
-            </li>
-          </div>
-          <div>
             <li class="m-auto content">
               <router-link :to="{ name : 'contents'}">Contents</router-link>
             </li>
           </div>
           <!-- 여기는 로그아웃 했을 때만 보여야 함 -->
-          <div class="ms-lg-auto" id="login-button" style="margin-right:30px; margin-top: 8px; margin-left:8px;">
+          <div class="ms-lg-auto" id="login-button"
+           style="margin-right:30px; margin-top: 8px; margin-left:8px;"
+           v-show="!isLoggedIn">
             <router-link :to="{ name : 'login' }">로그인</router-link>
           <!-- 여기는 로그인 했을 때만 보여야 함 -->
           </div>
-            <li class="dropdown">
+          <!-- v-show="isLoggedIn" 추가해야 함 -->
+            <li class="dropdown" >
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left:8px;">
                 Profile
               </a>
               <ul class="dropdown-menu dropdown-menu-white dropdown-menu-lg-end">
                 <li style="margin:8px"><router-link :to="{ name : 'profile' }">내 프로필 관리</router-link></li>
                 <hr>
-                <li style="margin:8px">로그아웃</li>
+                <li style="margin:8px"><router-link :to="{ name : 'portfolio' }">내 포트폴리오 보기</router-link></li>
+                <hr>
+                <li style="margin:8px" @click="logout">로그아웃</li>
               </ul>
             </li>
         </ul>
@@ -72,13 +65,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name:"Navbar",
   computed: {
     ...mapGetters(['isLoggedIn'])
-  }
+  },
+  methods: {
+    ...mapActions(['logout'])
+  },
 }
 </script>
 

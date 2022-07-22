@@ -1,16 +1,10 @@
 <template>
   <section class="register-form">
-    <!-- Social Register -->
-    <p>Social Sign in with</p>
-    <div class="auth-area">
-      <button><img src="@/assets/image/kakao_icon.png" alt=""> </button>
-      <button><img src="@/assets/image/naver_icon.png" alt=""> </button>
-      <button><img src="@/assets/image/google_icon.png" alt=""> </button>
-    </div>
-    <br>
+    <h1>QueÆnt 회원 가입</h1>
+    <br><br><br><br>
     <!-- Register Form -->
     <form @submit.prevent="register(credentials)">
-
+  
       <!-- name -->
       <div class="int-area">
         <input
@@ -21,7 +15,7 @@
           required>
         <label class="form-label" for="name">이름</label>
       </div>
-
+        
       <!-- email -->
       <div class="int-area">
         <input
@@ -41,7 +35,6 @@
           <!-- 중복검사 결과 409 => 중복 이메일 -->
           <p v-if="emailCheckedStatus === 409" style="margin-bottom:0px; margin-top:1px" >이미 가입된 이메일입니다.</p>
         </div>
-          
         <!-- 중복검사 결과 200 성공 => 인증 메일 발송 -->
         <div v-else-if="emailCheckedStatus === 200">
           <p style="margin-bottom:0; margin-top:1px;">메일로 인증 번호가 전송되었습니다.</p>
@@ -65,7 +58,7 @@
           </div>
         </div>
       </div>
-    
+      
       <!-- password -->
       <div class="int-area">
         <input

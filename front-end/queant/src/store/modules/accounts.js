@@ -32,11 +32,11 @@ export default {
     //   commit('SET_IS_EMAIL_VERIFIED', '')
     //   commit('SET_EMAIL_CHECKED_STATUS', '')
     // },
-    // logout({ commit, dispatch }) {
-    //   dispatch('removeToken')
-    //   commit('SET_CURRENT_USER', {})
-    //   router.push({ name: 'login' })
-    // },
+    logout({ commit, dispatch }) {
+      dispatch('removeToken')
+      commit('SET_CURRENT_USER', {})
+      router.push({ name: 'home' })
+    },
     removeToken({ commit }) {
       commit('SET_ACCESS_TOKEN', '')
       commit('SET_REFRESH_TOKEN', '')
