@@ -8,6 +8,7 @@ export default {
     login: () => HOST + MEMBER + 'login',
     info: () => HOST + MEMBER + 'info',
     emailcheck: () => HOST + MEMBER + 'emailcheck',
-    emailverify: () => HOST + MEMBER + 'emailverify'
+    emailverify: () => HOST + MEMBER + 'emailverify',
+    googlelogin: () => HOST + 'social/google'
   }
 }

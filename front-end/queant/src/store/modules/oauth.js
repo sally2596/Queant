@@ -16,8 +16,8 @@ export default {
     // 구글 로그인
     googleLogin() {
       axios({
-        url: spring.member.googlelogin(),
-        method: 'post',
+        url: spring.googlelogin(),
+        method: 'get',
       })
       .then( res => {
         console.log(res)

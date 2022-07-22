@@ -38,12 +38,9 @@
             
           <!-- 중복검사 성공전에 버튼 활성화 -->
           <div v-if="emailCheckedStatus !== 200">
-            <button class="mail-send" id="check-email" @click="emailCheck(credentials.email)">중복검사</button>
-          </div>
-            
-          <!-- 중복검사 결과 409 => 중복 이메일 -->
-          <div v-else-if="emailCheckedStatus === 409">
-            <p style="margin-bottom:0px; margin-top:1px" >이미 가입된 이메일입니다.</p>
+            <button type="button" class="mail-send" id="check-email" @click="emailCheck(credentials.email)">중복검사</button>
+            <!-- 중복검사 결과 409 => 중복 이메일 -->
+            <p v-if="emailCheckedStatus === 409" style="margin-bottom:0px; margin-top:1px" >이미 가입된 이메일입니다.</p>
           </div>
             
           <!-- 중복검사 결과 200 성공 => 인증 메일 발송 -->
@@ -59,7 +56,7 @@
               <label class="form-label" for="code">인증번호</label>
               
               <!-- 인증 성공전에 초기상태 -->
-              <button v-if="isEmailVerified !== 200" class="verified" @click="emailVerify(code)">인증</button>
+              <button type="button" v-if="isEmailVerified !== 200" class="verified" @click="emailVerify(code)">인증</button>
               
               <!-- 409 인증코드 불일치 -->
               <p v-if="isEmailVerified === 409" style="margin-bottom:0px; margin-top:1px;">인증번호가 다릅니다.</p>
@@ -139,7 +136,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import RegisterCompleted from '@/components/RegisterCompleted.vue';
 import * as EmailValidator from "email-validator";
 import PV from "password-validator"
@@ -155,21 +152,6 @@ export default {
   computed: {
     ...mapGetters(['emailCheckedStatus', 'isEmailVerified', 'isCompletedRegister'])
   },
-  created() {
-    this.SET_IS_COMPLETED_REGISTER(false)
-    this.component = this
-    this.isEmailVerified = ''
-    this.isCheckedForm = false
-    this.passwordSchema
-      .is()
-      .min(8)
-      .is()
-      .max(100)
-      .has()  
-      .digits()
-      .has()
-      .letters();
-  },
   watch: {
     credentials: {
       deep: true,
@@ -179,10 +161,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['SET_IS_COMPLETED_REGISTER']),
     ...mapActions(['register', 'emailCheck', 'emailVerify']),
     checkForm() {
-      
       if (this.credentials.email.length > 0 && !EmailValidator.validate(this.credentials.email))
         this.error.email = "올바른 이메일 형식이 아닙니다."
       else this.error.email = ""
@@ -197,6 +177,7 @@ export default {
 
       if (!this.error.email && !this.error.password && !this.error.password2 && this.credentials.name && this.credentials.email && this.credentials.password && this.credentials.password2)
         this.isCheckedForm = true
+      else this.isCheckedForm = false
     },
       toggleOnOff: function() {
       this.isStatusOn = !this.isStatusOn;
@@ -225,7 +206,20 @@ export default {
       isStatusOn : false,
       isStatusOff : true
     }
-  }
+  },
+  created() {
+    this.component = this
+    this.isCheckedForm = false
+    this.passwordSchema
+      .is()
+      .min(8)
+      .is()
+      .max(100)
+      .has()  
+      .digits()
+      .has()
+      .letters();
+  },
 };
 </script>
 <style>
