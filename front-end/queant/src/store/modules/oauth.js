@@ -1,17 +1,11 @@
-import spring from "@/api/spring"
-import router from "@/router"
-import axios from 'axios'
+import spring from "@/api/spring";
+import router from "@/router";
+import axios from "axios";
 
 export default {
-  state: {
-
-  },
-  getters: {
-
-  },
-  mutations: {
-
-  },
+  state: {},
+  getters: {},
+  mutations: {},
   actions: {
     // 구글 로그인
     googleLogin() {
@@ -23,34 +17,39 @@ export default {
       // })
       axios({
         url: spring.social.google(),
-        method: 'get',
+        method: "get",
         // headers: {
         //   'Access-Control-Allow-Origin': '*',
         //   'Content-Type': 'application/json; charset = utf-8'
         // }
       })
-      .then( res => {
-        console.log(res)
-      })
-      .catch( err => {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log(res.data);
+          // 원래 창에서 redirect
+          window.location.href = res.data;
+
+          // 새로운 창에서 띄워줌
+          window.open(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // 카카오 로그인
     kakaoLogin() {
       axios({
         url: spring.social.kakao(),
-        method: 'get',
+        method: "get",
       })
-      .then( res => {
-        console.log(res)
-      })
-      .catch( err => {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    
+
     // 카카오 로그인
     // kakaoLogin() {
 
@@ -68,7 +67,6 @@ export default {
     //     })
     //     window.Kakao.Auth.setAccessToken(undefined)
     //   }
-
 
     //   window.Kakao.Auth.login({
     //     success() {
@@ -90,5 +88,5 @@ export default {
     //     },
     //   })
     // },
-  }
-}
+  },
+};

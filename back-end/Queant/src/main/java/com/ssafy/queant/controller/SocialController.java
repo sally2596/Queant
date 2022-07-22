@@ -28,6 +28,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 
 @Controller
+@CrossOrigin("*")
 @Log4j2
 @RequestMapping("/social")
 public class SocialController {
@@ -52,17 +53,23 @@ public class SocialController {
     }
 
     @GetMapping(value = "/naver")
-    public ResponseEntity<Object> getNaverInitUrl() {return getInitUrl(naverService.naverInitUrl()); }
+    public ResponseEntity<Object> getNaverInitUrl() {
+        return ResponseEntity.ok().body(naverService.naverInitUrl());}
 
     @GetMapping(value = "/kakao")
     public ResponseEntity<Object> getKakaoInitUrl() {
-        return getInitUrl(kakaoService.kakaoInitUrl());
+        return ResponseEntity.ok().body(kakaoService.kakaoInitUrl());
     }
 
     @GetMapping(value = "/google")
     public ResponseEntity<Object> getGoogleInitUrl() {
-        return getInitUrl(googleService.googleInitUrl());
+        return ResponseEntity.ok().body(googleService.googleInitUrl());
     }
+
+//    @GetMapping(value = "/google")
+//    public ResponseEntity<Object> getGoogleInitUrl() {
+//        return getInitUrl(googleService.googleInitUrl());
+//    }
 
     @GetMapping(value = "/naver/login")
     public ResponseEntity<String> getNaverUser(
@@ -214,11 +221,12 @@ public class SocialController {
             URI redirectUri = new URI(authUrl);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setLocation(redirectUri);
-            httpHeaders.add("Access-Control-Allow-Origin", "*");
+            httpHeaders.setAccessControlAllowOrigin("http://localhost:8080");
             return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         return ResponseEntity.badRequest().build();
     }
+
 }
