@@ -9,8 +9,7 @@ export default {
     currentUser: {},
     authError: null,
     emailCheckedStatus: '',
-    isEmailVerified: '',
-    isCompletedRegister: false
+    emailVerifiedStatus: '',
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
@@ -18,8 +17,7 @@ export default {
     currentUser: state => state.currentUser,
     authHeader: state => ({ Authorization: `Token ${state.token}` }),
     emailCheckedStatus: state => state.emailCheckedStatus,
-    isEmailVerified: state => state.isEmailVerified,
-    isCompletedRegister: state => state.isCompletedRegister
+    emailVerifiedStatus: state => state.emailVerifiedStatus,
   },
   mutations: {
     SET_CURRENT_USER: (state, userInfo) => state.currentUser = userInfo,
@@ -27,16 +25,12 @@ export default {
     SET_ACCESS_TOKEN: (state, accessToken) => state.accessToken = accessToken,
     SET_REFRESH_TOKEN: (state, refreshToken) => state.refreshToken = refreshToken,
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
-    SET_IS_EMAIL_VERIFIED: (state, status) => state.isEmailVerified = status,
-    SET_IS_COMPLETED_REGISTER: (state, bool) => state.isCompletedRegister = bool,
-    // SET_REGISTER_CHECK_DATAS: (state) => {
-    //   state.emailCheckedStatus = ''
-    //   state.isEmailVerified = ''
-    // }
+    SET_EMAIL_VERIFIED_STATUS: (state, status) => state.emailVerifiedStatus = status,
   },
   actions: {
     // resetRegisterCheckDatas({ commit }) {
-    //   commit('SET_REGISTER_CHECK_DATAS')
+    //   commit('SET_IS_EMAIL_VERIFIED', '')
+    //   commit('SET_EMAIL_CHECKED_STATUS', '')
     // },
     // logout({ commit, dispatch }) {
     //   dispatch('removeToken')
@@ -44,11 +38,8 @@ export default {
     //   router.push({ name: 'login' })
     // },
     removeToken({ commit }) {
-      const nullToken = {
-        accessToken: '',
-        refreshToken: ''
-      }
-      commit('SET_TOKEN', nullToken)
+      commit('SET_ACCESS_TOKEN', '')
+      commit('SET_REFRESH_TOKEN', '')
       // commit('SET_AUTH_ERROR', null)
       localStorage.removeItem('vuex')
       localStorage.setItem('accessToken', '')
@@ -89,11 +80,15 @@ export default {
         }
       })
       .then( res => {
-        commit('SET_IS_COMPLETED_REGISTER', true)
-        // router.push({ name: 'movieList' })
+        commit('SET_EMAIL_VERIFIED_STATUS', '')
+        commit('SET_EMAIL_CHECKED_STATUS', '')
+        alert('회원가입이 완료되었습니다! 다시 로그인해주세요.')
+        router.push({ name: 'login' })
       })
       .catch( err => {
-        commit('SET_IS_COMPLETED_REGISTER', false)
+        console.log(err)
+        commit('SET_EMAIL_VERIFIED_STATUS', '')
+        commit('SET_EMAIL_CHECKED_STATUS', '')
         // commit('SET_AUTH_ERROR', err.response.data)
       })
     },
@@ -124,10 +119,10 @@ export default {
         }
       })
       .then( res => {
-        commit('SET_IS_EMAIL_VERIFIED', res.status)
+        commit('SET_EMAIL_VERIFIED_STATUS', res.status)
       })
       .catch( err => {
-        commit('SET_IS_EMAIL_VERIFIED', err.response.status)
+        commit('SET_EMAIL_VERIFIED_STATUS', err.response.status)
       })
     },
 
