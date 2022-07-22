@@ -1,16 +1,16 @@
 <template>
     <Navbar/> 
-    <div class="home">
-        <h1><strong>Save Your Money, Safely.</strong></h1>
-    </div>
-    <div class="home-recommend-product">
-      <div class="square">
+    <section id="hero" class="d-flex justify-cntent-center align-items-center">
+      <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-item active">
+          <div class="carousel-container">
+            <h2>Save Your Moeny, Safely. QueÆnt</h2>
+            <router-link to="/portfolio" class="btn-get-started">내 포트폴리오 만들기</router-link>
+          </div>
+        </div>
 
       </div>
-      <div class="square">
-
-      </div>
-    </div>
+    </section><!-- End Hero -->
 </template>
 
 <script>
