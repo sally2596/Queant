@@ -3,6 +3,7 @@ package com.ssafy.queant.controller;
 import com.ssafy.queant.model.dto.LoginResultDto;
 import com.ssafy.queant.model.dto.MemberDto;
 import com.ssafy.queant.model.dto.MemberRequestDto;
+import com.ssafy.queant.model.entity.MemberRole;
 import com.ssafy.queant.model.service.EmailService;
 import com.ssafy.queant.model.service.MemberService;
 import com.ssafy.queant.security.JwtTokenProvider;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -63,6 +65,7 @@ public class MemberController {
             @ApiResponse(code = 200, message="로그인 성공!"),
             @ApiResponse(code = 404, message="이메일을 다시 확인해주세요."),
             @ApiResponse(code = 409, message="비밀번호가 일치하지 않습니다."),
+            @ApiResponse(code = 423, message="비활성화된 계정입니다.")
     })
     @ApiOperation(value="로그인", notes="email, password 필수 입력")
     @PostMapping("/login")
@@ -77,8 +80,10 @@ public class MemberController {
 
         } else if (result.getResult().equals("EmailError")){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
+        } else if (result.getResult().equals("PasswordError")){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.LOCKED);
         }
 
     }
@@ -126,8 +131,8 @@ public class MemberController {
             @ApiResponse(code = 200, message="계정 비활성화 성공"),
             @ApiResponse(code = 409, message="계정 비활성화에 문제가 있습니다"),
     })
-    @ApiOperation(value="회원 탈퇴", notes="email 필수 입력")
-    @DeleteMapping("/info")
+    @ApiOperation(value="회원 상태 변경", notes="email 필수 입력. 계정을 활성화, 혹은 비활성화 합니다.")
+    @PutMapping("/status")
     public ResponseEntity<?> DeleteInfo(@RequestBody MemberRequestDto requestDto){
         boolean result = memberService.disableMember(requestDto.getEmail());
         if(result) return new ResponseEntity<>(HttpStatus.OK);
@@ -203,6 +208,18 @@ public class MemberController {
         } else { //refreshToken 만료 시 로그인 진행
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="회원 권한 수정 완료"),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다.")
+    })
+    @ApiOperation(value="회원 권한 업데이트", notes="email, MemberRole 리스트 필수 입력(기존에 가진 권한도 입력해줘야함)")
+    @PutMapping("/roles")
+    public ResponseEntity<?> UpdateRoles(@RequestBody MemberRequestDto memberRequestDto){
+        MemberDto result = memberService.updateRoles(memberRequestDto.getEmail(), memberRequestDto.getRoles());
+        if(result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<MemberDto>(result, HttpStatus.OK);
     }
 
 }

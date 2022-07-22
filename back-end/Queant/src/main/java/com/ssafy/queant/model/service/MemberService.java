@@ -2,7 +2,10 @@ package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.LoginResultDto;
 import com.ssafy.queant.model.dto.MemberDto;
+import com.ssafy.queant.model.entity.MemberRole;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface MemberService {
@@ -18,6 +21,7 @@ public interface MemberService {
     boolean disableMember(String email)throws RuntimeException;
     //비밀번호 변경
     boolean changePassword(String email, String password) throws RuntimeException;
-
+    //권한 업데이트
+    MemberDto updateRoles(String email, Set<MemberRole> roleSet) throws RuntimeException;
 
 }

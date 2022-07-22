@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Service
@@ -73,6 +71,12 @@ public class MemberServiceImpl implements MemberService{
             return loginResultDto;
         }
 
+        if(!member.isEnabled()){
+            log.info("[login] : 휴면계정입니다.");
+            loginResultDto.setResult("Disabled");
+            return loginResultDto;
+        }
+
         log.info("[login] 로그인 성공!");
         //RefreshToken 주입
         loginResultDto.setResult("SUCCESS");
@@ -120,7 +124,7 @@ public class MemberServiceImpl implements MemberService{
         Optional<Member> result = memberRepository.findByEmail(email);
         if(!result.isPresent()) return false;
         Member member = result.get();
-        member.setEnabled(false);
+        member.setEnabled(!member.isEnabled());
         memberRepository.save(member);
         return true;
     }
@@ -133,6 +137,20 @@ public class MemberServiceImpl implements MemberService{
         member.setPassword(password);
         memberRepository.save(member);
         return true;
+    }
+
+    @Override
+    public MemberDto updateRoles(String email, Set<MemberRole> roleSet) throws RuntimeException {
+        Optional<Member> result = memberRepository.findByEmail(email);
+        if(!result.isPresent()) return null;
+        Member member = result.get();
+
+        for(MemberRole role : roleSet){
+            member.addMemberRole(role);
+        }
+
+        memberRepository.save(member);
+        return modelMapper.map(member, MemberDto.class);
     }
 
 }
