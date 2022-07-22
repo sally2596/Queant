@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.queant.model.oauth.*;
 import com.ssafy.queant.model.service.OAuth.GoogleService;
 import com.ssafy.queant.model.service.OAuth.KakaoService;
+import com.ssafy.queant.model.service.OAuth.NaverService;
 import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -21,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 
 @Controller
 @Log4j2
@@ -31,6 +35,7 @@ public class SocialController {
 
     private final GoogleService googleService;
     private final KakaoService kakaoService;
+    private final NaverService naverService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -39,10 +44,14 @@ public class SocialController {
     private ObjectMapper objectMapper;
 
     @Autowired
-    SocialController(GoogleService googleService, KakaoService kakaoService) {
+    SocialController(GoogleService googleService, KakaoService kakaoService,NaverService naverService) {
         this.googleService = googleService;
         this.kakaoService = kakaoService;
+        this.naverService = naverService;
     }
+
+    @GetMapping(value = "/naver")
+    public ResponseEntity<Object> getNaverInitUrl() {return getInitUrl(naverService.naverInitUrl()); }
 
     @GetMapping(value = "/kakao")
     public ResponseEntity<Object> getKakaoInitUrl() {
@@ -52,6 +61,47 @@ public class SocialController {
     @GetMapping(value = "/google")
     public ResponseEntity<Object> getGoogleInitUrl() {
         return getInitUrl(googleService.googleInitUrl());
+    }
+
+    @GetMapping(value = "/naver/login")
+    public ResponseEntity<String> getNaverUser(
+            @RequestParam(value = "code") String authCode,
+            @RequestParam(value = "state") String state
+    ) {
+        LOGGER.info("state: "+state);
+        // HTTP 통신을 위해 RestTemplate 활용
+        LinkedMultiValueMap<String, String> oAuthRequest= naverService.getNaverOAuthRequest(authCode,state);
+        String accessTokenUrl = naverService.getNaverTokenUrl();
+        String userUrl = naverService.getNaverUserUrl();
+
+        try {
+            /***
+             * Authorization Code를 넣어 토큰을 가져오는 작업
+             *
+             * OAuthRequest: 소셜의 OAuth Request 파라미터들을 담음
+             * accessTokenUrl: 각 소셜의 accessToken을 받아올 Url (Authorization Code가 이미 들어가 있음)
+             */
+            ResponseEntity<String> responseJson = getResponseEntity(oAuthRequest,accessTokenUrl);
+
+            /***
+             * 응답받은 Json ->token 추출
+             */
+            OAuthResponseDto responseDto = objectMapper.readValue(responseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
+            String token = responseDto.getAccessToken();
+
+
+            /***
+             * token 넣어서 data 가져올 url 생성 -> 사용자 data 받아오기
+             * google, kakao: openId를 통한 데이터 받아오기 가능
+             */
+            String resultData = getUserDatabyAccessTokenTEST(userUrl,token);
+            LOGGER.info("resultData:\n"+resultData);
+            return ResponseEntity.ok().body(resultData);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.badRequest().body(null);
     }
 
     @GetMapping(value = "/kakao/login")
@@ -140,12 +190,22 @@ public class SocialController {
         return restTemplate.exchange(url,HttpMethod.GET,request,String.class).getBody();
     }
 
+    private String getUserDatabyAccessTokenTEST(String url, String accessToken) {
+        // header 설정: AccessToken을 담음
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Bearer " + accessToken);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        ResponseEntity<String> tt= restTemplate.exchange(url,HttpMethod.GET,request,String.class);
+        LOGGER.info("tt:\n"+tt);
+        return tt.getBody();
+    }
+
     private ResponseEntity<String> getResponseEntity(LinkedMultiValueMap<String, String> params,String accessTokenUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(accessTokenUrl, request, String.class);
-        return response;
+        return restTemplate.postForEntity(accessTokenUrl, request, String.class);
     }
 
     public ResponseEntity<Object> getInitUrl(String authUrl){
@@ -159,65 +219,4 @@ public class SocialController {
         }
         return ResponseEntity.badRequest().build();
     }
-
-//    private ResponseEntity<String> OLDVERSION_getResponseEntity(GoogleOAuthRequest googleOAuthRequest) {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<GoogleOAuthRequest> googleRequestEntity = new HttpEntity<>(googleOAuthRequest, headers);
-//        ResponseEntity<String> googleResponseJson =
-//                restTemplate.postForEntity(googleService.getGoogleTokenUrl() + "/token", googleRequestEntity, String.class);
-//        return googleResponseJson;
-//    }
-//
-//
-//    @GetMapping(value = "/OLDVERSION/google/login")
-//    public ResponseEntity<GoogleLoginDto> OLDVERSIONgetGoogleUser(
-//            @RequestParam(value = "code") String authCode
-//    ) {
-//        // HTTP 통신을 위해 RestTemplate 활용
-//        LinkedMultiValueMap<String, String> googleOAuthRequest= googleService.getGoogleOAuthRequest(authCode);
-//        String accessTokenUrl = googleService.getGoogleTokenUrl() + "/token";
-//
-//        try {
-//            /***
-//             * Authorization Code를 넣어 토큰을 가져오는 작업
-//             *
-//             * OAuthRequest: 소셜의 OAuth Request 파라미터들을 담음
-//             * accessTokenUrl: 각 소셜의 accessToken을 받아올 Url (Authorization Code가 이미 들어가 있음)
-//             */
-//            ResponseEntity<String> googleResponseJson = getResponseEntity(googleOAuthRequest,accessTokenUrl);
-//
-//
-//            /***
-//             * 응답받은 Json -> AccessToken 추출
-//             */
-//            OAuthResponseDto googleLoginResponse = objectMapper.readValue(googleResponseJson.getBody(),new TypeReference<OAuthResponseDto>() {});
-//            String jwtToken = googleLoginResponse.getIdToken();
-//
-//
-//            // JWT Token을 전달해 JWT 저장된 사용자 정보 확인
-//            String requestUrl = UriComponentsBuilder.fromHttpUrl(googleService.getGoogleTokenUrl() + "/tokeninfo").queryParam(
-//                    "id_token", jwtToken).toUriString();
-//            LOGGER.info("[requestUrl]"+requestUrl);
-//            String resultJson = restTemplate.getForObject(requestUrl, String.class);
-//
-//            if(resultJson != null) {
-//                // member 저장
-//                // 있는 멤버라면 디비에 있는애 반환해주면 될 듯
-//                GoogleLoginDto userInfoDto = objectMapper.readValue(resultJson, new TypeReference<GoogleLoginDto>() {});
-//                LOGGER.info("[google-auth]");
-//                LOGGER.info(String.valueOf(userInfoDto));
-//                return ResponseEntity.ok().body(userInfoDto);
-//            }
-//            else {
-//                throw new Exception("Google OAuth failed!");
-//            }
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return ResponseEntity.badRequest().body(null);
-//    }
-
 }
