@@ -90,14 +90,6 @@ export default {
   computed: {},
   methods: {
     ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
-    // naverLogin() {
-    //   const naver_id_login = new window.naver_id_login(process.env.VUE_APP_NAVER, "http://localhost:8080/naver");
-    //   const state = naver_id_login.getUniqState();
-    //   naver_id_login.setButton("white", 2,40); // 버튼 설정
-    //   naver_id_login.setState(state);
-    //   // naver_id_login.setPopup(); // popup 설정을 위한 코드
-    //   naver_id_login.init_naver_id_login();
-    // },
     checkForm() {
       if (this.credentials.email.length > 4 && !EmailValidator.validate(this.credentials.email))
         this.error.email = "올바른 이메일 형식이 아닙니다."

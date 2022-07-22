@@ -50,13 +50,13 @@
               <label class="form-label" for="code">인증번호</label>
               
               <!-- 인증 성공전에 초기상태 -->
-              <button type="button" v-if="isEmailVerified !== 200" class="verified" @click="emailVerify(code)">인증</button>
+              <button type="button" v-if="emailVerifiedStatus !== 200" class="verified" @click="emailVerify(code)">인증</button>
               
               <!-- 409 인증코드 불일치 -->
-              <p v-if="isEmailVerified === 409" style="margin-bottom:0px; margin-top:1px;">인증번호가 다릅니다.</p>
+              <p v-if="emailVerifiedStatus === 409" style="margin-bottom:0px; margin-top:1px;">인증번호가 다릅니다.</p>
   
               <!-- 200 인증코드 일치 -->
-              <button v-else-if="isEmailVerified === 200" id="verified">인증성공</button>
+              <button v-else-if="emailVerifiedStatus === 200" id="verified">인증성공</button>
             </div>
           </div>
         </div>
@@ -125,26 +125,26 @@
   
     </section>
     <!-- 가입이 완료되면 위에 화면은 안보이고, 가입완료 화면 보임 -->
-    <register-completed v-if="isCompletedRegister"></register-completed>
+    <!-- <register-completed v-if="isCompletedRegister"></register-completed> -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import RegisterCompleted from '@/components/RegisterCompleted.vue';
+// import RegisterCompleted from '@/components/RegisterCompleted.vue';
 import * as EmailValidator from "email-validator";
 import PV from "password-validator"
 
 export default {
   name: 'RegisterView',
-  components: {
-    RegisterCompleted
-  },
+  // components: {
+  //   RegisterCompleted
+  // },
   beforeCreate: function() {
         document.body.className = 'auth';
   },
   computed: {
-    ...mapGetters(['emailCheckedStatus', 'isEmailVerified', 'isCompletedRegister'])
+    ...mapGetters(['emailCheckedStatus', 'emailVerifiedStatus'])
   },
   watch: {
     credentials: {

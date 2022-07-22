@@ -1,6 +1,7 @@
 const HOST = 'http://localhost/'
 
 const MEMBER = 'member/'
+const SOCIAL = 'social/'
 
 export default {
   member: {
@@ -9,6 +10,9 @@ export default {
     info: () => HOST + MEMBER + 'info',
     emailcheck: () => HOST + MEMBER + 'emailcheck',
     emailverify: () => HOST + MEMBER + 'emailverify',
-    googlelogin: () => HOST + 'social/google'
+  },
+  social: {
+    google: () => HOST + SOCIAL + 'google',
+    kakao: () => HOST + SOCIAL + 'kakao'
   }
 }

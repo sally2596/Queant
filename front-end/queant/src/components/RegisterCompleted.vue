@@ -11,7 +11,10 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'RegisterCompleted',
-  methods: {}
+  methods: {
+    ...mapActions(['resetRegisterCheckDatas'])
+  },
+  created() {}
 }
 </script>
 
