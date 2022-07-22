@@ -101,14 +101,16 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDto updateMember(MemberDto memberDto) throws RuntimeException{
-        Member member = modelMapper.map(memberDto,Member.class);
+        Optional<Member> result = memberRepository.findByEmail(memberDto.getEmail());
+        Member member = result.get();
+        if(memberDto.getGender() != null) member.setGender(memberDto.getGender());
+        if(memberDto.getBirthdate() != null) member.setBirthdate(memberDto.getBirthdate());
+        if(memberDto.getName() != null) member.setName(memberDto.getName());
+
         memberRepository.save(member);
-        Optional<Member> result = memberRepository.findByEmail(member.getEmail());
-        if(result.isPresent()){
-            memberDto = modelMapper.map(result.get(), MemberDto.class);
-            return memberDto;
-        }
-        return null;
+        result = memberRepository.findByEmail(memberDto.getEmail());
+        memberDto = modelMapper.map(result.get(), MemberDto.class);
+        return memberDto;
     }
 
     @Override
