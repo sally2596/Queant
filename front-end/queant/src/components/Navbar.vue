@@ -72,8 +72,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name:"Navbar",
+<<<<<<< HEAD
+=======
+  computed: {
+    ...mapGetters(['isLoggedIn'])
+  }
+>>>>>>> Front_Authentication
 }
 </script>
 

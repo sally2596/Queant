@@ -10,7 +10,7 @@ export default {
     authError: null,
     emailCheckedStatus: '',
     isEmailVerified: '',
-    isCompletedRegister: null
+    isCompletedRegister: false
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
@@ -28,14 +28,21 @@ export default {
     SET_REFRESH_TOKEN: (state, refreshToken) => state.refreshToken = refreshToken,
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
     SET_IS_EMAIL_VERIFIED: (state, status) => state.isEmailVerified = status,
-    SET_IS_COMPLETED_REGISTER: (state, bool) => state.isCompletedRegister = bool
+    SET_IS_COMPLETED_REGISTER: (state, bool) => state.isCompletedRegister = bool,
+    // SET_REGISTER_CHECK_DATAS: (state) => {
+    //   state.emailCheckedStatus = ''
+    //   state.isEmailVerified = ''
+    // }
   },
   actions: {
-    logout({ commit, dispatch }) {
-      dispatch('removeToken')
-      commit('SET_CURRENT_USER', {})
-      router.push({ name: 'login' })
-    },
+    // resetRegisterCheckDatas({ commit }) {
+    //   commit('SET_REGISTER_CHECK_DATAS')
+    // },
+    // logout({ commit, dispatch }) {
+    //   dispatch('removeToken')
+    //   commit('SET_CURRENT_USER', {})
+    //   router.push({ name: 'login' })
+    // },
     removeToken({ commit }) {
       const nullToken = {
         accessToken: '',
@@ -49,7 +56,7 @@ export default {
     },
     // LOGIN
     // 일반 로그인
-    login({ commit, dispatch }, credentials) {
+    login({ dispatch }, credentials) {
       axios({
         url: spring.member.login(),
         method: 'post',
@@ -69,17 +76,20 @@ export default {
     },
 
     // 회원가입
-    register({ commit, dispatch }, credentials) {
+    register({ commit }, credentials) {
       axios({
         url: spring.member.register(),
         method: 'post',
-        data: credentials
+        data: {
+          birthdate: credentials.birthdate,
+          email: credentials.email,
+          gender: credentials.gender,
+          name: credentials.name,
+          password: credentials.password
+        }
       })
       .then( res => {
         commit('SET_IS_COMPLETED_REGISTER', true)
-        // const token = res.data.key
-        // dispatch('saveToken', token)
-        // dispatch('fetchCurrentUser')
         // router.push({ name: 'movieList' })
       })
       .catch( err => {
@@ -98,11 +108,9 @@ export default {
         }
       })
       .then( res => {
-        console.log(res)
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
-        console.log(err)
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
