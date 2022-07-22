@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.UUID;
@@ -103,9 +105,9 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto updateMember(MemberDto memberDto) throws RuntimeException{
         Optional<Member> result = memberRepository.findByEmail(memberDto.getEmail());
         Member member = result.get();
-        if(memberDto.getGender() != null) member.setGender(memberDto.getGender());
-        if(memberDto.getBirthdate() != null) member.setBirthdate(memberDto.getBirthdate());
-        if(memberDto.getName() != null) member.setName(memberDto.getName());
+        if(memberDto.getGender() != member.getGender()) member.setGender(memberDto.getGender());
+        if(memberDto.getBirthdate() != member.getBirthdate()) member.setBirthdate(memberDto.getBirthdate());
+        if(memberDto.getName() != member.getName()) member.setName(memberDto.getName());
 
         memberRepository.save(member);
         result = memberRepository.findByEmail(memberDto.getEmail());

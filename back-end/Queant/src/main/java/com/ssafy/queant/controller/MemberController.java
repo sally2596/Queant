@@ -103,6 +103,7 @@ public class MemberController {
     @PostMapping("/info")
     public ResponseEntity<?> Info(@RequestBody MemberRequestDto requestDto){
         MemberDto memberDto = memberService.findMember(requestDto.getEmail());
+        System.out.println(memberDto.getBirthdate());
         if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
     }
@@ -174,7 +175,7 @@ public class MemberController {
         if(!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        memberService.changePassword(requestDto.getEmail(), requestDto.getNewPassword());
+        memberService.changePassword(requestDto.getEmail(), passwordEncoder.encode(requestDto.getPassword()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

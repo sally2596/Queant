@@ -107,13 +107,24 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public boolean sendPassword(String to) throws Exception {
+        //새 비밀번호 생성
         String ePw = EmailService.createPassword();
         Optional<Member> result = memberRepository.findByEmail(to);
         if(!result.isPresent()) return false;
 
+        //DB 비밀번호 변경
         Member member = result.get();
         member.setPassword(passwordEncoder.encode(ePw));
         memberRepository.save(member);
+
+        //이메일 생성 후 발송
+        MimeMessage message = createPassword(to, ePw);
+        try{
+            emailSender.send(message);
+        }catch(MailException es){
+            es.printStackTrace();
+            throw new IllegalArgumentException();
+        }
         return true;
     }
 
