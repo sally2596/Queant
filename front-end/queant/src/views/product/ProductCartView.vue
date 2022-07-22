@@ -12,7 +12,7 @@ export default {
     Navbar : Navbar
   },
     beforeCreate: function() {
-        document.body.className = 'home';
+        document.body.className = 'home_body';
     },
 }
 </script>

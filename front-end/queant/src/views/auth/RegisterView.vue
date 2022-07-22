@@ -1,14 +1,8 @@
 <template>
   <div>
     <section v-if="!isCompletedRegister" class="register-form">
-      <!-- Social Register -->
-      <p>Social Sign in with</p>
-      <div class="auth-area">
-        <button><img src="@/assets/image/kakao_icon.png" alt=""> </button>
-        <button><img src="@/assets/image/naver_icon.png" alt=""> </button>
-        <button><img src="@/assets/image/google_icon.png" alt=""> </button>
-      </div>
-      <br>
+      <h1>QueÆnt 회원 가입</h1>
+      <br><br><br><br>
       <!-- Register Form -->
       <form @submit.prevent="register(credentials)">
   

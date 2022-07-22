@@ -10,32 +10,24 @@ body.auth {
   background-size: cover;
 }
 
-body.auth::before {
-  content: "";
-  position: absolute; z-index: 1;
-  height: 100vh;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background-color: rgba(0,0,0,.7);
-}
-
 .int-area {
   width: 300px; position: relative;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .int-area:first-child {margin-top: 0;}
 .int-area input {
   width: 100%;
-  padding: 18px 10px 10px;
+  padding: 20px 10px 10px;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #999;
-  font-size: 15px; color: #fff;
+  border-bottom: 1px solid #000;
+  font-size: 18px; color: #000;
   outline: none;
 }
 
 .int-area label {
-  position: absolute; left: 10px; top: 15px;
-  font-size: 15px; color: #999;
+  position: absolute; left: 10px; top: 20px;
+  font-size: 18px; color: #999;
   transition: top .5s ease;
 }
 
@@ -90,7 +82,7 @@ body.auth::before {
 .choose-area {
   width: 300px; position: relative;
   margin-top: 18px;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #000;
   display: flex;
   justify-content: flex-end;
 }
@@ -98,21 +90,20 @@ body.auth::before {
   width: 7%;
   margin-right: 5px;
   background-color: transparent;
-  font-size: 18px; color: #fff; 
 }
 .choose-area p {
   font-size: 18px; color: #999;
-  margin-bottom: 2px; margin-top: 0;
+  margin-bottom: 10px; margin-top: 20px;
   margin-right: 10px;
 }
 .choose-area label {
   position: absolute; left: 10px; top: 0px;
-  font-size: 15px; color: #999;
+  font-size: 18px; color: #999;
 }
 .date-area {  
   width: 300px; position: relative;
-  margin-top: 18px;
-  border-bottom: 1px solid #999;
+  margin-top: 20px;
+  border-bottom: 1px solid #000;
   display: flex;
   justify-content: flex-end;
 }
@@ -120,11 +111,11 @@ body.auth::before {
   width: 40%;
   margin-right: 5px; margin-bottom: 10px;
   background-color: transparent;
-  font-size: 15px; color: #999; 
+  font-size: 18px; color: #999; 
 }
 .date-area label {
   position: absolute; left: 10px; top: 5px;
-  font-size: 15px; color: #999;
+  font-size: 18px; color: #999;
 }
 .auth-area {
   margin-top: 20px;
@@ -161,7 +152,7 @@ body.auth::before {
 
 .login-form {position: relative; z-index: 2;}
 .login-form h1 {
-  font-size: 22px; color: #fff;
+  font-size: 22px; color: #000;
   text-align: center;
   margin-bottom: 30px;
 }
@@ -175,18 +166,18 @@ body.auth::before {
 
 .register-form {position: relative; z-index: 2;}
 .register-form h1 {
-  font-size: 32px; color: #fff;
+  font-size: 32px; color: #000;
   text-align: center;
 }
 
 .register-form p {
-  margin-top: 5px;
-  color: #999;
+  margin-top: 10px;
+  color: #000;
 }
 
 .register-comeback {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .register-comeback a {
@@ -198,7 +189,7 @@ body.auth::before {
   width: 75px;
   height: 30px;
   background: #00b345;
-  color: #fff;
+  color: #000;
   font-size: 12px;
   border: none;
   border-radius: 25px;

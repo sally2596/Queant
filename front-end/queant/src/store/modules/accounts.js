@@ -38,17 +38,14 @@ export default {
     // resetRegisterCheckDatas({ commit }) {
     //   commit('SET_REGISTER_CHECK_DATAS')
     // },
-    // logout({ commit, dispatch }) {
-    //   dispatch('removeToken')
-    //   commit('SET_CURRENT_USER', {})
-    //   router.push({ name: 'login' })
-    // },
+    logout({ commit, dispatch }) {
+      dispatch('removeToken')
+      commit('SET_CURRENT_USER', {})
+      router.push({ name: 'home' })
+    },
     removeToken({ commit }) {
-      const nullToken = {
-        accessToken: '',
-        refreshToken: ''
-      }
-      commit('SET_TOKEN', nullToken)
+      commit('SET_ACCESS_TOKEN', '')
+      commit('SET_REFRESH_TOKEN', '')
       // commit('SET_AUTH_ERROR', null)
       localStorage.removeItem('vuex')
       localStorage.setItem('accessToken', '')
