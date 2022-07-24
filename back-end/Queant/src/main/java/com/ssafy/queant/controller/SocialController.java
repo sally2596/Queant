@@ -99,6 +99,7 @@ public class SocialController {
 
         String resultData = getUserDatabyAccessToken(userUrl, token);
 
+        MemberDto member = kakaoService.jsonToMemberDto(resultData);
 
         return ResponseEntity.ok().body(resultData);
 //        return ResponseEntity.badRequest().body(null);
