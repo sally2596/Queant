@@ -2,9 +2,8 @@ package com.ssafy.queant.model.service.OAuth;
 
 import com.ssafy.queant.model.dto.MemberDto;
 import com.ssafy.queant.model.entity.Gender;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -15,9 +14,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class KakaoService {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(KakaoService.class);
 
     // kakao는 access token 사용
     // token 요청할 url
@@ -103,7 +101,7 @@ public class KakaoService {
                 .birthdate( birthdate)
                 .build();
 
-        LOGGER.info("[KaKao OAuth member] "+member);
+        log.info("[KaKao OAuth member] "+member);
         return member;
     }
 }

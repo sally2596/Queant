@@ -1,7 +1,8 @@
 package com.ssafy.queant.model.service.OAuth;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ssafy.queant.model.dto.MemberDto;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -11,9 +12,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class GoogleService {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(GoogleService.class);
 
     // 구글은 access token 사용
     @Value("${google.token.url}")
@@ -96,7 +96,20 @@ public class GoogleService {
         return params;
     }
 
-    
+    public MemberDto jsonToMemberDto(String resultData) {
+        JSONObject user = new JSONObject(resultData) ;
+
+        String name = user.get("name").toString();
+        String email = user.get("email").toString();
+
+        MemberDto member = MemberDto.builder()
+                .name(name)
+                .email(email)
+                .build();
+
+        log.info("[Google OAuth member] "+member);
+        return member;
+    }
 
 
 }

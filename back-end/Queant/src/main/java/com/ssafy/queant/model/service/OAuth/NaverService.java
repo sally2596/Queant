@@ -2,9 +2,8 @@ package com.ssafy.queant.model.service.OAuth;
 
 import com.ssafy.queant.model.dto.MemberDto;
 import com.ssafy.queant.model.entity.Gender;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -17,9 +16,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class NaverService {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(NaverService.class);
 
     // Naver는 access token 사용
     // token 요청할 url
@@ -71,13 +69,6 @@ public class NaverService {
     public String naverInitUrl() {
         SecureRandom random = new SecureRandom();
         String state = new BigInteger(130,random).toString(32);
-        LOGGER.info("state:"+state);
-//        String state = null;
-//        try {
-//            state = URLEncoder.encode(new BigInteger(130,random).toString(32), "UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            throw new RuntimeException(e);
-//        }
 
         Map<String, Object> params = new HashMap<>();
         params.put("client_id", getNaverClientId());
@@ -140,7 +131,7 @@ public class NaverService {
                 .gender(gender)
                 .birthdate( birthdate)
                 .build();
-        LOGGER.info("[Naver OAuth member] "+member);
+        log.info("[Naver OAuth member] "+member);
         return member;
     }
 }
