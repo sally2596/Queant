@@ -1,5 +1,7 @@
 package com.ssafy.queant.model.service.OAuth;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class KakaoService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(KakaoService.class);
 
     // kakao는 access token 사용
     // token 요청할 url
@@ -74,4 +78,6 @@ public class KakaoService {
         params.add("code", authCode);
         return params;
     }
+
+    
 }
