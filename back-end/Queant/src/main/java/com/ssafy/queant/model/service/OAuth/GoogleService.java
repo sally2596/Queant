@@ -1,6 +1,7 @@
 package com.ssafy.queant.model.service.OAuth;
 
 import com.ssafy.queant.model.dto.MemberDto;
+import com.ssafy.queant.model.entity.Social;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -105,6 +106,7 @@ public class GoogleService {
         MemberDto member = MemberDto.builder()
                 .name(name)
                 .email(email)
+                .social(Social.Google)
                 .build();
 
         log.info("[Google OAuth member] "+member);
