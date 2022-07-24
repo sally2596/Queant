@@ -1,5 +1,7 @@
 package com.ssafy.queant.model.service.OAuth;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class GoogleService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(GoogleService.class);
 
     // 구글은 access token 사용
     @Value("${google.token.url}")
@@ -92,19 +96,7 @@ public class GoogleService {
         return params;
     }
 
-//    public ResponseEntity<String> response(String authCode){
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<GoogleOAuthRequest> googleRequestEntity = new HttpEntity<>(getGoogleOAuthRequest(authCode), headers);
-//        ResponseEntity<String> googleResponseJson =
-//                restTemplate.postForEntity(getGoogleAccessTokenUrl() + "/token", googleRequestEntity, String.class);
-//
-//        // ObjectMapper를 통해 String to Object로 변환
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // NULL이 아닌 값만 응답받기(NULL인 경우는 생략)
-//        GoogleOAuthResponse googleLoginResponse = objectMapper.readValue(googleResponseJson.getBody(),
-//                new TypeReference<GoogleOAuthResponse>() {});
-//        return googleResponseJson;
-//    }
+    
+
+
 }
