@@ -3,11 +3,14 @@ package com.ssafy.queant.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.queant.model.dto.LoginResultDto;
 import com.ssafy.queant.model.dto.MemberDto;
 import com.ssafy.queant.model.oauth.OAuthResponseDto;
 import com.ssafy.queant.model.service.OAuth.GoogleService;
 import com.ssafy.queant.model.service.OAuth.KakaoService;
 import com.ssafy.queant.model.service.OAuth.NaverService;
+import com.ssafy.queant.model.service.OAuth.OAuthService;
+import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @CrossOrigin("*")
 @Log4j2
@@ -33,6 +39,9 @@ public class SocialController {
     private final GoogleService googleService;
     private final KakaoService kakaoService;
     private final NaverService naverService;
+    private final OAuthService oAuthService;
+
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -41,10 +50,12 @@ public class SocialController {
     private ObjectMapper objectMapper;
 
     @Autowired
-    SocialController(GoogleService googleService, KakaoService kakaoService, NaverService naverService) {
+    SocialController(GoogleService googleService, KakaoService kakaoService, NaverService naverService, OAuthService oAuthService, JwtTokenProvider jwtTokenProvider) {
         this.googleService = googleService;
         this.kakaoService = kakaoService;
         this.naverService = naverService;
+        this.oAuthService = oAuthService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @GetMapping(value = "/naver")
@@ -63,7 +74,7 @@ public class SocialController {
     }
 
     @GetMapping(value = "/naver/login")
-    public ResponseEntity<String> getNaverUser(
+    public ResponseEntity<Map<String, String>> getNaverUser(
             @RequestParam(value = "code") String authCode,
             @RequestParam(value = "state") String state
     ) throws JsonProcessingException {
@@ -78,16 +89,24 @@ public class SocialController {
 
         MemberDto member = naverService.jsonToMemberDto(resultData);
 
-        // 멤버가 없으면 저장 + 로그인
+        if(!oAuthService.emailCheck(member.getEmail())){
+            oAuthService.register(member);
+        }
 
-        // 멤버가 있으면 로그인 처리
+        LoginResultDto result = oAuthService.login(member);
+        if(result.getResult().equals("SUCCESS")){
+            Map<String, String> response = new HashMap<>();
+            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
+            response.put("RefreshToken", result.getRefreshToken());
+            return new ResponseEntity<Map<String,String>>(response, HttpStatus.OK);
 
-        return ResponseEntity.ok().body(resultData);
-
+        } else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
     @GetMapping(value = "/kakao/login")
-    public ResponseEntity<String> getKakaoUser(
+    public ResponseEntity<Map<String, String>> getKakaoUser(
             @RequestParam(value = "code") String authCode
     ) throws JsonProcessingException {
         // HTTP 통신을 위해 RestTemplate 활용
@@ -101,12 +120,24 @@ public class SocialController {
 
         MemberDto member = kakaoService.jsonToMemberDto(resultData);
 
-        return ResponseEntity.ok().body(resultData);
-//        return ResponseEntity.badRequest().body(null);
+        if(!oAuthService.emailCheck(member.getEmail())){
+            oAuthService.register(member);
+        }
+
+        LoginResultDto result = oAuthService.login(member);
+        if(result.getResult().equals("SUCCESS")){
+            Map<String, String> response = new HashMap<>();
+            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
+            response.put("RefreshToken", result.getRefreshToken());
+            return new ResponseEntity<Map<String,String>>(response, HttpStatus.OK);
+
+        } else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
     @GetMapping(value = "/google/login")
-    public ResponseEntity<String> getGoogleUser(
+    public ResponseEntity<Map<String, String>> getGoogleUser(
             @RequestParam(value = "code") String authCode
     ) throws JsonProcessingException {
         // HTTP 통신을 위해 RestTemplate 활용
@@ -118,9 +149,23 @@ public class SocialController {
 
         String resultData = getUserDatabyAccessToken(userUrl, token);
 
+        MemberDto member = googleService.jsonToMemberDto(resultData);
 
-        return ResponseEntity.ok().body(resultData);
-//        return ResponseEntity.badRequest().body(null);
+        if(!oAuthService.emailCheck(member.getEmail())){
+            oAuthService.register(member);
+        }
+
+        LoginResultDto result = oAuthService.login(member);
+
+        if(result.getResult().equals("SUCCESS")){
+            Map<String, String> response = new HashMap<>();
+            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
+            response.put("RefreshToken", result.getRefreshToken());
+            return new ResponseEntity<Map<String,String>>(response, HttpStatus.OK);
+
+        } else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
     private String getUserDatabyAccessToken(String url, String accessToken) {
