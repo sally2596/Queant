@@ -151,35 +151,23 @@ public class SocialController {
     public ResponseEntity<Map<String, String>> getGoogleUser(
             @RequestParam(value = "code") String authCode
     ) throws JsonProcessingException {
-        log.info("구글 들어옴");
         // HTTP 통신을 위해 RestTemplate 활용
         LinkedMultiValueMap<String, String> oAuthRequest = googleService.getGoogleOAuthRequest(authCode);
-        log.info("999999999");
         String accessTokenUrl = googleService.getGoogleTokenUrl();
-        log.info("888888888");
         String userUrl = googleService.getGoogleUserUrl();
-        log.info("777777777");
 
         String token = getToken(oAuthRequest,accessTokenUrl);
-        log.info("6666666666");
 
         String resultData = getUserDatabyAccessToken(userUrl, token);
-        log.info("5555555555");
 
         MemberDto member = googleService.jsonToMemberDto(resultData);
 
-        log.info("11111111");
-
         if(!oAuthService.emailCheck(member.getEmail())){
-            log.info("222222222");
             oAuthService.register(member);
-            log.info("33333333");
         }
 
-        log.info("4444444444");
         LoginResultDto result = oAuthService.login(member);
 
-        log.info("5555555555");
         return oAuthService.makeResponseEntity(member, result);
     }
 

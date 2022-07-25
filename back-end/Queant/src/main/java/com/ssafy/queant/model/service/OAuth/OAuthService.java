@@ -41,7 +41,7 @@ public class OAuthService {
         log.info("[member] : "+member);
         member.setRoleSet(new HashSet<>());
         member.addMemberRole(MemberRole.ROLE_USER);
-        member.setSocial(memberDto.getSocial());
+        //member.setSocial(memberDto.getSocial());
         Member savedMember = memberRepository.save(member);
 
         if(!savedMember.getName().isEmpty()){
@@ -58,14 +58,13 @@ public class OAuthService {
         LoginResultDto loginResultDto = new LoginResultDto();
         Member member = result.get();
 
-        log.info("[login] 로그인 성공!");
-
         if(member.getSocial()!=memberDto.getSocial()){
-            log.info("[login] :"+memberDto.getSocial()+"로 가입함");
-            loginResultDto.setResult(memberDto.getSocial().toString());
+            log.info("[login] 이미 가입한 계정, 다른 로그인 경로 사용할 것");
+            loginResultDto.setResult(member.getSocial().toString());
             return loginResultDto;
         }
 
+        log.info("[login] 로그인 성공!");
         //RefreshToken 주입
         loginResultDto.setResult("SUCCESS");
         String refreshToken = jwtTokenProvider.createRefreshToken();
