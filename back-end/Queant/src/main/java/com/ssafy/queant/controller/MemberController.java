@@ -3,7 +3,9 @@ package com.ssafy.queant.controller;
 import com.ssafy.queant.model.dto.LoginResultDto;
 import com.ssafy.queant.model.dto.MemberDto;
 import com.ssafy.queant.model.dto.MemberRequestDto;
+import com.ssafy.queant.model.dto.MemberResponseDto;
 import com.ssafy.queant.model.entity.MemberRole;
+import com.ssafy.queant.model.entity.Social;
 import com.ssafy.queant.model.service.EmailService;
 import com.ssafy.queant.model.service.MemberService;
 import com.ssafy.queant.security.JwtTokenProvider;
@@ -221,5 +223,30 @@ public class MemberController {
         if(result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<MemberDto>(result, HttpStatus.OK);
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="회원 권한 수정 완료"),
+            @ApiResponse(code = 404, message="존재하는 권한이 아닙니다.")
+    })
+    @ApiOperation(value="권한에 따른 회원목록 조회", notes="MemberRole, Page번호 필수. 예.ROLE_USER 보내주면 전체 회원 정보 반환")
+    @GetMapping("/roles")
+    public ResponseEntity<?> MemberListByRole(@RequestParam MemberRole role, @RequestParam int page){
+        MemberResponseDto memberlist = memberService.memberListByRoles(role, page);
+        if(memberlist == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<MemberResponseDto>(memberlist, HttpStatus.OK);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="회원 권한 수정 완료"),
+            @ApiResponse(code = 404, message="존재하는 권한이 아닙니다.")
+    })
+    @ApiOperation(value="소셜 분류에 따른 회원목록 조회", notes="Social, Page번호 필수.")
+    @GetMapping("/social")
+    public ResponseEntity<?> MemberListBySocial(@RequestParam Social social, @RequestParam int page){
+        MemberResponseDto memberlist = memberService.memberListBySocial(social, page);
+        if(memberlist == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<MemberResponseDto>(memberlist, HttpStatus.OK);
+    }
+
 
 }

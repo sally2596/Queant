@@ -2,6 +2,7 @@ package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.LoginResultDto;
 import com.ssafy.queant.model.dto.MemberDto;
+import com.ssafy.queant.model.dto.MemberResponseDto;
 import com.ssafy.queant.model.entity.Member;
 import com.ssafy.queant.model.entity.MemberRole;
 import com.ssafy.queant.model.entity.Social;
@@ -10,11 +11,12 @@ import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -154,8 +156,35 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<MemberDto> memberList() throws RuntimeException {
-        return null;
+    public MemberResponseDto memberListByRoles(MemberRole role, int page) throws RuntimeException {
+        //Repository 결과
+        Pageable pageable = PageRequest.of(page-1, 10);
+        Page<Member> result = memberRepository.findByRole(role, pageable);
+
+        //list를 MemberDto로 변환
+        MemberResponseDto memberResponseDto = new MemberResponseDto();
+        List<MemberDto> memberlist = new ArrayList<>();
+        result.get().forEach(member -> memberlist.add(modelMapper.map(member, MemberDto.class)));
+
+        //memberResponseDto에 포장
+        memberResponseDto.setMemberDtoList(memberlist);
+        memberResponseDto.setTotalPage(result.getTotalPages());
+        return memberResponseDto;
     }
+
+    @Override
+    public MemberResponseDto memberListBySocial(Social social, int page) throws RuntimeException {
+        Pageable pageable = PageRequest.of(page-1, 10);
+        Page<Member> result = memberRepository.findBySocial(social, pageable);
+
+        MemberResponseDto memberResponseDto = new MemberResponseDto();
+        List<MemberDto> memberlist = new ArrayList<>();
+        result.get().forEach(member -> memberlist.add(modelMapper.map(member, MemberDto.class)));
+
+        memberResponseDto.setMemberDtoList(memberlist);
+        memberResponseDto.setTotalPage(result.getTotalPages());
+        return memberResponseDto;
+    }
+
 
 }
