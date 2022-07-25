@@ -7,13 +7,19 @@ import com.ssafy.queant.model.entity.MemberRole;
 import com.ssafy.queant.model.entity.Social;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Builder
@@ -44,7 +50,7 @@ public class MemberDto implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String refreshToken;
     @ApiModelProperty(hidden = true)
-    private boolean enabled;
+    private boolean enabled=true;
 
     @ApiModelProperty(hidden = true)
     @Builder.Default
