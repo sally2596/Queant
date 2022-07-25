@@ -35,7 +35,7 @@
 
     </form>
     <div class="caption">
-      <router-link to="/pwfind"><a href="">비밀번호를 잊으셨나요?</a></router-link>
+      <router-link :to="{ name: 'passwordFind' }">비밀번호를 잊으셨나요?</router-link>
       <br><br>
       <router-link to="/register"><a href="">아직 회원이 아니신가요?</a></router-link>
       <br><br>

@@ -16,8 +16,7 @@ import ProfileView from '../views/profile/ProfileView.vue'
 // auth
 import LoginView from '../views/auth/LoginView.vue'
 import RegisterView from '../views/auth/RegisterView.vue'
-import PwFindView from '../views/auth/PwFindView.vue'
-import PwEditView from '../views/auth/PwEditView.vue'
+import PasswordFindView from '../views/auth/PasswordFindView.vue'
 import NaverView from '../views/auth/NaverView.vue'
 
 // admin
@@ -107,14 +106,9 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/pwfind',
-    name: 'pwFind',
-    component: PwFindView
-  },
-  {
-    path: '/pwedit',
-    name: 'pwEdit',
-    component: PwEditView
+    path: '/passwordfind',
+    name: 'passwordFind',
+    component: PasswordFindView
   },
   {
     path: '/naver',

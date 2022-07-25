@@ -32,6 +32,25 @@ export default {
     SET_PASSWORD_CHECKED_STATUS: (state, status) => state.passwordCheckedStatus = status
   },
   actions: {
+    passwordChange({ commit }, credentials) {
+      axios({
+        url: spring.member.password(),
+        method: 'put',
+        data: {
+          email: credentials.email,
+          password: credentials.temporaryPassword,
+          new_password: credentials.password1
+        }
+      })
+      .then( res => {
+        console.log(res)
+        router.push({ name: 'login'})
+      })
+      .catch( err => {
+        console.log(err)
+        commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
+      })
+    },
     sendTemporaryPassword({ commit }, email) {
       axios({
         url: spring.member.password(),
@@ -41,27 +60,10 @@ export default {
         }
       })
       .then( res => {
-        console.log(res)
+        commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
-        console.log(err)
-      })
-    },
-    passwordCheck({ commit }, password) {
-      const email = JSON.parse(localStorage.vuex).accounts.userInfo.email
-      axios({
-        url: spring.member.password(),
-        method: 'post',
-        data: {
-          email: email,
-          password: password 
-        }
-      })
-      .then( res => {
-        commit('SET_PASSWORD_CHECKED_STATUS', res.status)
-      })
-      .catch( err => {
-        commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
+        commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
     editUserInfo({ dispatch }, credentials) {
@@ -140,7 +142,7 @@ export default {
           email: credentials.email,
           gender: credentials.gender,
           name: credentials.name,
-          password: credentials.password
+          password: credentials.password1
         }
       })
       .then( res => {
