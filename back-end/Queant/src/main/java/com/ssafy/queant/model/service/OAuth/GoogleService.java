@@ -1,5 +1,9 @@
 package com.ssafy.queant.model.service.OAuth;
 
+import com.ssafy.queant.model.dto.MemberDto;
+import com.ssafy.queant.model.entity.Social;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -9,6 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class GoogleService {
 
     // 구글은 access token 사용
@@ -92,19 +97,21 @@ public class GoogleService {
         return params;
     }
 
-//    public ResponseEntity<String> response(String authCode){
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<GoogleOAuthRequest> googleRequestEntity = new HttpEntity<>(getGoogleOAuthRequest(authCode), headers);
-//        ResponseEntity<String> googleResponseJson =
-//                restTemplate.postForEntity(getGoogleAccessTokenUrl() + "/token", googleRequestEntity, String.class);
-//
-//        // ObjectMapper를 통해 String to Object로 변환
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // NULL이 아닌 값만 응답받기(NULL인 경우는 생략)
-//        GoogleOAuthResponse googleLoginResponse = objectMapper.readValue(googleResponseJson.getBody(),
-//                new TypeReference<GoogleOAuthResponse>() {});
-//        return googleResponseJson;
-//    }
+    public MemberDto jsonToMemberDto(String resultData) {
+        JSONObject user = new JSONObject(resultData) ;
+
+        String name = user.get("name").toString();
+        String email = user.get("email").toString();
+
+        MemberDto member = MemberDto.builder()
+                .name(name)
+                .email(email)
+                .social(Social.Google)
+                .build();
+
+        log.info("[Google OAuth member] "+member);
+        return member;
+    }
+
+
 }

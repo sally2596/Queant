@@ -1,14 +1,21 @@
 package com.ssafy.queant.model.service.OAuth;
 
+import com.ssafy.queant.model.dto.MemberDto;
+import com.ssafy.queant.model.entity.Gender;
+import com.ssafy.queant.model.entity.Social;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class KakaoService {
 
     // kakao는 access token 사용
@@ -73,5 +80,30 @@ public class KakaoService {
         params.add("redirect_uri", getKakaoRedirectUrl());
         params.add("code", authCode);
         return params;
+    }
+
+    public MemberDto jsonToMemberDto(String resultData) {
+        JSONObject user = new JSONObject(resultData) ;
+
+        String[] birth = user.get("birthdate").toString().split("-");
+        int year = Integer.parseInt(birth[0]);
+        int month = Integer.parseInt(birth[1]);
+        int day = Integer.parseInt(birth[2]);
+
+        String name = user.get("nickname").toString();
+        String email = user.get("email").toString();
+        Gender gender = user.get("gender").toString().equals("female")? Gender.Female:Gender.Male;
+        Date birthdate =new Date(year-1900,month-1,day);
+
+        MemberDto member = MemberDto.builder()
+                .name(name)
+                .email(email)
+                .gender(gender)
+                .birthdate( birthdate)
+                .social(Social.Kakao)
+                .build();
+
+        log.info("[KaKao OAuth member] "+member);
+        return member;
     }
 }
