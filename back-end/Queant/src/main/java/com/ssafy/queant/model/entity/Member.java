@@ -15,7 +15,7 @@ import java.util.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "roleSet")
 @Table
 public class Member {
     @Id

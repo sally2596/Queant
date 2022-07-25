@@ -1,5 +1,6 @@
 package com.ssafy.queant.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.queant.model.entity.Gender;
 import com.ssafy.queant.model.entity.MemberRole;
@@ -33,6 +34,7 @@ public class MemberDto implements UserDetails {
     @Schema(description = "성별(Female/Male)")
     private Gender gender;
     @Schema(description = "생일")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
     @ApiModelProperty(hidden = true)
     private int portfolioCnt;

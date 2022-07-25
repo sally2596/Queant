@@ -24,4 +24,6 @@ public interface MemberService {
     //권한 업데이트
     MemberDto updateRoles(String email, Set<MemberRole> roleSet) throws RuntimeException;
 
+    List<MemberDto> memberList() throws RuntimeException;
+
 }

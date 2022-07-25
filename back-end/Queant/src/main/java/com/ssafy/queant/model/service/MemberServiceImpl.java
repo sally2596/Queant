@@ -153,4 +153,9 @@ public class MemberServiceImpl implements MemberService{
         return modelMapper.map(member, MemberDto.class);
     }
 
+    @Override
+    public List<MemberDto> memberList() throws RuntimeException {
+        return null;
+    }
+
 }
