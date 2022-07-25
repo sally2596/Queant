@@ -55,7 +55,7 @@
                 <hr>
                 <li style="margin:8px"><router-link :to="{ name : 'portfolio' }">내 포트폴리오 보기</router-link></li>
                 <hr>
-                <li style="margin:8px" @click="logout">로그아웃</li>
+                <li style="margin:8px; cursor: pointer" @click="logout">로그아웃</li>
               </ul>
             </li>
         </ul>

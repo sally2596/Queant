@@ -30,7 +30,7 @@ import ProfileEdit from '@/components/ProfileEdit.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: "ProfileView",
+  name: 'ProfileView',
   components: { 
     Navbar,
     ProfileEdit 
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      password: "",
+      password: '',
       isStatusOff: true
     }
   },
@@ -49,7 +49,7 @@ export default {
     ...mapMutations(['SET_PASSWORD_CHECKED_STATUS'])
   },
   beforeCreate: function () {
-    document.body.className = "home_body"
+    document.body.className = 'home_body'
   },
   created() {
     // 들어올때마다 비밀번호 확인

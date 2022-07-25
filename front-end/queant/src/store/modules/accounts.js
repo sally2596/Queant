@@ -45,6 +45,7 @@ export default {
       .then( res => {
         console.log(res)
         alert('비밀번호가 변경되었습니다! 다시 로그인 해주세요.')
+        commit('SET_PASSWORD_CHECKED_STATUS', '')
         router.push({ name: 'login'})
       })
       .catch( err => {
