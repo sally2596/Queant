@@ -85,23 +85,28 @@ public class KakaoService {
     public MemberDto jsonToMemberDto(String resultData) {
         JSONObject user = new JSONObject(resultData) ;
 
-        String[] birth = user.get("birthdate").toString().split("-");
-        int year = Integer.parseInt(birth[0]);
-        int month = Integer.parseInt(birth[1]);
-        int day = Integer.parseInt(birth[2]);
-
         String name = user.get("nickname").toString();
         String email = user.get("email").toString();
-        Gender gender = user.get("gender").toString().equals("female")? Gender.Female:Gender.Male;
-        Date birthdate =new Date(year-1900,month-1,day);
 
         MemberDto member = MemberDto.builder()
                 .name(name)
                 .email(email)
-                .gender(gender)
-                .birthdate( birthdate)
                 .social(Social.Kakao)
                 .build();
+
+
+        if(user.has("gender")) {
+            Gender gender = user.get("gender").toString().equals("female") ? Gender.Female : Gender.Male;
+            member.setGender(gender);
+        }
+        if(user.has("birthdate")) {
+            String[] birth = user.get("birthdate").toString().split("-");
+            int year = Integer.parseInt(birth[0]);
+            int month = Integer.parseInt(birth[1]);
+            int day = Integer.parseInt(birth[2]);
+            Date birthdate = new Date(year - 1900, month - 1, day);
+            member.setBirthdate(birthdate);
+        }
 
         log.info("[KaKao OAuth member] "+member);
         return member;
