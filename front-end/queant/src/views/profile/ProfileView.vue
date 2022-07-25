@@ -41,10 +41,6 @@ export default {
   methods: {
     ...mapActions(['passwordCheck']),
     ...mapMutations(['SET_PASSWORD_CHECKED_STATUS'])
-    // 임시로 넣어놓은 기능임(나중에 vuex과 연계해서 삭제할 것)
-    // toggleOnOff: function () {
-    //     this.isStatusOff = !this.isStatusOff;
-    // },
   },
   computed: {
     ...mapGetters(['userInfo','passwordCheckedStatus'])

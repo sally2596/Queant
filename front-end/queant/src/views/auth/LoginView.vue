@@ -60,15 +60,15 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapGetters, mapState } from 'vuex'
-import * as EmailValidator from "email-validator";
-import PV from "password-validator"
+import * as EmailValidator from 'email-validator'
+import PV from 'password-validator'
 
 export default {
   name: 'LoginView',
   components: {},
   beforeCreate: function() {
-        document.body.className = 'auth';
-    },
+    document.body.className = 'auth'
+  },
   created() {
     this.component = this
     this.isCheckedForm = false
@@ -98,12 +98,12 @@ export default {
     ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
     checkForm() {
       if (this.credentials.email.length > 4 && !EmailValidator.validate(this.credentials.email))
-        this.error.email = "올바른 이메일 형식이 아닙니다."
-      else this.error.email = ""
+        this.error.email = '올바른 이메일 형식이 아닙니다.'
+      else this.error.email = ''
       
       if (this.credentials.password.length > 4 && !this.passwordSchema.validate(this.credentials.password))
-        this.error.password = "비밀번호는 영문,숫자 포함 8 자리이상이어야 합니다."
-      else this.error.password = ""
+        this.error.password = '비밀번호는 영문,숫자 포함 8 자리이상이어야 합니다.'
+      else this.error.password = ''
 
       if (!this.error.email && !this.error.password && this.credentials.email && this.credentials.password)
         this.isCheckedForm = true
@@ -118,8 +118,8 @@ export default {
       },
       passwordSchema: new PV(),
       error: {
-        email : "",
-        password : ""
+        email : '',
+        password : ''
       }
     }
   },

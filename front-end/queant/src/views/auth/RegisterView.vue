@@ -129,8 +129,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import * as EmailValidator from "email-validator";
-import PV from "password-validator"
+import * as EmailValidator from 'email-validator'
+import PV from 'password-validator'
 
 export default {
   name: 'RegisterView',
@@ -152,16 +152,16 @@ export default {
     ...mapActions(['register', 'emailCheck', 'emailVerify']),
     checkForm() {
       if (this.credentials.email.length > 0 && !EmailValidator.validate(this.credentials.email))
-        this.error.email = "올바른 이메일 형식이 아닙니다."
-      else this.error.email = ""
+        this.error.email = '올바른 이메일 형식이 아닙니다.'
+      else this.error.email = ''
       
       if (this.credentials.password1.length > 0 && !this.passwordSchema.validate(this.credentials.password1))
-        this.error.password1 = "영문,숫자 포함 8 자리이상이어야 합니다."
-      else this.error.password1 = ""
+        this.error.password1 = '영문,숫자 포함 8 자리이상이어야 합니다.'
+      else this.error.password1 = ''
     
       if (this.credentials.password1 !== this.credentials.password2) 
-        this.error.password2 = "비밀번호가 일치하지 않습니다."
-      else this.error.password2 = ""
+        this.error.password2 = '비밀번호가 일치하지 않습니다.'
+      else this.error.password2 = ''
 
       if (!this.error.email && !this.error.password1 && !this.error.password2 && this.credentials.name && this.credentials.email && this.credentials.password1 && this.credentials.password2)
         this.isCheckedForm = true
@@ -172,19 +172,19 @@ export default {
     return {
       isCheckedForm: false,
       credentials: {
-        name: "",
-        email: "",
-        password1: "",
-        password2: "",
-        birthdate: "",
-        gender: ""
+        name: '',
+        email: '',
+        password1: '',
+        password2: '',
+        birthdate: '',
+        gender: ''
       },
-      code: "",
+      code: '',
       passwordSchema: new PV(),
       error: {
-        email : "",
-        password1 : "",
-        password2 : ""
+        email : '',
+        password1 : '',
+        password2 : ''
       },
       timerCount : 300
     }

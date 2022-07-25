@@ -71,12 +71,12 @@ export default {
     ...mapActions(['passwordChange']),
     checkForm() {
       if (this.credentials.password1.length > 0 && !this.passwordSchema.validate(this.credentials.password1))
-        this.error.password1 = "영문,숫자 포함 8 자리이상이어야 합니다."
-      else this.error.password1 = ""
+        this.error.password1 = '영문,숫자 포함 8 자리이상이어야 합니다.'
+      else this.error.password1 = ''
     
       if (this.credentials.password1 !== this.credentials.password2) 
-        this.error.password2 = "비밀번호가 일치하지 않습니다."
-      else this.error.password2 = ""
+        this.error.password2 = '비밀번호가 일치하지 않습니다.'
+      else this.error.password2 = ''
 
       if (!this.error.password1 && !this.error.password2 && this.credentials.email && this.credentials.password1 && this.credentials.password2)
         this.isCheckedForm = true

@@ -17,7 +17,7 @@
       <p>{{ emailCheckedStatus }}</p>
 
       <div class="caption">
-        <router-link to="/login">비밀번호가 생각나셨나요?</router-link>
+        <router-link :to="{ name: 'login' }">비밀번호가 생각나셨나요?</router-link>
       </div>
   </section>
 
@@ -31,7 +31,7 @@ import PasswordEdit from '@/components/PasswordEdit.vue'
 export default {
   name: 'PasswordFindView',
   beforeCreate: function() {
-    document.body.className = 'auth';
+    document.body.className = 'auth'
   },
   components: {
     PasswordEdit

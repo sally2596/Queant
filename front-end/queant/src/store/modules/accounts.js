@@ -44,10 +44,28 @@ export default {
       })
       .then( res => {
         console.log(res)
+        alert('비밀번호가 변경되었습니다! 다시 로그인 해주세요.')
         router.push({ name: 'login'})
       })
       .catch( err => {
         console.log(err)
+        commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
+      })
+    },
+    passwordCheck({ commit }, password) {
+      const email = JSON.parse(localStorage.vuex).accounts.userInfo.email
+      axios({
+        url: spring.member.password(),
+        method: 'post',
+        data: {
+          email: email,
+          password: password 
+        }
+      })
+      .then( res => {
+        commit('SET_PASSWORD_CHECKED_STATUS', res.status)
+      })
+      .catch( err => {
         commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
       })
     },
@@ -148,14 +166,13 @@ export default {
       .then( res => {
         commit('SET_EMAIL_VERIFIED_STATUS', '')
         commit('SET_EMAIL_CHECKED_STATUS', '')
-        alert('회원가입이 완료되었습니다! 다시 로그인해주세요.')
+        alert('회원가입이 완료되었습니다! 다시 로그인 해주세요.')
         router.push({ name: 'login' })
       })
       .catch( err => {
         console.log(err)
         commit('SET_EMAIL_VERIFIED_STATUS', '')
         commit('SET_EMAIL_CHECKED_STATUS', '')
-        // commit('SET_AUTH_ERROR', err.response.data)
       })
     },
     // 회원가입 - 이메일 중복체크
