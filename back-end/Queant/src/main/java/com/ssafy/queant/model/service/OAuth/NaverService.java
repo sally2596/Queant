@@ -116,23 +116,31 @@ public class NaverService {
         JSONObject jObject = new JSONObject(resultData) ;
         JSONObject user = new JSONObject(jObject.get("response").toString());
 
-        int year = Integer.parseInt(user.get("birthyear").toString());
-        int month = Integer.parseInt(user.get("birthday").toString().split("-")[0]);
-        int day = Integer.parseInt(user.get("birthday").toString().split("-")[1]);
 
         String name = uniToKor(user.get("name").toString());
         String email = user.get("email").toString();
-        Gender gender = user.get("gender").toString().equals("F")? Gender.Female:Gender.Male;
-        Date birthdate =new Date(year-1900,month-1,day);
+
 
 
         MemberDto member = MemberDto.builder()
                 .name(name)
                 .email(email)
-                .gender(gender)
-                .birthdate( birthdate)
                 .social(Social.Naver)
                 .build();
+
+        if(user.has("gender")) {
+            Gender gender = user.get("gender").toString().equals("F") ? Gender.Female : Gender.Male;
+            member.setGender(gender);
+        }
+
+        if(user.has("birthyear")&&user.has("birthday")){
+            int year = Integer.parseInt(user.get("birthyear").toString());
+            int month = Integer.parseInt(user.get("birthday").toString().split("-")[0]);
+            int day = Integer.parseInt(user.get("birthday").toString().split("-")[1]);
+            Date birthdate =new Date(year-1900,month-1,day);
+            member.setBirthdate(birthdate);
+        }
+
         log.info("[Naver OAuth member] "+member);
         return member;
     }
