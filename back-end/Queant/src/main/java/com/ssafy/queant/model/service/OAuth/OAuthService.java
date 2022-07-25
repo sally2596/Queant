@@ -9,10 +9,14 @@ import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -34,9 +38,10 @@ public class OAuthService {
     public boolean register(MemberDto memberDto) {
         log.info("[register] 회원가입 정보 전달");
         Member member = modelMapper.map(memberDto, Member.class);
+        log.info("[member] : "+member);
         member.setRoleSet(new HashSet<>());
         member.addMemberRole(MemberRole.ROLE_USER);
-        member.setSocial(member.getSocial());
+        member.setSocial(memberDto.getSocial());
         Member savedMember = memberRepository.save(member);
 
         if(!savedMember.getName().isEmpty()){
@@ -57,7 +62,7 @@ public class OAuthService {
 
         if(member.getSocial()!=memberDto.getSocial()){
             log.info("[login] :"+memberDto.getSocial()+"로 가입함");
-            loginResultDto.setResult("PlatformError");
+            loginResultDto.setResult(memberDto.getSocial().toString());
             return loginResultDto;
         }
 
@@ -74,5 +79,19 @@ public class OAuthService {
     public boolean emailCheck(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.isPresent();
+    }
+
+    public ResponseEntity<Map<String, String>> makeResponseEntity(MemberDto member, LoginResultDto result) {
+        Map<String, String> response = new HashMap<>();
+        if(result.getResult().equals("SUCCESS")){
+            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
+            response.put("RefreshToken", result.getRefreshToken());
+            log.info("[소셜 로그인 성공]: "+response);
+            return new ResponseEntity<Map<String, String>>(response, HttpStatus.OK);
+        } else{
+            response.put("Login", result.getResult());
+            log.info("[소셜 로그인 실패]: "+response);
+            return new ResponseEntity<Map<String, String>>(response, HttpStatus.CONFLICT);
+        }
     }
 }
