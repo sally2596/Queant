@@ -2,7 +2,9 @@ package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.LoginResultDto;
 import com.ssafy.queant.model.dto.MemberDto;
+import com.ssafy.queant.model.dto.MemberResponseDto;
 import com.ssafy.queant.model.entity.MemberRole;
+import com.ssafy.queant.model.entity.Social;
 
 import java.util.List;
 import java.util.Set;
@@ -24,6 +26,8 @@ public interface MemberService {
     //권한 업데이트
     MemberDto updateRoles(String email, Set<MemberRole> roleSet) throws RuntimeException;
 
-    List<MemberDto> memberList() throws RuntimeException;
+    MemberResponseDto memberListByRoles(MemberRole role, int page) throws RuntimeException;
+
+    MemberResponseDto memberListBySocial(Social social, int page) throws RuntimeException;
 
 }

@@ -4,6 +4,8 @@ import com.ssafy.queant.model.entity.Gender;
 import com.ssafy.queant.model.entity.Member;
 import com.ssafy.queant.model.entity.MemberRole;
 import com.ssafy.queant.model.entity.Social;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,8 +20,13 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @EntityGraph(attributePaths = {"roleSet"}, type=EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.email =:email")
     Optional<Member> findByEmail(@Param("email") String email);
-//@Query("select m from Member m where m.roleSet ")
-//    List<Object[]> getMemberwithRole(@Param("role") MemberRole role);
-//    List<Object[]> getMemberwithSocial(@Param("social") Social social);
+
+    //@EntityGraph(attributePaths = {"roleSet"}, type=EntityGraph.EntityGraphType.LOAD)
+    @Query("From Member m where :role member m.roleSet ORDER BY m.roleSet.size")
+    Page<Member> findByRole(@Param("role") MemberRole role, Pageable pageable);
+
+    @EntityGraph(attributePaths = {"roleSet"}, type=EntityGraph.EntityGraphType.LOAD)
+    @Query("From Member m where m.social = :social")
+    Page<Member> findBySocial(@Param("social") Social social, Pageable pageable);
 
 }
