@@ -10,6 +10,7 @@ export default {
     authError: null,
     emailCheckedStatus: '',
     emailVerifiedStatus: '',
+    passwordCheckedStatus: ''
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
@@ -18,6 +19,7 @@ export default {
     authHeader: state => ({ Authorization: `Token ${state.token}` }),
     emailCheckedStatus: state => state.emailCheckedStatus,
     emailVerifiedStatus: state => state.emailVerifiedStatus,
+    passwordCheckedStatus: state => state.passwordCheckedStatus
   },
   mutations: {
     SET_CURRENT_USER: (state, userInfo) => state.currentUser = userInfo,
@@ -26,6 +28,7 @@ export default {
     SET_REFRESH_TOKEN: (state, refreshToken) => state.refreshToken = refreshToken,
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
     SET_EMAIL_VERIFIED_STATUS: (state, status) => state.emailVerifiedStatus = status,
+    SET_PASSWORD_CHECKED_STATUS: (state, status) => state.passwordCheckedStatus = status
   },
   actions: {
     passwordCheck({ commit }, password) {
@@ -39,7 +42,38 @@ export default {
         }
       })
       .then( res => {
+        commit('SET_PASSWORD_CHECKED_STATUS', res.status)
+      })
+      .catch( err => {
+        commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
+      })
+    },
+    editUserInfo(password) {
+      axios({
+        url: spring.member.info(),
+        method: 'put',
+        data: {
+          password: password
+        }
+      })
+      .then( res => {
         console.log(res)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
+    unregister({ dispatch }, email) {
+      axios({
+        url: spring.member.info(),
+        method: 'delete',
+        data: {
+          email: email
+        }
+      })
+      .then( res => {
+        console.log(res)
+        dispatch('logout')
       })
       .catch( err => {
         console.log(err)
@@ -48,7 +82,7 @@ export default {
     logout({ commit, dispatch }) {
       dispatch('removeToken')
       commit('SET_CURRENT_USER', {})
-      router.push({ name: 'home' })
+      router.push({ name: 'login' })
     },
     removeToken({ commit }) {
       commit('SET_ACCESS_TOKEN', '')

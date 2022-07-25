@@ -1,8 +1,11 @@
 <template>
   <Navbar/>
   <section class="home_profile">
-    <div v-if="isStatusOff">
+    <div v-if="passwordCheckedStatus !== 200">
       <h5>비밀번호를 한 번 더 확인합니다.</h5>
+      <div v-if="passwordCheckedStatus === 409">
+        <p>비밀번호를 확인해주세요.</p>
+      </div>
       <br><br><br>
       <div class="int-area">
         <input
@@ -15,31 +18,36 @@
         <button type="button" class="password-poast" id="check-password" @click="passwordCheck(password)">확인</button>
       </div>
     </div>
-    <!-- <profile v-if="!isStatusOff">
+    <profile-edit v-else>
       프로필 보여줄 곳(아이디, 성별같은 것은 ReadOnly/비밀번호는 바꿀 수 있게)
-    </profile> -->
+    </profile-edit>
   </section>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue';
-import { mapActions, mapGetters } from 'vuex'
+import Navbar from '@/components/Navbar.vue'
+import ProfileEdit from '@/components/ProfileEdit.vue'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: "ProfileView",
   beforeCreate: function () {
-    document.body.className = "home_body";
+    document.body.className = "home_body"
   },
-  components: { Navbar : Navbar },
+  components: { 
+    Navbar,
+    ProfileEdit 
+  },
   methods: {
     ...mapActions(['passwordCheck']),
+    ...mapMutations(['SET_PASSWORD_CHECKED_STATUS'])
     // 임시로 넣어놓은 기능임(나중에 vuex과 연계해서 삭제할 것)
     // toggleOnOff: function () {
     //     this.isStatusOff = !this.isStatusOff;
     // },
   },
   computed: {
-    ...mapGetters(['currentUser'])
+    ...mapGetters(['currentUser','passwordCheckedStatus'])
   },
   data() {
     return {
@@ -48,7 +56,8 @@ export default {
     };
   },
   created() {
-
+    // 들어올때마다 비밀번호 확인
+    this.SET_PASSWORD_CHECKED_STATUS('')
   }
 }
 </script>
