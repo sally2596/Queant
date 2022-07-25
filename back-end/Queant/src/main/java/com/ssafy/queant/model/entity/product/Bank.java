@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.entity;
+package com.ssafy.queant.model.entity.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,10 +16,18 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommonCode {
+public class Bank {
     @Id
+    private Long bank_id;
+    @Column(nullable = false)
     private char code_id;
     @Column(nullable = false)
-    private String code_value;
+    private int scode_id;
+    @Column(nullable = false)
+    private String name;
+    private String homepage;
+    private String tel;
+    private String picture;
+
 
 }

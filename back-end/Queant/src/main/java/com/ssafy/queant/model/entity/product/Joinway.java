@@ -1,14 +1,11 @@
-package com.ssafy.queant.model.entity;
+package com.ssafy.queant.model.entity.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,18 +13,17 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bank {
+public class Joinway {
     @Id
-    private Long bank_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int joinway_id;
+
+    @Column(nullable = false)
+    private String product_id;
     @Column(nullable = false)
     private char code_id;
     @Column(nullable = false)
     private int scode_id;
     @Column(nullable = false)
-    private String name;
-    private String homepage;
-    private String tel;
-    private String picture;
-
-
+    private String joinway;
 }

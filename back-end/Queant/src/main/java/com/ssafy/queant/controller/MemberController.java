@@ -1,11 +1,11 @@
 package com.ssafy.queant.controller;
 
-import com.ssafy.queant.model.dto.LoginResultDto;
-import com.ssafy.queant.model.dto.MemberDto;
-import com.ssafy.queant.model.dto.MemberRequestDto;
-import com.ssafy.queant.model.dto.MemberResponseDto;
-import com.ssafy.queant.model.entity.MemberRole;
-import com.ssafy.queant.model.entity.Social;
+import com.ssafy.queant.model.dto.member.LoginResultDto;
+import com.ssafy.queant.model.dto.member.MemberDto;
+import com.ssafy.queant.model.dto.member.MemberRequestDto;
+import com.ssafy.queant.model.dto.member.MemberResponseDto;
+import com.ssafy.queant.model.entity.member.MemberRole;
+import com.ssafy.queant.model.entity.member.Social;
 import com.ssafy.queant.model.service.EmailService;
 import com.ssafy.queant.model.service.MemberService;
 import com.ssafy.queant.security.JwtTokenProvider;
@@ -17,10 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.oauth;
+package com.ssafy.queant.model.dto.member;
 
 import lombok.Data;
 

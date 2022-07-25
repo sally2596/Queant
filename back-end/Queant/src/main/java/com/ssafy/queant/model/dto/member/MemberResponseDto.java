@@ -1,6 +1,6 @@
-package com.ssafy.queant.model.dto;
+package com.ssafy.queant.model.dto.member;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.ssafy.queant.model.dto.member.MemberDto;
 import lombok.Data;
 
 import java.util.List;
