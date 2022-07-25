@@ -83,6 +83,7 @@ public class OAuthService {
     public ResponseEntity<Map<String, String>> makeResponseEntity(MemberDto member, LoginResultDto result) {
         Map<String, String> response = new HashMap<>();
         if(result.getResult().equals("SUCCESS")){
+            response.put("email",member.getEmail());
             response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
             response.put("RefreshToken", result.getRefreshToken());
             log.info("[소셜 로그인 성공]: "+response);
