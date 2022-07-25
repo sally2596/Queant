@@ -11,9 +11,10 @@ import com.ssafy.queant.model.service.OAuth.KakaoService;
 import com.ssafy.queant.model.service.OAuth.NaverService;
 import com.ssafy.queant.model.service.OAuth.OAuthService;
 import com.ssafy.queant.security.JwtTokenProvider;
-import lombok.extern.log4j.Log4j2;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -25,16 +26,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @CrossOrigin("*")
-@Log4j2
+@Slf4j
 @RequestMapping("/social")
 public class SocialController {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(SocialController.class);
 
     private final GoogleService googleService;
     private final KakaoService kakaoService;
@@ -58,21 +56,38 @@ public class SocialController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="네이버 로그인창으로 redirect하는 url을 가져오는데 성공했습니다."),
+    })
+    @Operation(summary = "네이버 로그인 창으로 이동", description = "네이버 로그인창 url을 가져옴")
     @GetMapping(value = "/naver")
     public ResponseEntity<Object> getNaverInitUrl() {
         return ResponseEntity.ok().body(naverService.naverInitUrl());
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="카카오 로그인창으로 redirect하는 url을 가져오는데 성공했습니다."),
+    })
+    @Operation(summary = "카카오 로그인 창으로 이동", description = "카카오 로그인창 url을 가져옴")
     @GetMapping(value = "/kakao")
     public ResponseEntity<Object> getKakaoInitUrl() {
         return ResponseEntity.ok().body(kakaoService.kakaoInitUrl());
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="구글 로그인창으로 redirect하는 url을 가져오는데 성공했습니다."),
+    })
+    @Operation(summary = "구글 로그인 창으로 이동", description = "구글 로그인창 url을 가져옴")
     @GetMapping(value = "/google")
     public ResponseEntity<Object> getGoogleInitUrl() {
         return ResponseEntity.ok().body(googleService.googleInitUrl());
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="네이버 사용자 저장 및 로그인에 성공했습니다."),
+            @ApiResponse(code = 409, message="기존 회원입니다."),
+    })
+    @Operation(summary = "네이버 사용자 저장 및 로그인", description = "네이버 사용자가 DB에 없다면 저장하고 있다면 로그인 처리")
     @GetMapping(value = "/naver/login")
     public ResponseEntity<Map<String, String>> getNaverUser(
             @RequestParam(value = "code") String authCode,
@@ -94,17 +109,15 @@ public class SocialController {
         }
 
         LoginResultDto result = oAuthService.login(member);
-        if(result.getResult().equals("SUCCESS")){
-            Map<String, String> response = new HashMap<>();
-            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
-            response.put("RefreshToken", result.getRefreshToken());
-            return new ResponseEntity<Map<String,String>>(response, HttpStatus.OK);
 
-        } else{
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+        return oAuthService.makeResponseEntity(member, result);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="카카오 사용자 저장 및 로그인에 성공했습니다."),
+            @ApiResponse(code = 409, message="기존 회원입니다."),
+    })
+    @Operation(summary = "카카오 사용자 저장 및 로그인", description = "카카오 사용자가 DB에 없다면 저장하고 있다면 로그인 처리 ")
     @GetMapping(value = "/kakao/login")
     public ResponseEntity<Map<String, String>> getKakaoUser(
             @RequestParam(value = "code") String authCode
@@ -125,47 +138,49 @@ public class SocialController {
         }
 
         LoginResultDto result = oAuthService.login(member);
-        if(result.getResult().equals("SUCCESS")){
-            Map<String, String> response = new HashMap<>();
-            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
-            response.put("RefreshToken", result.getRefreshToken());
-            return new ResponseEntity<Map<String,String>>(response, HttpStatus.OK);
 
-        } else{
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+        return oAuthService.makeResponseEntity(member, result);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="구글 사용자 저장 및 로그인에 성공했습니다."),
+            @ApiResponse(code = 409, message="기존 회원입니다."),
+    })
+    @Operation(summary = "구글 사용자 저장 및 로그인", description = "구글 사용자가 DB에 없다면 저장하고 있다면 로그인 처리 ")
     @GetMapping(value = "/google/login")
     public ResponseEntity<Map<String, String>> getGoogleUser(
             @RequestParam(value = "code") String authCode
     ) throws JsonProcessingException {
+        log.info("구글 들어옴");
         // HTTP 통신을 위해 RestTemplate 활용
         LinkedMultiValueMap<String, String> oAuthRequest = googleService.getGoogleOAuthRequest(authCode);
+        log.info("999999999");
         String accessTokenUrl = googleService.getGoogleTokenUrl();
+        log.info("888888888");
         String userUrl = googleService.getGoogleUserUrl();
+        log.info("777777777");
 
         String token = getToken(oAuthRequest,accessTokenUrl);
+        log.info("6666666666");
 
         String resultData = getUserDatabyAccessToken(userUrl, token);
+        log.info("5555555555");
 
         MemberDto member = googleService.jsonToMemberDto(resultData);
 
+        log.info("11111111");
+
         if(!oAuthService.emailCheck(member.getEmail())){
+            log.info("222222222");
             oAuthService.register(member);
+            log.info("33333333");
         }
 
+        log.info("4444444444");
         LoginResultDto result = oAuthService.login(member);
 
-        if(result.getResult().equals("SUCCESS")){
-            Map<String, String> response = new HashMap<>();
-            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
-            response.put("RefreshToken", result.getRefreshToken());
-            return new ResponseEntity<Map<String,String>>(response, HttpStatus.OK);
-
-        } else{
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+        log.info("5555555555");
+        return oAuthService.makeResponseEntity(member, result);
     }
 
     private String getUserDatabyAccessToken(String url, String accessToken) {
