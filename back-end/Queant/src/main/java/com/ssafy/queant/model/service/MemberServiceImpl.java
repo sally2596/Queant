@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.UUID;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 @Service
@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean register(MemberDto memberDto) {
+    public boolean register(MemberDto memberDto) throws RuntimeException{
         log.info("[register] 회원가입 정보 전달");
         log.info("[register] 비밀번호 : {}", memberDto.getPassword());
         Member member = modelMapper.map(memberDto, Member.class);
@@ -71,6 +71,12 @@ public class MemberServiceImpl implements MemberService{
             return loginResultDto;
         }
 
+        if(!member.isEnabled()){
+            log.info("[login] : 휴면계정입니다.");
+            loginResultDto.setResult("Disabled");
+            return loginResultDto;
+        }
+
         log.info("[login] 로그인 성공!");
         //RefreshToken 주입
         loginResultDto.setResult("SUCCESS");
@@ -84,13 +90,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean emailCheck(String email) {
+    public boolean emailCheck(String email) throws RuntimeException{
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.isPresent();
     }
 
     @Override
-    public MemberDto findMember(String email) {
+    public MemberDto findMember(String email) throws RuntimeException{
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent()){
             MemberDto memberDto = modelMapper.map(member.get(), MemberDto.class);
@@ -100,25 +106,56 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDto updateMember(MemberDto memberDto) {
-        Member member = modelMapper.map(memberDto,Member.class);
+    public MemberDto updateMember(MemberDto memberDto) throws RuntimeException{
+        Optional<Member> result = memberRepository.findByEmail(memberDto.getEmail());
+        Member member = result.get();
+        if(memberDto.getGender() != member.getGender()) member.setGender(memberDto.getGender());
+        if(memberDto.getBirthdate() != member.getBirthdate()) member.setBirthdate(memberDto.getBirthdate());
+        if(memberDto.getName() != member.getName()) member.setName(memberDto.getName());
+
         memberRepository.save(member);
-        Optional<Member> result = memberRepository.findByEmail(member.getEmail());
-        if(result.isPresent()){
-            memberDto = modelMapper.map(result.get(), MemberDto.class);
-            return memberDto;
-        }
-        return null;
+        result = memberRepository.findByEmail(memberDto.getEmail());
+        memberDto = modelMapper.map(result.get(), MemberDto.class);
+        return memberDto;
     }
 
     @Override
-    public boolean disableMember(String email) {
+    public boolean disableMember(String email) throws RuntimeException{
         Optional<Member> result = memberRepository.findByEmail(email);
         if(!result.isPresent()) return false;
         Member member = result.get();
-        member.setEnabled(false);
+        member.setEnabled(!member.isEnabled());
         memberRepository.save(member);
         return true;
+    }
+
+    @Override
+    public boolean changePassword(String email, String password) throws RuntimeException {
+        Optional<Member> result = memberRepository.findByEmail(email);
+        if(!result.isPresent()) return false;
+        Member member = result.get();
+        member.setPassword(password);
+        memberRepository.save(member);
+        return true;
+    }
+
+    @Override
+    public MemberDto updateRoles(String email, Set<MemberRole> roleSet) throws RuntimeException {
+        Optional<Member> result = memberRepository.findByEmail(email);
+        if(!result.isPresent()) return null;
+        Member member = result.get();
+
+        for(MemberRole role : roleSet){
+            member.addMemberRole(role);
+        }
+
+        memberRepository.save(member);
+        return modelMapper.map(member, MemberDto.class);
+    }
+
+    @Override
+    public List<MemberDto> memberList() throws RuntimeException {
+        return null;
     }
 
 }
