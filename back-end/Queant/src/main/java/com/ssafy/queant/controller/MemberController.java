@@ -92,7 +92,7 @@ public class MemberController {
             @ApiResponse(code = 200, message="회원가입에 성공하였습니다."),
             @ApiResponse(code = 409, message="회원가입에 실패하였습니다."),
     })
-    @ApiOperation(value="회원가입", notes="")
+    @ApiOperation(value="회원가입", notes="email, birthdate, name, gender")
     @PostMapping("/register")
     public ResponseEntity<?> Register(@RequestBody MemberDto memberDto){
         log.info("[Register] 정보 확인 비번 : {}" , memberDto.getPassword());
@@ -117,7 +117,7 @@ public class MemberController {
             @ApiResponse(code = 200, message="회원 정보 수정 성공"),
             @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
     })
-    @ApiOperation(value="회원 정보 수정", notes="")
+    @ApiOperation(value="회원 정보 수정", notes="email, birthdate, name, gender 필수")
     @PutMapping("/info")
     public ResponseEntity<?> UpdateInfo(@RequestBody MemberDto memberDto){
         MemberDto result = memberService.updateMember(memberDto);
