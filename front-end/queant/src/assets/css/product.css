@@ -1,0 +1,87 @@
+
+@font-face {
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+body.menu_body {
+  background-color: rgba(250,235,215,0.3);
+}
+.section_padding_color {
+    max-width: 3840px;
+    height: 2140px;
+    display: flex;
+}
+
+#title-div {
+    background-color: white !important;
+}
+#product_select_article {
+    background-color: #ffffff;
+    margin-top: 2rem; margin-left: 1rem;
+    
+    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+}
+
+#product_result_article {
+    background-color: white;
+    height: 20rem;
+    margin-top: 2rem; margin-left: 1rem; margin-bottom: 1rem;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+}
+
+.btn {
+    margin: 3px;
+}
+
+.deposit {
+  margin-top: 5px;
+}
+.select {
+  padding: auto;
+  margin: 20px;
+  padding: 20px;
+  border-bottom: 1px black solid; 
+}
+
+.select h6 {
+  margin-bottom: 10px;
+}
+
+/* 가져온 것 */
+
+/* 필터정보 */
+.search_filter {
+  width: 85%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 50px;    
+} 
+.filter_button_wrap {
+  width: 100%;
+}
+
+.filter_button_wrap button {
+  width: 50%;
+}
+.filter_button{
+	background-color: #04AA6D;
+	border: 1px solid green;
+	color: white;
+	padding: 10px 24px;
+	cursor: pointer;
+	float: left;
+} 
+.filter_button_wrap:after {
+    content: "";
+    clear: both;
+    display: table;
+}  	
+.filter_button_wrap button:not(:last-child) {
+    border-right: none;
+}
+.filter_button:hover {
+  background-color: #3e8e41;
+}
+.filter_active{
+	background-color: #045d3c;
+}

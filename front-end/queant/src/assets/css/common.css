@@ -1,0 +1,15 @@
+/* title 글자체 */
+
+@font-face {
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+
+#title {
+    font-family: 'jua';
+    padding: 1%; padding-left: 2%;
+  }
+
+
+/* meny-body */
+  
