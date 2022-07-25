@@ -58,41 +58,29 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import { mapActions, mapGetters, mapState } from 'vuex'
 import * as EmailValidator from 'email-validator'
 import PV from 'password-validator'
 
 export default {
   name: 'LoginView',
-  components: {},
-  beforeCreate: function() {
-    document.body.className = 'auth'
-  },
-  created() {
-    this.component = this
-    this.isCheckedForm = false
-    this.passwordSchema
-      .is()
-      .min(8)
-      .is()
-      .max(100)
-      .has()
-      .digits()
-      .has()
-      .letters();
-  },
-  watch: {
-    credentials: {
-      deep: true,
-      handler() {
-        this.checkForm()
-      }
-    }
-  },
   computed: {
     ...mapGetters(['authError']),
     ...mapState(['authError'])
+  },
+  data() {
+    return {
+      isCheckedForm: false,
+      credentials: {
+        email: '',
+        password: '',
+      },
+      passwordSchema: new PV(),
+      error: {
+        email : '',
+        password : ''
+      }
+    }
   },
   methods: {
     ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
@@ -109,19 +97,16 @@ export default {
         this.isCheckedForm = true
     },
   },
-  data() {
-    return {
-      isCheckedForm: false,
-      credentials: {
-        email: '',
-        password: '',
-      },
-      passwordSchema: new PV(),
-      error: {
-        email : '',
-        password : ''
+  watch: {
+    credentials: {
+      deep: true,
+      handler() {
+        this.checkForm()
       }
     }
+  },
+  beforeCreate: function() {
+    document.body.className = 'auth'
   },
   created() {
     this.component = this

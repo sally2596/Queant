@@ -31,16 +31,9 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: "ProfileView",
-  beforeCreate: function () {
-    document.body.className = "home_body"
-  },
   components: { 
     Navbar,
     ProfileEdit 
-  },
-  methods: {
-    ...mapActions(['passwordCheck']),
-    ...mapMutations(['SET_PASSWORD_CHECKED_STATUS'])
   },
   computed: {
     ...mapGetters(['userInfo','passwordCheckedStatus'])
@@ -49,7 +42,14 @@ export default {
     return {
       password: "",
       isStatusOff: true
-    };
+    }
+  },
+  methods: {
+    ...mapActions(['passwordCheck']),
+    ...mapMutations(['SET_PASSWORD_CHECKED_STATUS'])
+  },
+  beforeCreate: function () {
+    document.body.className = "home_body"
   },
   created() {
     // 들어올때마다 비밀번호 확인

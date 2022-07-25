@@ -30,14 +30,8 @@ import PasswordEdit from '@/components/PasswordEdit.vue'
 
 export default {
   name: 'PasswordFindView',
-  beforeCreate: function() {
-    document.body.className = 'auth'
-  },
   components: {
     PasswordEdit
-  },
-  methods: {
-    ...mapActions(['sendTemporaryPassword', 'passwordCheck']),
   },
   computed: {
     ...mapGetters(['emailCheckedStatus']),
@@ -48,6 +42,12 @@ export default {
       code: '',
       email: '',
     }
+  },
+  methods: {
+    ...mapActions(['sendTemporaryPassword', 'passwordCheck']),
+  },
+  beforeCreate: function() {
+    document.body.className = 'auth'
   },
   created() {
     this.$store.commit('SET_EMAIL_CHECKED_STATUS', '')

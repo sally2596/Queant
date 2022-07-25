@@ -61,11 +61,25 @@ export default {
   props: {
     email: String
   },
-  beforeCreate: function() {
-    document.body.className = 'auth';
-  },
   computed: {
     ...mapGetters(['passwordCheckedStatus'])
+  },
+  data() {
+    return {
+      isCheckedForm: false,
+      credentials: {
+        email: this.email,
+        temporaryPassword: '',
+        password1: '',
+        password2: '',
+      },
+      passwordSchema: new PV(),
+      error: {
+        email : '',
+        password1 : '',
+        password2 : ''
+      },
+    }
   },
   methods: {
     ...mapActions(['passwordChange']),
@@ -91,22 +105,8 @@ export default {
       }
     },
   },
-  data() {
-    return {
-      isCheckedForm: false,
-      credentials: {
-        email: this.email,
-        temporaryPassword: '',
-        password1: '',
-        password2: '',
-      },
-      passwordSchema: new PV(),
-      error: {
-        email : '',
-        password1 : '',
-        password2 : ''
-      },
-    }
+  beforeCreate: function() {
+    document.body.className = 'auth'
   },
   created() {
     this.isCheckedForm = false

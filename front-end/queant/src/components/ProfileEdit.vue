@@ -54,9 +54,6 @@ export default {
   props: {
     userInfo: Object
   },
-  methods: {
-    ...mapActions(['editUserInfo', 'unregister']),
-  },
   data() {
     return {
       isCheckedForm: false,
@@ -68,7 +65,9 @@ export default {
       },
     }
   },
-  created() {}
+  methods: {
+    ...mapActions(['editUserInfo', 'unregister']),
+  }
 }
 </script>
 
