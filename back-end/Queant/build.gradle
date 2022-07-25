@@ -45,17 +45,21 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 
+
     //Email
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     //Swagger
     implementation "io.springfox:springfox-boot-starter:3.0.0"
-//    implementation("io.springfox:springfox-swagger-ui:3.0.0")
-//    implementation("io.springfox:springfox-swagger2:3.0.0")
-//    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
-//    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
 
+    //ModelMapper
+    implementation 'org.modelmapper:modelmapper:2.4.2'
 
+    // json parser
+    implementation 'org.json:json:20190722'
+
+    //test를 위한 프론트 템플릿 -> 추후 삭제
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 }
 

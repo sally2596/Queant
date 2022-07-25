@@ -60,7 +60,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/swagger-ui.html**",
                         "/swagger-ui.html**",
                         "/swagger-ui/**",
+                        "/img/**",
                         "/webjars/**").permitAll()
+                .antMatchers("/*","/social/**").permitAll() // 구글 로그인용 임시
+                // 접근가능
                 .anyRequest().hasAnyRole("USER","ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
                 .and()

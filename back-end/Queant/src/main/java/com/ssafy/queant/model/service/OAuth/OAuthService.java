@@ -1,49 +1,47 @@
-package com.ssafy.queant.model.service;
+package com.ssafy.queant.model.service.OAuth;
 
 import com.ssafy.queant.model.dto.LoginResultDto;
 import com.ssafy.queant.model.dto.MemberDto;
 import com.ssafy.queant.model.entity.Member;
 import com.ssafy.queant.model.entity.MemberRole;
-import com.ssafy.queant.model.entity.Social;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
-
 
 @Service
 @Slf4j
-public class MemberServiceImpl implements MemberService{
-
+public class OAuthService {
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository, JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder, ModelMapper modelMapper){
+    public OAuthService(MemberRepository memberRepository, JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder, ModelMapper modelMapper){
         this.memberRepository = memberRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
     }
 
-    @Override
     public boolean register(MemberDto memberDto) {
         log.info("[register] 회원가입 정보 전달");
-        log.info("[register] 비밀번호 : {}", memberDto.getPassword());
         Member member = modelMapper.map(memberDto, Member.class);
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        log.info("[member] : "+member);
         member.setRoleSet(new HashSet<>());
         member.addMemberRole(MemberRole.ROLE_USER);
-        member.setSocial(Social.None);
+        //member.setSocial(memberDto.getSocial());
         Member savedMember = memberRepository.save(member);
 
         if(!savedMember.getName().isEmpty()){
@@ -55,19 +53,14 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
-    @Override
-    public LoginResultDto login(String email, String password) throws RuntimeException {
-        Optional<Member> result = memberRepository.findByEmail(email);
+    public LoginResultDto login(MemberDto memberDto) throws RuntimeException {
+        Optional<Member> result = memberRepository.findByEmail(memberDto.getEmail());
         LoginResultDto loginResultDto = new LoginResultDto();
-        if(!result.isPresent()) {
-            log.info("[login] : 존재하지 않는 이메일입니다.");
-            loginResultDto.setResult("EmailError");
-            return loginResultDto;
-        }
         Member member = result.get();
-        if(!passwordEncoder.matches(password, member.getPassword())) {
-            log.info("[login] : 패스워드가 일치하지 않습니다.");
-            loginResultDto.setResult("PasswordError");
+
+        if(member.getSocial()!=memberDto.getSocial()){
+            log.info("[login] 이미 가입한 계정, 다른 로그인 경로 사용할 것");
+            loginResultDto.setResult(member.getSocial().toString());
             return loginResultDto;
         }
 
@@ -80,45 +73,24 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member);
 
         return loginResultDto;
-
     }
 
-    @Override
     public boolean emailCheck(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.isPresent();
     }
 
-    @Override
-    public MemberDto findMember(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        if(member.isPresent()){
-            MemberDto memberDto = modelMapper.map(member.get(), MemberDto.class);
-            return memberDto;
+    public ResponseEntity<Map<String, String>> makeResponseEntity(MemberDto member, LoginResultDto result) {
+        Map<String, String> response = new HashMap<>();
+        if(result.getResult().equals("SUCCESS")){
+            response.put("AccessToken", jwtTokenProvider.createToken(member.getEmail()));
+            response.put("RefreshToken", result.getRefreshToken());
+            log.info("[소셜 로그인 성공]: "+response);
+            return new ResponseEntity<Map<String, String>>(response, HttpStatus.OK);
+        } else{
+            response.put("Login", result.getResult());
+            log.info("[소셜 로그인 실패]: "+response);
+            return new ResponseEntity<Map<String, String>>(response, HttpStatus.CONFLICT);
         }
-        return null;
     }
-
-    @Override
-    public MemberDto updateMember(MemberDto memberDto) {
-        Member member = modelMapper.map(memberDto,Member.class);
-        memberRepository.save(member);
-        Optional<Member> result = memberRepository.findByEmail(member.getEmail());
-        if(result.isPresent()){
-            memberDto = modelMapper.map(result.get(), MemberDto.class);
-            return memberDto;
-        }
-        return null;
-    }
-
-    @Override
-    public boolean disableMember(String email) {
-        Optional<Member> result = memberRepository.findByEmail(email);
-        if(!result.isPresent()) return false;
-        Member member = result.get();
-        member.setEnabled(false);
-        memberRepository.save(member);
-        return true;
-    }
-
 }
