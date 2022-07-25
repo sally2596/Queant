@@ -18,7 +18,7 @@
         <button type="button" class="password-poast" id="check-password" @click="passwordCheck(password)">확인</button>
       </div>
     </div>
-    <profile-edit v-else>
+    <profile-edit v-else :userInfo="userInfo">
       프로필 보여줄 곳(아이디, 성별같은 것은 ReadOnly/비밀번호는 바꿀 수 있게)
     </profile-edit>
   </section>
@@ -47,7 +47,7 @@ export default {
     // },
   },
   computed: {
-    ...mapGetters(['currentUser','passwordCheckedStatus'])
+    ...mapGetters(['userInfo','passwordCheckedStatus'])
   },
   data() {
     return {

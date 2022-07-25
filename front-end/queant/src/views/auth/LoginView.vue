@@ -26,6 +26,9 @@
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
+      <!-- 값에 따라 보여지는 화면 추후 설정 -->
+      <p>{{ authError }}</p>
+
       <div class="btn-area">
         <button :disabled="!isCheckedForm" type="submit">LOGIN</button>
       </div>
@@ -56,7 +59,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import * as EmailValidator from "email-validator";
 import PV from "password-validator"
 
@@ -87,7 +90,10 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['authError']),
+    ...mapState(['authError'])
+  },
   methods: {
     ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
     checkForm() {
@@ -118,7 +124,8 @@ export default {
     }
   },
   created() {
-    this.isCheckedForm = false,
+    this.component = this
+    this.isCheckedForm = false
     this.passwordSchema
       .is()
       .min(8)

@@ -1,34 +1,71 @@
 <template>
   <div>
-    <h1>이름: {{ currentUser.name }}</h1>
-    <h1>이메일: {{ currentUser.email }}</h1>
-    <h1>성별: {{ currentUser.gender }}</h1>
-    <h1>생년월일: {{ currentUser.birthdate }}</h1>
-    <h1>현재비밀번호: </h1> 
-    <input type="text">
-    <h1>새로운 비밀번호: </h1> <input v-model="password1" type="password">
-    <h1>새로운 비밀번호 확인: </h1> <input v-model="password2" type="password">
+    <h1>이름: 
+      <input
+       type="text"
+       v-model="credentials.name"
+       required
+      ></h1>
+
+    <h1>이메일: 
+      <input
+       type="text"
+       v-model="credentials.email"
+       disabled
+       ></h1>
+
+    <h1>성별:
+    <div class="choose-area">
+      <input 
+        v-model="credentials.gender"
+        type="radio"
+        value="Female"
+        class="gender-input-female">
+      <p class="female">여성</p>
+      
+      <input
+        v-model="credentials.gender"
+        type="radio"
+        value="Male"
+        class="gender-input-male">
+      <p class="male">남성</p>
+    </div></h1>
+
+    <h1>생년월일:
+      <input
+       type="date" 
+       v-model="credentials.birthdate"
+       required
+       ></h1>
+    
     <br>
-    <button @click="editUserInfo(password1)">변경하기</button>
+    
+    <button @click="editUserInfo(credentials)">변경하기</button>
     <br>
-    <button @click="unregister(currentUser.email)">탈퇴하기</button>
+    <button @click="unregister(userInfo.email)">탈퇴하기</button>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ProfileEdit',
-  computed: {
-    ...mapGetters(['currentUser'])
+  props: {
+    userInfo: Object
   },
   methods: {
-    ...mapActions(['editUserinfo', 'unregister'])
+    ...mapActions(['editUserInfo', 'unregister']),
   },
   data() {
     return {
-      password1: "",
-      password2: ""
+      isCheckedForm: false,
+      credentials: {
+        email: this.userInfo.email,
+        name: this.userInfo.name,
+        birthdate: this.userInfo.birthdate,
+        gender: this.userInfo.gender
+      },
     }
   },
   created() {}

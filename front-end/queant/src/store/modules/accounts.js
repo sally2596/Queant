@@ -6,8 +6,8 @@ export default {
   state: {
     accessToken: '',
     refreshToken: '',
-    currentUser: {},
-    authError: null,
+    userInfo: {},
+    authError: '',
     emailCheckedStatus: '',
     emailVerifiedStatus: '',
     passwordCheckedStatus: ''
@@ -15,14 +15,15 @@ export default {
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
     isLoggedIn: state => !!state.accessToken,
-    currentUser: state => state.currentUser,
+    userInfo: state => state.userInfo,
     authHeader: state => ({ Authorization: `Token ${state.token}` }),
+    authError: state => state.authError,
     emailCheckedStatus: state => state.emailCheckedStatus,
     emailVerifiedStatus: state => state.emailVerifiedStatus,
     passwordCheckedStatus: state => state.passwordCheckedStatus
   },
   mutations: {
-    SET_CURRENT_USER: (state, userInfo) => state.currentUser = userInfo,
+    SET_USER_INFO: (state, userInfo) => state.userInfo = userInfo,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_ACCESS_TOKEN: (state, accessToken) => state.accessToken = accessToken,
     SET_REFRESH_TOKEN: (state, refreshToken) => state.refreshToken = refreshToken,
@@ -31,10 +32,25 @@ export default {
     SET_PASSWORD_CHECKED_STATUS: (state, status) => state.passwordCheckedStatus = status
   },
   actions: {
-    passwordCheck({ commit }, password) {
-      const email = JSON.parse(localStorage.vuex).accounts.currentUser.email
+    sendTemporaryPassword({ commit }, email) {
       axios({
-        url: spring.member.passwordcheck(),
+        url: spring.member.password(),
+        method: 'patch',
+        data: {
+          email: email
+        }
+      })
+      .then( res => {
+        console.log(res)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
+    passwordCheck({ commit }, password) {
+      const email = JSON.parse(localStorage.vuex).accounts.userInfo.email
+      axios({
+        url: spring.member.password(),
         method: 'post',
         data: {
           email: email,
@@ -48,16 +64,20 @@ export default {
         commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
       })
     },
-    editUserInfo(password) {
+    editUserInfo({ dispatch }, credentials) {
       axios({
         url: spring.member.info(),
         method: 'put',
         data: {
-          password: password
+          email: credentials.email,
+          name: credentials.name,
+          gender: credentials.gender,
+          birthdate: credentials.birthdate
         }
       })
       .then( res => {
-        console.log(res)
+        dispatch('fetchUserInfo', credentials.email)
+        router.push({ name: 'home' })
       })
       .catch( err => {
         console.log(err)
@@ -81,7 +101,7 @@ export default {
     },
     logout({ commit, dispatch }) {
       dispatch('removeToken')
-      commit('SET_CURRENT_USER', {})
+      commit('SET_USER_INFO', {})
       router.push({ name: 'login' })
     },
     removeToken({ commit }) {
@@ -93,7 +113,7 @@ export default {
       localStorage.setItem('refreshToken', '')
     },
     // 일반 로그인
-    login({ dispatch }, credentials) {
+    login({ commit, dispatch }, credentials) {
       axios({
         url: spring.member.login(),
         method: 'post',
@@ -103,12 +123,11 @@ export default {
         const userCredentials = JSON.parse(res.config.data)
         dispatch('saveAccessToken', res.data.AccessToken)
         dispatch('saveRefreshToken', res.data.RefreshToken)
-        dispatch('fetchCurrentUser', userCredentials)
+        dispatch('fetchUserInfo', userCredentials.email)
         router.push({ name: 'home'})
       })
       .catch( err => {
-        console.log(err)
-        // commit('SET_AUTH_ERROR', err.response.data)
+        commit('SET_AUTH_ERROR', err.response.status)
       })
     },
     // 회원가입
@@ -177,17 +196,17 @@ export default {
       commit('SET_REFRESH_TOKEN', refreshToken)
       localStorage.setItem('refreshToken', refreshToken)
     },
-    fetchCurrentUser({ commit, getters }, userCredentials) {
+    fetchUserInfo({ commit, getters }, email) {
       if (getters.isLoggedIn) {
         axios({
           url: spring.member.info(),
           method: 'post',
           data: {
-            email: userCredentials.email
+            email: email
           }
         })
         .then( res => {
-          commit('SET_CURRENT_USER', res.data)
+          commit('SET_USER_INFO', res.data)
         })
         .catch( err => {
           console.log(err)

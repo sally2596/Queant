@@ -1,20 +1,25 @@
 <template>
-  <section class="login-form" v-if="isStatusOff">
+  <section class="login-form" v-if="emailCheckedStatus !== 200">
     <h1>이메일을 입력하세요.</h1>
     <br><br><br>
       <div class="int-area">
-        <input 
+        <input
+        v-model="email"
         type="text"
         id="email"
         autocomplete="off" required/>
         <label for="email">EMAIL</label>
-        <a><button @click="toggleOnOff" class='confirm'>확인</button></a>
+        <button @click="emailCheck(email)" class='confirm'>확인</button>
       </div>
+      
+      <!-- 404는 없는 이메일, 200은 회원 맞음! -->
+      <p>{{ emailCheckedStatus }}</p>
+
       <div class="caption">
         <router-link to="/login"><a href="">비밀번호가 생각나셨나요?</a></router-link>
       </div>
   </section>
-  <section class="login-form" v-if="isStatusOn">
+  <section class="login-form" v-else>
     <br><br>
     <div class="int-area">
         <input
@@ -29,23 +34,28 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+
 export default {
   name: 'PwFindView',
   beforeCreate: function() {
-        document.body.className = 'auth';
-    },
+    document.body.className = 'auth';
+  },
   methods: {
-  toggleOnOff: function() {
-      this.isStatusOn = !this.isStatusOn;
-      this.isStatusOff = !this.isStatusOff;
-    },
+    ...mapActions(['emailCheck']),
+  },
+  computed: {
+    ...mapGetters(['emailCheckedStatus']),
+    ...mapMutations(['SET_EMAIL_CHECKED_STATUS'])
   },
   data() {
-      return {
-      isStatusOn : false,
-      isStatusOff : true,
+    return {
+      email: "",
     }
   },
+  created() {
+    this.$store.commit("SET_EMAIL_CHECKED_STATUS", "")
+  }
 }
 </script>
 
