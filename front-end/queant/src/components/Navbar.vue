@@ -1,6 +1,5 @@
 <template>
-  <div class="main" id="app">
-    
+  <div class="header" id="header">
     <nav class="navbar navbar-expand-lg bg-none">
       <router-link to="/">
         <img class="logo mr-4" src="../assets/image/퀸트_로고.png" alt="">
@@ -38,9 +37,15 @@
               <router-link :to="{ name : 'contents'}">Contents</router-link>
             </li>
           </div>
+          <li class="ms-lg-auto">
+            <input 
+            type="text"
+            placeholder="빠른 상품 검색">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          </li>
           <!-- 여기는 로그아웃 했을 때만 보여야 함 -->
           <div class="ms-lg-auto" id="login-button"
-           style="margin-right:30px; margin-top: 8px; margin-left:8px;"
+           style="margin-right:30px;margin-left:8px;"
            v-show="!isLoggedIn">
             <router-link :to="{ name : 'login' }">로그인</router-link>
           <!-- 여기는 로그인 했을 때만 보여야 함 -->
@@ -73,6 +78,7 @@ export default {
   },
   methods: {
     ...mapActions(['logout'])
+    
   },
 }
 </script>

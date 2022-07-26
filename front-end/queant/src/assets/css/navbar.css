@@ -33,66 +33,69 @@
     font-style: normal;
 }
 
-.main {
+.header {
   top : 0;
 }
 
-.main .font-bold {
+.header .font-bold {
   font-family: SuseongDotum;
   font-size: 3rem;
 }
 
-.main .font-description {
+.header .font-description {
   font-family: LeferiPoint-WhiteObliqueA;
   font-size: 1.15rem;
 }
 
-.main .text-large {
+.header .text-large {
   font-size: 1.6rem;
 
 }
-.main .text-medium {
+.header .text-medium {
   font-size: 1.2rem !important;
 }
 
-.main .text-small {
+.header .text-small {
   font-size: 0.9rem !important;
 }
 
-.main #app {
+.header #header {
   font-family: IBMPlexSansKR-Regular, InfinitySans-RegularA1, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000000 !important;
 }
 
-.main .nav {
+.header .nav {
   padding: 1.2rem !important;
-  background-color: transparent;
+  background-color: white !important;
   z-index: 1;
 }
 
-.main .nav a {
+.header .nav a {
   font-size: 1.2rem !important;
   color: #000000; 
   text-decoration: none !important;
 }
 
-.main.nav a:hover {
+.header.nav a:hover {
   color: #000000 !important;
 }
 
-.main.nav a.router-link-exact-active {
+.header {
+  background-color: white;
+}
+.header.nav a.router-link-exact-active {
   color: #000000 !important;                     
 }
 
-.main .navbar-text,
-.main .navbar-text a,
-.main .nav-link {
+.header .navbar-text,
+.header .navbar-text a,
+.header .nav-link {
   color: #000000;
 }
 
-.main.navbar-toggler {
+.header.navbar-toggler {
   color: #000000 !important;
   border: none;
 }
@@ -101,22 +104,22 @@
   margin-right: 10px;
 }
 
-.main.dropdown-menu[data-bs-popper] {
+.header.dropdown-menu[data-bs-popper] {
   right: 1;
 }
 
 .dropdown-menu {
-  margin-left: 10px;
+  text-align: center;
   width:30px;
 }
 
-.main a { 
+.header a { 
   color: #000000;
   text-decoration: none;
   cursor: pointer;
 }
 
-.main a:hover {
+.header a:hover {
   color: #000000;
   text-decoration: underline;
 }
@@ -128,10 +131,14 @@
   margin-left: 2rem
 }
 
-.main.account {
+.header.account {
   flex-direction: column;
 }
 
 .content {
   padding: 8px;
+}
+
+#navbar ul {
+  align-items: center;
 }
