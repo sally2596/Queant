@@ -180,7 +180,7 @@ public class MemberController {
         if(!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        memberService.changePassword(requestDto.getEmail(), passwordEncoder.encode(requestDto.getPassword()));
+        memberService.changePassword(requestDto.getEmail(), passwordEncoder.encode(requestDto.getNewPassword()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
