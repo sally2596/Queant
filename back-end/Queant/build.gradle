@@ -60,6 +60,10 @@ dependencies {
 
     //test를 위한 프론트 템플릿 -> 추후 삭제
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
 
 }
 
