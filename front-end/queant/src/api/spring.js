@@ -10,7 +10,9 @@ export default {
     info: () => HOST + MEMBER + 'info',
     emailcheck: () => HOST + MEMBER + 'emailcheck',
     emailverify: () => HOST + MEMBER + 'emailverify',
-    password: () => HOST + MEMBER + 'password'
+    password: () => HOST + MEMBER + 'password',
+
+    roles: () => HOST + MEMBER + 'roles'
   },
   social: {
     google: () => HOST + SOCIAL + 'google',
