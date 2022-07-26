@@ -7,101 +7,115 @@ export default {
   getters: {},
   mutations: {},
   actions: {
-    // 구글 로그인
-    googleLogin() {
-      // this.$http.get(sprigin.social.google(), {
-      //   headers: {
-      //     'Access-Control-Allow-Origin': '*',
-      //     'Content-Type': 'application/json; charset = utf-8'
-      //   }
-      // })
+
+    googleLogin({ dispatch }) {
       axios({
         url: spring.social.google(),
-        method: "get",
-        // headers: {
-        //   'Access-Control-Allow-Origin': '*',
-        //   'Content-Type': 'application/json; charset = utf-8'
-        // }
+        method: 'get'
       })
-        .then((res) => {
-          console.log(res.data);
-          // 원래 창에서 redirect
-          window.location.href = res.data;
-
-          // 새로운 창에서 띄워줌
-          // window.open(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .then((res) => {
+        window.location.href = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
 
-    // 카카오 로그인
+    getGoogleAuthorizationCode({ commit }, authorizationCode) {
+      axios({
+        url: spring.social.googlelogin(),
+        method: 'get',
+        params: {
+          code: authorizationCode
+        }
+      })
+      .then((res) => {
+        console.log(res.data.AccessToken)
+        console.log(res.data.RefreshToken)
+        console.log(res.data.email)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+
     kakaoLogin() {
       axios({
         url: spring.social.kakao(),
-        method: "get",
+        method: 'get'
       })
-        .then((res) => {
-          console.log(res);
-          window.location.href = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .then((res) => {
+        window.location.href = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
-
+    
+    getKakaoAuthorizationCode({ commit }, authorizationCode) {
+      axios({
+        url: spring.social.kakaologin(),
+        method: 'get',
+        params: {
+          code: authorizationCode
+        }
+      })
+      .then( res => {
+        console.log(res.data.AccessToken)
+        console.log(res.data.RefreshToken)
+        console.log(res.data.email)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
+    
     naverLogin() {
       axios({
         url: spring.social.naver(),
-        method: "get",
+        method: 'get'
       })
-        .then((res) => {
-          console.log(res);
-          window.location.href = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .then((res) => {
+        window.location.href = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
 
-    // 카카오 로그인
+    getNaverAuthorizationCode({ commit }, query) {
+      axios({
+        url: spring.social.naverlogin(),
+        method: 'get',
+        params: {
+          code: query.code,
+          state: query.state
+        }
+      })
+      .then( res => {
+        console.log(res.data.AccessToken)
+        console.log(res.data.RefreshToken)
+        console.log(res.data.email)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    } 
+    
     // kakaoLogin() {
-
-    //   window.Kakao.init(process.env.VUE_APP_KAKAO)
-
-    //   if (window.Kakao.Auth.getAccessToken()) {
-    //     window.Kakao.API.request({
-    //       url: '/v1/user/unlink',
-    //       success(response) {
-    //         console.log(response)
-    //       },
-    //       fail(error) {
-    //         console.log(error)
-    //       },
-    //     })
-    //     window.Kakao.Auth.setAccessToken(undefined)
-    //   }
-
-    //   window.Kakao.Auth.login({
-    //     success() {
-    //       window.Kakao.API.request({
-    //         url: '/v2/user/me',
-    //         data: {
-    //           property_keys: ["kakao_account.email"]
-    //         },
-    //         success: async function (response) {
-    //           console.log(response);
-    //         },
-    //         fail(error) {
-    //           console.log(error)
-    //         },
-    //       })
-    //     },
-    //     fail(error) {
-    //       console.log(error)
-    //     },
-    //   })
+    //   window.Kakao.init(process.env.VUE_APP_KAKAO_JAVASCRIPT)
+    //   const params = {
+    //     redirectUri: "http://localhost:8080/kakao",
+    //   };
+    //   window.Kakao.Auth.authorize(params)
     // },
-  },
+
+    // naverLogin() {
+      //   const clientId = process.env.VUE_APP_NAVER_CLIENT_ID
+      //   const redirectUri = 'http://localhost:8080/naver'
+      //   var url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id='+clientId+'&redirect_uri='+redirectUri+'&state=1234';
+      //   window.location.replace(url)
+      // },
+      
+  }
 };

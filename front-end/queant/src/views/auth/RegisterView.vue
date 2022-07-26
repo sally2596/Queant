@@ -62,14 +62,14 @@
       <!-- password -->
       <div class="int-area">
         <input
-          v-model="credentials.password"
-          v-bind:class="{error : error.password, complete:!error.password&&credentials.password.length!==0}"
+          v-model="credentials.password1"
+          v-bind:class="{error : error.password1, complete:!error.password1&&credentials.password1.length!==0}"
           type="password"
-          id="password"
+          id="password1"
           autocomplete="off"
           required>
-        <label for="password">비밀번호</label>
-        <div class="error-text" v-if="error.password" style="margin-bottom:10px;">{{error.password}}</div>
+        <label for="password1">비밀번호</label>
+        <div class="error-text" v-if="error.password1" style="margin-bottom:10px;">{{ error.password1 }}</div>
       </div>
 
       <div class="int-area">
@@ -81,7 +81,7 @@
           autocomplete="off"
           required>
         <label for="password2">비밀번호 확인</label>
-        <div class="error-text" v-if="error.password2" style="margin-bottom:0px;">{{error.password2}}</div>
+        <div class="error-text" v-if="error.password2" style="margin-bottom:0px;">{{ error.password2 }}</div>
       </div>
 
       <!-- gender -->
@@ -128,17 +128,56 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import * as EmailValidator from "email-validator";
-import PV from "password-validator"
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import * as EmailValidator from 'email-validator'
+import PV from 'password-validator'
 
 export default {
   name: 'RegisterView',
-  beforeCreate: function() {
-    document.body.className = 'auth';
-  },
   computed: {
     ...mapGetters(['emailCheckedStatus', 'emailVerifiedStatus'])
+  },
+  data() {
+    return {
+      isCheckedForm: false,
+      credentials: {
+        name: '',
+        email: '',
+        password1: '',
+        password2: '',
+        birthdate: '',
+        gender: ''
+      },
+      code: '',
+      passwordSchema: new PV(),
+      error: {
+        email : '',
+        password1 : '',
+        password2 : ''
+      },
+      timerCount : 300
+    }
+  },
+  methods: {
+    ...mapActions(['register', 'emailCheck', 'emailVerify']),
+    ...mapMutations(['SET_EMAIL_CHECKED_STATUS', 'SET_EMAIL_VERIFIED_STATUS']),
+    checkForm() {
+      if (this.credentials.email.length > 0 && !EmailValidator.validate(this.credentials.email))
+        this.error.email = '올바른 이메일 형식이 아닙니다.'
+      else this.error.email = ''
+      
+      if (this.credentials.password1.length > 0 && !this.passwordSchema.validate(this.credentials.password1))
+        this.error.password1 = '영문,숫자 포함 8 자리이상이어야 합니다.'
+      else this.error.password1 = ''
+    
+      if (this.credentials.password1 !== this.credentials.password2) 
+        this.error.password2 = '비밀번호가 일치하지 않습니다.'
+      else this.error.password2 = ''
+
+      if (!this.error.email && !this.error.password1 && !this.error.password2 && this.credentials.name && this.credentials.email && this.credentials.password1 && this.credentials.password2)
+        this.isCheckedForm = true
+      else this.isCheckedForm = false
+    }
   },
   watch: {
     credentials: {
@@ -148,54 +187,12 @@ export default {
       }
     },
   },
-  methods: {
-    ...mapActions(['register', 'emailCheck', 'emailVerify']),
-    checkForm() {
-      if (this.credentials.email.length > 0 && !EmailValidator.validate(this.credentials.email))
-        this.error.email = "올바른 이메일 형식이 아닙니다."
-      else this.error.email = ""
-      
-      if (this.credentials.password.length > 0 && !this.passwordSchema.validate(this.credentials.password))
-        this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다."
-      else this.error.password = ""
-    
-      if (this.credentials.password !== this.credentials.password2) 
-        this.error.password2 = "비밀번호가 일치하지 않습니다."
-      else this.error.password2 = ""
-
-      if (!this.error.email && !this.error.password && !this.error.password2 && this.credentials.name && this.credentials.email && this.credentials.password && this.credentials.password2)
-        this.isCheckedForm = true
-      else this.isCheckedForm = false
-    },
-      toggleOnOff: function() {
-      this.isStatusOn = !this.isStatusOn;
-      this.isStatusOff = !this.isStatusOff;
-    },
-  },
-  data() {
-    return {
-      isCheckedForm: false,
-      credentials: {
-        name: "",
-        email: "",
-        password: "",
-        password2: "",
-        birthdate: "",
-        gender: ""
-      },
-      code: "",
-      passwordSchema: new PV(),
-      error: {
-        email : "",
-        password : "",
-        password2 : ""
-      },
-      timerCount : 300,
-      isStatusOn : false,
-      isStatusOff : true
-    }
+  beforeCreate: function() {
+    document.body.className = 'auth';
   },
   created() {
+    this.SET_EMAIL_CHECKED_STATUS('')
+    this.SET_EMAIL_VERIFIED_STATUS('')
     this.component = this
     this.isCheckedForm = false
     this.passwordSchema
@@ -208,7 +205,7 @@ export default {
       .has()
       .letters();
   },
-};
+}
 </script>
 <style>
 @import '@/assets/css/user.css';

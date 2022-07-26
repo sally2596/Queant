@@ -10,10 +10,14 @@ export default {
     info: () => HOST + MEMBER + 'info',
     emailcheck: () => HOST + MEMBER + 'emailcheck',
     emailverify: () => HOST + MEMBER + 'emailverify',
+    password: () => HOST + MEMBER + 'password'
   },
   social: {
     google: () => HOST + SOCIAL + 'google',
+    googlelogin: () => HOST + SOCIAL + 'google/' + 'login',
     kakao: () => HOST + SOCIAL + 'kakao',
-    naver: () => HOST + SOCIAL + 'naver'
+    kakaologin: () => HOST + SOCIAL + 'kakao/' + 'login',
+    naver: () => HOST + SOCIAL + 'naver',
+    naverlogin: () => HOST + SOCIAL + 'naver/' + 'login'
   }
 }

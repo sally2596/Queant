@@ -26,13 +26,16 @@
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
+      <!-- 값에 따라 보여지는 화면 추후 설정 -->
+      <p>{{ authError }}</p>
+
       <div class="btn-area">
         <button :disabled="!isCheckedForm" type="submit">LOGIN</button>
       </div>
 
     </form>
     <div class="caption">
-      <router-link to="/pwfind"><a href="">비밀번호를 잊으셨나요?</a></router-link>
+      <router-link :to="{ name: 'passwordFind' }">비밀번호를 잊으셨나요?</router-link>
       <br><br>
       <router-link to="/register"><a href="">아직 회원이 아니신가요?</a></router-link>
       <br><br>
@@ -55,53 +58,15 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import { mapActions } from 'vuex'
-import * as EmailValidator from "email-validator";
-import PV from "password-validator"
+import { mapActions, mapGetters, mapState } from 'vuex'
+import * as EmailValidator from 'email-validator'
+import PV from 'password-validator'
 
 export default {
   name: 'LoginView',
-  components: {},
-  beforeCreate: function() {
-        document.body.className = 'auth';
-    },
-  created() {
-    this.component = this
-    this.isCheckedForm = false
-    this.passwordSchema
-      .is()
-      .min(8)
-      .is()
-      .max(100)
-      .has()
-      .digits()
-      .has()
-      .letters();
-  },
-  watch: {
-    credentials: {
-      deep: true,
-      handler() {
-        this.checkForm()
-      }
-    }
-  },
-  computed: {},
-  methods: {
-    ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
-    checkForm() {
-      if (this.credentials.email.length > 4 && !EmailValidator.validate(this.credentials.email))
-        this.error.email = "올바른 이메일 형식이 아닙니다."
-      else this.error.email = ""
-      
-      if (this.credentials.password.length > 4 && !this.passwordSchema.validate(this.credentials.password))
-        this.error.password = "비밀번호는 영문,숫자 포함 8 자리이상이어야 합니다."
-      else this.error.password = ""
-
-      if (!this.error.email && !this.error.password && this.credentials.email && this.credentials.password)
-        this.isCheckedForm = true
-    },
+  computed: {
+    ...mapGetters(['authError']),
+    ...mapState(['authError'])
   },
   data() {
     return {
@@ -112,13 +77,40 @@ export default {
       },
       passwordSchema: new PV(),
       error: {
-        email : "",
-        password : ""
+        email : '',
+        password : ''
       }
     }
   },
+  methods: {
+    ...mapActions(['login', 'googleLogin', 'kakaoLogin', 'naverLogin']),
+    checkForm() {
+      if (this.credentials.email.length > 4 && !EmailValidator.validate(this.credentials.email))
+        this.error.email = '올바른 이메일 형식이 아닙니다.'
+      else this.error.email = ''
+      
+      if (this.credentials.password.length > 4 && !this.passwordSchema.validate(this.credentials.password))
+        this.error.password = '비밀번호는 영문,숫자 포함 8 자리이상이어야 합니다.'
+      else this.error.password = ''
+
+      if (!this.error.email && !this.error.password && this.credentials.email && this.credentials.password)
+        this.isCheckedForm = true
+    },
+  },
+  watch: {
+    credentials: {
+      deep: true,
+      handler() {
+        this.checkForm()
+      }
+    }
+  },
+  beforeCreate: function() {
+    document.body.className = 'auth'
+  },
   created() {
-    this.isCheckedForm = false,
+    this.component = this
+    this.isCheckedForm = false
     this.passwordSchema
       .is()
       .min(8)

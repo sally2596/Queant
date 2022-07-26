@@ -1,4 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
+// oauth
+import KakaoView from '../views/oauth/KakaoView.vue'
+import NaverView from '../views/oauth/NaverView.vue'
+import GoogleView from '../views/oauth/GoogleView.vue'
+
 // home
 import HomeView from '../views/home/HomeView.vue' 
 
@@ -16,9 +22,7 @@ import ProfileView from '../views/profile/ProfileView.vue'
 // auth
 import LoginView from '../views/auth/LoginView.vue'
 import RegisterView from '../views/auth/RegisterView.vue'
-import PwFindView from '../views/auth/PwFindView.vue'
-import PwEditView from '../views/auth/PwEditView.vue'
-import NaverView from '../views/auth/NaverView.vue'
+import PasswordFindView from '../views/auth/PasswordFindView.vue'
 
 // admin
 import AdminView from '../views/admin/AdminView.vue'
@@ -35,8 +39,24 @@ import ComparisonView from '@/views/product/ComparisonView.vue'
 import ContentsView from '@/views/content/ContentsView.vue'
 
 const routes = [
+  // oauth
+  {
+    path: '/kakao',
+    name: 'kakao',
+    component: KakaoView
+  },
+  {
+    path: '/naver',
+    name: 'naver',
+    component: NaverView
+  },
+  {
+    path: '/google',
+    name: 'google',
+    component: GoogleView
+  },
   // home
-  { 
+  {
     path: '/',
     name: 'home',
     component: HomeView
@@ -107,19 +127,9 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/pwfind',
-    name: 'pwFind',
-    component: PwFindView
-  },
-  {
-    path: '/pwedit',
-    name: 'pwEdit',
-    component: PwEditView
-  },
-  {
-    path: '/naver',
-    name: 'naver',
-    component: NaverView
+    path: '/passwordfind',
+    name: 'passwordFind',
+    component: PasswordFindView
   },
   // admin
   {
