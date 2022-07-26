@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <section class="home_profile">
-    <div v-if="passwordCheckedStatus !== 200">
+    <div v-if="passwordCheckedStatus !== 200 && userInfo.social === 'None'">
       <h5>비밀번호를 한 번 더 확인합니다.</h5>
       <div v-if="passwordCheckedStatus === 409">
         <p>비밀번호를 확인해주세요.</p>

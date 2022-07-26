@@ -145,7 +145,7 @@ export default {
         dispatch('saveAccessToken', res.data.AccessToken)
         dispatch('saveRefreshToken', res.data.RefreshToken)
         dispatch('fetchUserInfo', userCredentials.email)
-        router.push({ name: 'home'})
+        router.push({ name: 'home' })
       })
       .catch( err => {
         commit('SET_AUTH_ERROR', err.response.status)
@@ -171,7 +171,6 @@ export default {
         router.push({ name: 'login' })
       })
       .catch( err => {
-        console.log(err)
         commit('SET_EMAIL_VERIFIED_STATUS', '')
         commit('SET_EMAIL_CHECKED_STATUS', '')
       })

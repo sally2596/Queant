@@ -1,6 +1,7 @@
 import spring from "@/api/spring";
 import router from "@/router";
 import axios from "axios";
+// import accounts from './accounts'
 
 export default {
   state: {},
@@ -8,7 +9,7 @@ export default {
   mutations: {},
   actions: {
 
-    googleLogin({ dispatch }) {
+    googleLogin() {
       axios({
         url: spring.social.google(),
         method: 'get'
@@ -21,7 +22,7 @@ export default {
       })
     },
 
-    getGoogleAuthorizationCode({ commit }, authorizationCode) {
+    getGoogleAuthorizationCode({ commit, dispatch }, authorizationCode) {
       axios({
         url: spring.social.googlelogin(),
         method: 'get',
@@ -30,12 +31,14 @@ export default {
         }
       })
       .then((res) => {
-        console.log(res.data.AccessToken)
-        console.log(res.data.RefreshToken)
-        console.log(res.data.email)
+        dispatch('saveAccessToken', res.data.AccessToken)
+        dispatch('saveRefreshToken', res.data.RefreshToken)
+        dispatch('fetchUserInfo', res.data.email)
+        router.push({ name: 'home' })
       })
       .catch((err) => {
-        console.log(err)
+        alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        router.push({ name: 'login' })
       })
     },
 
@@ -52,7 +55,7 @@ export default {
       })
     },
     
-    getKakaoAuthorizationCode({ commit }, authorizationCode) {
+    getKakaoAuthorizationCode({ commit, dispatch }, authorizationCode) {
       axios({
         url: spring.social.kakaologin(),
         method: 'get',
@@ -61,12 +64,14 @@ export default {
         }
       })
       .then( res => {
-        console.log(res.data.AccessToken)
-        console.log(res.data.RefreshToken)
-        console.log(res.data.email)
+        dispatch('saveAccessToken', res.data.AccessToken)
+        dispatch('saveRefreshToken', res.data.RefreshToken)
+        dispatch('fetchUserInfo', res.data.email)
+        router.push({ name: 'home' })
       })
       .catch( err => {
-        console.log(err)
+        alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        router.push({ name: 'login' })
       })
     },
     
@@ -83,7 +88,7 @@ export default {
       })
     },
 
-    getNaverAuthorizationCode({ commit }, query) {
+    getNaverAuthorizationCode({ commit, dispatch }, query) {
       axios({
         url: spring.social.naverlogin(),
         method: 'get',
@@ -93,12 +98,14 @@ export default {
         }
       })
       .then( res => {
-        console.log(res.data.AccessToken)
-        console.log(res.data.RefreshToken)
-        console.log(res.data.email)
+        dispatch('saveAccessToken', res.data.AccessToken)
+        dispatch('saveRefreshToken', res.data.RefreshToken)
+        dispatch('fetchUserInfo', res.data.email)
+        router.push({ name: 'home' })
       })
       .catch( err => {
-        console.log(err)
+        alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        router.push({ name: 'login' })
       })
     } 
     
