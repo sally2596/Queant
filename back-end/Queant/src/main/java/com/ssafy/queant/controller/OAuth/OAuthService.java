@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.service.OAuth;
+package com.ssafy.queant.controller.OAuth;
 
 import com.ssafy.queant.model.dto.member.LoginResultDto;
 import com.ssafy.queant.model.dto.member.MemberDto;
