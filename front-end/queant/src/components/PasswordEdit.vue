@@ -36,9 +36,7 @@
         <div class="error-text" v-if="error.password2" style="margin-bottom:0px;">{{ error.password2 }}</div>
       </div>
 
-      <!-- 상태에 따라 보이는 화면 추후 설정 -->
       <p v-if="passwordCheckedStatus === 409">임시 비밀번호를 다시 확인해주세요.</p>
-      {{ passwordCheckedStatus }}
 
       <div class="btn-area">
         <!-- 변경 활성화 -->
