@@ -4,7 +4,7 @@
     <h1 class="title" id="title">맞춤 상품 추천</h1>
   </header>
   <section>
-    <div class="search_filter">
+    <div class="search_fi lter">
 					<div class="filter_button_wrap">
 						<button @click="deposit_OnOff" :class="{'active' : filter_deposit==true}" class="filter_button" id="filter_button_a">예금</button>
 						<button @click="saving_OnOff" :class="{'active' : filter_savings==true}" class="filter_button" id="filter_button_b">적금</button>
@@ -65,7 +65,7 @@
               <h6>기관</h6>
               <button class="btn">은행</button>
               <button class="btn">저축은행</button>
-              <button class="btn">은행</button>
+              <button class="btn">신협</button>
             </div>
 						<div class="col-lg-3 select">
               <h6>적립 기간</h6>
