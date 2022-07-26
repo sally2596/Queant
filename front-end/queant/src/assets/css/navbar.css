@@ -142,3 +142,16 @@
 #navbar ul {
   align-items: center;
 }
+
+/* 모바일 화면 */
+@media (max-width: 576px) {
+  /* 검색 화면 안 보이게 */
+  #searching_place {
+    display: none;
+  }
+  /* 토글 열었을 때 왼쪽 정렬되게 */
+  #navbar ul {
+    align-items: flex-start;
+  }
+  
+}

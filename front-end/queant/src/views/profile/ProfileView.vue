@@ -1,5 +1,8 @@
 <template>
   <Navbar/>
+  <header id="title-div">
+    <h1 class="title" id="title">내 프로필 관리</h1>
+  </header>
   <section class="home_profile">
     <div v-if="passwordCheckedStatus !== 200">
       <h5>비밀번호를 한 번 더 확인합니다.</h5>
@@ -15,11 +18,10 @@
           autocomplete="off"
           required>
         <label for="password">비밀번호</label>
-        <button type="button" class="password-poast" id="check-password" @click="passwordCheck(password)">확인</button>
+        <button type="button" class="password-post" id="check-password" @click="passwordCheck(password)">확인</button>
       </div>
     </div>
     <profile-edit v-else :userInfo="userInfo">
-      프로필 보여줄 곳(아이디, 성별같은 것은 ReadOnly/비밀번호는 바꿀 수 있게)
     </profile-edit>
   </section>
 </template>
