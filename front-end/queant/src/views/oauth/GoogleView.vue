@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>네이버 로그인</h1>
+    <h1>구글 로그인</h1>
   </div>
 </template>
 
@@ -8,12 +8,12 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'NaverView',
+  name: 'GoogleView',
   methods: {
-    ...mapActions(['getNaverAuthorizationCode'])
+    ...mapActions(['getGoogleAuthorizationCode'])
   },
   mounted() {
-    this.getNaverAuthorizationCode(this.$route.query)
+    this.getGoogleAuthorizationCode(this.$route.query.code)
   }
 }
 </script>

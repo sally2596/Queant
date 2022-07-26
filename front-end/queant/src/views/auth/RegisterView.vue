@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import * as EmailValidator from 'email-validator'
 import PV from 'password-validator'
 
@@ -160,6 +160,7 @@ export default {
   },
   methods: {
     ...mapActions(['register', 'emailCheck', 'emailVerify']),
+    ...mapMutations(['SET_EMAIL_CHECKED_STATUS', 'SET_EMAIL_VERIFIED_STATUS']),
     checkForm() {
       if (this.credentials.email.length > 0 && !EmailValidator.validate(this.credentials.email))
         this.error.email = '올바른 이메일 형식이 아닙니다.'
@@ -190,6 +191,8 @@ export default {
     document.body.className = 'auth';
   },
   created() {
+    this.SET_EMAIL_CHECKED_STATUS('')
+    this.SET_EMAIL_VERIFIED_STATUS('')
     this.component = this
     this.isCheckedForm = false
     this.passwordSchema

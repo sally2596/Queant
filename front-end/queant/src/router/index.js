@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // oauth
 import KakaoView from '../views/oauth/KakaoView.vue'
 import NaverView from '../views/oauth/NaverView.vue'
+import GoogleView from '../views/oauth/GoogleView.vue'
 
 // home
 import HomeView from '../views/home/HomeView.vue' 
@@ -48,6 +49,11 @@ const routes = [
     path: '/naver',
     name: 'naver',
     component: NaverView
+  },
+  {
+    path: '/google',
+    name: 'google',
+    component: GoogleView
   },
   // home
   {

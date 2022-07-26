@@ -14,7 +14,10 @@ export default {
   },
   social: {
     google: () => HOST + SOCIAL + 'google',
-    kakao: () => HOST + SOCIAL + 'kakao/login',
-    naver: () => HOST + SOCIAL + 'naver/login'
+    googlelogin: () => HOST + SOCIAL + 'google/' + 'login',
+    kakao: () => HOST + SOCIAL + 'kakao',
+    kakaologin: () => HOST + SOCIAL + 'kakao/' + 'login',
+    naver: () => HOST + SOCIAL + 'naver',
+    naverlogin: () => HOST + SOCIAL + 'naver/' + 'login'
   }
 }
