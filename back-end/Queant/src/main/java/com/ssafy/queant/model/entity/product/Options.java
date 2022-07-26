@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Option {
+public class Options {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int option_id;

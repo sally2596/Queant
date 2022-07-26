@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Condition {
+public class Conditions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int condition_id;
