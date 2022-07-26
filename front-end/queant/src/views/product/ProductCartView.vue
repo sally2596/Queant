@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <Navbar/>
-  </div>
+  <Navbar/>
+  <header id="title-div">
+    <h1 class="title" id="title">상품 저장소</h1>
+  </header>
 </template>
 
 <script>
