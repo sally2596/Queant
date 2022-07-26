@@ -6,7 +6,7 @@
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
        data-bs-target="#navbar" aria-controls="navbar"
-        aria-expanded="false" aria-label="Toggle navigation">
+        aria-expanded="false" aria-label="Toggle navigation" id="NavbarToggler">
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
@@ -37,21 +37,21 @@
               <router-link :to="{ name : 'contents'}">Contents</router-link>
             </li>
           </div>
-          <li class="ms-lg-auto">
+          <li class="ms-lg-auto" id="searching_place">
             <input 
             type="text"
-            placeholder="빠른 상품 검색">
+            placeholder="빠른 상품 검색"
+            >
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
           </li>
-          <!-- 여기는 로그아웃 했을 때만 보여야 함 -->
-          <div class="ms-lg-auto" id="login-button"
-           style="margin-right:30px;margin-left:8px;"
+          <!-- 로그아웃 했을 때만 보임 -->
+          <li id="login-button"
+           style="margin-left:8px; margin-right:8px;"
            v-show="!isLoggedIn">
             <router-link :to="{ name : 'login' }">로그인</router-link>
-          <!-- 여기는 로그인 했을 때만 보여야 함 -->
-          </div>
-          <!-- v-show="isLoggedIn" 추가해야 함 -->
-            <li class="dropdown" >
+          </li>
+          <!-- 로그인 했을 때만 보임 -->
+          <li class="dropdown" v-show="isLoggedIn">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left:8px;">
                 Profile
               </a>
@@ -62,7 +62,7 @@
                 <hr>
                 <li style="margin:8px; cursor: pointer" @click="logout">로그아웃</li>
               </ul>
-            </li>
+          </li>
         </ul>
       </div>
     </nav>
@@ -77,9 +77,16 @@ export default {
     ...mapGetters(['isLoggedIn'])
   },
   methods: {
-    ...mapActions(['logout'])
-    
+    ...mapActions(['logout']),
+    isCollapsed: function() {
+      this.searching_place = !this.searching_place
+    }
   },
+  data() {
+    return {
+      searching_place : true
+    }
+  }
 }
 </script>
 

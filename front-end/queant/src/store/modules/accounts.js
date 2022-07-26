@@ -123,7 +123,7 @@ export default {
     logout({ commit, dispatch }) {
       dispatch('removeToken')
       commit('SET_USER_INFO', {})
-      router.push({ name: 'login' })
+      router.push({ name: 'home' })
     },
     removeToken({ commit }) {
       commit('SET_ACCESS_TOKEN', '')

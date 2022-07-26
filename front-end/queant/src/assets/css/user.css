@@ -81,23 +81,49 @@ body.auth {
 }
 .choose-area {
   width: 300px; position: relative;
-  margin-top: 18px;
+  padding:18px;
   border-bottom: 1px solid #000;
+  align-items: center;
   display: flex;
   justify-content: flex-end;
 }
-.choose-area input {
+#profile-name {
+  
+  width: 18%;
+  background-color: transparent;
+  border: none;
+}
+
+#profile-email {
+  
+  width: 52%;
+  background-color: transparent;
+  border: none;
+}
+
+#profile-birthdate {
+  width: 32%;
+  background-color: transparent;
+  border: none;
+}
+#Female-select {
   width: 7%;
   margin-right: 5px;
   background-color: transparent;
+  border: none;
+}
+#Male-select {
+  width: 7%;
+  margin-right: 5px;
+  background-color: transparent;
+  border: none;
 }
 .choose-area p {
   font-size: 18px; color: #999;
-  margin-bottom: 10px; margin-top: 20px;
-  margin-right: 10px;
+  margin-right: 10px; margin-bottom: 0;
 }
 .choose-area label {
-  position: absolute; left: 10px; top: 0px;
+  position: absolute; left: 14px; top: 17px;
   font-size: 18px; color: #999;
 }
 .date-area {  
@@ -154,11 +180,11 @@ body.auth {
 .login-form h1 {
   font-size: 22px; color: #000;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .login-form p {
-  margin-top: 100px;
+  margin-top: 30px;
   color: #999;
 }
 

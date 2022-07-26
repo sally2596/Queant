@@ -22,15 +22,17 @@ body.menu_body {
     box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
 }
 
-#product_result_article {
+.search_filter{
     background-color: white;
-    height: 20rem;
+    height: 100vh;
     margin-top: 2rem; margin-left: 1rem; margin-bottom: 1rem;
-    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+    box-shadow: 1px 5px 10px rgb(0 0 0 / 10%);
 }
 
 .btn {
+    text-decoration: none;
     margin: 3px;
+    border-color: black;
 }
 
 .deposit {
@@ -70,6 +72,7 @@ body.menu_body {
 	padding: 10px 24px;
 	cursor: pointer;
 	float: left;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
 } 
 .filter_button_wrap:after {
     content: "";
