@@ -25,8 +25,8 @@ import RegisterView from '../views/auth/RegisterView.vue'
 import PasswordFindView from '../views/auth/PasswordFindView.vue'
 
 // admin
-import AdminView from '../views/admin/AdminView.vue'
-import AdminManageView from '../views/admin/AdminManageView.vue'
+import AdminUserListView from '../views/admin/AdminUserListView.vue'
+import AdminContentView from '../views/admin/AdminContentView.vue'
 import AdminSpecialView from '../views/admin/AdminSpecialView.vue'
 
 // products
@@ -135,12 +135,12 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: AdminView
+    component: AdminUserListView
   },
   {
-    path: '/admin/manage',
-    name: 'adminManage',
-    component: AdminManageView
+    path: '/admin/content',
+    name: 'adminContent',
+    component: AdminContentView
   },
   {
     path: '/admin/special',

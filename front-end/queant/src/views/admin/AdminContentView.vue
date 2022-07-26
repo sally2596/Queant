@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'AdminManageView'
+  name: 'AdminContentView'
 }
 </script>
 

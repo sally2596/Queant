@@ -2,11 +2,17 @@ import spring from "@/api/spring"
 import axios from "axios"
 
 export default {
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    users: []
+  },
+  getters: {
+    users: state => state.users
+  },
+  mutations: {
+    SET_USERS: (state, users) => state.users = users
+  },
   actions: {
-    getAllUserInfo() {
+    fetchUsers({ commit }) {
       axios({
         url: spring.member.roles(),
         method: 'get',
@@ -17,6 +23,7 @@ export default {
       })
       .then(res => {
         console.log(res)
+        commit('SET_USERS', res.data.member_dto_list)
       })
       .catch(err => {
         console.log(err)
