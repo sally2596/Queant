@@ -147,6 +147,7 @@ public class MemberServiceImpl implements MemberService{
         if(!result.isPresent()) return null;
         Member member = result.get();
 
+        member.setRoleSet(new HashSet<>());
         for(MemberRole role : roleSet){
             member.addMemberRole(role);
         }
