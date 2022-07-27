@@ -106,8 +106,8 @@ export default {
     },
     unregister({ dispatch }, email) {
       axios({
-        url: spring.member.info(),
-        method: 'delete',
+        url: spring.member.status(),
+        method: 'put',
         data: {
           email: email
         }
