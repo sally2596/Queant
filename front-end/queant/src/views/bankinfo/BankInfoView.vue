@@ -1,6 +1,9 @@
 <template>
   <div>
     <Navbar/>
+    <header id="title-div">
+      <h1 class="title" id="title">은행 정보</h1>
+    </header>
   </div>
 </template>
 

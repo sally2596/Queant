@@ -7,14 +7,12 @@
     <br><br><br><br><br>
       <h1>포트폴리오가 없으시네요!</h1>
       <br><br><br><br><br><br>
-      <div class="container row">
-        <button class="col-lg-3 offset-lg-2" @click="">
+        <button  @click="">
           <strong>직접 포트폴리오 만들기</strong>
         </button>
-        <button class="col-lg-3 offset-lg-4">
+        <button class="col-lg-1 offset-lg-5">
           <strong>상품 추가하기</strong>
         </button>
-      </div>
   </div>
   <div class="portfolio">
     

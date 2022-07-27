@@ -6,8 +6,7 @@
           type="text"
           id="profile-name"
           autocomplete="off"
-          class="profile"
-          disabled>
+          class="profile">
         <label class="form-label" for="name">이름</label>
       </div>
       <div class="choose-area">
@@ -27,16 +26,14 @@
           type="radio"
           value="Female"
           class="gender-input-female"
-          id="Female-select"
-          disabled>
+          id="Female-select">
         <p class="female">여성</p>
         <input
           v-model="credentials.gender"
           type="radio"
           value="Male"
           class="gender-input-male"
-          id="Male-select"
-          disabled>
+          id="Male-select">
         <p class="male" style="margin-right:0;">남성</p>
         <label for="gender">성별</label>
       </div>
@@ -45,8 +42,7 @@
         <input
           v-model="credentials.birthdate"
           type="text"
-          id="profile-birthdate"
-          disabled>
+          id="profile-birthdate">
         <label for="birthdate">생년월일</label>
       </div>
     
