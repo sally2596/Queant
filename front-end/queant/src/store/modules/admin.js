@@ -3,6 +3,7 @@ import axios from "axios"
 
 export default {
   state: {
+    usera: {},
     users: [],
     roleUsers: [],
     socialUsers: [],
@@ -10,10 +11,11 @@ export default {
     socialStatus: null
   },
   getters: {
+    usera: state => state.usera,
     users: state => state.users
   },
   mutations: {
-    SET_USER: (state, user) => state.user = user,
+    SET_USER: (state, usera) => state.usera = usera,
     SET_USERS: (state, users) => state.users = users,
     SET_ROLE_USERS: (state, roleUsers) => state.roleUsers = roleUsers,
     SET_SOCIAL_USERS: (state, socialUsers) => state.socialUsers = socialUsers,
@@ -22,8 +24,7 @@ export default {
   },
   actions: {
     fetchUser({ commit }, res) {
-      console.log(res)
-      commit('SET_USER', res.data)
+      commit('SET_USER', res)
     },
 
     fetchUsers({ commit }) {
@@ -112,7 +113,19 @@ export default {
         }
       })
       .then(res => {
-        // commit('SET_USER', res.data)
+        axios({
+          url: spring.member.info(),
+          method: 'post',
+          data: {
+            email: email
+          }
+        })
+        .then(res => {
+          commit('SET_USER', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
         console.log(res)
       })
       .catch(err => {
