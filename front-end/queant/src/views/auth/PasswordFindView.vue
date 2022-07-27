@@ -1,6 +1,7 @@
 <template>
   <section v-if="emailCheckedStatus !== 200" class="login-form">
     <h1>이메일을 입력하세요.</h1>
+    <p>이메일로 임시 비밀번호가 전송됩니다.</p>
     <br><br><br>
       <div class="int-area">
         <input

@@ -4,7 +4,7 @@
     <h1 class="title" id="title">맞춤 상품 추천</h1>
   </header>
   <section>
-    <div class="search_fi lter">
+    <div class="search_filter">
 					<div class="filter_button_wrap">
 						<button @click="deposit_OnOff" :class="{'active' : filter_deposit==true}" class="filter_button" id="filter_button_a">예금</button>
 						<button @click="saving_OnOff" :class="{'active' : filter_savings==true}" class="filter_button" id="filter_button_b">적금</button>
@@ -58,6 +58,10 @@
               <button class="btn">첫 거래</button>
               <button class="btn">입출금통장</button>
               <button class="btn">재예치</button>
+            </div>
+            
+            <div id="deposit-result-view">
+              <button class="btn btn-primary">결과 보기</button>
             </div>
 					</div>
 					<div v-if="filter_savings" class="container row" id="filter_savings">
@@ -114,6 +118,9 @@
               <h6>상품 보기</h6>
               <button class="btn">상품 하나씩 보기</button>
               <button class="btn">상품 묶어서 보기</button>
+            </div>
+            <div id="saving-result-view">
+              <button class="btn btn-primary">결과 보기</button>
             </div>
 					</div>					
 		</div>
