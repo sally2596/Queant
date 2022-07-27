@@ -5,17 +5,19 @@ export default {
   state: {
     users: [],
     roleUsers: [],
-    socialUsers: []
+    socialUsers: [],
+    roleStatus: null,
+    socialStatus: null
   },
   getters: {
-    users: state => state.users,
-    roleUsers: state => state.roleUsers,
-    socialUsers: state => state.socialUsers
+    users: state => state.users
   },
   mutations: {
     SET_USERS: (state, users) => state.users = users,
     SET_ROLE_USERS: (state, roleUsers) => state.roleUsers = roleUsers,
-    SET_SOCIAL_USERS: (state, socialUsers) => state.socialUsers = socialUsers
+    SET_SOCIAL_USERS: (state, socialUsers) => state.socialUsers = socialUsers,
+    SET_ROLE_STATUS: (state, res) => state.roleStatus = res,
+    SET_SOCIAL_STATUS: (state, res) => state.socialStatus = res
   },
   actions: {
     fetchUsers({ commit }) {
@@ -34,19 +36,20 @@ export default {
         console.log(err)
       })
     },
-    
+
     fetchUsersThroughRole({ commit, state }, event) {
       axios({
         url: spring.member.roles(),
         method: 'get',
         params: {
-          role: event.target?event.target.value:event,
+          role: event.target.value,
           page: 1
         }
       })
       .then(res => {
         commit('SET_ROLE_USERS', res.data.member_dto_list)
-        if (state.socialUsers.length !== 0) {
+        commit('SET_ROLE_STATUS', event.target.value)
+        if (state.socialStatus !== null) {
           const newUsers = []
           state.socialUsers.forEach(socialUser => {
             state.roleUsers.forEach(roleUser => {
@@ -75,7 +78,8 @@ export default {
       })
       .then(res => {
         commit('SET_SOCIAL_USERS', res.data.member_dto_list)
-        if (state.roleUsers.length !== 0) {
+        commit('SET_SOCIAL_STATUS', event.target.value)
+        if (state.roleStatus !== null) {
           const newUsers = []
           state.roleUsers.forEach(roleUser => {
             state.socialUsers.forEach(socialUser => {

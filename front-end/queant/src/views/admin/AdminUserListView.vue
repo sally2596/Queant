@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 이메일 검색 -->
+
     <!-- ROLE_SET 필터 -->
     <select @change="fetchUsersThroughRole($event)">
       <option selected disabled>권한</option>
@@ -17,8 +19,8 @@
       <option value='Kakao'>Kakao</option>
     </select>
 
-    <!-- <div v-if="roleUsers.length !== 0">haha</div>
-    <div v-if="socialUsers.length !== 0">ajaj</div> -->
+    <!-- 필터 초기화 -->
+    <button @click="this.$router.go()">필터 초기화</button>
 
     <admin-user-item
       v-for="user in users"
