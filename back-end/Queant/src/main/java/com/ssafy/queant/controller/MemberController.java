@@ -110,7 +110,7 @@ public class MemberController {
     @PostMapping("/info")
     public ResponseEntity<?> Info(@RequestBody MemberRequestDto requestDto){
         MemberDto memberDto = memberService.findMember(requestDto.getEmail());
-        System.out.println(memberDto.getBirthdate());
+        log.info("Info Controller enabled 확인{}", memberDto.getEnabled());
         if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
     }

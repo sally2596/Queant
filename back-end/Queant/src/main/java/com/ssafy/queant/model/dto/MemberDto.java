@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Schema
+@Data
 public class MemberDto implements UserDetails {
     @ApiModelProperty(hidden = true)
     private UUID memberId;
@@ -40,7 +40,7 @@ public class MemberDto implements UserDetails {
     @Schema(description = "성별(Female/Male)")
     private Gender gender;
     @Schema(description = "생일")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private Date birthdate;
     @ApiModelProperty(hidden = true)
     private int portfolioCnt;
@@ -50,7 +50,8 @@ public class MemberDto implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String refreshToken;
     @ApiModelProperty(hidden = true)
-    private boolean enabled=true;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private boolean enabled = true;
 
     @ApiModelProperty(hidden = true)
     @Builder.Default
@@ -99,4 +100,7 @@ public class MemberDto implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+    public boolean getEnabled() { return enabled;}
+    public void setEnabled(boolean enabled){this.enabled = enabled;}
 }
