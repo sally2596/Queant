@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'junit:junit:4.13.1'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
@@ -60,11 +61,9 @@ dependencies {
 
     //test를 위한 프론트 템플릿 -> 추후 삭제
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation('org.junit.jupiter:junit-jupiter')
-    testImplementation('org.junit.jupiter:junit-jupiter-api')
-    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
 
+    // 로그에 남는 쿼리문 (?,?) 안에 채워서 보여줌, 배포시 삭제
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
 }
 
 tasks.named('test') {

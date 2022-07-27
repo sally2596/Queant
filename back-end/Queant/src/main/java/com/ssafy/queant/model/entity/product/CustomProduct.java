@@ -18,7 +18,7 @@ import java.util.UUID;
 public class CustomProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String product_id;
+    private int product_id;
 
     @Column(nullable = false) // 은행이나 기관 이름
     private String institution_name;
