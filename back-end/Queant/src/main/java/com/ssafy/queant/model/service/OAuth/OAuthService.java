@@ -41,11 +41,11 @@ public class OAuthService {
         log.info("[member] : "+member);
         member.setRoleSet(new HashSet<>());
         member.addMemberRole(MemberRole.ROLE_USER);
-        //member.setSocial(memberDto.getSocial());
+        member.setEnabled(true);
         Member savedMember = memberRepository.save(member);
 
         if(!savedMember.getName().isEmpty()){
-            log.info("[register] : 회원가입 완료");
+            log.info("[Register Social Member] 성공 : "+savedMember);
             return true;
         } else {
             log.info("[register] : 회원가입 실패");
@@ -59,11 +59,16 @@ public class OAuthService {
         Member member = result.get();
 
         if(member.getSocial()!=memberDto.getSocial()){
-            log.info("[login] 이미 가입한 계정, 다른 로그인 경로 사용할 것");
+            log.info("[login] : 이미 가입한 계정입니다. 다른 로그인 경로 사용할 것");
             loginResultDto.setResult(member.getSocial().toString());
             return loginResultDto;
         }
 
+        if(!member.isEnabled()){
+            log.info("[login] : 휴면계정입니다.");
+            loginResultDto.setResult("Disabled");
+            return loginResultDto;
+        }
         log.info("[login] 로그인 성공!");
         //RefreshToken 주입
         loginResultDto.setResult("SUCCESS");
@@ -88,7 +93,9 @@ public class OAuthService {
             response.put("RefreshToken", result.getRefreshToken());
             log.info("[소셜 로그인 성공]: "+response);
             return new ResponseEntity<Map<String, String>>(response, HttpStatus.OK);
-        } else{
+        }else if(result.getResult().equals("Disabled")) {
+            return new ResponseEntity<>(HttpStatus.LOCKED);
+        }else{
             response.put("Login", result.getResult());
             log.info("[소셜 로그인 실패]: "+response);
             return new ResponseEntity<Map<String, String>>(response, HttpStatus.CONFLICT);
