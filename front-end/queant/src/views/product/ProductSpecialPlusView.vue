@@ -1,6 +1,9 @@
 <template>
   <div>
     <Navbar/>
+    <header id="title-div">
+      <h1 class="title" id="title">특판 정보 추가하기</h1>
+    </header>
   </div>
 </template>
 

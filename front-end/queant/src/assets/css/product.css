@@ -3,9 +3,6 @@
     font-family: 'jua';
     src: url(../font/BMJUA_ttf.ttf);
 }
-body.menu_body {
-  background-color: rgba(250,235,215,0.3);
-}
 .section_padding_color {
     max-width: 3840px;
     height: 2140px;
@@ -18,17 +15,33 @@ body.menu_body {
 #product_select_article {
     background-color: #ffffff;
     margin-top: 2rem; margin-left: 1rem;
-    
+    max-height: 2140px;
     box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
 }
 
 .search_filter{
+    max-width: 992px;
     background-color: white;
-    height: 100vh;
     margin-top: 2rem; margin-left: 1rem; margin-bottom: 1rem;
     box-shadow: 1px 5px 10px rgb(0 0 0 / 10%);
+    margin: auto;
+    margin-top: 50px;
 }
 
+
+#deposit-result-view {
+  margin-top: 50px; margin-bottom: 30px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+#saving-result-view {
+  margin-top: 50px; margin-bottom: 30px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
 .btn {
     text-decoration: none;
     margin: 3px;
@@ -40,9 +53,7 @@ body.menu_body {
 }
 .select {
   padding: auto;
-  margin: 20px;
   padding: 20px;
-  border-bottom: 1px black solid; 
 }
 
 .select h6 {
@@ -53,10 +64,6 @@ body.menu_body {
 
 /* 필터정보 */
 .search_filter {
-  width: 85%;
-  margin: auto;
-  margin-top: 30px;
-  margin-bottom: 50px;    
 } 
 .filter_button_wrap {
   width: 100%;
