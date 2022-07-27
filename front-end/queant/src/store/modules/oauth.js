@@ -37,7 +37,10 @@ export default {
         router.push({ name: 'home' })
       })
       .catch((err) => {
-        alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        if (err.response.status === 409)
+          alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        else if (err.response.status === 423)
+          alert('비활성화 계정입니다.')
         router.push({ name: 'login' })
       })
     },
@@ -70,7 +73,10 @@ export default {
         router.push({ name: 'home' })
       })
       .catch( err => {
-        alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        if (err.response.status === 409)
+          alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        else if (err.response.status === 423)
+          alert('비활성화 계정입니다.')
         router.push({ name: 'login' })
       })
     },
@@ -104,7 +110,10 @@ export default {
         router.push({ name: 'home' })
       })
       .catch( err => {
-        alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        if (err.response.status === 409)
+          alert('Queant 또는 다른 소셜 계정으로 이미 가입된 계정입니다.')
+        else if (err.response.status === 423)
+          alert('비활성화 계정입니다.')
         router.push({ name: 'login' })
       })
     } 

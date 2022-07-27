@@ -13,6 +13,7 @@ export default {
     users: state => state.users
   },
   mutations: {
+    SET_USER: (state, user) => state.user = user,
     SET_USERS: (state, users) => state.users = users,
     SET_ROLE_USERS: (state, roleUsers) => state.roleUsers = roleUsers,
     SET_SOCIAL_USERS: (state, socialUsers) => state.socialUsers = socialUsers,
@@ -20,6 +21,11 @@ export default {
     SET_SOCIAL_STATUS: (state, res) => state.socialStatus = res
   },
   actions: {
+    fetchUser({ commit }, res) {
+      console.log(res)
+      commit('SET_USER', res.data)
+    },
+
     fetchUsers({ commit }) {
       axios({
         url: spring.member.roles(),
@@ -96,7 +102,24 @@ export default {
         console.log(err)
       })
     },
-    
+
+    editEnabled({ commit }, email) {
+      axios({
+        url: spring.member.status(),
+        method: 'put',
+        data: {
+          email: email
+        }
+      })
+      .then(res => {
+        // commit('SET_USER', res.data)
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+
     editRoleSet({ commit }, credentials) {
       axios({
         url: spring.member.roles(),
@@ -107,6 +130,7 @@ export default {
         }
       })
       .then(res => {
+        commit('SET_USER', res.data)
         console.log(res)
       })
       .catch(err => {

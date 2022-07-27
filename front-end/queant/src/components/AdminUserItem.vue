@@ -64,6 +64,13 @@
       <label :for="`role-admin-${user.member_id}`">ROLE_ADMIN</label>
     </div>
 
+    <div>
+      계정 활성화 여부:
+      {{ user.enabled }}
+      <button v-if="user.enabled" @click="editEnabled(user.email)">비활성화</button>
+      <button v-else @click="editEnabled(user.email)">활성화</button>
+    </div>
+
     <button @click="editRoleSet(credentials)">수정</button>
 
     <hr>
@@ -79,6 +86,8 @@ export default {
   props: {
     user: Object
   },
+  computed: {
+  },
   data() {
     return {
       credentials: {
@@ -87,12 +96,13 @@ export default {
         gender: this.user.gender,
         birthdate: this.user.birthdate,
         social: this.user.social,
-        role_set: this.user.role_set
+        role_set: this.user.role_set,
+        enabled: this.user.enabled
       }
     }
   },
   methods: {
-    ...mapActions(['editRoleSet'])
+    ...mapActions(['editRoleSet', 'editEnabled', 'fetchUser'])
   }
 }
 </script>

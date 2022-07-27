@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- 이메일 검색 -->
+    <input type="text">
 
     <!-- ROLE_SET 필터 -->
     <select @change="fetchUsersThroughRole($event)">
