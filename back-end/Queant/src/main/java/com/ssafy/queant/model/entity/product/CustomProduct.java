@@ -31,11 +31,11 @@ public class CustomProduct {
     private boolean is_deposit;
 
     @Column(nullable = false)
-    private double base_rate;
+    private float base_rate;
 
     @Column(nullable = false) // 우대금리 -> 없다면 디폴트 0
     @Builder.Default
-    private double special_rate =0L;
+    private float special_rate =0L;
 
     private boolean is_fixed_rsrv;
 

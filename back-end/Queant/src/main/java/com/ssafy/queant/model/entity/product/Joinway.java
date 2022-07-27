@@ -20,10 +20,13 @@ public class Joinway {
 
     @Column(nullable = false)
     private String product_id;
+
     @Column(nullable = false)
     private char code_id;
+
     @Column(nullable = false)
     private int scode_id;
+
     @Column(nullable = false)
     private String joinway;
 }

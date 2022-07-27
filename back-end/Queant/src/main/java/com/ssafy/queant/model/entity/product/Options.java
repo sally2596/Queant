@@ -17,15 +17,21 @@ public class Options {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int option_id;
+
     @Column(nullable = false)
     private String product_id;
+
     @Column(nullable = false)
-    private Long base_rate;
+    private float base_rate;
+
     @Column(nullable = false)
-    private Long high_base_rate;
+    private float high_base_rate;
+
     @Column(nullable = false)
     private int save_term;
+
     @Column(nullable = false)
     private boolean is_compound;
+
     private boolean is_fixed;
 }

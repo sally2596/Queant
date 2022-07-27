@@ -28,7 +28,7 @@ public class Conditions {
     private int scode_id;
 
     @Column(nullable = false)
-    private Long special_rate;
+    private float special_rate;
 
     @Column(nullable = false)
     private String condition_info;
