@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -50,5 +51,6 @@ public class CustomProduct {
     private Date end_date;
 
     @Column(nullable = false)
+    @Type(type="org.hibernate.type.UUIDCharType")
     private UUID member_id;
 }
