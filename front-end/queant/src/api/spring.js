@@ -11,8 +11,9 @@ export default {
     emailcheck: () => HOST + MEMBER + 'emailcheck',
     emailverify: () => HOST + MEMBER + 'emailverify',
     password: () => HOST + MEMBER + 'password',
-
-    roles: () => HOST + MEMBER + 'roles'
+    status: () => HOST + MEMBER + 'status',
+    roles: () => HOST + MEMBER + 'roles',
+    social: () => HOST + MEMBER + 'social'
   },
   social: {
     google: () => HOST + SOCIAL + 'google',

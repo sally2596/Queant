@@ -1,5 +1,25 @@
 <template>
   <div>
+    <!-- ROLE_SET 필터 -->
+    <select @change="fetchUsersThroughRole($event)">
+      <option selected disabled>권한</option>
+      <option value='ROLE_USER'>ROLE_USER</option>
+      <option value='ROLE_SUPER'>ROLE_SUPER</option>
+      <option value='ROLE_ADMIN'>ROLE_ADMIN</option>
+    </select>
+
+    <!-- SOCIAL 필터 -->
+    <select @change='fetchUsersThroughSocial($event)'>
+      <option selected disabled>가입유형</option>
+      <option value='None'>QueÆnt</option>
+      <option value='Google'>Google</option>
+      <option value='Naver'>Naver</option>
+      <option value='Kakao'>Kakao</option>
+    </select>
+
+    <!-- <div v-if="roleUsers.length !== 0">haha</div>
+    <div v-if="socialUsers.length !== 0">ajaj</div> -->
+
     <admin-user-item
       v-for="user in users"
       :key="user.member_id"
@@ -18,8 +38,12 @@ export default {
   computed: {
     ...mapGetters(['users'])
   },
+  data() {
+    return {
+    }
+  },
   methods: {
-    ...mapActions(['fetchUsers'])
+    ...mapActions(['fetchUsers', 'fetchUsersThroughRole', 'fetchUsersThroughSocial'])
   },
   mounted() {
     this.fetchUsers()
