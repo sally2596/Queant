@@ -43,13 +43,13 @@ export default {
         }
       })
       .then( res => {
-        console.log(res)
+        console.log('비밀번호가 변경되었습니다. 다시 로그인 해주세요.')
         alert('비밀번호가 변경되었습니다! 다시 로그인 해주세요.')
         commit('SET_PASSWORD_CHECKED_STATUS', '')
         router.push({ name: 'login'})
       })
       .catch( err => {
-        console.log(err)
+        console.log('임시 비밀번호를 확인해주세요.')
         commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
       })
     },
@@ -79,9 +79,12 @@ export default {
         }
       })
       .then( res => {
+        console.log('적어주신 이메일로 임시 비밀번호를 전송했습니다.')
+        alert(`${email}로 임시 비밀번호를 전송했습니다.`)
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
+        console.log('가입된 이메일이 아니므로 임시 비밀번호 전송에 실패했습니다.')
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
@@ -141,6 +144,7 @@ export default {
         data: credentials,
       })
       .then( res => {
+        console.log('로그인 되었습니다.')
         const userCredentials = JSON.parse(res.config.data)
         dispatch('saveAccessToken', res.data.AccessToken)
         dispatch('saveRefreshToken', res.data.RefreshToken)
@@ -165,6 +169,7 @@ export default {
         }
       })
       .then( res => {
+        console.log('회원가입 되었습니다. 다시 로그인 해주세요.')
         commit('SET_EMAIL_VERIFIED_STATUS', '')
         commit('SET_EMAIL_CHECKED_STATUS', '')
         alert('회원가입이 완료되었습니다! 다시 로그인 해주세요.')
@@ -185,9 +190,11 @@ export default {
         }
       })
       .then( res => {
+        console.log('이메일 중복 검사에 성공했습니다.')
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
+        console.log('이메일 중복 검사에 실패했습니다.')
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
@@ -200,18 +207,22 @@ export default {
         }
       })
       .then( res => {
+        console.log('이메일 인증번호 검사에 성공했습니다.')
         commit('SET_EMAIL_VERIFIED_STATUS', res.status)
       })
       .catch( err => {
+        console.log('이메일 인증번호 검사에 실패했습니다.')
         commit('SET_EMAIL_VERIFIED_STATUS', err.response.status)
       })
     },
 
     saveAccessToken({ commit }, accessToken) {
+      console.log('액세스 토큰을 저장합니다.')
       commit('SET_ACCESS_TOKEN', accessToken)
       localStorage.setItem('accessToken', accessToken)
     },
     saveRefreshToken({ commit }, refreshToken) {
+      console.log('리프레쉬 토큰을 저장합니다.')
       commit('SET_REFRESH_TOKEN', refreshToken)
       localStorage.setItem('refreshToken', refreshToken)
     },
@@ -225,13 +236,17 @@ export default {
           }
         })
         .then( res => {
+          console.log('유저 정보를 가져오는데 성공했습니다.')
           if (window.location.pathname === '/admin') {
+            console.log('가져온 유저 정보를 관리자 페이지에서 검색 결과로 확인할 수 있습니다.')
             commit('SET_USERS', [res.data])
           } else {
+            console.log('가져온 유저 정보를 현재 유저 정보로 저장합니다.')
             commit('SET_USER_INFO', res.data)
           }
         })
         .catch( err => {
+          console.log('유저 정보를 가져오는데 실패했습니다.')
           console.log(err)
         })
       }

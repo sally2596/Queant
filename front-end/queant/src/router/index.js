@@ -34,6 +34,7 @@ import ProductRecommendationView from '@/views/product/ProductRecommendationView
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
+import ProductResultsView from '@/views/product/ProductResultsView.vue'
 
 // content
 import ContentsView from '@/views/content/ContentsView.vue'
@@ -87,6 +88,11 @@ const routes = [
     path : '/product',
     name : 'productRecommend',
     component: ProductRecommendationView
+  },
+  {
+    path: '/product/results',
+    name: 'productResults',
+    component: ProductResultsView
   },
   {
     path : '/product/cart',
