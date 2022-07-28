@@ -19,38 +19,38 @@ import java.util.UUID;
 public class CustomProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int product_id;
+    private int productId;
 
     @Column(nullable = false) // 은행이나 기관 이름
-    private String institution_name;
+    private String institutionName;
 
     @Column(nullable = false)
-    private String product_name;
+    private String productName;
 
     @Column(nullable = false)
-    private boolean is_deposit;
+    private boolean isDeposit;
 
     @Column(nullable = false)
-    private float base_rate;
+    private float baseRate;
 
     @Column(nullable = false) // 우대금리 -> 없다면 디폴트 0
     @Builder.Default
-    private float special_rate =0L;
+    private float specialRate =0L;
 
-    private boolean is_fixed_rsrv;
+    private boolean isFixedRsrv;
 
     private String etc; // 기타 사항
 
     private Long amount; // 예금일때 한번에 넣을 금액
-    private Long amount_regular; // 적금일때 한달에 넣을 금액
+    private Long amountRegular; // 적금일때 한달에 넣을 금액
 
     @Column(nullable = false)
-    private Date start_date;
+    private Date startDate;
 
     @Column(nullable = false)
-    private Date end_date;
+    private Date endDate;
 
     @Column(nullable = false)
     @Type(type="org.hibernate.type.UUIDCharType")
-    private UUID member_id;
+    private UUID memberId;
 }
