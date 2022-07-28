@@ -1,7 +1,6 @@
 package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.product.CustomProductDto;
-import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -76,14 +75,8 @@ class PortfolioServiceImplTest {
     @Test
     public void 사용자정의상품_이메일로_찾기() throws Exception {
         // given
-        final Member member = Member.builder()
-                .email("luxurysally@naver.com")
-                .name("전선영")
-                .build();
 
-        final Member savedMember = memberRepository.save(member);
-
-        final UUID uuid = savedMember.getMember_id();
+        final UUID uuid = UUID.randomUUID();
         final UUID uuid2 = UUID.randomUUID();
 
         final CustomProductDto product1 = CustomProductDto.builder()
@@ -120,7 +113,7 @@ class PortfolioServiceImplTest {
         final CustomProductDto savedProduct3 = portfolioService.registCustomProduct(product3,uuid2);
 
         // when
-        List<CustomProductDto> list = portfolioService.findCustomProductByMemberEmail("luxurysally@naver.com");
+        List<CustomProductDto> list = portfolioService.findCustomProductByMemberId(uuid);
 
         // then
         for (int i = 0; i < list.size(); i++) {

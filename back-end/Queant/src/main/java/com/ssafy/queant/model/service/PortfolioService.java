@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface PortfolioService {
    CustomProductDto registCustomProduct(CustomProductDto customProductDto, UUID memberId) throws RuntimeException;
    public boolean deleteCustomProduct(CustomProductDto customProductDto) throws RuntimeException;
-   List<CustomProductDto> findCustomProductByMemberEmail(String email) throws RuntimeException;
+   List<CustomProductDto> findCustomProductByMemberId(UUID memberId) throws RuntimeException;
 }

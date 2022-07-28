@@ -1,6 +1,5 @@
 package com.ssafy.queant.model.repository;
 
-import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.product.CustomProduct;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -24,9 +23,6 @@ class CustomProductRepositoryTest {
 
     @Autowired
     private CustomProductRepository customProductRepository;
-
-    @Autowired
-    private MemberRepository memberRepository;
 
     @Test
     public void 사용자정의상품_단품_저장(){
@@ -97,14 +93,7 @@ class CustomProductRepositoryTest {
     @Test
     public void 사용자이메일로_사용자정의예금상품_찾기(){
         //given
-        final Member member = Member.builder()
-                .email("luxurysally@naver.com")
-                .name("전선영")
-                .build();
-
-        final Member savedMember = memberRepository.save(member);
-
-        final UUID uuid = savedMember.getMember_id();
+        final UUID uuid = UUID.randomUUID();
 
         final CustomProduct product1= CustomProduct.builder()
                 .institutionName("우리은행")
@@ -142,7 +131,7 @@ class CustomProductRepositoryTest {
         final CustomProduct savedProduct3 = customProductRepository.save(product3);
 
         //when
-        List<CustomProduct> list = customProductRepository.findByMemberEmail("luxurysally@naver.com");
+        List<CustomProduct> list = customProductRepository.findByMemberId(uuid);
 
         //then
         for (int i = 0; i < list.size(); i++) {

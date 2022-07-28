@@ -60,9 +60,9 @@ public class PortfolioServiceImpl implements PortfolioService{
    }
 
    @Override
-   public List<CustomProductDto> findCustomProductByMemberEmail(String email) throws RuntimeException {
+   public List<CustomProductDto> findCustomProductByMemberId(UUID memberId) throws RuntimeException {
       log.info("[사용자 정의 상품 가져오기");
-      List<CustomProduct> customProductList = customProductRepository.findByMemberEmail(email);
+      List<CustomProduct> customProductList = customProductRepository.findByMemberId(memberId);
 
       List<CustomProductDto> customProductDtoList = new ArrayList<>();
       for (CustomProduct p:customProductList) {
