@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CustomProductRepository extends JpaRepository<CustomProduct, String> {
+public interface CustomProductRepository extends JpaRepository<CustomProduct, Integer> {
 
 //    @Query("select c from CustomProduct c left join Member m on m.member_id=c.memberId where m.email=:email")
 //    List<CustomProduct> findByMemberEmail(@Param("email") String email);
