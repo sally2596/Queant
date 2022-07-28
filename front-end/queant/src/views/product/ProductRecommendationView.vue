@@ -3,7 +3,7 @@
   <header id="title-div">
     <h1 class="title" id="title">맞춤 상품 추천</h1>
   </header>
-  <section class="product_recommendation_section">
+  <section class="product_section">
     <div class="search_filter">
 					<div class="filter_button_wrap">
 						<button @click="deposit_OnOff" :class="{'active' : filter_deposit==true}" class="filter_button" id="filter_button_a">예금</button>
