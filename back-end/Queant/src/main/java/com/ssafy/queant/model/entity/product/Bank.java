@@ -18,16 +18,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Bank {
     @Id
-    private Long bank_id;
+    private int bankId;
+
     @Column(nullable = false)
-    private char code_id;
+    private String scodeId;
+
     @Column(nullable = false)
-    private int scode_id;
-    @Column(nullable = false)
-    private String name;
+    private String bankName;
+
     private String homepage;
     private String tel;
     private String picture;
-
-
 }
