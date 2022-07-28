@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,24 +29,69 @@ class CustomProductRepositoryTest {
     private MemberRepository memberRepository;
 
     @Test
-    public void 사용자정의예금상품저장(){
+    public void 사용자정의상품_단품_저장(){
         //given
         final CustomProduct product = CustomProduct.builder()
-                .institution_name("우리은행")
-                .product_name("test1")
-                .is_deposit(true)
-                .base_rate(1.5)
-                .start_date(new Date(System.currentTimeMillis()))
-                .end_date(new Date(System.currentTimeMillis()+1000))
-                .member_id(UUID.randomUUID())
+                .institutionName("우리은행")
+                .productName("test1")
+                .isDeposit(true)
+                .baseRate(1.5F)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+1000))
+                .memberId(UUID.randomUUID())
                 .build();
 
         //when
         final CustomProduct savedProduct = customProductRepository.save(product);
 
         //then
-        assertEquals(product.getProduct_id(),savedProduct.getProduct_id());
-        log.info("***************************"+product.getProduct_id());
+        assertEquals(product.getProductId(),savedProduct.getProductId());
+        log.info("***************************"+product.getProductId());
+    }
+
+    @Test
+    public void 사용자정의상품_단품_삭제() throws Exception {
+        // given
+        final CustomProduct product = CustomProduct.builder()
+                .institutionName("우리은행")
+                .productName("test1")
+                .isDeposit(true)
+                .baseRate(1.5F)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+1000))
+                .memberId(UUID.randomUUID())
+                .build();
+
+        final CustomProduct savedProduct = customProductRepository.save(product);
+
+        // when
+        customProductRepository.delete(savedProduct);
+        // then
+    }
+
+    @Test
+    public void 사용자정의상품_단품_찾기() throws Exception {
+        // given
+        final CustomProduct product = CustomProduct.builder()
+                .institutionName("우리은행")
+                .productName("test1")
+                .isDeposit(true)
+                .baseRate(1.5F)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+1000))
+                .memberId(UUID.randomUUID())
+                .build();
+
+        final CustomProduct savedProduct = customProductRepository.save(product);
+
+        // when
+        final Optional<CustomProduct> findProduct = customProductRepository.findByProductId(savedProduct.getProductId());
+
+        int actual = findProduct.get().getProductId();
+        int expected = savedProduct.getProductId();
+
+        // then
+        assertEquals(actual,expected);
     }
 
     @Test
@@ -61,33 +107,33 @@ class CustomProductRepositoryTest {
         final UUID uuid = savedMember.getMember_id();
 
         final CustomProduct product1= CustomProduct.builder()
-                .institution_name("우리은행")
-                .product_name("1111")
-                .is_deposit(true)
-                .base_rate(1.5)
-                .start_date(new Date(System.currentTimeMillis()))
-                .end_date(new Date(System.currentTimeMillis()+1000))
-                .member_id(uuid)
+                .institutionName("우리은행")
+                .productName("1111")
+                .isDeposit(true)
+                .baseRate(1.5F)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+1000))
+                .memberId(uuid)
                 .build();
 
         final CustomProduct product2 = CustomProduct.builder()
-                .institution_name("국민은행")
-                .product_name("2222")
-                .is_deposit(true)
-                .base_rate(10.4)
-                .start_date(new Date(System.currentTimeMillis()))
-                .end_date(new Date(System.currentTimeMillis()+1000))
-                .member_id(uuid)
+                .institutionName("국민은행")
+                .productName("2222")
+                .isDeposit(true)
+                .baseRate(10.4f)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+1000))
+                .memberId(uuid)
                 .build();
 
         final CustomProduct product3 = CustomProduct.builder()
-                .institution_name("신한은행")
-                .product_name("3333")
-                .is_deposit(true)
-                .base_rate(10.4)
-                .start_date(new Date(System.currentTimeMillis()))
-                .end_date(new Date(System.currentTimeMillis()+1000))
-                .member_id(UUID.randomUUID())
+                .institutionName("신한은행")
+                .productName("3333")
+                .isDeposit(true)
+                .baseRate(10.4f)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+1000))
+                .memberId(UUID.randomUUID())
                 .build();
 
 
