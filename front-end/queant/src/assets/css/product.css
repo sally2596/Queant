@@ -3,13 +3,8 @@
     font-family: 'jua';
     src: url(../font/BMJUA_ttf.ttf);
 }
-.section_padding_color {
-    max-width: 3840px;
-    height: 2140px;
-    display: flex;
-}
 
-.product_recommendation_section {
+.product_section {
   display: flex;
   justify-content: center;
 }
@@ -98,4 +93,22 @@
 }
 .filter_active{
 	background-color: #045d3c;
+}
+
+/* cart */
+
+.cart-none {
+  max-width: 1080px;
+  height: 50vh;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.to_product {
+  max-width: 80px;
+}
+
+.cart-none h5 {
+  text-align: center;
 }
