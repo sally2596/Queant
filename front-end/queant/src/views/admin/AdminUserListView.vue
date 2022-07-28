@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- 이메일 검색 -->
-    <input type="text">
+    <input
+      v-model="email" 
+      type="text">
+    <button @click="fetchUserInfo(email)">이메일 검색</button>
 
     <!-- ROLE_SET 필터 -->
     <select @change="fetchUsersThroughRole($event)">
@@ -43,10 +46,11 @@ export default {
   },
   data() {
     return {
+      email: ''
     }
   },
   methods: {
-    ...mapActions(['fetchUsers', 'fetchUsersThroughRole', 'fetchUsersThroughSocial'])
+    ...mapActions(['fetchUserInfo', 'fetchUsers', 'fetchUsersThroughRole', 'fetchUsersThroughSocial'])
   },
   mounted() {
     this.fetchUsers()

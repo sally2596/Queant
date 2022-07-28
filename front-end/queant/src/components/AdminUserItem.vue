@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    이름: {{ usera.name }}
+    이름: {{ user.name }}
     <!-- <input
       v-model="credentials.name"
       type="text"
@@ -10,7 +10,7 @@
       class="profile"
       disabled> -->
     
-    이메일 {{ usera.email }}
+    이메일 {{ user.email }}
     <!-- <input
       v-model="credentials.email"
       type="text"
@@ -19,20 +19,20 @@
       autocomplete="off"
       disabled> -->
 
-    성별 {{ usera.gender }}
+    성별 {{ user.gender }}
     <!-- <input 
       v-model="credentials.gender"
       type="text"
       disabled> -->
 
-    생년월일 {{ usera.birthdate }}
+    생년월일 {{ user.birthdate }}
     <!-- <input
       v-model="credentials.birthdate"
       type="text"
       id="profile-birthdate"
       disabled> -->
 
-    가입유형 {{ usera.social }}
+    가입유형 {{ user.social }}
     <!-- <input
       v-model="credentials.social"
       type="text"
@@ -67,47 +67,38 @@
     </div>
 
     <div>
-      계정 활성화 여부:
-      {{ usera.enabled }}
-      <button v-if="usera.enabled" @click="editEnabled(usera.email)">비활성화</button>
-      <button v-else @click="editEnabled(usera.email)">활성화</button>
+      계정 활성화 여부 {{ user.enabled }}
+      <button v-if="user.enabled" @click="editEnabled(user.email)">비활성화</button>
+      <button v-else @click="editEnabled(user.email)">활성화</button>
     </div>
-
-
     <hr>
   </div>
 
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'AdminUserItem',
   props: {
     user: Object
   },
-  computed: {
-    ...mapGetters(['usera'])
-  },
   data() {
     return {
       credentials: {
-        // name: this.user.name,
+        name: this.user.name,
         email: this.user.email,
-        // gender: this.user.gender,
-        // birthdate: this.user.birthdate,
-        // social: this.user.social,
+        gender: this.user.gender,
+        birthdate: this.user.birthdate,
+        social: this.user.social,
         role_set: this.user.role_set,
         enabled: this.user.enabled
       }
     }
   },
   methods: {
-    ...mapActions(['editRoleSet', 'editEnabled', 'fetchUser'])
-  },
-  created() {
-    this.fetchUser(this.user)
+    ...mapActions(['editRoleSet', 'editEnabled'])
   }
 }
 </script>

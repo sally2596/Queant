@@ -225,7 +225,11 @@ export default {
           }
         })
         .then( res => {
-          commit('SET_USER_INFO', res.data)
+          if (window.location.pathname === '/admin') {
+            commit('SET_USERS', [res.data])
+          } else {
+            commit('SET_USER_INFO', res.data)
+          }
         })
         .catch( err => {
           console.log(err)
