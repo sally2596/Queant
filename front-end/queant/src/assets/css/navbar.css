@@ -93,6 +93,7 @@
 .header .navbar-text a,
 .header .nav-link {
   color: #000000;
+  padding: 0;
 }
 
 .header.navbar-toggler {
@@ -144,7 +145,7 @@
 }
 
 /* 모바일 화면 */
-@media (max-width: 576px) {
+@media (max-width: 991px) {
   /* 검색 화면 안 보이게 */
   #searching_place {
     display: none;
@@ -153,5 +154,18 @@
   #navbar ul {
     align-items: flex-start;
   }
-  
+}
+#searching_place {
+  margin-right: 20px;
+}
+
+.right_content {
+  margin-right: 20px;
+}
+
+.searching {
+  margin-left: 3px;
+  width: 28px;
+  background-color: transparent;
+
 }

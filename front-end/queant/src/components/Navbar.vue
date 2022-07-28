@@ -17,8 +17,8 @@
             </li>
           </div>
           <div>
-            <li class="dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left:8px;">
+            <li class="dropdown content">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Product
               </a>
               <ul class="dropdown-menu dropdown-menu-white">
@@ -37,22 +37,20 @@
               <router-link :to="{ name : 'contents'}">Contents</router-link>
             </li>
           </div>
-          <li class="ms-lg-auto" id="searching_place">
+          <li class="ms-lg-auto content" id="searching_place">
             <input 
             type="text"
             placeholder="빠른 상품 검색"
             >
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="searching"><i class="fa-solid fa-magnifying-glass"></i></button>
           </li>
           <!-- 로그아웃 했을 때만 보임 -->
-          <li id="login-button"
-           style="margin-left:8px; margin-right:8px;"
-           v-show="!isLoggedIn">
+          <li class="right_content content" v-show="!isLoggedIn">
             <router-link :to="{ name : 'login' }">로그인</router-link>
           </li>
           <!-- 로그인 했을 때만 보임 -->
-          <li class="dropdown" v-show="isLoggedIn">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left:8px;">
+          <li class="dropdown right_content content" v-show="isLoggedIn">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
                 Profile
               </a>
               <ul class="dropdown-menu dropdown-menu-white dropdown-menu-lg-end">

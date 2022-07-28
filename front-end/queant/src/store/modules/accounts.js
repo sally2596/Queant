@@ -82,6 +82,7 @@ export default {
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
       .catch( err => {
+        console.log('에러')
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },

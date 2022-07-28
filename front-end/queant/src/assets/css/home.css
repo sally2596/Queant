@@ -112,3 +112,18 @@
   color: #fff;
   text-decoration: none;
 }
+
+/* featured banks */
+
+#featured_banks {
+  max-width: 1080px;
+}
+.banks_ci {
+  height: 5rem;
+  width: 12rem;
+}
+
+.feature {
+  display: flex;
+  justify-content: center;
+}
