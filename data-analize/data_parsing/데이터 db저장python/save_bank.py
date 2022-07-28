@@ -2,10 +2,9 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pymysql import NULL
 import pymysql
-import re
 
 bankcode = ["020000","030300"]
-banktype_num = 1
+banktype_num = 0
 url = "http://finlife.fss.or.kr/finlifeapi/companySearch.xml?auth=47c0e868fdb16333d47d0e385641c3c0&topFinGrpNo=" + bankcode[banktype_num]+ "&pageNo=1"
 print(url)
 

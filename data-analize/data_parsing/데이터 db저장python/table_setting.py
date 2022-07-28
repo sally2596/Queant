@@ -6,13 +6,13 @@ conn = pymysql.connect(host="localhost", user='queant', password='queant1234', d
 cur = conn.cursor()       
 
 delete_table = [
-    """DROP TABLE `queant`.`product`""",
-    """DROP TABLE `queant`.`joinway`""",
-    """DROP TABLE `queant`.`options`""",
-    """DROP TABLE `queant`.`conditions`""",
-    """DROP TABLE `queant`.`commoncode`""",
-    """DROP TABLE `queant`.`specificcode`""",
-    """DROP TABLE `queant`.`bank`"""
+    """DROP TABLE if exists `queant`.`product`""",
+    """DROP TABLE if exists `queant`.`joinway`""",
+    """DROP TABLE if exists `queant`.`options`""",
+    """DROP TABLE if exists `queant`.`conditions`""",
+    """DROP TABLE if exists `queant`.`commoncode`""",
+    """DROP TABLE if exists `queant`.`specificcode`""",
+    """DROP TABLE if exists `queant`.`bank`"""
 ]
 for drop in delete_table:
     cur.execute(drop)
