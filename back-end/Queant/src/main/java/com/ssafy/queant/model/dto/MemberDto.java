@@ -50,6 +50,7 @@ public class MemberDto implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String refreshToken;
     @ApiModelProperty(hidden = true)
+    @Builder.Default
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean enabled = true;
 
