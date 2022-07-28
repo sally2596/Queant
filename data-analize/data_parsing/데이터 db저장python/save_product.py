@@ -236,8 +236,8 @@ code_bank = ["020000", "030300"]
 page_front = "&pageNo="
 page_num = ["1", "2", "3", "4"]
 
-is_deposit = 0
-url = url_deposit[is_deposit] + api_key + code_front + code_bank[0] + page_front + page_num[0]
+is_deposit = 1
+url = url_deposit[is_deposit] + api_key + code_front + code_bank[0] + page_front + page_num[1]
 print(url)
 data_str = urllib.request.urlopen(url).read().decode('euc-kr')
 data_xml = ET.fromstring(data_str)
