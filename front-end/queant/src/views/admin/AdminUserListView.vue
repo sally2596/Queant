@@ -36,15 +36,17 @@
 
     <admin-user-item
       class="d-flex justify-content-center"
-      v-for="user in users"
+      v-for="user in orderedUsers"
       :key="user.member_id"
       :user="user">
     </admin-user-item>
+  
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import _ from 'lodash'
 import AdminUserItem from '@/components/AdminUserItem.vue'
 import Navbar from '@/components/Navbar.vue'
 
@@ -52,7 +54,10 @@ export default {
   name: 'AdminUserListView',
   components: { AdminUserItem, Navbar },
   computed: {
-    ...mapGetters(['users'])
+    ...mapGetters(['users']),
+    orderedUsers() {
+      return _.orderBy(this.users, 'member_id')
+    }
   },
   data() {
     return {
