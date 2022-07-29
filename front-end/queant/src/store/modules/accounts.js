@@ -182,6 +182,7 @@ export default {
     },
     // 회원가입 - 이메일 중복체크
     emailCheck({ commit }, email) {
+      commit('SET_EMAIL_CHECKED_STATUS', '')
       axios({
         url: spring.member.emailcheck(),
         method: 'post',

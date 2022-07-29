@@ -37,6 +37,8 @@
         </div>
         <!-- 중복검사 결과 200 성공 => 인증 메일 발송 -->
         <div v-else-if="emailCheckedStatus === 200">
+          <button type="button" class="mail-send" id="check-email" @click="emailCheck(credentials.email)">재전송</button>
+          {{ timerCount }}
           <p style="margin-bottom:0; margin-top:1px;">메일로 인증 번호가 전송되었습니다.</p>
           <!-- 인증번호 검사  -->
           <div class="int-area">
@@ -155,7 +157,8 @@ export default {
         password1 : '',
         password2 : ''
       },
-      timerCount : 300
+      timerCount : 300,
+      
     }
   },
   methods: {
@@ -177,6 +180,10 @@ export default {
       if (!this.error.email && !this.error.password1 && !this.error.password2 && this.credentials.name && this.credentials.email && this.credentials.password1 && this.credentials.password2)
         this.isCheckedForm = true
       else this.isCheckedForm = false
+    },
+    countDown() {
+      if (this.timerCount > 0)
+        this.timerCount--
     }
   },
   watch: {
@@ -186,6 +193,22 @@ export default {
         this.checkForm()
       }
     },
+    emailCheckedStatus: {
+      handler() {
+        this.timerCount = 300
+        clearTimeout(this.timer)
+        if (this.emailCheckedStatus === 200)
+          this.timerCount--
+      }
+    },
+    timerCount: {
+      handler() {
+        if (this.timerCount === 0)
+          alert('인증번호가 만료되었습니다. 재발급 받아주세요.')
+        else if (this.timerCount < 300)
+          this.timer = setTimeout(this.countDown, 1000)
+      }
+    }
   },
   beforeCreate: function() {
     document.body.className = 'auth';

@@ -34,30 +34,27 @@
       <button @click="this.$router.go()">필터 초기화</button>
     </div>
 
-    <!-- <admin-user-item
+    <admin-user-item
       class="d-flex justify-content-center"
       v-for="user in orderedUsers"
       :key="user.member_id"
       :user="user">
-    </admin-user-item> -->
+    </admin-user-item>
 
-    <div
-      v-for="num in printUserCnt"
+
+    <!-- 자체 페이지네이션 테스트 -->
+    <!-- <div
+      v-for="num in 10"
       :key="num">
       {{ users[(currentPage-1) * 10 + num - 1] }}
     </div>
-
-    <!-- <admin-user-item
-      v-for="num in printUserCnt"
-      :key=num
-      :user="orderedUsers[(currentPage-1) * 10 + num-1]"
-    ></admin-user-item> -->
 
     <div
       v-for="page in totalPage"
       :key="page">
       <button @click="nextPage(page)">{{ page }}</button>
-    </div>
+    </div> -->
+
   </div>
 </template>
 
@@ -74,10 +71,6 @@ export default {
     ...mapGetters(['users']),
     orderedUsers() {
       return _.orderBy(this.users, 'member_id')
-    },
-    printUserCnt() {
-      // return Math.min(this.users.length % 10, 10)
-      return 10
     },
     totalPage() {
       return (this.users.length - (this.users.length % 10)) / 10 + 1
@@ -97,7 +90,7 @@ export default {
     }
   },
   mounted() {
-    // this.fetchUsers()
+    this.fetchUsers()
   }
 }
 </script>
