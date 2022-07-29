@@ -46,10 +46,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import AdminUserItem from '@/components/AdminUserItem.vue'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'AdminUserListView',
-  components: { AdminUserItem },
+  components: { AdminUserItem, Navbar },
   computed: {
     ...mapGetters(['users'])
   },
