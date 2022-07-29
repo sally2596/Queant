@@ -1,4 +1,4 @@
-const HOST = 'http://localhost/'
+const HOST = 'http://i7a201.p.ssafy.io:8000/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
