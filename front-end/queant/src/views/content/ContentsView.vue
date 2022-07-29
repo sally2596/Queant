@@ -8,11 +8,11 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Album example</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <h1 class="fw-light">자산 관리의 핵심, Queant</h1>
+        <p class="lead text-muted">Queant가 당신의 자산을 안전하고 확실하게 불려드립니다.</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          <a href="#" class="btn btn-primary my-2">기사 보기</a>
+          <a href="#" class="btn btn-secondary my-2">기사 작성하기</a>
         </p>
       </div>
     </div>
