@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class BankRepositoryTest {
@@ -16,6 +19,7 @@ class BankRepositoryTest {
 
     @Autowired
     private BankRepository bankRepository;
+
     @Test
     void findAll() {
         List<Bank> list = bankRepository.findAll();
@@ -24,6 +28,21 @@ class BankRepositoryTest {
              ) {
             log.info(b.toString());
         }
+    }
 
+    @Test
+    void findById(){
+        // given
+        int bankId = 10001;
+
+        // when
+        Optional<Bank> result = bankRepository.findByBankId(bankId);
+        Bank bank = result.get();
+
+        //then
+        int actual = bankId;
+        int expected = bank.getBankId();
+
+        assertEquals(actual,expected);
     }
 }
