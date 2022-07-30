@@ -1,4 +1,4 @@
-FROM node:10 as builder
+FROM node:16.16.0 as builder
 
 WORKDIR /queant
 
