@@ -2,6 +2,8 @@ package com.ssafy.queant.model.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.member.MemberRole;
@@ -22,11 +24,13 @@ public class MemberRepositoryImpl implements CustomMemberRepository {
 
     @Override
     public Page<Member> memberList(Social social, MemberRole memberRole, Pageable pageable) {
+
         QueryResults<Member> results =  queryFactory
                 .selectFrom(member)
                 .where(eqSocial(social), eqMemberRole(memberRole))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(member.roleSet.size().desc())
                 .fetchResults();
 
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
