@@ -26,4 +26,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("From Member m where m.social = :social")
     Page<Member> findBySocial(@Param("social") Social social, Pageable pageable);
 
+    public Member memberList();
+
 }
