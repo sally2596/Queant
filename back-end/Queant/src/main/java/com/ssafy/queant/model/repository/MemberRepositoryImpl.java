@@ -1,31 +1,46 @@
 package com.ssafy.queant.model.repository;
 
-import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.queant.model.entity.member.Member;
-import com.ssafy.queant.model.entity.member.QMember;
+import com.ssafy.queant.model.entity.member.MemberRole;
+import com.ssafy.queant.model.entity.member.Social;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import java.util.List;
+import static com.ssafy.queant.model.entity.member.QMember.member;
 
 @RequiredArgsConstructor
 @Repository
-public class MemberRepositoryImpl extends Member {
+public class MemberRepositoryImpl implements CustomMemberRepository {
 
-    private final EntityManager entityManager;
     private final JPAQueryFactory queryFactory;
 
-    public Member memberList(){
-        //JPAQuery<?> query = new JPAQuery<Void>(entityManager);
+    @Override
+    public Page<Member> memberList(Social social, MemberRole memberRole, Pageable pageable) {
+        QueryResults<Member> results =  queryFactory
+                .selectFrom(member)
+                .where(eqSocial(social), eqMemberRole(memberRole))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
 
-        QMember member = QMember.member;
-        Member m = queryFactory.selectFrom(member)
-                .where(member.email.eq("string"))
-                .fetchFirst();
-        return m;
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+    }
+
+
+    private BooleanExpression eqSocial(Social social){
+        if(social == null) return null;
+        return member.social.eq(social);
+    }
+
+    private BooleanExpression eqMemberRole(MemberRole memberRole){
+        if(memberRole == null) return null;
+        return member.roleSet.contains(memberRole);
     }
 
 
