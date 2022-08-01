@@ -15,7 +15,7 @@ export default {
   actions: {
     fetchBanks({ commit }) {
       axios({
-        url: spring.bank(),
+        url: spring.bank.bank(),
         method: 'get'
       })
       .then(res => {
