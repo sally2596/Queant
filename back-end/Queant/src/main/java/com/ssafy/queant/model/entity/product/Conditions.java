@@ -5,34 +5,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
-//@Entity
-//@Table
+@Entity
+@Table
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Conditions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int condition_id;
+    private int conditionId;
 
     @Column(nullable = false)
-    private String product_id;
+    private String productId;
 
     @Column(nullable = false)
-    private char code_id;
+    private String scodeId;
 
     @Column(nullable = false)
-    private int scode_id;
+    private float specialRate;
 
-    @Column(nullable = false)
-    private float special_rate;
-
-    @Column(nullable = false)
-    private String condition_info;
+    private String conditionInfo;
 }
