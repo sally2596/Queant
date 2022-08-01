@@ -226,17 +226,17 @@ def connect_db():
        
 def fetch_commoncode(cur):
     # 공통코드에서 필요한 코드를 가져온다.
-    cur.execute("SELECT code_id FROM queant.commoncode where code_value = \"가입 방법\"")
+    cur.execute("SELECT code_id FROM queant.common_code where code_value = \"가입 방법\"")
     row = cur.fetchone()
     if row != None:
         common_code_join = row[0] #A가 저장됨
         
-    cur.execute("SELECT code_id FROM queant.commoncode where code_value = \"우대 사항\"")
+    cur.execute("SELECT code_id FROM queant.common_code where code_value = \"우대 사항\"")
     row = cur.fetchone()
     if row != None:
         common_code_condition = row[0] #A가 저장됨
         
-    cur.execute("SELECT code_id FROM queant.commoncode where code_value = \"상품 등록 경로\"")
+    cur.execute("SELECT code_id FROM queant.common_code where code_value = \"상품 등록 경로\"")
     row = cur.fetchone()
     if row != None:
         common_code_product = row[0] #A가 저장됨
@@ -244,7 +244,7 @@ def fetch_commoncode(cur):
 
 def fetch_specificcode(common_code_join, common_code_condition, common_code_product, cur):
     #가입 방법 코드
-    query_find_join = """SELECT * FROM queant.specificcode where code_id = (%s)"""
+    query_find_join = """SELECT * FROM queant.specific_code where code_id = (%s)"""
     cur.execute(query_find_join,common_code_join)
     join_ways = {}
     while True:
@@ -254,7 +254,7 @@ def fetch_specificcode(common_code_join, common_code_condition, common_code_prod
         join_ways[row[2]] = row[0]
         
         
-    query_find_condition = """SELECT * FROM queant.specificcode where code_id = (%s)"""
+    query_find_condition = """SELECT * FROM queant.specific_code where code_id = (%s)"""
     cur.execute(query_find_condition,common_code_condition)
     condition_tags = {}
     while True:
@@ -263,7 +263,7 @@ def fetch_specificcode(common_code_join, common_code_condition, common_code_prod
             break
         condition_tags[row[2]] = row[0]
 
-    query_find_condition = """SELECT * FROM queant.specificcode where code_id = (%s)"""
+    query_find_condition = """SELECT * FROM queant.specific_code where code_id = (%s)"""
     cur.execute(query_find_condition,common_code_product)
     product_tags = {}
     while True:
