@@ -128,8 +128,11 @@ export default {
     Navbar : Navbar
   },
   beforeCreate: function() {
-    document.body.className = 'home_body';
+      document.body.className = 'home_body';
   },
+  mounted() {
+    fetchBanks()
+  }
 }
 </script>
 
