@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.entity;
+package com.ssafy.queant.model.entity.member;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

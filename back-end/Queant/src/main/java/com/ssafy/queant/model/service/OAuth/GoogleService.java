@@ -1,7 +1,7 @@
 package com.ssafy.queant.model.service.OAuth;
 
-import com.ssafy.queant.model.dto.MemberDto;
-import com.ssafy.queant.model.entity.Social;
+import com.ssafy.queant.model.dto.member.MemberDto;
+import com.ssafy.queant.model.entity.member.Social;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,10 +1,10 @@
-package com.ssafy.queant.model.dto;
+package com.ssafy.queant.model.dto.member;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ssafy.queant.model.entity.Gender;
-import com.ssafy.queant.model.entity.MemberRole;
-import com.ssafy.queant.model.entity.Social;
+import com.ssafy.queant.model.entity.member.Gender;
+import com.ssafy.queant.model.entity.member.MemberRole;
+import com.ssafy.queant.model.entity.member.Social;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

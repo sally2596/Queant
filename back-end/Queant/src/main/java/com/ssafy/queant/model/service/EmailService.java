@@ -28,7 +28,7 @@ public interface EmailService {
         int idx = 0;
         int len = charSet.length;
 
-        for(int i=0; i<10; i++){
+        for(int i=0; i<15; i++){
             idx = sr.nextInt(len);
             sb.append(charSet[idx]);
         }

@@ -1,6 +1,6 @@
-package com.ssafy.queant.model.dto;
+package com.ssafy.queant.model.dto.member;
 
-import com.ssafy.queant.model.entity.MemberRole;
+import com.ssafy.queant.model.entity.member.MemberRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

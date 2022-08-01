@@ -1,6 +1,6 @@
 package com.ssafy.queant.model.service;
 
-import com.ssafy.queant.model.entity.Member;
+import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Optional;
 
 @Service

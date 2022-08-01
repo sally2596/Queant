@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.dto;
+package com.ssafy.queant.model.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
