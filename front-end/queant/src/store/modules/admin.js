@@ -1,8 +1,10 @@
 import spring from "@/api/spring"
+import router from "@/router"
 import axios from "axios"
 
 export default {
   state: {
+    // users: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
     users: [],
     roleUsers: [],
     socialUsers: [],
@@ -13,7 +15,6 @@ export default {
     users: state => state.users
   },
   mutations: {
-    SET_USER: (state, user) => state.user = user,
     SET_USERS: (state, users) => state.users = users,
     SET_ROLE_USERS: (state, roleUsers) => state.roleUsers = roleUsers,
     SET_SOCIAL_USERS: (state, socialUsers) => state.socialUsers = socialUsers,
@@ -21,11 +22,6 @@ export default {
     SET_SOCIAL_STATUS: (state, res) => state.socialStatus = res
   },
   actions: {
-    fetchUser({ commit }, res) {
-      console.log(res)
-      commit('SET_USER', res.data)
-    },
-
     fetchUsers({ commit }) {
       axios({
         url: spring.member.roles(),
@@ -112,8 +108,9 @@ export default {
         }
       })
       .then(res => {
-        // commit('SET_USER', res.data)
         console.log(res)
+        router.go()
+
       })
       .catch(err => {
         console.log(err)
@@ -130,8 +127,8 @@ export default {
         }
       })
       .then(res => {
-        commit('SET_USER', res.data)
         console.log(res)
+        router.go()
       })
       .catch(err => {
         console.log(err)

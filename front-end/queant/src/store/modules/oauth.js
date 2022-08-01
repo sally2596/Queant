@@ -10,11 +10,13 @@ export default {
   actions: {
 
     googleLogin() {
+      console.log('하하')
       axios({
         url: spring.social.google(),
         method: 'get'
       })
       .then((res) => {
+        console.log('호호')
         window.location.href = res.data
       })
       .catch((err) => {
@@ -23,6 +25,7 @@ export default {
     },
 
     getGoogleAuthorizationCode({ commit, dispatch }, authorizationCode) {
+      console.log('캬캬')
       axios({
         url: spring.social.googlelogin(),
         method: 'get',
@@ -31,6 +34,7 @@ export default {
         }
       })
       .then((res) => {
+        console.log('쿄쿄')
         dispatch('saveAccessToken', res.data.AccessToken)
         dispatch('saveRefreshToken', res.data.RefreshToken)
         dispatch('fetchUserInfo', res.data.email)

@@ -14,8 +14,8 @@
         <button @click="sendTemporaryPassword(email)" class='confirm'>확인</button>
       </div>
       
-      <!-- 200은 회원 맞음, 404는 없는 회원 -->
-      <p>{{ emailCheckedStatus }}</p>
+      <!-- 404는 없는 회원 -->
+      <p v-if="emailCheckedStatus === 404">가입된 이메일이 아닙니다.</p>
 
       <div class="caption">
         <router-link :to="{ name: 'login' }">비밀번호가 생각나셨나요?</router-link>
@@ -36,7 +36,6 @@ export default {
   },
   computed: {
     ...mapGetters(['emailCheckedStatus']),
-    ...mapMutations(['SET_EMAIL_CHECKED_STATUS'])
   },
   data() {
     return {
@@ -46,12 +45,13 @@ export default {
   },
   methods: {
     ...mapActions(['sendTemporaryPassword', 'passwordCheck']),
+    ...mapMutations(['SET_EMAIL_CHECKED_STATUS'])
   },
   beforeCreate: function() {
     document.body.className = 'auth'
   },
-  created() {
-    this.$store.commit('SET_EMAIL_CHECKED_STATUS', '')
+  mounted() {
+    this.SET_EMAIL_CHECKED_STATUS('')
   }
 }
 </script>
