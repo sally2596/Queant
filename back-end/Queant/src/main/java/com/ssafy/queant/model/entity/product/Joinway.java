@@ -5,31 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
-//@Entity
-//@Table
+@Entity
+@Table
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Joinway {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int joinway_id;
+    private int joinwayId;
 
     @Column(nullable = false)
-    private String product_id;
+    private String productId;
 
     @Column(nullable = false)
-    private char code_id;
-
-    @Column(nullable = false)
-    private int scode_id;
-
-    @Column(nullable = false)
-    private String joinway;
+    private String scodeId;
 }

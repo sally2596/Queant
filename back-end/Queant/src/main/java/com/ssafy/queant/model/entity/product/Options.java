@@ -5,36 +5,32 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
-//@Entity
-//@Table
+@Entity
+@Table
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Options {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int option_id;
+    private int optionId;
 
     @Column(nullable = false)
-    private String product_id;
+    private String productId;
 
     @Column(nullable = false)
-    private float base_rate;
+    private float baseRate;
+
+    private Float highBaseRate;
 
     @Column(nullable = false)
-    private float high_base_rate;
+    private int saveTerm;
 
     @Column(nullable = false)
-    private int save_term;
+    private boolean rateType; // 단리 복리
 
-    @Column(nullable = false)
-    private boolean is_compound;
-
-    private boolean is_fixed;
+    private Boolean rsrvType; // 자유 적립식, 정액 적립식
 }

@@ -6,20 +6,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.Table;
 
 @Data
-//@Entity
-//@Table
+@Entity
+@Table
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SpecificCode implements Serializable {
+public class SpecificCode{
     @Id
-    private char code_id;
-    @Id
-    private int scode_id;
+    private String scodeId;
+
     @Column(nullable = false)
-    private String scode_value;
+    private String codeId;
+
+    @Column(nullable = false)
+    private String scodeValue;
 }
