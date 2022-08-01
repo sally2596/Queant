@@ -125,13 +125,16 @@ export default {
       })
     },
 
-    editRoleSet({ commit }, credentials) {
+    editRoleSet({ commit }, { email, role_set }) {
+      if (role_set === ['ROLE_USER', 'ROLE_ADMIN']) {
+        console.log(role_set)
+      }
       axios({
         url: spring.member.roles(),
         method: 'put',
         data: {
-          email: credentials.email,
-          roles: credentials.role_set
+          email: email,
+          roles: role_set
         }
       })
       .then(res => {
