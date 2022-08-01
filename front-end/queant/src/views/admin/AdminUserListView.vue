@@ -55,7 +55,7 @@
     <admin-user-item
       class="d-flex justify-content-center"
       v-for="user in orderedUsers.slice((currentPage-1) * 10, (currentPage-1) * 10 + 10)"
-      :key="user.member_id"
+      :key="user.email"
       :user="user">
     </admin-user-item>
 

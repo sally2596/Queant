@@ -23,31 +23,31 @@
           <td class="col-1 text-center">{{ user.social }}</td>
           <td class="col-1 text-center">
             <div>
+              <label :for="`role-user-${user.email}`">ROLE_USER</label>
               <input
                 v-model="credentials.role_set"
                 type='checkbox'
                 value='ROLE_USER'
-                :id="`role-user-${user.member_id}`"
+                :id="`role-user-${user.email}`"
                 disabled>
-              <label :for="`role-user-${user.member_id}`">ROLE_USER</label>
             </div>
 
             <div>
+              <label :for="`role-super-${user.email}`">ROLE_SUPER</label>
               <input
                 v-model="credentials.role_set"
                 type='checkbox'
                 value='ROLE_SUPER'
-                :id="`role-super-${user.member_id}`">
-              <label :for="`role-super-${user.member_id}`">ROLE_SUPER</label>
+                :id="`role-super-${user.email}`">
             </div>
 
             <div>
+              <label :for="`role-admin-${user.email}`">ROLE_ADMIN</label>
               <input
                 v-model="credentials.role_set"
                 type='checkbox'
                 value='ROLE_ADMIN'
-                :id="`role-admin-${user.member_id}`">
-              <label :for="`role-admin-${user.member_id}`">ROLE_ADMIN</label>
+                :id="`role-admin-${user.email}`">
             </div>
 
             <button @click="editRoleSet(credentials)">수정</button>
