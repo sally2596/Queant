@@ -136,7 +136,7 @@ export default {
       document.body.className = 'home_body';
   },
   mounted() {
-    fetchBanks()
+    this.fetchBanks()
   }
 }
 </script>
