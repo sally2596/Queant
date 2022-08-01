@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store/index.js'
+
 
 // oauth
 import KakaoView from '../views/oauth/KakaoView.vue'
@@ -34,6 +36,7 @@ import ProductRecommendationView from '@/views/product/ProductRecommendationView
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
+import ProductResultsView from '@/views/product/ProductResultsView.vue'
 
 // content
 import ContentsView from '@/views/content/ContentsView.vue'
@@ -86,7 +89,12 @@ const routes = [
   {
     path : '/product',
     name : 'productRecommend',
-    component: ProductRecommendationView
+    component: ProductRecommendationView,
+  },
+  {
+    path: '/product/results',
+    name: 'productResults',
+    component: ProductResultsView
   },
   {
     path : '/product/cart',
@@ -113,7 +121,8 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: ProfileView
+    component: ProfileView,
+    meta: { isLoggedIn: true }
   },
   // auth
   {
@@ -135,7 +144,8 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: AdminUserListView
+    component: AdminUserListView,
+    // meta: { isAdmin: true }
   },
   {
     path: '/admin/content',
@@ -152,6 +162,34 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.getters.isLoggedIn
+	// $route.matched 배열에 저장된 라우터 중 meta 필드에 'isLoggedIn'가 있는지 찾는다.
+	if (to.matched.some(record => record.meta.isLoggedIn)) {
+    if (!isLoggedIn) { // 로그인 되어있지 않으면 로그인 페이지로 이동
+      alert('로그인이 필요합니다.')
+      next({ name: 'login' })
+    } else // 로그인 되어 있다면 그대로 라우터 이동
+      next()
+  } else if (to.matched.some(record => record.meta.isAdmin)) {
+    if (isLoggedIn) {
+      let authorities = store.getters.userInfo.role_set
+      if (authorities[authorities.length - 1] === 'ROLE_ADMIN') {
+        next()
+      } else {
+        alert('접근 권한이 없습니다.')
+        next({ name: 'home' })
+      }
+
+    } else {
+      alert('로그인이 필요합니다.')
+      next({ name: 'login' })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
