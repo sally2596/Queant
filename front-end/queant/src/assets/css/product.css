@@ -3,10 +3,10 @@
     font-family: 'jua';
     src: url(../font/BMJUA_ttf.ttf);
 }
-.section_padding_color {
-    max-width: 3840px;
-    height: 2140px;
-    display: flex;
+
+.product_section {
+  display: flex;
+  justify-content: center;
 }
 
 #title-div {
@@ -37,7 +37,7 @@
 }
 
 #saving-result-view {
-  margin-top: 50px; margin-bottom: 30px;
+  margin-top: 20px; margin-bottom: 20px;
   height: 50px;
   display: flex;
   justify-content: center;
@@ -63,8 +63,7 @@
 /* 가져온 것 */
 
 /* 필터정보 */
-.search_filter {
-} 
+
 .filter_button_wrap {
   width: 100%;
 }
@@ -94,4 +93,22 @@
 }
 .filter_active{
 	background-color: #045d3c;
+}
+
+/* cart */
+
+.cart-none {
+  max-width: 1080px;
+  height: 50vh;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.to_product {
+  max-width: 80px;
+}
+
+.cart-none h5 {
+  text-align: center;
 }

@@ -37,8 +37,8 @@
         </div>
         <!-- 중복검사 결과 200 성공 => 인증 메일 발송 -->
         <div v-else-if="emailCheckedStatus === 200">
+          {{ time }}
           <button type="button" class="mail-send" id="check-email" @click="emailCheck(credentials.email)">재전송</button>
-          {{ timerCount }}
           <p style="margin-bottom:0; margin-top:1px;">메일로 인증 번호가 전송되었습니다.</p>
           <!-- 인증번호 검사  -->
           <div class="int-area">
@@ -137,7 +137,15 @@ import PV from 'password-validator'
 export default {
   name: 'RegisterView',
   computed: {
-    ...mapGetters(['emailCheckedStatus', 'emailVerifiedStatus'])
+    ...mapGetters(['emailCheckedStatus', 'emailVerifiedStatus']),
+    time() {
+      //3항 연산자를 이용하여 10보다 작을 경우 0을 붙이도록 처리 하였다.
+      var min = parseInt((this.timerCount%3600)/60) < 10 ? '0'+ parseInt((this.timerCount%3600)/60) : parseInt((this.timerCount%3600)/60)
+      var sec = this.timerCount % 60 < 10 ? '0'+this.timerCount % 60 : this.timerCount % 60
+  
+      //연산한 값을 화면에 뿌려주는 코드
+      return min+":" + sec;
+    }
   },
   data() {
     return {
@@ -184,7 +192,8 @@ export default {
     countDown() {
       if (this.timerCount > 0)
         this.timerCount--
-    }
+    },
+    
   },
   watch: {
     credentials: {

@@ -40,7 +40,6 @@ import ProductResultsView from '@/views/product/ProductResultsView.vue'
 
 // content
 import ContentsView from '@/views/content/ContentsView.vue'
-import { storeKey } from 'vuex'
 
 const routes = [
   // oauth
@@ -146,7 +145,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminUserListView,
-    meta: { isAdmin: true }
+    // meta: { isAdmin: true }
   },
   {
     path: '/admin/content',
