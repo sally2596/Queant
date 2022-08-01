@@ -1,9 +1,9 @@
 package com.ssafy.queant.model.service.OAuth;
 
-import com.ssafy.queant.model.dto.LoginResultDto;
-import com.ssafy.queant.model.dto.MemberDto;
-import com.ssafy.queant.model.entity.Member;
-import com.ssafy.queant.model.entity.MemberRole;
+import com.ssafy.queant.model.dto.member.LoginResultDto;
+import com.ssafy.queant.model.dto.member.MemberDto;
+import com.ssafy.queant.model.entity.member.Member;
+import com.ssafy.queant.model.entity.member.MemberRole;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;

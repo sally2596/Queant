@@ -1,14 +1,12 @@
 package com.ssafy.queant.model.service;
 
-import com.ssafy.queant.model.dto.LoginResultDto;
-import com.ssafy.queant.model.dto.MemberDto;
-import com.ssafy.queant.model.dto.MemberResponseDto;
-import com.ssafy.queant.model.entity.MemberRole;
-import com.ssafy.queant.model.entity.Social;
+import com.ssafy.queant.model.dto.member.LoginResultDto;
+import com.ssafy.queant.model.dto.member.MemberDto;
+import com.ssafy.queant.model.dto.member.MemberResponseDto;
+import com.ssafy.queant.model.entity.member.MemberRole;
+import com.ssafy.queant.model.entity.member.Social;
 
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 public interface MemberService {
     boolean register(MemberDto memberDto) throws RuntimeException;

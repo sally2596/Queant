@@ -1,23 +1,19 @@
 package com.ssafy.queant.security;
 
-import com.ssafy.queant.model.dto.MemberDto;
-import com.ssafy.queant.model.entity.Member;
-import com.ssafy.queant.model.entity.MemberRole;
+import com.ssafy.queant.model.dto.member.MemberDto;
+import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.repository.MemberRepository;
-import com.ssafy.queant.model.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j

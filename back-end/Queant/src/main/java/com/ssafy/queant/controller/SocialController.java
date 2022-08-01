@@ -3,9 +3,9 @@ package com.ssafy.queant.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.queant.model.dto.LoginResultDto;
-import com.ssafy.queant.model.dto.MemberDto;
-import com.ssafy.queant.model.oauth.OAuthResponseDto;
+import com.ssafy.queant.model.dto.member.LoginResultDto;
+import com.ssafy.queant.model.dto.member.MemberDto;
+import com.ssafy.queant.model.dto.member.OAuthResponseDto;
 import com.ssafy.queant.model.service.OAuth.GoogleService;
 import com.ssafy.queant.model.service.OAuth.KakaoService;
 import com.ssafy.queant.model.service.OAuth.NaverService;
@@ -17,18 +17,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
-@Controller
+@RestController
 @CrossOrigin("*")
 @Slf4j
 @RequestMapping("/social")
