@@ -1,3 +1,9 @@
+
+@font-face {
+  font-family: 'jua';
+  src: url(../font/BMJUA_ttf.ttf);
+}
+
 .home {
   display: flex;
   justify-content: center;
@@ -126,4 +132,9 @@
 .feature {
   display: flex;
   justify-content: center;
+}
+
+
+.strong {
+  
 }

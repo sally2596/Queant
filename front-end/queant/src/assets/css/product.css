@@ -7,6 +7,7 @@
 .product_section {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #title-div {
@@ -98,17 +99,15 @@
 /* cart */
 
 .cart-none {
-  max-width: 1080px;
-  height: 50vh;
-  justify-content: center;
-  display: flex;
   align-items: center;
+  text-align: center;
+  justify-content: center;
 }
 
 .to_product {
   max-width: 80px;
 }
 
-.cart-none h5 {
-  text-align: center;
+.cart-none img {
+  width: 400px; height: 400px;
 }
