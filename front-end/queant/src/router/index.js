@@ -36,6 +36,7 @@ import ProductRecommendationView from '@/views/product/ProductRecommendationView
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
+import ProductResults from '@/components/ProductResults.vue'
 import ProductSearchingResultView from '@/components/ProductSearchingResultView.vue'
 
 // content
@@ -94,7 +95,7 @@ const routes = [
   {
     path: '/product/results',
     name: 'productResults',
-    component: ProductSearchingResultView
+    component: ProductResults
   },
   {
     path : '/product/cart',
