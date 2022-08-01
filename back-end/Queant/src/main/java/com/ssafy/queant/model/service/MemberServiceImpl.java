@@ -200,7 +200,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberResponseDto memberList(Social social, MemberRole memberRole, int page) throws RuntimeException {
-        Pageable pageable = PageRequest.of(page-1,2);
+        Pageable pageable = PageRequest.of(page-1,10);
         Page<Member> result = customMemberRepository.memberList(social, memberRole, pageable);
 
         MemberResponseDto memberResponseDto = new MemberResponseDto();
