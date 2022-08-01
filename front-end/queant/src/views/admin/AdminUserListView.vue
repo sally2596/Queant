@@ -29,19 +29,29 @@
         <option value='Naver'>Naver</option>
         <option value='Kakao'>Kakao</option>
       </select>
+
+      <!-- ROLE_SET 필터 (test) -->
+      <!-- <select @change="changeTestRoleSet($event)">
+        <option selected disabled>권한</option>
+        <option value='ROLE_USER'>ROLE_USER</option>
+        <option value='ROLE_SUPER'>ROLE_SUPER</option>
+        <option value='ROLE_ADMIN'>ROLE_ADMIN</option>
+      </select> -->
+  
+      <!-- SOCIAL 필터 (test) -->
+      <!-- <select @change='changeTestSocial($event)'>
+        <option selected disabled>가입유형</option>
+        <option value='None'>QueÆnt</option>
+        <option value='Google'>Google</option>
+        <option value='Naver'>Naver</option>
+        <option value='Kakao'>Kakao</option>
+      </select> -->
   
       <!-- 필터 초기화 -->
       <button @click="this.$router.go()">필터 초기화</button>
     </div>
 
-    <!-- <admin-user-item
-      class="d-flex justify-content-center"
-      v-for="user in orderedUsers"
-      :key="user.member_id"
-      :user="user">
-    </admin-user-item> -->
-
-    <!-- 자체 페이지네이션 테스트 -->
+    <!-- 자체 페이지네이션 -->
     <admin-user-item
       class="d-flex justify-content-center"
       v-for="user in orderedUsers.slice((currentPage-1) * 10, (currentPage-1) * 10 + 10)"
@@ -54,6 +64,13 @@
       :key="page">
       <button @click="nextPage(page)">{{ page }}</button>
     </div>
+
+    <!-- test -->
+    <!-- <div
+      v-for="testPage in testTotalPage"
+      :key="testPage">
+      <button @click="changeTestCurrentPage(testPage)">{{ testPage }}</button>
+    </div> -->
 
   </div>
 </template>
@@ -68,7 +85,7 @@ export default {
   name: 'AdminUserListView',
   components: { AdminUserItem, Navbar },
   computed: {
-    ...mapGetters(['users']),
+    ...mapGetters(['users', 'testTotalPage']),
     orderedUsers() {
       return _.orderBy(this.users, 'member_id')
     },
@@ -79,15 +96,40 @@ export default {
   data() {
     return {
       email: '',
-      currentPage: 1
+      currentPage: 1,
+      // test
+      // testCurrentPage: 1,
+      // payload: {
+      //   social: null,
+      //   role: 'ROLE_USER',
+      //   page: 1
+      // }
     }
+  },
+  watch: {
+    // payload: {
+    //   deep: true,
+    //   handler() {
+    //     fetchUsers(payload)
+    //   }
+    // }
   },
   methods: {
     ...mapActions(['fetchUserInfo', 'fetchUsers', 'fetchUsersThroughRole', 'fetchUsersThroughSocial']),
     nextPage(num) {
       this.currentPage = num
       console.log(this.currentPage)
-    }
+    },
+    // changeTestCurrentPage(testPage) {
+    //   this.payload.page = testPage
+    // },
+    // changeTestRoleSet(role) {
+    //   this.payload.role = role
+    // },
+    // changeTestSocial(social) {
+    //   tihs.payload.social = social
+    // }
+    
   },
   mounted() {
     this.fetchUsers()

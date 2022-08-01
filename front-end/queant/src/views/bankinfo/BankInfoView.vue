@@ -127,9 +127,12 @@ export default {
   components : {
     Navbar : Navbar
   },
-    beforeCreate: function() {
-        document.body.className = 'home_body';
-    },
+  beforeCreate: function() {
+      document.body.className = 'home_body';
+  },
+  mounted() {
+    fetchBanks()
+  }
 }
 </script>
 
