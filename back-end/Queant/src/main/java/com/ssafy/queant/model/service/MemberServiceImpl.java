@@ -40,8 +40,9 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean register(MemberDto memberDto) throws RuntimeException{
         log.info("[register] 회원가입 정보 전달");
-        log.info("[register] 비밀번호 : {}", memberDto.getPassword());
+        log.info("[register] memberDto 생일 : {}", memberDto.getBirthdate());
         Member member = modelMapper.map(memberDto, Member.class);
+        log.info("[register] member 생일 : {}", member.getBirthdate());
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         member.setRoleSet(new HashSet<>());
         member.addMemberRole(MemberRole.ROLE_USER);
@@ -100,8 +101,10 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberDto findMember(String email) throws RuntimeException{
         Optional<Member> member = memberRepository.findByEmail(email);
+        log.info("member 생일 {}", member.get().getBirthdate());
         if(member.isPresent()){
             MemberDto memberDto = modelMapper.map(member.get(), MemberDto.class);
+            log.info("memberDto 생일 {}", memberDto.getBirthdate());
             return memberDto;
         }
         return null;
@@ -147,6 +150,7 @@ public class MemberServiceImpl implements MemberService{
         if(!result.isPresent()) return null;
         Member member = result.get();
 
+        member.setRoleSet(new HashSet<>());
         for(MemberRole role : roleSet){
             member.addMemberRole(role);
         }
