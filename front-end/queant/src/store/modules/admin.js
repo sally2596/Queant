@@ -127,7 +127,7 @@ export default {
 
     editRoleSet({ commit }, { email, role_set }) {
       if (role_set === ['ROLE_USER', 'ROLE_ADMIN']) {
-        console.log(role_set)
+        role_set = ['ROLE_USER', 'ROLE_SUPER', 'ROLE_ADMIN']
       }
       axios({
         url: spring.member.roles(),
