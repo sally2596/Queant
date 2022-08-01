@@ -16,6 +16,7 @@ public class CustomProductDto {
     private String productName;
     private boolean isDeposit;
     private float baseRate;
+    @Builder.Default
     private float specialRate =0L;
     private boolean isFixedRsrv;
     private String etc; // 기타 사항
