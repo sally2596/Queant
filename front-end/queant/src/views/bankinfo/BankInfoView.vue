@@ -122,10 +122,15 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import { mapActions } from 'vuex';
+
 export default {
   name: 'BankInfoView',
   components : {
     Navbar : Navbar
+  },
+  methods: {
+    ...mapActions(['fetchBanks'])
   },
   beforeCreate: function() {
       document.body.className = 'home_body';
