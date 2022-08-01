@@ -13,8 +13,7 @@ export default {
     ...mapActions(['getGoogleAuthorizationCode'])
   },
   mounted() {
-    console.log('페이지를 못찾니?')
-    // this.getGoogleAuthorizationCode(this.$route.query.code)
+    this.getGoogleAuthorizationCode(this.$route.query.code)
   }
 }
 </script>
