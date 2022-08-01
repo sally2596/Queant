@@ -2,6 +2,7 @@ const HOST = 'http://i7a201.p.ssafy.io:8000/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
+const BANK = 'bank/'
 
 export default {
   member: {
@@ -22,5 +23,8 @@ export default {
     kakaologin: () => HOST + SOCIAL + 'kakao/' + 'login',
     naver: () => HOST + SOCIAL + 'naver',
     naverlogin: () => HOST + SOCIAL + 'naver/' + 'login'
+  },
+  bank: {
+    bank: () => HOST + BANK
   }
 }

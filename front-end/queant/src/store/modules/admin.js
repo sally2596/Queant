@@ -9,17 +9,23 @@ export default {
     roleUsers: [],
     socialUsers: [],
     roleStatus: null,
-    socialStatus: null
+    socialStatus: null,
+    // test
+    // testTotalPage: null
   },
   getters: {
-    users: state => state.users
+    users: state => state.users,
+    // test
+    // testTotalPage: state => state.testTotalPage
   },
   mutations: {
     SET_USERS: (state, users) => state.users = users,
     SET_ROLE_USERS: (state, roleUsers) => state.roleUsers = roleUsers,
     SET_SOCIAL_USERS: (state, socialUsers) => state.socialUsers = socialUsers,
     SET_ROLE_STATUS: (state, res) => state.roleStatus = res,
-    SET_SOCIAL_STATUS: (state, res) => state.socialStatus = res
+    SET_SOCIAL_STATUS: (state, res) => state.socialStatus = res,
+    // test
+    // SET_TEST_TOTAL_PAGE: (state, res) => state.testTotalPage = res
   },
   actions: {
     fetchUsers({ commit }) {
@@ -33,6 +39,8 @@ export default {
       })
       .then(res => {
         commit('SET_USERS', res.data.member_dto_list)
+        // test
+        // commit('SET_TEST_TOTAL_PAGE', res.data.total_page)
       })
       .catch(err => {
         console.log(err)
