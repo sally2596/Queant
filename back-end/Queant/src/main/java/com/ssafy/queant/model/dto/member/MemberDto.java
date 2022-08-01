@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 @Data
 public class MemberDto implements UserDetails {
     @ApiModelProperty(hidden = true)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID memberId;
     @Schema(description = "이메일")
     private String email;
@@ -63,6 +64,7 @@ public class MemberDto implements UserDetails {
     }
 
     @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roleSet
                 .stream()

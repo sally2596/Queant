@@ -28,4 +28,6 @@ public interface MemberService {
 
     MemberResponseDto memberListBySocial(Social social, int page) throws RuntimeException;
 
+    MemberResponseDto memberList(Social social, MemberRole memberRole, int page) throws RuntimeException;
+
 }
