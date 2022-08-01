@@ -36,7 +36,7 @@ import ProductRecommendationView from '@/views/product/ProductRecommendationView
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
-import ProductSearchingResultView from '@/components/ProductSearchingResult.vue'
+import ProductSearchingResultView from '@/components/ProductSearchingResultView.vue'
 
 // content
 import ContentsView from '@/views/content/ContentsView.vue'
@@ -94,7 +94,7 @@ const routes = [
   {
     path: '/product/results',
     name: 'productResults',
-    component: ProductResultsView
+    component: ProductSearchingResultView
   },
   {
     path : '/product/cart',
@@ -150,7 +150,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminUserListView,
-    // meta: { isAdmin: true }
+    meta: { isAdmin: true }
   },
   {
     path: '/admin/content',

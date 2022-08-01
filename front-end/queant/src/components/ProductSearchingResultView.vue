@@ -8,7 +8,7 @@
 import Navbar from './Navbar.vue';
 
 export default {
-    name: "productSearching",
+    name: "ProductSearchingResultView",
     props: ["keyword"],
     components: { Navbar },
     data() {
