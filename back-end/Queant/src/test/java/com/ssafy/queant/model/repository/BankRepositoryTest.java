@@ -33,7 +33,7 @@ class BankRepositoryTest {
     @Test
     void findById(){
         // given
-        int bankId = 10001;
+        int bankId = 10345;
 
         // when
         Optional<Bank> result = bankRepository.findByBankId(bankId);

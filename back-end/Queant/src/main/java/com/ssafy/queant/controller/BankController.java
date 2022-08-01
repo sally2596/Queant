@@ -29,7 +29,7 @@ public class BankController {
             @ApiResponse(code = 200, message="모든 은행정보를 가져왔습니다."),
     })
     @Operation(summary = "모든 은행 정보 받아옴")
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<?> getAllBank() throws Exception {
         return new ResponseEntity<List<BankDto>>(bankService.findAll(),HttpStatus.OK);
     }
@@ -38,8 +38,8 @@ public class BankController {
             @ApiResponse(code = 200, message="모든 은행정보를 가져왔습니다."),
     })
     @Operation(summary = "모든 은행 정보 받아옴")
-    @GetMapping("/info")
-    public ResponseEntity<?> getBankByBankId(@RequestParam int bankId) throws Exception {
+    @GetMapping(params = "bankId")
+    public ResponseEntity<?> getBankByBankId(@RequestParam("bankId") int bankId) throws Exception {
         BankDto bankDto =bankService.findByBankId(bankId);
         List<ProductDto> productDtoList = productService.findByBankId(bankId);
 

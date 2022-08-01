@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - BankRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>BankRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.ssafy.queant.model.repository.html">com.ssafy.queant.model.repository</a> &gt; BankRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.099s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">findById()</td>
+<td class="success">0.099s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>16:25:35.644 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+16:25:35.650 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+16:25:35.665 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.ssafy.queant.model.repository.BankRepositoryTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+16:25:35.682 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ssafy.queant.model.repository.BankRepositoryTest], using SpringBootContextLoader
+16:25:35.684 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.BankRepositoryTest]: class path resource [com/ssafy/queant/model/repository/BankRepositoryTest-context.xml] does not exist
+16:25:35.685 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.BankRepositoryTest]: class path resource [com/ssafy/queant/model/repository/BankRepositoryTestContext.groovy] does not exist
+16:25:35.685 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ssafy.queant.model.repository.BankRepositoryTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+16:25:35.685 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ssafy.queant.model.repository.BankRepositoryTest]: BankRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:25:35.714 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.ssafy.queant.model.repository.BankRepositoryTest]
+16:25:35.757 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\ssafy\S07P11A201\back-end\Queant\build\classes\java\main\com\ssafy\queant\QueantApplication.class]
+16:25:35.757 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ssafy.queant.QueantApplication for test class com.ssafy.queant.model.repository.BankRepositoryTest
+16:25:35.832 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.ssafy.queant.model.repository.BankRepositoryTest]: using defaults.
+16:25:35.832 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+16:25:35.847 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@71c27ee8, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3e7dd664, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@5b1ebf56, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@294a6b8e, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4b1d6571, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b835480, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3549bca9, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4f25b795, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@6fb365ed, org.springframework.test.context.event.EventPublishingTestExecutionListener@6e950bcf, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@16414e40, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@74bada02, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@525575, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@46dffdc3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5a709816, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@78383390, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6ad3381f]
+16:25:35.850 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@4b3ed2f0 testClass = BankRepositoryTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4fad9bb2 testClass = BankRepositoryTest, locations = '{}', classes = '{class com.ssafy.queant.QueantApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@38467116, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@60f00693, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@aba625, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4b520ea8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@475c9c31, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@69b2283a], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2022-08-01 16:25:36.058  WARN 17816 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/SSAFY/.gradle/caches/modules-2/files-2.1/org.json/json/20190722/7bce7bacf0ab5e9f894d307a3de8b7f540064d5/json-20190722.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/SSAFY/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2022-08-01 16:25:36.067  INFO 17816 --- [    Test worker] c.s.q.m.repository.BankRepositoryTest    : Starting BankRepositoryTest using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 17816 (started by SSAFY in C:\ssafy\S07P11A201\back-end\Queant)
+2022-08-01 16:25:36.068  INFO 17816 --- [    Test worker] c.s.q.m.repository.BankRepositoryTest    : The following 2 profiles are active: &quot;mail&quot;, &quot;API-KEY&quot;
+2022-08-01 16:25:36.681  INFO 17816 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-01 16:25:36.728  INFO 17816 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 4 JPA repository interfaces.
+2022-08-01 16:25:37.282  INFO 17816 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-01 16:25:37.333  INFO 17816 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-01 16:25:37.389  INFO 17816 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-01 16:25:37.428  INFO 17816 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-08-01 16:25:37.548  INFO 17816 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-01 16:25:37.640  INFO 17816 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB106Dialect
+2022-08-01 16:25:38.126  INFO 17816 --- [    Test worker] p6spy                                    : #1659338738126 | took 4ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE'
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE';
+2022-08-01 16:25:38.153  INFO 17816 --- [    Test worker] p6spy                                    : #1659338738153 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select * from `queant`.`member` where 1=0
+select * from `queant`.`member` where 1=0;
+2022-08-01 16:25:38.153  INFO 17816 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-01 16:25:38.153  INFO 17816 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-01 16:25:38.573  WARN 17816 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [m.roleSet.size]; use collection function syntax instead [size(m.roleSet)].
+2022-08-01 16:25:38.638  WARN 17816 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-01 16:25:39.369  INFO 17816 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2022-08-01 16:25:39.466  WARN 17816 --- [    Test worker] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-08-01 16:25:39.673  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/v2/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.674  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/v2/api-docs']
+2022-08-01 16:25:39.674  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/v3/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.674  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/v3/api-docs']
+2022-08-01 16:25:39.674  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**/v3/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.674  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**/v3/api-docs']
+2022-08-01 16:25:39.674  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.674  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui/index.html']
+2022-08-01 16:25:39.674  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-resources']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.674  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-resources']
+2022-08-01 16:25:39.674  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.674  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-resources/**']
+2022-08-01 16:25:39.674  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/configuration/ui']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.675  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/configuration/ui']
+2022-08-01 16:25:39.675  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/configuration/security']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.675  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/configuration/security']
+2022-08-01 16:25:39.675  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.675  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui.html']
+2022-08-01 16:25:39.675  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='**/swagger-ui.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.675  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='**/swagger-ui.html']
+2022-08-01 16:25:39.675  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**/swagger-ui.html**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.675  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**/swagger-ui.html**']
+2022-08-01 16:25:39.675  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui.html**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.675  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui.html**']
+2022-08-01 16:25:39.675  WARN 17816 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-01 16:25:39.675  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/webjars/**']
+2022-08-01 16:25:39.714  INFO 17816 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71b32407, org.springframework.security.web.context.SecurityContextPersistenceFilter@eb1e868, org.springframework.security.web.header.HeaderWriterFilter@39451d92, org.springframework.security.web.authentication.logout.LogoutFilter@58be583e, com.ssafy.queant.security.JwtAuthenticationFilter@1d686622, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f49df25, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24482a4f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@400df2b3, org.springframework.security.web.session.SessionManagementFilter@5655278d, org.springframework.security.web.access.ExceptionTranslationFilter@7bf16972, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6ffa8126]
+2022-08-01 16:25:40.009  INFO 17816 --- [    Test worker] c.s.q.m.repository.BankRepositoryTest    : Started BankRepositoryTest in 4.135 seconds (JVM running for 5.075)
+Hibernate: 
+    select
+        bank0_.bank_id as bank_id1_0_,
+        bank0_.bank_name as bank_nam2_0_,
+        bank0_.homepage as homepage3_0_,
+        bank0_.picture as picture4_0_,
+        bank0_.scode_id as scode_id5_0_,
+        bank0_.tel as tel6_0_ 
+    from
+        bank bank0_ 
+    where
+        bank0_.bank_id=?
+2022-08-01 16:25:40.098 TRACE 17816 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [INTEGER] - [10345]
+2022-08-01 16:25:40.099  INFO 17816 --- [    Test worker] p6spy                                    : #1659338740099 | took 0ms | statement | connection 3| url jdbc:mariadb://localhost:3306/queant
+select bank0_.bank_id as bank_id1_0_, bank0_.bank_name as bank_nam2_0_, bank0_.homepage as homepage3_0_, bank0_.picture as picture4_0_, bank0_.scode_id as scode_id5_0_, bank0_.tel as tel6_0_ from bank bank0_ where bank0_.bank_id=?
+select bank0_.bank_id as bank_id1_0_, bank0_.bank_name as bank_nam2_0_, bank0_.homepage as homepage3_0_, bank0_.picture as picture4_0_, bank0_.scode_id as scode_id5_0_, bank0_.tel as tel6_0_ from bank bank0_ where bank0_.bank_id=10345;
+2022-08-01 16:25:40.100 TRACE 17816 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([bank_id1_0_] : [INTEGER]) - [10345]
+2022-08-01 16:25:40.104 TRACE 17816 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([bank_nam2_0_] : [VARCHAR]) - [애큐온저축은행]
+2022-08-01 16:25:40.105 TRACE 17816 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([homepage3_0_] : [VARCHAR]) - [http://www.acuonsb.co.kr]
+2022-08-01 16:25:40.105 TRACE 17816 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([picture4_0_] : [VARCHAR]) - [null]
+2022-08-01 16:25:40.105 TRACE 17816 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id5_0_] : [VARCHAR]) - [C002]
+2022-08-01 16:25:40.105 TRACE 17816 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([tel6_0_] : [VARCHAR]) - [1588-6161]
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.4.1</a> at 2022. 8. 1 오후 4:25:40</p>
+</div>
+</div>
+</body>
+</html>

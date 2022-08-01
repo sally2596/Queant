@@ -1,7 +1,9 @@
 package com.ssafy.queant.model.entity.content;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.*;
@@ -12,8 +14,8 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 @Data
-@Entity
-@Table
+//@Entity
+//@Table
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

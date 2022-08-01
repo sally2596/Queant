@@ -19,9 +19,10 @@ class ProductRepositoryTest {
 
     @Test
     void findByBankId() {
-        int wooriBankId = 10001;
+        int wooriBankId = 10345;
         List<Product> list = productRepository.findByBankId(wooriBankId);
 
+        log.info("*****[start logging product list]*****");
         for (Product p:list) {
             log.info(p.toString());
         }
