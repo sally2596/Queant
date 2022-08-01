@@ -39,7 +39,6 @@ import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
 import ProductResults from '@/components/ProductResults.vue'
 import ProductSearchingResultView from '@/components/ProductSearchingResultView.vue'
-import ProductResults from '@/components/ProductResults.vue'
 
 // content
 import ContentsView from '@/views/content/ContentsView.vue'
