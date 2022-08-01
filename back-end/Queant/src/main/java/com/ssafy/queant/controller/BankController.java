@@ -35,9 +35,9 @@ public class BankController {
     }
 
     @ApiResponses({
-            @ApiResponse(code = 200, message="모든 은행정보를 가져왔습니다."),
+            @ApiResponse(code = 200, message="은행 정보와 해당하는 은행의 상품 조회에 성공했습니다."),
     })
-    @Operation(summary = "모든 은행 정보 받아옴")
+    @Operation(summary = "은행에 따른 정보 받아옴")
     @GetMapping(params = "bankId")
     public ResponseEntity<?> getBankByBankId(@RequestParam("bankId") int bankId) throws Exception {
         BankDto bankDto =bankService.findByBankId(bankId);
