@@ -30,7 +30,7 @@ public class MemberRepositoryImpl implements CustomMemberRepository {
                 .where(eqSocial(social), eqMemberRole(memberRole))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(member.roleSet.size().desc())
+                .orderBy(member.roleSet.size().desc(), member.email.asc())
                 .fetchResults();
 
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
