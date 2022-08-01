@@ -4,15 +4,10 @@
     <h1 class="title" id="title">내 포트폴리오</h1>
   </header>
   <div class="portfolio-none">
-    <br><br><br><br><br>
-      <h1>포트폴리오가 없으시네요!</h1>
-      <br><br><br><br><br><br>
-        <button  @click="">
-          <strong>직접 포트폴리오 만들기</strong>
-        </button>
-        <button class="col-lg-1 offset-lg-5">
-          <strong>상품 추가하기</strong>
-        </button>
+    <img src="../../assets/image/물음표개미_none.png" alt="" style="width: 300px; height:300px;">
+    <h5>포트폴리오가 없습니다.</h5>
+    <br><br><br>
+    <button class="btn btn-outline-success" @click="">포트폴리오 만들기</button>
   </div>
   <div class="portfolio">
     
