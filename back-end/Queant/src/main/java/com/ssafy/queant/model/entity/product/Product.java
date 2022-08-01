@@ -33,12 +33,12 @@ public class Product {
     @Column(nullable = false)
     private boolean isDeposit;
 
-    private int ageMin;
-    private int ageMax;
+    private Integer ageMin;
+    private Integer ageMax;
     private Long budgetMin;
     private Long budgetMax;
-    private int termMin;
-    private int termMax;
+    private Integer termMin;
+    private Integer termMax;
     private String etc;
 
     @Column(nullable = false)
