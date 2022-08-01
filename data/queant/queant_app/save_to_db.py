@@ -396,7 +396,7 @@ def save_db():
     data_xml = ET.fromstring(data_str)
     total_num = int(int(data_xml.find("total_count").text) /100)
     
-    for i in range(total_num):
+    for i in range(total_num + 1):
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[0] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
@@ -407,7 +407,7 @@ def save_db():
     data_xml = ET.fromstring(data_str)
     total_num = int(int(data_xml.find("total_count").text) /100)
     
-    for i in range(total_num):
+    for i in range(total_num + 1):
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[1] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
@@ -419,7 +419,7 @@ def save_db():
     data_xml = ET.fromstring(data_str)
     total_num = int(int(data_xml.find("total_count").text) /100)
     
-    for i in range(total_num):
+    for i in range(total_num + 1):
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[0] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
@@ -430,7 +430,7 @@ def save_db():
     data_xml = ET.fromstring(data_str)
     total_num = int(int(data_xml.find("total_count").text) /100)
     
-    for i in range(total_num):
+    for i in range(total_num + 1):
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[1] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
