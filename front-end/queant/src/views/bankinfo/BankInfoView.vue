@@ -8,7 +8,7 @@
     <p></p>
     <div class="row g-4 row-cols-1 row-cols-lg-3">
       <div class="feature col-6 col-lg-4 p-3">
-        <a href="#" class="banks_ci"><img class="banks_ci" src="../../assets/image/banks/신한.png" alt=""></a>
+        <a href="" class="banks_ci"><img class="banks_ci" src="../../assets/image/banks/신한.png" alt=""></a>
       </div>
       <div class="feature col-6 col-lg-4 p-3">
         <a href="#" class="banks_ci"><img class="banks_ci" src="../../assets/image/banks/우리.png" alt=""></a>
@@ -129,6 +129,8 @@ export default {
   },
   beforeCreate: function() {
     document.body.className = 'home_body';
+  },
+  methods: {
   },
 }
 </script>

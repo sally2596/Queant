@@ -20,6 +20,7 @@ import PortfolioAddView from '../views/portfolio/PortfolioAddView.vue'
 
 // profile
 import ProfileView from '../views/profile/ProfileView.vue'
+import PasswordEditView from '../views/profile/PasswordEditView.vue'
 
 // auth
 import LoginView from '../views/auth/LoginView.vue'
@@ -129,6 +130,11 @@ const routes = [
     name: 'profile',
     component: ProfileView,
     meta: { isLoggedIn: true }
+  },
+  {
+    path: '/passwordEditByProfile',
+    name: 'profilePasswordEdit',
+    component: PasswordEditView
   },
   // auth
   {

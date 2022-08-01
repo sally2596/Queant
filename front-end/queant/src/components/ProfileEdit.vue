@@ -48,8 +48,9 @@
     
     <br>
     <div>
-      <button class="btn btn-sm" @click="editUserInfo(credentials)">변경하기</button>
-      <button class="btn btn-sm" @click="unregister(userInfo.email)">탈퇴하기</button>
+      <button class="btn btn-sm btn-outline-success" @click="editUserInfo(credentials)">정보 변경하기</button>
+      <router-link to="/passwordEditByProfile" class="btn btn-sm btn-outline-success">비밀번호 변경</router-link>
+      <button class="btn btn-sm btn-outline-danger" @click="unregister(userInfo.email)">회원탈퇴</button>
     </div>
   </div>
 </template>
