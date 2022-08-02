@@ -42,7 +42,8 @@ import ProductResults from '@/components/ProductResults.vue'
 import ProductSearchingResultView from '@/components/ProductSearchingResultView.vue'
 
 // content
-import ContentsView from '@/views/content/ContentsView.vue'
+import ContentListView from '@/views/content/ContentListView.vue'
+import ContentCreateView from '@/views/content/ContentCreateView.vue'
 
 const routes = [
   // oauth
@@ -99,8 +100,8 @@ const routes = [
   },
   // product
   {
-    path : '/product',
-    name : 'productRecommend',
+    path: '/product',
+    name: 'productRecommend',
     component: ProductRecommendationView,
   },
   {
@@ -109,30 +110,36 @@ const routes = [
     component: ProductResults
   },
   {
-    path : '/product/cart',
-    name : 'productCart',
+    path: '/product/cart',
+    name: 'productCart',
     component: ProductCartView
   },
   {
-    path : '/product/special',
-    name : 'productSpecialPlus',
+    path: '/product/special',
+    name: 'productSpecialPlus',
     component: ProductSpecialPlusView
   },
   {
-    path : '/product/comparison',
-    name : 'productComparison',
-    component : ComparisonView
+    path: '/product/comparison',
+    name: 'productComparison',
+    component: ComparisonView
   },
   {
-    path : '/product/searching/',
-    name : 'productSearching',
-    component : ProductSearchingResultView
+    path: '/product/searching/',
+    name: 'productSearching',
+    component: ProductSearchingResultView
   },
   // contents
   {
-    path : '/contents',
-    name : 'contents',
-    component : ContentsView
+    path: '/contents',
+    name: 'contents',
+    component: ContentListView
+  },
+  {
+    path: '/contents/create',
+    name: 'contentCreate',
+    component: ContentCreateView,
+    meta: { isAdmin: true }
   },
   // profile
   {

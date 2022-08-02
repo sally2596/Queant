@@ -13,7 +13,8 @@
       
         <a href="#" class="btn btn-success my-2">기사 보기</a>
         <div v-if="isAdmin">
-          <a href="#" class="btn btn-secondary my-2">기사 작성하기</a>
+          <router-link  class="btn btn-secondary my-2" :to="{ name: 'contentCreate' }">기사 작성하기</router-link>
+          <!-- <a href="#" class="btn btn-secondary my-2">기사 작성하기</a> -->
         </div>
         
       </div>
@@ -181,7 +182,7 @@ import Navbar from "@/components/Navbar.vue"
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'ContentsView',
+  name: 'ContentListView',
   components : {
     Navbar : Navbar
   },
