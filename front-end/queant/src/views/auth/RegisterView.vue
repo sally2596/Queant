@@ -13,7 +13,7 @@
           id="name"
           autocomplete="off"
           required>
-        <label class="form-label" for="name">이름</label>
+        <label class="form-label" for="name">* 이름</label>
       </div>
         
       <!-- email -->
@@ -26,7 +26,7 @@
           autocomplete="off"
           required
           :readonly="emailCheckedStatus === 200">
-        <label class="form-label" for="email" :readonly="emailCheckedStatus === 200">이메일 주소</label>
+        <label class="form-label" for="email" :readonly="emailCheckedStatus === 200">* 이메일 주소</label>
         <div class="error-text" v-if="error.email" style="margin-bottom:0px;">{{error.email}}</div>
           
         <!-- 중복검사 성공전에 버튼 활성화 -->
@@ -70,7 +70,7 @@
           id="password1"
           autocomplete="off"
           required>
-        <label for="password1">비밀번호</label>
+        <label for="password1">* 비밀번호</label>
         <div class="error-text" v-if="error.password1" style="margin-bottom:10px;">{{ error.password1 }}</div>
       </div>
 
@@ -82,7 +82,7 @@
           id="password2"
           autocomplete="off"
           required>
-        <label for="password2">비밀번호 확인</label>
+        <label for="password2">* 비밀번호 확인</label>
         <div class="error-text" v-if="error.password2" style="margin-bottom:0px;">{{ error.password2 }}</div>
       </div>
 

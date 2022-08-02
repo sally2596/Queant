@@ -26,6 +26,7 @@ export default {
     naverlogin: () => HOST + SOCIAL + 'naver/' + 'login'
   },
   bank: {
-    bank: () => HOST + BANK
+    banks: () => HOST + BANK,
+    // bank: bankId => HOST + BANK + bankId + '/'
   }
 }

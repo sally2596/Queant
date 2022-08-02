@@ -11,7 +11,8 @@ import GoogleView from '../views/oauth/GoogleView.vue'
 import HomeView from '../views/home/HomeView.vue' 
 
 // bankinfo
-import BankInfoView from '../views/bankinfo/BankInfoView.vue'
+import BankInfoListView from '../views/bankinfo/BankInfoListView.vue'
+import BankInfoDetailView from '../views/bankinfo/BankInfoDetailView.vue'
 
 // portfolio
 import PortfolioView from '../views/portfolio/PortfolioView.vue'
@@ -66,11 +67,17 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  // bankinfo
   {
     path: '/bankinfo',
-    name: 'bankInfo',
-    component: BankInfoView
+    name: 'bankInfoList',
+    component: BankInfoListView
   },
+  // {
+    // path: '/bankinfo/:bankId',
+    // name: 'bankInfoDetail',
+    // component: BankInfoDetailView
+  // },
   // portfolio
   {
     path: '/portfolio',
@@ -157,7 +164,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminUserListView,
-    // meta: { isAdmin: true }
+    meta: { isAdmin: true }
   },
   {
     path: '/admin/content',

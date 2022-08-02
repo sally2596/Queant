@@ -13,7 +13,7 @@
         <ul class="navbar-nav col">
           <div>
             <li class="m-auto content">
-              <router-link :to="{ name : 'bankInfo'}">Bank Info</router-link>
+              <router-link :to="{ name : 'bankInfoList' }">Bank Info</router-link>
             </li>
           </div>
           <div>
