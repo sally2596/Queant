@@ -1,6 +1,7 @@
 package com.ssafy.queant.model.repository;
 
 import com.ssafy.queant.model.entity.product.CustomProduct;
+import com.ssafy.queant.model.repository.product.CustomProductRepository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

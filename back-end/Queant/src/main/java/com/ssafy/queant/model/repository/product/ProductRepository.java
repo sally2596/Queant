@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.repository;
+package com.ssafy.queant.model.repository.product;
 
 import com.ssafy.queant.model.entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

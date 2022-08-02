@@ -2,7 +2,7 @@ package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.product.CustomProductDto;
 import com.ssafy.queant.model.entity.product.CustomProduct;
-import com.ssafy.queant.model.repository.CustomProductRepository;
+import com.ssafy.queant.model.repository.product.CustomProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

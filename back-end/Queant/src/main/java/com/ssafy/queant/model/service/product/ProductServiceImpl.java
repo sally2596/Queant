@@ -1,8 +1,8 @@
-package com.ssafy.queant.model.service;
+package com.ssafy.queant.model.service.product;
 
 import com.ssafy.queant.model.dto.product.ProductDto;
 import com.ssafy.queant.model.entity.product.Product;
-import com.ssafy.queant.model.repository.ProductRepository;
+import com.ssafy.queant.model.repository.product.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

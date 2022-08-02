@@ -3,8 +3,8 @@ package com.ssafy.queant.controller;
 import com.ssafy.queant.model.dto.product.BankDto;
 import com.ssafy.queant.model.dto.product.BankResponseDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
-import com.ssafy.queant.model.service.BankService;
-import com.ssafy.queant.model.service.ProductService;
+import com.ssafy.queant.model.service.product.BankService;
+import com.ssafy.queant.model.service.product.ProductService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,7 +45,6 @@ public class BankController {
         if(bankDto==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         List<ProductDto> productDtoList = productService.findByBankId(bankId);
-
         BankResponseDto responseDto = BankResponseDto.builder()
                 .bank(bankDto)
                 .productList(productDtoList)
