@@ -73,11 +73,11 @@ const routes = [
     name: 'bankInfoList',
     component: BankInfoListView
   },
-  {
-    path: '/bankinfo/:bankId',
-    name: 'bankInfoDetail',
-    component: BankInfoDetailView
-  },
+  // {
+    // path: '/bankinfo/:bankId',
+    // name: 'bankInfoDetail',
+    // component: BankInfoDetailView
+  // },
   // portfolio
   {
     path: '/portfolio',
