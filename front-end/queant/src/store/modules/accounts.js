@@ -15,6 +15,7 @@ export default {
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
     isLoggedIn: state => !!state.accessToken,
+    isAdmin: (state, getters) => getters.isLoggedIn && state.userInfo.role_set.length === 3,
     userInfo: state => state.userInfo,
     authHeader: state => ({ Authorization: `Token ${state.token}` }),
     authError: state => state.authError,
