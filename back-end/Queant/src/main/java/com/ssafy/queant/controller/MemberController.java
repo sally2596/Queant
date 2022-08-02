@@ -246,5 +246,17 @@ public class MemberController {
         return new ResponseEntity<MemberResponseDto>(memberlist, HttpStatus.OK);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="회원 권한 수정 완료"),
+            @ApiResponse(code = 404, message="존재하는 권한이 아닙니다.")
+    })
+    @ApiOperation(value="소셜 및 권한 분류에 따른 회원목록 조회", notes="Social, MemberRole, Page번호 필수.")
+    @GetMapping("/list")
+    public ResponseEntity<?> MemberList(@RequestParam(required = false) Social social, @RequestParam(required = false) MemberRole memberRole, @RequestParam int page){
+        MemberResponseDto memberlist = memberService.memberList(social, memberRole, page);
+        if(memberlist == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<MemberResponseDto>(memberlist, HttpStatus.OK);
+    }
+
 
 }

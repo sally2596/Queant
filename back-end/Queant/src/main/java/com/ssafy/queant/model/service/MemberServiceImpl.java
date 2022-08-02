@@ -6,6 +6,7 @@ import com.ssafy.queant.model.dto.member.MemberResponseDto;
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.member.MemberRole;
 import com.ssafy.queant.model.entity.member.Social;
+import com.ssafy.queant.model.repository.CustomMemberRepository;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +29,20 @@ public class MemberServiceImpl implements MemberService{
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+    private final CustomMemberRepository customMemberRepository;
 
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository, JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder, ModelMapper modelMapper){
+    public MemberServiceImpl(
+            MemberRepository memberRepository,
+            JwtTokenProvider jwtTokenProvider,
+            PasswordEncoder passwordEncoder,
+            ModelMapper modelMapper,
+            CustomMemberRepository customMemberRepository){
         this.memberRepository = memberRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
+        this.customMemberRepository = customMemberRepository;
     }
 
     @Override
@@ -186,6 +194,20 @@ public class MemberServiceImpl implements MemberService{
         result.get().forEach(member -> memberlist.add(modelMapper.map(member, MemberDto.class)));
 
         memberResponseDto.setMemberDtoList(memberlist);
+        memberResponseDto.setTotalPage(result.getTotalPages());
+        return memberResponseDto;
+    }
+
+    @Override
+    public MemberResponseDto memberList(Social social, MemberRole memberRole, int page) throws RuntimeException {
+        Pageable pageable = PageRequest.of(page-1,10);
+        Page<Member> result = customMemberRepository.memberList(social, memberRole, pageable);
+
+        MemberResponseDto memberResponseDto = new MemberResponseDto();
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        result.get().forEach(member -> memberDtoList.add(modelMapper.map(member, MemberDto.class)));
+
+        memberResponseDto.setMemberDtoList(memberDtoList);
         memberResponseDto.setTotalPage(result.getTotalPages());
         return memberResponseDto;
     }
