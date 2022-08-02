@@ -11,7 +11,7 @@
         type="text"
         id="email"
         autocomplete="off" required>
-        <label for="email">EMAIL</label>
+        <label for="email">이메일</label>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
       </div>
 
@@ -22,7 +22,7 @@
         type="password"
         id="pw"
         autocomplete="off" required>
-        <label for="pw">PASSWORD</label>
+        <label for="pw">비밀번호</label>
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
@@ -37,11 +37,11 @@
 
     </form>
     <div class="caption">
+      <router-link :to="{ name: 'register' }">아직 회원이 아니신가요?</router-link>
+      <br><br>
       <router-link :to="{ name: 'passwordFind' }">비밀번호를 잊으셨나요?</router-link>
       <br><br>
-      <router-link to="/register"><a href="">아직 회원이 아니신가요?</a></router-link>
-      <br><br>
-      <router-link to="/"><a href="">비회원으로 이용하시고 싶으신가요?</a></router-link>
+      <router-link :to="{ name: 'home' }">비회원으로 이용하기</router-link>
     </div>
 
     <div>

@@ -5,7 +5,7 @@
         <div class="carousel-item active">
           <div class="carousel-container">
             <h2>Save Your Moeny, Safely. QueÆnt</h2>
-            <router-link to="/portfolio" class="btn-get-started">내 포트폴리오 만들기</router-link>
+            <router-link :to="{ name: 'portfolio' }" class="btn-get-started">내 포트폴리오 만들기</router-link>
           </div>
         </div>
 

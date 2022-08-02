@@ -36,7 +36,7 @@ body.auth {
   font-size: 18px; color: #999;
   width: 75px;
   height: 30px;
-  background: #166cea;
+  background: #04AA6D;
   color: #fff;
   font-size: 12px;
   border: none;
@@ -47,13 +47,13 @@ body.auth {
 .int-area input:valid + label,
 .int-area input:read-only + label {
   top: 0;
-  font-size: 13px; color: #166cea;
+  font-size: 13px; color: #04AA6D;
 }
 
 .btn-area {margin-top: 30px;}
 .btn-area button {
   width: 60%; height: 40px;
-  background: #166cea;
+  background: #04AA6D;
   color: #fff;
   font-size: 20px;
   border: none;
@@ -63,7 +63,7 @@ body.auth {
 .btn-edit {margin-top: 30px;}
 .btn-edit button {
   width: 40%; height: 40px;
-  background: #166cea;
+  background: #04AA6D;
   color: #fff;
   font-size: 20px;
   border: none;
