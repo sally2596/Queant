@@ -9,12 +9,12 @@ services:
       - .:/data #현재 위치와 /data(django 어플리케이션이 있는 위치) 
       - ./config/nginx:/etc/nginx/conf.d #niginx 설정파일이 있는 위치
     depends_on: #컨테이너 의존관계를 의미한다.
-      - queant-data #아래 적혀있음
+      - web #아래 적혀있음
 
-  queant-data: #web이라는 이름으로 container 실행
+  web: #web이라는 이름으로 container 실행
     build:
       dockerfile: Dockerfile #아까 작성한 DockerFile를 바탕으로 이미지 빌드
-    command: bash -c "cd data/queant && gunicorn queant.wsgi:application --bind 0.0.0.0:8600"
+    command: bash -c "cd queant && gunicorn queant.wsgi:application --bind 0.0.0.0:8600"
     volumes:
       - .:/data
     expose:
