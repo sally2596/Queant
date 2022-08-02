@@ -14,7 +14,7 @@ services:
   web: #web이라는 이름으로 container 실행
     build:
       dockerfile: Dockerfile #아까 작성한 DockerFile를 바탕으로 이미지 빌드
-    command: bash -c "cd data/queant && gunicorn queant.wsgi:application --bind 0.0.0.0:8600"
+    command: gunicorn queant.wsgi:application --bind 0.0.0.0:8600
     volumes:
       - .:/data
     expose:
