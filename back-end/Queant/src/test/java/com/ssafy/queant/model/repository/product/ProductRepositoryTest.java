@@ -27,4 +27,15 @@ class ProductRepositoryTest {
             log.info(p.toString());
         }
     }
+
+    @Test
+    void findByNameContaining() {
+        String name = "KB";
+        List<Product> list = productRepository.findByNameContaining(name);
+
+        log.info("*****[start logging product list]*****");
+        for (Product p:list) {
+            log.info(p.toString());
+        }
+    }
 }

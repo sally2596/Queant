@@ -32,4 +32,15 @@ public class ProductServiceImpl implements ProductService{
         }
         return result;
     }
+
+    @Override
+    public List<ProductDto> findByNameContaining(String name) {
+        List<Product> list = productRepository.findByNameContaining(name);
+        List<ProductDto> result = new ArrayList<>();
+
+        for(Product p:list){
+            result.add(modelMapper.map(p,ProductDto.class));
+        }
+        return result;
+    }
 }
