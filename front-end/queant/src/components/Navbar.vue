@@ -34,7 +34,7 @@
           </div>
           <div>
             <li class="m-auto content">
-              <router-link :to="{ name : 'contents'}">Contents</router-link>
+              <router-link :to="{ name : 'contents' }">Content</router-link>
             </li>
           </div>
           <li class="ms-lg-auto content" id="searching_place">
