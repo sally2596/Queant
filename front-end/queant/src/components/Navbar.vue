@@ -1,5 +1,5 @@
 <template>
-  <div class="header" id="header">
+  <div class="nav_header" id="nav_header">
     <nav class="navbar navbar-expand-lg bg-none">
       <router-link to="/">
         <img class="logo mr-4" src="../assets/image/퀸트_로고.png" alt="">
