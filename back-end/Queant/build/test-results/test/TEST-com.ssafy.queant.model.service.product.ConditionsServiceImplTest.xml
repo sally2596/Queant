@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ssafy.queant.model.service.product.ConditionsServiceImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-08-02T17:13:10" hostname="JunSunyoungui-MacBookAir.local" time="0.336">
+  <properties/>
+  <testcase name="findByProductId()" classname="com.ssafy.queant.model.service.product.ConditionsServiceImplTest" time="0.336"/>
+  <system-out><![CDATA[02:13:00.525 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+02:13:00.535 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+02:13:00.575 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+02:13:00.589 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest], using SpringBootContextLoader
+02:13:00.594 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest]: class path resource [com/ssafy/queant/model/service/product/ConditionsServiceImplTest-context.xml] does not exist
+02:13:00.595 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest]: class path resource [com/ssafy/queant/model/service/product/ConditionsServiceImplTestContext.groovy] does not exist
+02:13:00.595 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+02:13:00.595 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest]: ConditionsServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+02:13:00.650 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest]
+02:13:00.754 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/sunyoung/SSAFY/S07P11A201/back-end/Queant/build/classes/java/main/com/ssafy/queant/QueantApplication.class]
+02:13:00.756 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ssafy.queant.QueantApplication for test class com.ssafy.queant.model.service.product.ConditionsServiceImplTest
+02:13:00.857 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.ssafy.queant.model.service.product.ConditionsServiceImplTest]: using defaults.
+02:13:00.858 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+02:13:00.873 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3a7b503d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@512d92b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@62c5bbdc, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7bdf6bb7, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1bc53649, org.springframework.test.context.support.DirtiesContextTestExecutionListener@88d6f9b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@47d93e0d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@475b7792, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@751e664e, org.springframework.test.context.event.EventPublishingTestExecutionListener@160c3ec1, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@182b435b, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4d0402b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2fa7ae9, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7577b641, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3704122f, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3153ddfc, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@60afd40d]
+02:13:00.877 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@3aaf4f07 testClass = ConditionsServiceImplTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5cbf9e9f testClass = ConditionsServiceImplTest, locations = '{}', classes = '{class com.ssafy.queant.QueantApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4c398c80, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@34997338, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@163d04ff, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7e928e2f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6821ea29, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@35b74c5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2022-08-03 02:13:01.658  WARN 43313 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/Users/sunyoung/.gradle/caches/modules-2/files-2.1/org.json/json/20190722/7bce7bacf0ab5e9f894d307a3de8b7f540064d5/json-20190722.jar!/org/json/JSONObject.class
+	jar:file:/Users/sunyoung/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2022-08-03 02:13:01.673  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : Starting ConditionsServiceImplTest using Java 11.0.15 on JunSunyoungui-MacBookAir.local with PID 43313 (started by sunyoung in /Users/sunyoung/SSAFY/S07P11A201/back-end/Queant)
+2022-08-03 02:13:01.674  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : The following 2 profiles are active: "mail", "API-KEY"
+2022-08-03 02:13:03.383  INFO 43313 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-03 02:13:03.549  INFO 43313 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 154 ms. Found 7 JPA repository interfaces.
+2022-08-03 02:13:04.914  INFO 43313 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-03 02:13:05.018  INFO 43313 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-03 02:13:05.182  INFO 43313 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-03 02:13:05.228  INFO 43313 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-08-03 02:13:05.414  INFO 43313 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-03 02:13:05.520  INFO 43313 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB106Dialect
+2022-08-03 02:13:06.494  INFO 43313 --- [    Test worker] p6spy                                    : #1659460386493 | took 4ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE'
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE';
+2022-08-03 02:13:06.526  INFO 43313 --- [    Test worker] p6spy                                    : #1659460386526 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select * from `queant`.`member` where 1=0
+select * from `queant`.`member` where 1=0;
+2022-08-03 02:13:06.533  INFO 43313 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-03 02:13:06.541  INFO 43313 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-03 02:13:07.351  WARN 43313 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [m.roleSet.size]; use collection function syntax instead [size(m.roleSet)].
+2022-08-03 02:13:07.568  WARN 43313 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-03 02:13:09.256  INFO 43313 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2022-08-03 02:13:09.443  WARN 43313 --- [    Test worker] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-08-03 02:13:09.764  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/v2/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.767  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/v2/api-docs']
+2022-08-03 02:13:09.768  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/v3/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.768  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/v3/api-docs']
+2022-08-03 02:13:09.768  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**/v3/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.769  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**/v3/api-docs']
+2022-08-03 02:13:09.770  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.770  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui/index.html']
+2022-08-03 02:13:09.770  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-resources']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.770  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-resources']
+2022-08-03 02:13:09.770  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.771  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-resources/**']
+2022-08-03 02:13:09.771  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/configuration/ui']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.771  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/configuration/ui']
+2022-08-03 02:13:09.771  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/configuration/security']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.772  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/configuration/security']
+2022-08-03 02:13:09.772  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.772  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui.html']
+2022-08-03 02:13:09.773  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='**/swagger-ui.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.774  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='**/swagger-ui.html']
+2022-08-03 02:13:09.774  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**/swagger-ui.html**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.775  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**/swagger-ui.html**']
+2022-08-03 02:13:09.775  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui.html**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.775  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui.html**']
+2022-08-03 02:13:09.775  WARN 43313 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 02:13:09.775  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/webjars/**']
+2022-08-03 02:13:09.847  INFO 43313 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7655dc27, org.springframework.security.web.context.SecurityContextPersistenceFilter@4f7b4953, org.springframework.security.web.header.HeaderWriterFilter@6000ca67, org.springframework.security.web.authentication.logout.LogoutFilter@5453b15d, com.ssafy.queant.security.JwtAuthenticationFilter@2e856aa4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73c21b13, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@57ab5033, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@428169d, org.springframework.security.web.session.SessionManagementFilter@4290332d, org.springframework.security.web.access.ExceptionTranslationFilter@41a940a9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5563a63f]
+2022-08-03 02:13:10.428  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : Started ConditionsServiceImplTest in 9.494 seconds (JVM running for 11.09)
+Hibernate: 
+    select
+        conditions0_.condition_id as conditio1_2_,
+        conditions0_.condition_info as conditio2_2_,
+        conditions0_.product_id as product_3_2_,
+        conditions0_.scode_id as scode_id4_2_,
+        conditions0_.special_rate as special_5_2_ 
+    from
+        conditions conditions0_ 
+    where
+        conditions0_.product_id=?
+2022-08-03 02:13:10.689 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [WR0001B]
+2022-08-03 02:13:10.692  INFO 43313 --- [    Test worker] p6spy                                    : #1659460390692 | took 0ms | statement | connection 3| url jdbc:mariadb://localhost:3306/queant
+select conditions0_.condition_id as conditio1_2_, conditions0_.condition_info as conditio2_2_, conditions0_.product_id as product_3_2_, conditions0_.scode_id as scode_id4_2_, conditions0_.special_rate as special_5_2_ from conditions conditions0_ where conditions0_.product_id=?
+select conditions0_.condition_id as conditio1_2_, conditions0_.condition_info as conditio2_2_, conditions0_.product_id as product_3_2_, conditions0_.scode_id as scode_id4_2_, conditions0_.special_rate as special_5_2_ from conditions conditions0_ where conditions0_.product_id='WR0001B';
+2022-08-03 02:13:10.697 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_] : [INTEGER]) - [122]
+2022-08-03 02:13:10.703 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio2_2_] : [VARCHAR]) - [WON 통장에서 출금 후 연결 가입 시 연 0.1%P]
+2022-08-03 02:13:10.706 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_3_2_] : [VARCHAR]) - [WR0001B]
+2022-08-03 02:13:10.707 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id4_2_] : [VARCHAR]) - [B011]
+2022-08-03 02:13:10.710 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([special_5_2_] : [FLOAT]) - [0.1]
+2022-08-03 02:13:10.714 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_] : [INTEGER]) - [123]
+2022-08-03 02:13:10.715 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio2_2_] : [VARCHAR]) - [만기해지 시 오픈뱅킹 타행계좌 등록 연 0.1%P]
+2022-08-03 02:13:10.718 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_3_2_] : [VARCHAR]) - [WR0001B]
+2022-08-03 02:13:10.719 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id4_2_] : [VARCHAR]) - [B011]
+2022-08-03 02:13:10.719 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([special_5_2_] : [FLOAT]) - [0.1]
+2022-08-03 02:13:10.719 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_] : [INTEGER]) - [285]
+2022-08-03 02:13:10.720 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio2_2_] : [VARCHAR]) - [급여이체 연0.2%p]
+2022-08-03 02:13:10.720 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_3_2_] : [VARCHAR]) - [WR0001B]
+2022-08-03 02:13:10.720 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id4_2_] : [VARCHAR]) - [B003]
+2022-08-03 02:13:10.721 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([special_5_2_] : [FLOAT]) - [0.2]
+2022-08-03 02:13:10.721 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_] : [INTEGER]) - [286]
+2022-08-03 02:13:10.722 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio2_2_] : [VARCHAR]) - [연금 연0.2%p]
+2022-08-03 02:13:10.722 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_3_2_] : [VARCHAR]) - [WR0001B]
+2022-08-03 02:13:10.722 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id4_2_] : [VARCHAR]) - [B004]
+2022-08-03 02:13:10.722 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([special_5_2_] : [FLOAT]) - [0.2]
+2022-08-03 02:13:10.723 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_] : [INTEGER]) - [287]
+2022-08-03 02:13:10.723 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio2_2_] : [VARCHAR]) - [우리카드 출금실적보유 연0.1%p]
+2022-08-03 02:13:10.724 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_3_2_] : [VARCHAR]) - [WR0001B]
+2022-08-03 02:13:10.724 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id4_2_] : [VARCHAR]) - [B008]
+2022-08-03 02:13:10.724 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([special_5_2_] : [FLOAT]) - [0.1]
+2022-08-03 02:13:10.724 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_] : [INTEGER]) - [288]
+2022-08-03 02:13:10.724 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio2_2_] : [VARCHAR]) - [공과금/관리비 연0.1%p]
+2022-08-03 02:13:10.725 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_3_2_] : [VARCHAR]) - [WR0001B]
+2022-08-03 02:13:10.725 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id4_2_] : [VARCHAR]) - [B005]
+2022-08-03 02:13:10.725 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([special_5_2_] : [FLOAT]) - [0.1]
+2022-08-03 02:13:10.725 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_] : [INTEGER]) - [289]
+2022-08-03 02:13:10.725 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio2_2_] : [VARCHAR]) - [만기자금을 손자녀명의의 당행 입출금통장으로 자동이체 시 0.2%P]
+2022-08-03 02:13:10.725 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_3_2_] : [VARCHAR]) - [WR0001B]
+2022-08-03 02:13:10.725 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id4_2_] : [VARCHAR]) - [B007]
+2022-08-03 02:13:10.726 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([special_5_2_] : [FLOAT]) - [0.2]
+Hibernate: 
+    select
+        specificco0_.scode_id as scode_id1_9_,
+        specificco0_.code_id as code_id2_9_,
+        specificco0_.scode_value as scode_va3_9_ 
+    from
+        specific_code specificco0_ 
+    where
+        specificco0_.code_id=?
+2022-08-03 02:13:10.751 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [B]
+2022-08-03 02:13:10.752  INFO 43313 --- [    Test worker] p6spy                                    : #1659460390752 | took 0ms | statement | connection 4| url jdbc:mariadb://localhost:3306/queant
+select specificco0_.scode_id as scode_id1_9_, specificco0_.code_id as code_id2_9_, specificco0_.scode_value as scode_va3_9_ from specific_code specificco0_ where specificco0_.code_id=?
+select specificco0_.scode_id as scode_id1_9_, specificco0_.code_id as code_id2_9_, specificco0_.scode_value as scode_va3_9_ from specific_code specificco0_ where specificco0_.code_id='B';
+2022-08-03 02:13:10.756 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B001]
+2022-08-03 02:13:10.757 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.757 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [비대면]
+2022-08-03 02:13:10.757 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B002]
+2022-08-03 02:13:10.757 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.757 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [모바일]
+2022-08-03 02:13:10.757 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B003]
+2022-08-03 02:13:10.757 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.758 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [급여]
+2022-08-03 02:13:10.758 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B004]
+2022-08-03 02:13:10.758 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.759 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [연금]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B005]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [공과금]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B006]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [재예치]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B007]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [입출금통장]
+2022-08-03 02:13:10.760 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B008]
+2022-08-03 02:13:10.761 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.761 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [카드]
+2022-08-03 02:13:10.761 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B009]
+2022-08-03 02:13:10.761 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.762 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [인터넷]
+2022-08-03 02:13:10.762 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B010]
+2022-08-03 02:13:10.762 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.762 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [첫거래]
+2022-08-03 02:13:10.762 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_id1_9_] : [VARCHAR]) - [B011]
+2022-08-03 02:13:10.762 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([code_id2_9_] : [VARCHAR]) - [B]
+2022-08-03 02:13:10.763 TRACE 43313 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_va3_9_] : [VARCHAR]) - [기타]
+2022-08-03 02:13:10.790  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : ConditionsDto(conditionId=122, value=기타, productId=WR0001B, scodeId=B011, specialRate=0.1, conditionInfo=WON 통장에서 출금 후 연결 가입 시 연 0.1%P)
+2022-08-03 02:13:10.791  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : ConditionsDto(conditionId=123, value=기타, productId=WR0001B, scodeId=B011, specialRate=0.1, conditionInfo=만기해지 시 오픈뱅킹 타행계좌 등록 연 0.1%P)
+2022-08-03 02:13:10.791  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : ConditionsDto(conditionId=285, value=급여, productId=WR0001B, scodeId=B003, specialRate=0.2, conditionInfo=급여이체 연0.2%p)
+2022-08-03 02:13:10.791  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : ConditionsDto(conditionId=286, value=연금, productId=WR0001B, scodeId=B004, specialRate=0.2, conditionInfo=연금 연0.2%p)
+2022-08-03 02:13:10.791  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : ConditionsDto(conditionId=287, value=카드, productId=WR0001B, scodeId=B008, specialRate=0.1, conditionInfo=우리카드 출금실적보유 연0.1%p)
+2022-08-03 02:13:10.791  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : ConditionsDto(conditionId=288, value=공과금, productId=WR0001B, scodeId=B005, specialRate=0.1, conditionInfo=공과금/관리비 연0.1%p)
+2022-08-03 02:13:10.791  INFO 43313 --- [    Test worker] c.s.q.m.s.p.ConditionsServiceImplTest    : ConditionsDto(conditionId=289, value=입출금통장, productId=WR0001B, scodeId=B007, specialRate=0.2, conditionInfo=만기자금을 손자녀명의의 당행 입출금통장으로 자동이체 시 0.2%P)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -63,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/webjars/**").permitAll()
                 .antMatchers("/*","/social/**").permitAll() // social login
                 .antMatchers("/bank/**").permitAll() // 은행 정보
+                .antMatchers("/search/**").permitAll() // 은행 정보
                 // 접근가능
                 .anyRequest().hasAnyRole("USER","ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
