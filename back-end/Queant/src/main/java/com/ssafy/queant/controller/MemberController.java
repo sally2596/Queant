@@ -252,7 +252,7 @@ public class MemberController {
     })
     @ApiOperation(value="소셜 및 권한 분류에 따른 회원목록 조회", notes="Social, MemberRole, Page번호 필수.")
     @GetMapping("/list")
-    public ResponseEntity<?> MemberList(@RequestParam Social social, @RequestParam MemberRole memberRole, @RequestParam int page){
+    public ResponseEntity<?> MemberList(@RequestParam(required = false) Social social, @RequestParam(required = false) MemberRole memberRole, @RequestParam int page){
         MemberResponseDto memberlist = memberService.memberList(social, memberRole, page);
         if(memberlist == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<MemberResponseDto>(memberlist, HttpStatus.OK);
