@@ -12,4 +12,4 @@ ADD ./data/queant/requirements.txt /data/
 # docker 내 requirements.txt 파일을 이용하여 패키지 설치
 RUN pip install -r requirements.txt 
 # 로컬 내 현재 위치에 있는 모든 파일 및 폴더를 docker 의 /data/ 폴더로 마운트
-ADD . /data/ 
+ADD ./data /data/ 
