@@ -1,5 +1,15 @@
 <template>
   <Navbar/>
+  
+  <div
+    v-for="bank in banks"
+    :key="bank.bankId"
+    :bank="bank">
+    <router-link :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bankId }}">
+      {{ bank }}
+    </router-link>
+  </div>
+  
   <header id="title-div">
     <h1 class="title" id="title">은행 정보</h1>
   </header>
@@ -122,12 +132,15 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'BankInfoView',
+  name: 'BankInfoListView',
   components : {
     Navbar : Navbar
+  },
+  computed: {
+    ...mapGetters(['banks'])
   },
   methods: {
     ...mapActions(['fetchBanks'])
