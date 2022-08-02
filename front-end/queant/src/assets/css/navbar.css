@@ -105,6 +105,12 @@
   margin-right: 10px;
 }
 
+.navbar p {
+  font-size: 25px;
+  align-items: center;
+  margin-bottom: 0;
+}
+
 .header.dropdown-menu[data-bs-popper] {
   right: 1;
 }
