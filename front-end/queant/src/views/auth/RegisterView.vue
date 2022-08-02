@@ -26,7 +26,7 @@
           autocomplete="off"
           required
           :readonly="emailCheckedStatus === 200">
-        <label class="form-label" for="email" :readonly="emailCheckedStatus === 200">* 이메일 주소</label>
+        <label class="form-label" for="email" :readonly="emailCheckedStatus === 200">* 이메일</label>
         <div class="error-text" v-if="error.email" style="margin-bottom:0px;">{{error.email}}</div>
           
         <!-- 중복검사 성공전에 버튼 활성화 -->
@@ -39,7 +39,7 @@
         <div v-else-if="emailCheckedStatus === 200">
           {{ time }}
           <button type="button" class="mail-send" id="check-email" @click="emailCheck(credentials.email)">재전송</button>
-          <p style="margin-bottom:0; margin-top:1px;">메일로 인증 번호가 전송되었습니다.</p>
+          <p style="margin-bottom:0; margin-top:1px;">이메일로 인증 번호가 전송되었습니다.</p>
           <!-- 인증번호 검사  -->
           <div class="int-area">
             <input
@@ -88,7 +88,15 @@
 
       <!-- gender -->
       <div class="choose-area">
-        <input 
+        <select @change="setGender($event)">
+          <option selected disabled>성별</option>
+          <option value="Female">여자</option>
+          <option value="Male">남자</option>
+          <option value="">선택안함</option>
+        </select>
+        <label>성별</label>
+
+        <!-- <input 
           v-model="credentials.gender"
           type="radio"
           value="Female"
@@ -100,7 +108,7 @@
           value="Male"
           class="gender-input-male">
         <p class="male">남성</p>
-        <label for="gender">성별</label>
+        <label for="gender">성별</label> -->
       </div>
 
       <!-- birthdate -->
@@ -193,7 +201,9 @@ export default {
       if (this.timerCount > 0)
         this.timerCount--
     },
-    
+    setGender(event) {
+      this.credentials.gender = event.target.value
+    }
   },
   watch: {
     credentials: {
