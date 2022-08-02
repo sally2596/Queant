@@ -82,17 +82,20 @@ const routes = [
   {
     path: '/portfolio',
     name: 'portfolio',
-    component: PortfolioView
+    component: PortfolioView,
+    meta: { isLoggedIn: true }
   },
   {
     path: '/portfolio/edit',
     name: 'portfolioEdit',
-    component: PortfolioEditView
+    component: PortfolioEditView,
+    meta: { isLoggedIn: true }
   },
   {
     path: '/portfolio/add',
     name: 'portfolioAdd',
-    component: PortfolioAddView
+    component: PortfolioAddView,
+    meta: { isLoggedIn: true }
   },
   // product
   {
