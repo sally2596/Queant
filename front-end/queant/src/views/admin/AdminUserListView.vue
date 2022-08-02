@@ -13,8 +13,9 @@
         type="text">
       <button @click="fetchUserInfo(email)">이메일 검색</button>
   
+
       <!-- ROLE_SET 필터 -->
-      <select @change="fetchUsersThroughRole($event)">
+      <select @change="changeRoleSet($event)">
         <option selected disabled>권한</option>
         <option value='ROLE_USER'>ROLE_USER</option>
         <option value='ROLE_SUPER'>ROLE_SUPER</option>
@@ -22,55 +23,62 @@
       </select>
   
       <!-- SOCIAL 필터 -->
-      <select @change='fetchUsersThroughSocial($event)'>
+      <select @change='changeSocial($event)'>
         <option selected disabled>가입유형</option>
         <option value='None'>QueÆnt</option>
         <option value='Google'>Google</option>
         <option value='Naver'>Naver</option>
         <option value='Kakao'>Kakao</option>
       </select>
-
-      <!-- ROLE_SET 필터 (test) -->
-      <!-- <select @change="changeTestRoleSet($event)">
-        <option selected disabled>권한</option>
-        <option value='ROLE_USER'>ROLE_USER</option>
-        <option value='ROLE_SUPER'>ROLE_SUPER</option>
-        <option value='ROLE_ADMIN'>ROLE_ADMIN</option>
-      </select> -->
-  
-      <!-- SOCIAL 필터 (test) -->
-      <!-- <select @change='changeTestSocial($event)'>
-        <option selected disabled>가입유형</option>
-        <option value='None'>QueÆnt</option>
-        <option value='Google'>Google</option>
-        <option value='Naver'>Naver</option>
-        <option value='Kakao'>Kakao</option>
-      </select> -->
   
       <!-- 필터 초기화 -->
       <button @click="this.$router.go()">필터 초기화</button>
     </div>
 
-    <!-- 자체 페이지네이션 -->
-    <admin-user-item
+      <admin-user-item
+        class="d-flex justify-content-center"
+        v-for="user in users"
+        :key="user.email"
+        :user="user">
+      </admin-user-item>
+  
+      <div
+        v-for="page in totalPage"
+        :key="page">
+        <button @click="changeCurrentPage(page)">{{ page }}</button>
+      </div>
+
+    <!-- 주어진 데이터 길이만 가지고 자체 페이지네이션 -->
+    <!-- ROLE_SET 필터 -->
+    <!-- <select @change="fetchUsersThroughRole($event)">
+      <option selected disabled>권한</option>
+      <option value='ROLE_USER'>ROLE_USER</option>
+      <option value='ROLE_SUPER'>ROLE_SUPER</option>
+      <option value='ROLE_ADMIN'>ROLE_ADMIN</option>
+    </select> -->
+
+    <!-- SOCIAL 필터 -->
+    <!-- <select @change='fetchUsersThroughSocial($event)'>
+      <option selected disabled>가입유형</option>
+      <option value='None'>QueÆnt</option>
+      <option value='Google'>Google</option>
+      <option value='Naver'>Naver</option>
+      <option value='Kakao'>Kakao</option>
+    </select> -->
+
+    <!-- <admin-user-item
       class="d-flex justify-content-center"
       v-for="user in orderedUsers.slice((currentPage-1) * 10, (currentPage-1) * 10 + 10)"
       :key="user.email"
       :user="user">
-    </admin-user-item>
+    </admin-user-item> -->
 
-    <div
+    <!-- <div
       v-for="page in totalPage"
       :key="page">
       <button @click="nextPage(page)">{{ page }}</button>
-    </div>
-
-    <!-- test -->
-    <!-- <div
-      v-for="testPage in testTotalPage"
-      :key="testPage">
-      <button @click="changeTestCurrentPage(testPage)">{{ testPage }}</button>
     </div> -->
+
 
   </div>
 </template>
@@ -85,54 +93,53 @@ export default {
   name: 'AdminUserListView',
   components: { AdminUserItem, Navbar },
   computed: {
-    ...mapGetters(['users', 'testTotalPage']),
-    orderedUsers() {
-      return _.orderBy(this.users, 'member_id')
-    },
-    totalPage() {
-      return (this.users.length - (this.users.length % 10)) / 10 + 1
-    }
+    ...mapGetters(['users', 'totalPage']),
+    // orderedUsers() {
+    //   return _.orderBy(this.users, 'member_id')
+    // },
+    // totalPage() {
+    //   return (this.users.length - (this.users.length % 10)) / 10 + 1
+    // }
   },
   data() {
     return {
       email: '',
-      currentPage: 1,
-      // test
-      // testCurrentPage: 1,
-      // payload: {
-      //   social: null,
-      //   role: 'ROLE_USER',
-      //   page: 1
-      // }
+      payload: {
+        social: '',
+        role: 'ROLE_USER',
+        page: 1
+      }
     }
   },
   watch: {
-    // payload: {
-    //   deep: true,
-    //   handler() {
-    //     fetchUsers(payload)
-    //   }
-    // }
+    payload: {
+      deep: true,
+      handler(value) {
+        this.fetchUsers(value)
+      }
+    }
   },
   methods: {
-    ...mapActions(['fetchUserInfo', 'fetchUsers', 'fetchUsersThroughRole', 'fetchUsersThroughSocial']),
-    nextPage(num) {
-      this.currentPage = num
-      console.log(this.currentPage)
+    ...mapActions(['fetchUserInfo', 'fetchUsers']),
+    changeCurrentPage(page) {
+      this.payload.page = page
     },
-    // changeTestCurrentPage(testPage) {
-    //   this.payload.page = testPage
+    changeRoleSet(event) {
+      this.payload.role = event.target.value
+      this.payload.page = 1
+    },
+    changeSocial(event) {
+      this.payload.social = event.target.value
+      this.payload.page = 1
+    }
+    // nextPage(num) {
+      //   this.currentPage = num
+    //   console.log(this.currentPage)
     // },
-    // changeTestRoleSet(role) {
-    //   this.payload.role = role
-    // },
-    // changeTestSocial(social) {
-    //   tihs.payload.social = social
-    // }
     
   },
   mounted() {
-    this.fetchUsers()
+    this.fetchUsers(this.payload)
   }
 }
 </script>

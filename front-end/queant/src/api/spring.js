@@ -14,7 +14,8 @@ export default {
     password: () => HOST + MEMBER + 'password',
     status: () => HOST + MEMBER + 'status',
     roles: () => HOST + MEMBER + 'roles',
-    social: () => HOST + MEMBER + 'social'
+    social: () => HOST + MEMBER + 'social',
+    list: () => HOST + MEMBER + 'list'
   },
   social: {
     google: () => HOST + SOCIAL + 'google',
