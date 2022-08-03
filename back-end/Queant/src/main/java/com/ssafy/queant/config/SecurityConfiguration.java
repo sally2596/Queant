@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +19,27 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final String[] SWAGGER_WHITELIST = {
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/**/v3/api-docs",
+            "/swagger-ui/index",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "**/swagger-ui.html",
+            "/**/swagger-ui.html**",
+            "/swagger-ui.html**",
+            "/swagger-ui/**",
+            "/img/**",
+            "/webjars/**"
+    };
+    private static final String[] AUTH_WHITELIST = {
+            "/social/**", "/member/emailcheck", "/member/emailverify",
+            "/member/register", "/member/login", "/member/refreshtoken"
+    };
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
@@ -38,29 +58,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    private static final String [] SWAGGER_WHITELIST = {
-            "/v2/api-docs",
-            "/v3/api-docs",
-            "/**/v3/api-docs",
-            "/swagger-ui/index",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "**/swagger-ui.html",
-            "/**/swagger-ui.html**",
-            "/swagger-ui.html**",
-            "/swagger-ui/**",
-            "/img/**",
-            "/webjars/**"
-    };
-
-    private static final String [] AUTH_WHITELIST = {
-            "/social/**", "/member/emailcheck", "/member/emailverify",
-            "/member/register", "/member/login", "/member/refreshtoken"
-    };
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -76,9 +73,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(SWAGGER_WHITELIST).permitAll()// swagger permit
                 .antMatchers(AUTH_WHITELIST).permitAll() // login and register
                 .antMatchers("/bank/**").permitAll() // 은행 정보
-                .antMatchers("/search/**").permitAll() // 은행 정보
+                .antMatchers("/search/**").permitAll() // 검색 정보
                 .antMatchers("/member/roles", "/member/list").hasAnyRole("ADMIN")
-                .antMatchers("/product/**").permitAll() // 은행 정보
+                .antMatchers("/product/**").permitAll() // 상품 정보
                 // 접근가능
                 .anyRequest().hasAnyRole("USER", "ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
