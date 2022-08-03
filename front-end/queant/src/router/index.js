@@ -39,7 +39,7 @@ import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
 import ProductResults from '@/components/ProductResults.vue'
-import ProductSearchingResultView from '@/components/ProductSearchingResultView.vue'
+import ProductSearchView from '@/views/product/ProductSearchView.vue'
 
 // content
 import ContentListView from '@/views/content/ContentListView.vue'
@@ -125,9 +125,9 @@ const routes = [
     component: ComparisonView
   },
   {
-    path: '/product/searching/',
-    name: 'productSearching',
-    component: ProductSearchingResultView
+    path: '/product/search/:keyword',
+    name: 'productSearch',
+    component: ProductSearchView
   },
   // contents
   {

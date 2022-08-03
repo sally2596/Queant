@@ -4,18 +4,15 @@ import axios from "axios"
 export default {
   state: {
     banks: [],
-    bank: {},
-    products: []
+    bank: {}
   },
   getters: {
     banks: state => state.banks,
-    bank: state => state.bank,
-    products: state => state.products
+    bank: state => state.bank
   },
   mutations: {
     SET_BANKS: (state, banks) => state.banks = banks,
-    SET_BANK: (state, bank) => state.bank = bank,
-    SET_PRODUCTS: (state, products) => state.products = products 
+    SET_BANK: (state, bank) => state.bank = bank
   },
   actions: {
     fetchBanks({ commit }) {
