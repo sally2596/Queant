@@ -1,18 +1,19 @@
 <template>
   <Navbar/>
+  <header id="title-div">
+    <h1 class="title" id="title">은행 정보</h1>
+  </header>
   
   <!-- 은행 목록 -->
-  <!-- <div
+  <div
     v-for="bank in banks"
     :key="bank.bank_id">
     <router-link :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bank_id }}">
       {{ bank }}
+      <hr>
     </router-link>
-  </div> -->
+  </div>
   
-  <header id="title-div">
-    <h1 class="title" id="title">은행 정보</h1>
-  </header>
   <div class="container" id="container_banks">
     <h2 class="pb-2 border-bottom">은행</h2>
     <p></p>
@@ -149,7 +150,7 @@ export default {
       document.body.className = 'home_body';
   },
   mounted() {
-    // this.fetchBanks()
+    this.fetchBanks()
   }
 }
 </script>
