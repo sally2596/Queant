@@ -19,7 +19,7 @@ export default {
     SET_TOTAL_PAGE: (state, res) => state.totalPage = res
   },
   actions: {
-    fetchUsers({ commit }, payload) {
+    fetchUsers({ commit, getters }, payload) {
       console.log(`${payload.page} 페이지`)
       axios({
         url: spring.member.list(),
