@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>네이버 로그인</h1>
+    <img src="../../assets/image/퀸트_로고.png" alt="" style="width: 100%; height:100%;">
   </div>
 </template>
 

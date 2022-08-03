@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>구글 로그인</h1>
+    <img src="../../assets/image/퀸트_로고.png" alt="" style="width: 100%; height:100%;">
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   methods: {
     ...mapActions(['getGoogleAuthorizationCode'])
   },
-  beforeCreate() {
+  created() {
     this.getGoogleAuthorizationCode(this.$route.query.code)
   }
 }
