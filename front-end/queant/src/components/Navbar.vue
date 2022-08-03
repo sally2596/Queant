@@ -1,5 +1,5 @@
 <template>
-  <div class="header" id="header">
+  <div class="nav_header fixed-top" id="nav_header">
     <nav class="navbar navbar-expand-lg bg-none">
       <router-link to="/">
         <img class="logo mr-4" src="../assets/image/퀸트_로고.png" alt="">
@@ -13,7 +13,7 @@
         <ul class="navbar-nav col">
           <div>
             <li class="m-auto content">
-              <router-link :to="{ name : 'bankInfo'}">Bank Info</router-link>
+              <router-link :to="{ name : 'bankInfoList' }">Bank Info</router-link>
             </li>
           </div>
           <div>
@@ -34,7 +34,7 @@
           </div>
           <div>
             <li class="m-auto content">
-              <router-link :to="{ name : 'contents'}">Contents</router-link>
+              <router-link :to="{ name : 'contents' }">Content</router-link>
             </li>
           </div>
           <li class="ms-lg-auto content" id="searching_place">

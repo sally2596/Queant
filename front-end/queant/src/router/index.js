@@ -11,7 +11,8 @@ import GoogleView from '../views/oauth/GoogleView.vue'
 import HomeView from '../views/home/HomeView.vue' 
 
 // bankinfo
-import BankInfoView from '../views/bankinfo/BankInfoView.vue'
+import BankInfoListView from '../views/bankinfo/BankInfoListView.vue'
+import BankInfoDetailView from '../views/bankinfo/BankInfoDetailView.vue'
 
 // portfolio
 import PortfolioView from '../views/portfolio/PortfolioView.vue'
@@ -41,7 +42,8 @@ import ProductResults from '@/components/ProductResults.vue'
 import ProductSearchingResultView from '@/components/ProductSearchingResultView.vue'
 
 // content
-import ContentsView from '@/views/content/ContentsView.vue'
+import ContentListView from '@/views/content/ContentListView.vue'
+import ContentCreateView from '@/views/content/ContentCreateView.vue'
 
 const routes = [
   // oauth
@@ -66,31 +68,40 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  // bankinfo
   {
     path: '/bankinfo',
-    name: 'bankInfo',
-    component: BankInfoView
+    name: 'bankInfoList',
+    component: BankInfoListView
+  },
+  {
+    path: '/bankinfo/:bankId',
+    name: 'bankInfoDetail',
+    component: BankInfoDetailView
   },
   // portfolio
   {
     path: '/portfolio',
     name: 'portfolio',
-    component: PortfolioView
+    component: PortfolioView,
+    meta: { isLoggedIn: true }
   },
   {
     path: '/portfolio/edit',
     name: 'portfolioEdit',
-    component: PortfolioEditView
+    component: PortfolioEditView,
+    meta: { isLoggedIn: true }
   },
   {
     path: '/portfolio/add',
     name: 'portfolioAdd',
-    component: PortfolioAddView
+    component: PortfolioAddView,
+    meta: { isLoggedIn: true }
   },
   // product
   {
-    path : '/product',
-    name : 'productRecommend',
+    path: '/product',
+    name: 'productRecommend',
     component: ProductRecommendationView,
   },
   {
@@ -99,30 +110,36 @@ const routes = [
     component: ProductResults
   },
   {
-    path : '/product/cart',
-    name : 'productCart',
+    path: '/product/cart',
+    name: 'productCart',
     component: ProductCartView
   },
   {
-    path : '/product/special',
-    name : 'productSpecialPlus',
+    path: '/product/special',
+    name: 'productSpecialPlus',
     component: ProductSpecialPlusView
   },
   {
-    path : '/product/comparison',
-    name : 'productComparison',
-    component : ComparisonView
+    path: '/product/comparison',
+    name: 'productComparison',
+    component: ComparisonView
   },
   {
-    path : '/product/searching/',
-    name : 'productSearching',
-    component : ProductSearchingResultView
+    path: '/product/searching/',
+    name: 'productSearching',
+    component: ProductSearchingResultView
   },
   // contents
   {
-    path : '/contents',
-    name : 'contents',
-    component : ContentsView
+    path: '/contents',
+    name: 'contents',
+    component: ContentListView
+  },
+  {
+    path: '/contents/create',
+    name: 'contentCreate',
+    component: ContentCreateView,
+    meta: { isAdmin: true }
   },
   // profile
   {
@@ -157,7 +174,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminUserListView,
-    // meta: { isAdmin: true }
+    meta: { isAdmin: true }
   },
   {
     path: '/admin/content',
