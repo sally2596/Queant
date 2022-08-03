@@ -12,7 +12,7 @@ export default {
   methods: {
     ...mapActions(['getNaverAuthorizationCode'])
   },
-  mounted() {
+  created() {
     this.getNaverAuthorizationCode(this.$route.query)
   }
 }

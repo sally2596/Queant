@@ -12,7 +12,7 @@ export default {
   methods: {
     ...mapActions(['getGoogleAuthorizationCode'])
   },
-  mounted() {
+  beforeCreate() {
     this.getGoogleAuthorizationCode(this.$route.query.code)
   }
 }
