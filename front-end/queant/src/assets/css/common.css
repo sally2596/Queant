@@ -6,9 +6,10 @@
 }
 
 #title {
-    font-family: 'jua';
-    padding: 1%; padding-left: 2%;
-  }
+  font-family: 'jua'; 
+  margin-top: 50px;
+  padding: 1%; padding-left: 2%;
+}
 
 
 /* meny-body */

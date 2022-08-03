@@ -10,8 +10,6 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">자산 관리의 핵심, Queant</h1>
         <p class="lead text-muted">Queant가 당신의 자산을 안전하고 확실하게 불려드립니다.</p>
-      
-        <a href="#" class="btn btn-success my-2">기사 보기</a>
         <div v-if="isAdmin">
           <router-link  class="btn btn-secondary my-2" :to="{ name: 'contentCreate' }">기사 작성하기</router-link>
           <!-- <a href="#" class="btn btn-secondary my-2">기사 작성하기</a> -->
