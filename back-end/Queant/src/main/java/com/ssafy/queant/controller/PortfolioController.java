@@ -30,7 +30,7 @@ public class PortfolioController {
             @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
     })
     @ApiOperation(value="사용자 정의 상품 등록", notes="email 필수")
-    @PostMapping("/regist/custom")
+    @PostMapping("/custom")
     public ResponseEntity<?> registCustomProduct(@RequestBody CustomProductDto customProductDto,@RequestBody String email){
         log.info("[CustomProduct Regist]");
 
@@ -45,11 +45,11 @@ public class PortfolioController {
     }
 
     @ApiResponses({
-            @ApiResponse(code = 200, message="상품 등록 성공"),
+            @ApiResponse(code = 200, message="상품 삭제 성공"),
             @ApiResponse(code = 404, message="존재하는 상품이 아닙니다."),
     })
-    @ApiOperation(value="사용자 정의 상품 등록", notes="email 필수")
-    @PostMapping("/delete/custom")
+    @ApiOperation(value="사용자 정의 상품 삭제", notes="email 필수")
+    @DeleteMapping("/custom")
     public ResponseEntity<?> deleteCustomProduct(@RequestBody CustomProductDto customProductDto){
         log.info("[CustomProduct Delete]");
 
@@ -61,12 +61,12 @@ public class PortfolioController {
     }
 
     @ApiResponses({
-            @ApiResponse(code = 200, message="커스텀 상품 가져오기 성공"),
+            @ApiResponse(code = 200, message="해당 회원의 사용자정의 상품 가져오기 성공"),
             @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
     })
-    @ApiOperation(value="사용자 정의 상품 등록", notes="email 필수")
-    @GetMapping("/product/custom")
-    public ResponseEntity<?> getCustomProduct(@RequestBody CustomProductDto customProductDto,@RequestBody String email){
+    @ApiOperation(value="사용자 정의 상품 조회", notes="email 필수")
+    @PostMapping("/customlist")
+    public ResponseEntity<?> getCustomProduct(@RequestBody String email){
         log.info("[Get CustomProductList]");
 
         MemberDto memberDto = memberService.findMember(email);
@@ -76,6 +76,24 @@ public class PortfolioController {
         List<CustomProductDto> list = portfolioService.findCustomProductByMemberId(memberDto.getMemberId());
 
         return new ResponseEntity<List<CustomProductDto>>(list,HttpStatus.OK);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="사용자 정의 상품 수정 성공"),
+            @ApiResponse(code = 404, message="존재하는 상품이 아닙니다."),
+    })
+    @ApiOperation(value="사용자 정의 상품 수정", notes="customProduct의 기존데이터와 수정된데이터 모두 보내주세요")
+    @PutMapping("/custom")
+    public ResponseEntity<?> updateCustomProduct(@RequestBody CustomProductDto customProductDto){
+        log.info("[Update CustomProductList]");
+        CustomProductDto savedCustomProduct;
+        try {
+            savedCustomProduct = portfolioService.updateCustomProduct(customProductDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<CustomProductDto>(savedCustomProduct,HttpStatus.OK);
     }
 
 }
