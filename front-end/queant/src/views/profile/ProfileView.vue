@@ -16,6 +16,7 @@
           type="password"
           id="password"
           autocomplete="off"
+          @keyup.enter="passwordCheck(password)"
           required>
         <label for="password">비밀번호</label>
         <button type="button" class="password-post" id="check-password" @click="passwordCheck(password)">확인</button>
