@@ -13,4 +13,6 @@ public interface ProductService {
     ProductDetailDto findByProductId(String productId);
 
     ProductDto registProduct(ProductDto productDto);
+
+    ProductDto updateToProovedProduct(String productId);
 }

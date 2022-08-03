@@ -2,7 +2,6 @@ package com.ssafy.queant.model.service.product;
 
 import com.ssafy.queant.model.dto.product.ProductDetailDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
-import com.ssafy.queant.model.entity.product.Product;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ProductServiceImplTest {
@@ -39,8 +40,27 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void registProduct(){
-        Product product = Product.builder()
-                ..build();
+    void registProduct() {
+        ProductDto product = ProductDto.builder()
+                .productId("aa")
+                .bankId(10345)
+                .name("약오르지 까꿍")
+                .scodeId("A001")
+                .isDeposit(true)
+                .isEnabled(false)
+                .build();
+
+        ProductDto saved = productService.registProduct(product);
+
+        assertEquals(product.getProductId(), saved.getProductId());
+    }
+
+    @Test
+    void updateToProovedProduct() {
+        String productId = "aa";
+
+        ProductDto saved = productService.updateToProovedProduct(productId);
+
+        log.info(saved.toString());
     }
 }
