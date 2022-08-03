@@ -34,10 +34,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    private static final String [] SWAGGER_WHITELIST = {
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/**/v3/api-docs",
+            "/swagger-ui/index",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "**/swagger-ui.html",
+            "/**/swagger-ui.html**",
+            "/swagger-ui.html**",
+            "/swagger-ui/**",
+            "/img/**",
+            "/webjars/**"
+    };
+
+    private static final String [] AUTH_WHITELIST = {
+            "/social/**", "/member/emailcheck", "/member/emailverify",
+            "/member/register", "/member/login", "/member/refreshtoken"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-//                .httpBasic().disable() // rest api 이므로 기본설정 사용안함. 기본설정은 비인증시 로그인폼 화면으로 리다이렉트 된다.
+                .httpBasic().disable() // rest api 이므로 기본설정 사용안함. 기본설정은 비인증시 로그인폼 화면으로 리다이렉트 된다.
 //                .cors().configurationSource(corsConfigurationSource())
 
 //                .and()
@@ -46,24 +69,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests() // 다음 리퀘스트에 대한 사용권한 체크
-                .antMatchers("/member/*","/v2/api-docs",
-                        "/v3/api-docs",
-                        "/**/v3/api-docs",
-                        "/swagger-ui/index",
-                        "/swagger-resources",
-                        "/swagger-resources/**",
-                        "/configuration/ui",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "**/swagger-ui.html",
-                        "/**/swagger-ui.html**",
-                        "/swagger-ui.html**",
-                        "/swagger-ui/**",
-                        "/img/**",
-                        "/webjars/**").permitAll()
-                .antMatchers("/*","/social/**").permitAll() // social login
+                .antMatchers(SWAGGER_WHITELIST).permitAll()// swagger permit
+                .antMatchers(AUTH_WHITELIST).permitAll() // login and register
                 .antMatchers("/bank/**").permitAll() // 은행 정보
                 .antMatchers("/search/**").permitAll() // 은행 정보
+                .antMatchers("/member/roles", "/member/list").hasAnyRole("ADMIN")
                 // 접근가능
                 .anyRequest().hasAnyRole("USER","ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
@@ -72,36 +82,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
-    public void configure(WebSecurity webSecurity){
-        webSecurity.ignoring().antMatchers(
-                "/v2/api-docs",
-                "/v3/api-docs",
-                "/**/v3/api-docs",
-                "/swagger-ui/index.html",
-                "/swagger-resources",
-                "/swagger-resources/**",
-                "/configuration/ui",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "**/swagger-ui.html",
-                "/**/swagger-ui.html**",
-                "/swagger-ui.html**",
-                "/webjars/**"
-        );
-    }
-
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.addAllowedOriginPattern("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
+//    @Override
+//    public void configure(WebSecurity webSecurity){
+//        webSecurity.ignoring().antMatchers(
+//                "/v2/api-docs",
+//                "/v3/api-docs",
+//                "/**/v3/api-docs",
+//                "/swagger-ui/index.html",
+//                "/swagger-resources",
+//                "/swagger-resources/**",
+//                "/configuration/ui",
+//                "/configuration/security",
+//                "/swagger-ui.html",
+//                "**/swagger-ui.html",
+//                "/**/swagger-ui.html**",
+//                "/swagger-ui.html**",
+//                "/webjars/**"
+//        );
 //    }
+
+
 }
