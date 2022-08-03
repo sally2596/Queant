@@ -174,7 +174,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminUserListView,
-    meta: { isAdmin: true }
+    // meta: { isAdmin: true }
   },
   {
     path: '/admin/content',
