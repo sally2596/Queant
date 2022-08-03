@@ -70,16 +70,15 @@ public class PortfolioServiceImpl implements PortfolioService{
    }
 
    @Override
-   public CustomProductDto updateCustomProduct(CustomProductDto customProductDto) throws RuntimeException {
+   public CustomProductDto updateCustomProduct(CustomProductDto customProductDto) throws Exception {
       Optional<CustomProduct> result = customProductRepository.findByProductId(customProductDto.getProductId());
       result.orElseThrow(() -> new NoSuchElementException());
-      CustomProduct customProduct = result.get();
 
-      //각 값을 비교
-     if(!customProductDto.getInstitutionName().equals(customProduct.getInstitutionName())) {
-         customProduct.setInstitutionName(customProductDto.getInstitutionName());
-      }
+      CustomProduct customProduct = modelMapper.map(customProductDto, CustomProduct.class);
+      CustomProduct savedCustomProduct = customProductRepository.save(customProduct);
 
-      return null;
+      CustomProductDto savedCustomProductDto = modelMapper.map(savedCustomProduct,CustomProductDto.class);
+
+      return savedCustomProductDto;
    }
 }
