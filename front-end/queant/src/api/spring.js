@@ -3,6 +3,7 @@ const HOST = 'http://i7a201.p.ssafy.io:8000/'
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
 const BANK = 'bank/'
+const SEARCH = 'search/'
 
 export default {
   member: {
@@ -27,6 +28,10 @@ export default {
   },
   bank: {
     banks: () => HOST + BANK,
-    bank: bankId => HOST + BANK + bankId + '/'
+    bank: bankId => HOST + BANK + bankId
+  },
+  search: {
+    search: () => HOST + SEARCH,
+    keyword: () => HOST + SEARCH + 'keyword'
   }
 }
