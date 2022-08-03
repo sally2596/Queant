@@ -10,6 +10,7 @@ import lombok.*;
 public class ProductDto {
     private String productId;
     private int bankId;
+    private String bankName;
     private String name;
     private String scodeId;
     private boolean isDeposit;
