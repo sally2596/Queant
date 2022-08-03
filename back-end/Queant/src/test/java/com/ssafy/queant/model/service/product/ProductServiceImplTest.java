@@ -1,6 +1,7 @@
 package com.ssafy.queant.model.service.product;
 
 import com.ssafy.queant.model.dto.product.ProductDto;
+import com.ssafy.queant.model.dto.product.ProductInfoDto;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,18 @@ class ProductServiceImplTest {
         String name = "우리 SUPER정기예금";
 
         List<ProductDto> list = productService.findByNameContaining(name);
-        for (ProductDto p:list
-             ) {
+        for (ProductDto p : list
+        ) {
             log.info(p.toString());
         }
+    }
+
+    @Test
+    void findByProductId() {
+        String productId = "0051";
+
+        ProductInfoDto productInfoDto = productService.findByProductId(productId);
+        if (productInfoDto == null) log.info("null값 들어옴");
+        else log.info(productInfoDto.toString());
     }
 }
