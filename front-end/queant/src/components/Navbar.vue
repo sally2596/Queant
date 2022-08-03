@@ -41,10 +41,9 @@
             <input 
             type="text"
             placeholder="빠른 상품 검색"
-            v-model="keyword" 
-            @keyup.enter="searchresultshow(keyword)"
+            v-model="keyword"
             >
-            <button class="searching" @click="searchresultshow(keyword)"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="searching" @click="searchProduct(keyword)"><i class="fa-solid fa-magnifying-glass"></i></button>
           </li>
           <!-- 로그아웃 했을 때만 보임 -->
           <li class="right_content content" v-show="!isLoggedIn">
@@ -77,23 +76,23 @@ export default {
     ...mapGetters(['isLoggedIn'])
   },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'searchProduct']),
     isCollapsed: function() {
       this.searching_place = !this.searching_place
     },
-    searchresultshow(keyword) {
-      if (keyword !== ''){ //검색어를 입력한 경우
-        this.$router.push({
-          name: "productSearching",
-          params: {
-            keyword: this.keyword,
-          },
-        });
-        this.keyword = ''
-      } else {
-        alert('검색어를 입력해주세요!')  //검색어를 입력하지 않은 경우
-      }
-    },
+    // searchresultshow(keyword) {
+    //   if (keyword !== ''){ //검색어를 입력한 경우
+    //     this.$router.push({
+    //       name: "productSearching",
+    //       params: {
+    //         keyword: this.keyword,
+    //       },
+    //     });
+    //     this.keyword = ''
+    //   } else {
+    //     alert('검색어를 입력해주세요!')  //검색어를 입력하지 않은 경우
+    //   }
+    // },
   },
   data() {
     return {

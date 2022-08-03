@@ -8,8 +8,6 @@ export default {
     roleUsers: [],
     socialUsers: [],
     totalPage: null
-    // roleStatus: null,
-    // socialStatus: null,
   },
   getters: {
     users: state => state.users,
@@ -19,10 +17,6 @@ export default {
   mutations: {
     SET_USERS: (state, users) => state.users = users,
     SET_TOTAL_PAGE: (state, res) => state.totalPage = res
-    // SET_ROLE_USERS: (state, roleUsers) => state.roleUsers = roleUsers,
-    // SET_SOCIAL_USERS: (state, socialUsers) => state.socialUsers = socialUsers,
-    // SET_ROLE_STATUS: (state, res) => state.roleStatus = res,
-    // SET_SOCIAL_STATUS: (state, res) => state.socialStatus = res,
   },
   actions: {
     fetchUsers({ commit }, payload) {
@@ -30,6 +24,7 @@ export default {
       axios({
         url: spring.member.list(),
         method: 'get',
+        headers: getters.authHeader,
         params: {
           social: payload.social,
           memberRole: payload.role,
@@ -45,10 +40,11 @@ export default {
       })
     },
     
-    editEnabled({ commit }, email) {
+    editEnabled({ getters }, email) {
       axios({
         url: spring.member.status(),
         method: 'put',
+        headers: getters.authHeader,
         data: {
           email: email
         }
@@ -63,7 +59,7 @@ export default {
       })
     },
     
-    editRoleSet({ commit }, { email, role_set }) {
+    editRoleSet({ getters }, { email, role_set }) {
       if (role_set.length === 2 && role_set[1] === 'ROLE_ADMIN') {
         role_set = ['ROLE_USER', 'ROLE_SUPER', 'ROLE_ADMIN']
       }
@@ -71,6 +67,7 @@ export default {
       axios({
         url: spring.member.roles(),
         method: 'put',
+        headers: getters.authHeader,
         data: {
           email: email,
           roles: role_set
