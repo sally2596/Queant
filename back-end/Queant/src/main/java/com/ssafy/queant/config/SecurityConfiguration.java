@@ -13,18 +13,19 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public SecurityConfiguration(JwtTokenProvider jwtTokenProvider){
+    public SecurityConfiguration(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -35,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http
 //                .httpBasic().disable() // rest api 이므로 기본설정 사용안함. 기본설정은 비인증시 로그인폼 화면으로 리다이렉트 된다.
 //                .cors().configurationSource(corsConfigurationSource())
@@ -46,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests() // 다음 리퀘스트에 대한 사용권한 체크
-                .antMatchers("/member/*","/v2/api-docs",
+                .antMatchers("/member/*", "/v2/api-docs",
                         "/v3/api-docs",
                         "/**/v3/api-docs",
                         "/swagger-ui/index",
@@ -61,11 +62,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/img/**",
                         "/webjars/**").permitAll()
-                .antMatchers("/*","/social/**").permitAll() // social login
+                .antMatchers("/*", "/social/**").permitAll() // social login
                 .antMatchers("/bank/**").permitAll() // 은행 정보
                 .antMatchers("/search/**").permitAll() // 은행 정보
+                .antMatchers("/product/**").permitAll() // 은행 정보
                 // 접근가능
-                .anyRequest().hasAnyRole("USER","ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
+                .anyRequest().hasAnyRole("USER", "ADMIN", "SUPER")// 그외 나머지 요청은 모두 인증된 회원만 접근 가능
 
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
@@ -73,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity webSecurity){
+    public void configure(WebSecurity webSecurity) {
         webSecurity.ignoring().antMatchers(
                 "/v2/api-docs",
                 "/v3/api-docs",
