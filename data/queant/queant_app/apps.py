@@ -6,3 +6,4 @@ class QueantAppConfig(AppConfig):
     from . import updater
     print("Sever running!")
     updater.start()
+    updater.start_bank()
