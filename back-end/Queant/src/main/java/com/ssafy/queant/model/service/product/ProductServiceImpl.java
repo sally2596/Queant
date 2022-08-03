@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<ProductDto> findByBankId(int bankId){
-        List<Product> list = productRepository.findByBankId(bankId);
+        List<Product> list = productRepository.findByBankIdAndIsEnabledTrue(bankId);
 
         Optional<Bank> bankResult= bankRepository.findByBankId(bankId);
         String bankName = bankResult.get().getBankName();
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<ProductDto> findByNameContaining(String name) {
-        List<Product> list = productRepository.findByNameContaining(name);
+        List<Product> list = productRepository.findByIsEnabledTrueAndNameContaining(name);
         List<ProductDto> result = new ArrayList<>();
 
         for(Product p:list){
