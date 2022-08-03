@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import auth from './mo./modules/auth'
+import auth from './modules/auth'
 import oauth from './modules/oauth'
 import admin from './modules/admin'
 import bank from './modules/bank'
