@@ -111,4 +111,13 @@ public class ProductServiceImpl implements ProductService {
 
         return productDetailDto;
     }
+
+    // 키 생성 전략 수정해야함
+    @Override
+    public ProductDto registProduct(ProductDto productDto) {
+        Product product = modelMapper.map(productDto, Product.class);
+        Product savedProduct = productRepository.save(product);
+
+        return modelMapper.map(savedProduct, ProductDto.class);
+    }
 }

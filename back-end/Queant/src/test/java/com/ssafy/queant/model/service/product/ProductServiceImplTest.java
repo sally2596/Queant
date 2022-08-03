@@ -2,6 +2,7 @@ package com.ssafy.queant.model.service.product;
 
 import com.ssafy.queant.model.dto.product.ProductDetailDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
+import com.ssafy.queant.model.entity.product.Product;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,5 +36,11 @@ class ProductServiceImplTest {
         ProductDetailDto productDetailDto = productService.findByProductId(productId);
         if (productDetailDto == null) log.info("null값 들어옴");
         else log.info(productDetailDto.toString());
+    }
+
+    @Test
+    void registProduct(){
+        Product product = Product.builder()
+                ..build();
     }
 }
