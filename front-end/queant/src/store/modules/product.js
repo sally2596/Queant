@@ -23,12 +23,14 @@ export default {
         }
       })
       .then(res => {
-        commit('SET_PRODUCTS', res.data)
         console.log(res)
+        commit('SET_PRODUCTS', res.data)
         router.push({ name: 'productSearch', params: { keyword: keyword }})
       })
       .catch(err => {
         console.log(err)
+        commit('SET_PRODUCTS', [])
+        router.push({ name: 'productSearch', params: { keyword: keyword }})
       })
     }
   }

@@ -42,6 +42,7 @@
             type="text"
             placeholder="빠른 상품 검색"
             v-model="keyword"
+            @keyup.enter="searchProduct(keyword)"
             >
             <button class="searching" @click="searchProduct(keyword)"><i class="fa-solid fa-magnifying-glass"></i></button>
           </li>
