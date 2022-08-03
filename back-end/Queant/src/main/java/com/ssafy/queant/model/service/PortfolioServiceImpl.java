@@ -6,12 +6,10 @@ import com.ssafy.queant.model.repository.product.CustomProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -69,5 +67,19 @@ public class PortfolioServiceImpl implements PortfolioService{
             customProductDtoList.add(modelMapper.map(p,CustomProductDto.class));
       }
       return customProductDtoList;
+   }
+
+   @Override
+   public CustomProductDto updateCustomProduct(CustomProductDto customProductDto) throws RuntimeException {
+      Optional<CustomProduct> result = customProductRepository.findByProductId(customProductDto.getProductId());
+      result.orElseThrow(() -> new NoSuchElementException());
+      CustomProduct customProduct = result.get();
+
+      //각 값을 비교
+     if(!customProductDto.getInstitutionName().equals(customProduct.getInstitutionName())) {
+         customProduct.setInstitutionName(customProductDto.getInstitutionName());
+      }
+
+      return null;
    }
 }
