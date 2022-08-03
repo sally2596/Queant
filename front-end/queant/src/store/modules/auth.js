@@ -17,7 +17,7 @@ export default {
     isLoggedIn: state => !!state.accessToken,
     isAdmin: (state, getters) => getters.isLoggedIn && state.userInfo.role_set.length === 3,
     userInfo: state => state.userInfo,
-    authHeader: state => ({ Authorization: `Token ${state.token}` }),
+    authHeader: state => ({ 'X-AUTH-TOKEN': state.accessToken }),
     authError: state => state.authError,
     emailCheckedStatus: state => state.emailCheckedStatus,
     emailVerifiedStatus: state => state.emailVerifiedStatus,
@@ -89,10 +89,11 @@ export default {
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
-    editUserInfo({ dispatch }, credentials) {
+    editUserInfo({ dispatch, getters }, credentials) {
       axios({
         url: spring.member.info(),
         method: 'put',
+        headers: getters.authHeader,
         data: {
           email: credentials.email,
           name: credentials.name,
@@ -108,10 +109,11 @@ export default {
         console.log(err)
       })
     },
-    unregister({ dispatch }, email) {
+    unregister({ dispatch, getters }, email) {
       axios({
         url: spring.member.status(),
         method: 'put',
+        headers: getters.authHeader,
         data: {
           email: email
         }
@@ -229,10 +231,12 @@ export default {
       localStorage.setItem('refreshToken', refreshToken)
     },
     fetchUserInfo({ commit, getters }, email) {
+      console.log(getters.authHeader)
       if (getters.isLoggedIn) {
         axios({
           url: spring.member.info(),
           method: 'post',
+          headers: getters.authHeader,
           data: {
             email: email
           }

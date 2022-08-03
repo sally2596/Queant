@@ -9,6 +9,21 @@ export default {
   mutations: {
   },
   actions: {
-    
+    searchProduct({ commit }, keyword) {
+      console.log(keyword)
+      axios({
+        url: spring.search.search(),
+        method: 'get',
+        params: {
+          keyword: keyword
+        }
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
   }
 }

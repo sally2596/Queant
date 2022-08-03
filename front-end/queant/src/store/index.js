@@ -3,6 +3,7 @@ import auth from './modules/auth'
 import oauth from './modules/oauth'
 import admin from './modules/admin'
 import bank from './modules/bank'
+import product from './modules/product'
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -11,7 +12,8 @@ export default createStore({
     auth,
     oauth,
     admin,
-    bank
+    bank,
+    product
   },
   plugins: [
     createPersistedState({
