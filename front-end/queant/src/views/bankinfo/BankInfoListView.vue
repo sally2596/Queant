@@ -5,15 +5,17 @@
   </header>
   
   <!-- 은행 목록 -->
-  <div
-    v-for="bank in banks"
-    :key="bank.bank_id">
-    <router-link :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bank_id }}">
-      {{ bank }}
-      <hr>
-    </router-link>
-  </div>
-  
+  <section class="home">
+    <div class="container row home" id="container_banks">
+      <div
+        v-for="bank in banks" :key="bank.bank_id"
+        class="col-6 col-lg-2 p-3 home">
+        <router-link :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bank_id }}">
+          {{ bank.bank_name }}
+        </router-link>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
