@@ -1,6 +1,6 @@
 package com.ssafy.queant.controller;
 
-import com.ssafy.queant.model.dto.product.ProductInfoDto;
+import com.ssafy.queant.model.dto.product.ProductDetailDto;
 import com.ssafy.queant.model.service.product.ProductService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -26,8 +26,8 @@ public class ProductController {
     @Operation(summary = "상품 세부 정보", description = "상품 세부 정보 제공")
     @GetMapping("/{productId}")
     public ResponseEntity<?> getProductInfo(@PathVariable(value = "productId") String productId) throws Exception {
-        ProductInfoDto productInfoDto = productService.findByProductId(productId);
-        if (productInfoDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else return new ResponseEntity<>(productInfoDto, HttpStatus.OK);
+        ProductDetailDto productDetailDto = productService.findByProductId(productId);
+        if (productDetailDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(productDetailDto, HttpStatus.OK);
     }
 }

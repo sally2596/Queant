@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-public class ProductInfoDto {
+public class ProductDetailDto {
     private ProductDto product;
     private List<OptionsDto> options;
     private List<ConditionsDto> conditions;

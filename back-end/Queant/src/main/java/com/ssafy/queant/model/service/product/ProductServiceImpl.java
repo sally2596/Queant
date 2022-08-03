@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductInfoDto findByProductId(String productId) {
+    public ProductDetailDto findByProductId(String productId) {
 
         // product
         Optional<Product> result = productRepository.findByProductId(productId);
@@ -102,13 +102,13 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
-        ProductInfoDto productInfoDto = ProductInfoDto.builder()
+        ProductDetailDto productDetailDto = ProductDetailDto.builder()
                 .product(product)
                 .joinway(joinway)
                 .conditions(conditions)
                 .options(options)
                 .build();
 
-        return productInfoDto;
+        return productDetailDto;
     }
 }

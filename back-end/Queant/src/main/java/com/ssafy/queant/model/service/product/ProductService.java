@@ -1,7 +1,7 @@
 package com.ssafy.queant.model.service.product;
 
+import com.ssafy.queant.model.dto.product.ProductDetailDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
-import com.ssafy.queant.model.dto.product.ProductInfoDto;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface ProductService {
 
     List<ProductDto> findByNameContaining(String name);
 
-    ProductInfoDto findByProductId(String productId);
+    ProductDetailDto findByProductId(String productId);
 }
