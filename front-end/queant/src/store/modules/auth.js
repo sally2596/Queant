@@ -56,11 +56,12 @@ export default {
         commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
       })
     },
-    passwordCheck({ commit }, password) {
-      const email = JSON.parse(localStorage.vuex).accounts.userInfo.email
+    passwordCheck({ commit, getters }, password) {
+      const email = JSON.parse(localStorage.vuex).auth.userInfo.email
       axios({
         url: spring.member.password(),
         method: 'post',
+        headers: getters.authHeader,
         data: {
           email: email,
           password: password 
@@ -234,7 +235,6 @@ export default {
       localStorage.setItem('refreshToken', refreshToken)
     },
     fetchUserInfo({ commit, getters }, email) {
-      console.log(getters.authHeader)
       if (getters.isLoggedIn) {
         axios({
           url: spring.member.info(),
