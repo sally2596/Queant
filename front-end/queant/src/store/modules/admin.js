@@ -11,7 +11,6 @@ export default {
   },
   getters: {
     users: state => state.users,
-    // test
     totalPage: state => state.totalPage
   },
   mutations: {
