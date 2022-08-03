@@ -32,19 +32,19 @@ export default {
         console.log(err)
       })
     },
-    // fetchBank({ commit }, bankId) {
-    //   axios({
-    //     url: spring.bank.bank(bankId),
-    //     method: 'get'
-    //   })
-    //   .then(res => {
-        // console.log(res)
-        // commit('SET_BANK', res.data.bank)
-        // commit('SET_PRODUCT_LIST', res.data.product_list)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    // }
+    fetchBank({ commit }, bankId) {
+      axios({
+        url: spring.bank.bank(bankId),
+        method: 'get'
+      })
+      .then(res => {
+        console.log(res)
+        commit('SET_BANK', res.data.bank)
+        commit('SET_PRODUCTS', res.data.product_list)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
   }
 }

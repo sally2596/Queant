@@ -27,6 +27,6 @@ export default {
   },
   bank: {
     banks: () => HOST + BANK,
-    // bank: bankId => HOST + BANK + bankId + '/'
+    bank: bankId => HOST + BANK + bankId + '/'
   }
 }
