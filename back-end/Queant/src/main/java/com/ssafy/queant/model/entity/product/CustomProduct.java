@@ -11,8 +11,8 @@ import java.sql.Date;
 import java.util.UUID;
 
 @Data
-@Entity
-@Table
+//@Entity
+//@Table
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +35,7 @@ public class CustomProduct {
 
     @Column(nullable = false) // 우대금리 -> 없다면 디폴트 0
     @Builder.Default
-    private float specialRate =0L;
+    private float specialRate =0f;
 
     private boolean isFixedRsrv;
 
