@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ssafy.queant.model.service.product.ProductServiceImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-08-03T07:50:50" hostname="JunSunyoungui-MacBookAir.local" time="0.277">
+  <properties/>
+  <testcase name="findByProductId()" classname="com.ssafy.queant.model.service.product.ProductServiceImplTest" time="0.277"/>
+  <system-out><![CDATA[16:50:40.045 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+16:50:40.055 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+16:50:40.102 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.ssafy.queant.model.service.product.ProductServiceImplTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+16:50:40.116 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ssafy.queant.model.service.product.ProductServiceImplTest], using SpringBootContextLoader
+16:50:40.119 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.service.product.ProductServiceImplTest]: class path resource [com/ssafy/queant/model/service/product/ProductServiceImplTest-context.xml] does not exist
+16:50:40.120 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.service.product.ProductServiceImplTest]: class path resource [com/ssafy/queant/model/service/product/ProductServiceImplTestContext.groovy] does not exist
+16:50:40.120 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ssafy.queant.model.service.product.ProductServiceImplTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+16:50:40.121 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ssafy.queant.model.service.product.ProductServiceImplTest]: ProductServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:50:40.191 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.ssafy.queant.model.service.product.ProductServiceImplTest]
+16:50:40.317 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/sunyoung/SSAFY/S07P11A201/back-end/Queant/build/classes/java/main/com/ssafy/queant/QueantApplication.class]
+16:50:40.325 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ssafy.queant.QueantApplication for test class com.ssafy.queant.model.service.product.ProductServiceImplTest
+16:50:40.426 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.ssafy.queant.model.service.product.ProductServiceImplTest]: using defaults.
+16:50:40.427 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+16:50:40.496 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@53bc1328, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@26f143ed, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@3c1e3314, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4b770e40, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@78e16155, org.springframework.test.context.support.DirtiesContextTestExecutionListener@54a3ab8f, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1968a49c, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6a1ebcff, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@19868320, org.springframework.test.context.event.EventPublishingTestExecutionListener@50b0bc4c, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@c20be82, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@13c612bd, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3ef41c66, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6b739528, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@622ef26a, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@41de5768, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5f577419]
+16:50:40.504 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@5cad8b7d testClass = ProductServiceImplTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@7b02e036 testClass = ProductServiceImplTest, locations = '{}', classes = '{class com.ssafy.queant.QueantApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@e077866, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@6d304f9d, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@51cd7ffc, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@40f1be1b, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@160ac7fb, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@35b74c5c], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2022-08-03 16:50:41.199  WARN 8545 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/Users/sunyoung/.gradle/caches/modules-2/files-2.1/org.json/json/20190722/7bce7bacf0ab5e9f894d307a3de8b7f540064d5/json-20190722.jar!/org/json/JSONObject.class
+	jar:file:/Users/sunyoung/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2022-08-03 16:50:41.221  INFO 8545 --- [    Test worker] c.s.q.m.s.p.ProductServiceImplTest       : Starting ProductServiceImplTest using Java 11.0.15 on JunSunyoungui-MacBookAir.local with PID 8545 (started by sunyoung in /Users/sunyoung/SSAFY/S07P11A201/back-end/Queant)
+2022-08-03 16:50:41.223  INFO 8545 --- [    Test worker] c.s.q.m.s.p.ProductServiceImplTest       : The following 2 profiles are active: "mail", "API-KEY"
+2022-08-03 16:50:43.121  INFO 8545 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-03 16:50:43.270  INFO 8545 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 140 ms. Found 8 JPA repository interfaces.
+2022-08-03 16:50:44.611  INFO 8545 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-03 16:50:44.752  INFO 8545 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-03 16:50:44.907  INFO 8545 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-03 16:50:44.951  INFO 8545 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-08-03 16:50:45.136  INFO 8545 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-03 16:50:45.338  INFO 8545 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB106Dialect
+2022-08-03 16:50:46.314  INFO 8545 --- [    Test worker] p6spy                                    : #1659513046314 | took 12ms | statement | connection 2| url jdbc:mariadb://i7a201.p.ssafy.io:3306/queant
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE'
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE';
+2022-08-03 16:50:46.380  INFO 8545 --- [    Test worker] p6spy                                    : #1659513046380 | took 8ms | statement | connection 2| url jdbc:mariadb://i7a201.p.ssafy.io:3306/queant
+select * from `queant`.`member` where 1=0
+select * from `queant`.`member` where 1=0;
+2022-08-03 16:50:46.387  INFO 8545 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-03 16:50:46.397  INFO 8545 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-03 16:50:47.171  WARN 8545 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [m.roleSet.size]; use collection function syntax instead [size(m.roleSet)].
+2022-08-03 16:50:47.346  WARN 8545 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-03 16:50:49.126  INFO 8545 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2022-08-03 16:50:49.336  WARN 8545 --- [    Test worker] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-08-03 16:50:49.652  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/v2/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.654  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/v2/api-docs']
+2022-08-03 16:50:49.654  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/v3/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.655  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/v3/api-docs']
+2022-08-03 16:50:49.655  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**/v3/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.655  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**/v3/api-docs']
+2022-08-03 16:50:49.655  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.655  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui/index.html']
+2022-08-03 16:50:49.655  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-resources']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.655  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-resources']
+2022-08-03 16:50:49.655  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.656  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-resources/**']
+2022-08-03 16:50:49.656  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/configuration/ui']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.656  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/configuration/ui']
+2022-08-03 16:50:49.656  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/configuration/security']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.656  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/configuration/security']
+2022-08-03 16:50:49.656  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.656  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui.html']
+2022-08-03 16:50:49.657  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='**/swagger-ui.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.657  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='**/swagger-ui.html']
+2022-08-03 16:50:49.658  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/**/swagger-ui.html**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.659  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/**/swagger-ui.html**']
+2022-08-03 16:50:49.659  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui.html**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.659  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui.html**']
+2022-08-03 16:50:49.659  WARN 8545 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-03 16:50:49.659  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/webjars/**']
+2022-08-03 16:50:49.734  INFO 8545 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2f6fcc70, org.springframework.security.web.context.SecurityContextPersistenceFilter@16908f89, org.springframework.security.web.header.HeaderWriterFilter@3f8090db, org.springframework.security.web.authentication.logout.LogoutFilter@230383a7, com.ssafy.queant.security.JwtAuthenticationFilter@60666985, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e9fa0ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@27a57c66, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5effc15d, org.springframework.security.web.session.SessionManagementFilter@792bf78a, org.springframework.security.web.access.ExceptionTranslationFilter@434c179e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4d343793]
+2022-08-03 16:50:50.324  INFO 8545 --- [    Test worker] c.s.q.m.s.p.ProductServiceImplTest       : Started ProductServiceImplTest in 9.764 seconds (JVM running for 11.555)
+Hibernate: 
+    select
+        product0_.product_id as product_1_8_,
+        product0_.age_max as age_max2_8_,
+        product0_.age_min as age_min3_8_,
+        product0_.bank_id as bank_id4_8_,
+        product0_.budget_max as budget_m5_8_,
+        product0_.budget_min as budget_m6_8_,
+        product0_.etc as etc7_8_,
+        product0_.is_deposit as is_depos8_8_,
+        product0_.is_enabled as is_enabl9_8_,
+        product0_.name as name10_8_,
+        product0_.scode_id as scode_i11_8_,
+        product0_.term_max as term_ma12_8_,
+        product0_.term_min as term_mi13_8_ 
+    from
+        product product0_ 
+    where
+        product0_.product_id=?
+2022-08-03 16:50:50.622 TRACE 8545 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [0051]
+2022-08-03 16:50:50.634  INFO 8545 --- [    Test worker] p6spy                                    : #1659513050634 | took 8ms | statement | connection 3| url jdbc:mariadb://i7a201.p.ssafy.io:3306/queant
+select product0_.product_id as product_1_8_, product0_.age_max as age_max2_8_, product0_.age_min as age_min3_8_, product0_.bank_id as bank_id4_8_, product0_.budget_max as budget_m5_8_, product0_.budget_min as budget_m6_8_, product0_.etc as etc7_8_, product0_.is_deposit as is_depos8_8_, product0_.is_enabled as is_enabl9_8_, product0_.name as name10_8_, product0_.scode_id as scode_i11_8_, product0_.term_max as term_ma12_8_, product0_.term_min as term_mi13_8_ from product product0_ where product0_.product_id=?
+select product0_.product_id as product_1_8_, product0_.age_max as age_max2_8_, product0_.age_min as age_min3_8_, product0_.bank_id as bank_id4_8_, product0_.budget_max as budget_m5_8_, product0_.budget_min as budget_m6_8_, product0_.etc as etc7_8_, product0_.is_deposit as is_depos8_8_, product0_.is_enabled as is_enabl9_8_, product0_.name as name10_8_, product0_.scode_id as scode_i11_8_, product0_.term_max as term_ma12_8_, product0_.term_min as term_mi13_8_ from product product0_ where product0_.product_id='0051';
+2022-08-03 16:50:50.640  INFO 8545 --- [    Test worker] c.s.q.m.s.p.ProductServiceImplTest       : null값 들어옴
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

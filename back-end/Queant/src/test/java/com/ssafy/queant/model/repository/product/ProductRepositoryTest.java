@@ -20,7 +20,7 @@ class ProductRepositoryTest {
     @Test
     void findByBankId() {
         int wooriBankId = 10345;
-        List<Product> list = productRepository.findByBankId(wooriBankId);
+        List<Product> list = productRepository.findByBankIdAndIsEnabledTrue(wooriBankId);
 
         log.info("*****[start logging product list]*****");
         for (Product p:list) {
@@ -31,7 +31,7 @@ class ProductRepositoryTest {
     @Test
     void findByNameContaining() {
         String name = "KB";
-        List<Product> list = productRepository.findByNameContaining(name);
+        List<Product> list = productRepository.findByIsEnabledTrueAndNameContaining(name);
 
         log.info("*****[start logging product list]*****");
         for (Product p:list) {
