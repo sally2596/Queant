@@ -4,7 +4,7 @@
     <h1 class="title" id="title">내 포트폴리오</h1>
   </header>
   <div class="portfolio-none">
-    <img src="../../assets/image/물음표개미_none.png" alt="" style="width: 300px; height:300px;">
+    <img src="../../assets/image/물음표개미_none.png" alt="" style="width: 300px; height:280px;">
     <h5>포트폴리오가 없습니다.</h5>
     <br><br><br>
     <button class="btn btn-outline-success" @click="">포트폴리오 만들기</button>

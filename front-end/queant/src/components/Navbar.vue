@@ -46,6 +46,9 @@
             >
             <button class="searching" @click="searchresultshow(keyword)"><i class="fa-solid fa-magnifying-glass"></i></button>
           </li>
+          <li class="right_content content" v-show="isAdmin">
+            <router-link :to="{ name : 'admin' }">ADMIN</router-link>
+          </li>
           <!-- 로그아웃 했을 때만 보임 -->
           <li class="right_content content" v-show="!isLoggedIn">
             <router-link :to="{ name : 'login' }">로그인</router-link>
@@ -74,7 +77,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name:"Navbar",
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn', 'isAdmin'])
   },
   methods: {
     ...mapActions(['logout']),
