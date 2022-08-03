@@ -174,7 +174,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminUserListView,
-    // meta: { isAdmin: true }
+    meta: { isAdmin: true }
   },
   {
     path: '/admin/content',
@@ -204,8 +204,8 @@ router.beforeEach((to, from, next) => {
       next()
   } else if (to.matched.some(record => record.meta.isAdmin)) {
     if (isLoggedIn) {
-      let authorities = store.getters.userInfo.role_set
-      if (authorities[authorities.length - 1] === 'ROLE_ADMIN') {
+      const isAdmin = store.getters.isAdmin
+      if (isAdmin) {
         next()
       } else {
         alert('접근 권한이 없습니다.')

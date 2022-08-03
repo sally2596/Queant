@@ -10,12 +10,13 @@ export default {
     authError: '',
     emailCheckedStatus: '',
     emailVerifiedStatus: '',
-    passwordCheckedStatus: ''
+    passwordCheckedStatus: '',
+    isAdmin: false
   },
   getters: {
     // token 있으면 true, 없으면 false => 로그인 유무
     isLoggedIn: state => !!state.accessToken,
-    isAdmin: (state, getters) => getters.isLoggedIn && state.userInfo.role_set.length === 3,
+    isAdmin: state => state.isAdmin,
     userInfo: state => state.userInfo,
     authHeader: state => ({ 'X-AUTH-TOKEN': state.accessToken }),
     authError: state => state.authError,
@@ -30,7 +31,8 @@ export default {
     SET_REFRESH_TOKEN: (state, refreshToken) => state.refreshToken = refreshToken,
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
     SET_EMAIL_VERIFIED_STATUS: (state, status) => state.emailVerifiedStatus = status,
-    SET_PASSWORD_CHECKED_STATUS: (state, status) => state.passwordCheckedStatus = status
+    SET_PASSWORD_CHECKED_STATUS: (state, status) => state.passwordCheckedStatus = status,
+    SET_IS_ADMIN: (state, bool) => state.isAdmin = bool
   },
   actions: {
     passwordChange({ commit }, credentials) {
@@ -128,6 +130,7 @@ export default {
     },
     logout({ commit, dispatch }) {
       dispatch('removeToken')
+      commit('SET_IS_ADMIN', false)
       commit('SET_USER_INFO', {})
       router.push({ name: 'home' })
     },
@@ -248,6 +251,8 @@ export default {
             commit('SET_USERS', [res.data])
           } else {
             console.log('가져온 유저 정보를 현재 유저 정보로 저장합니다.')
+            let isAdmin = res.data.role_set.length === 3
+            commit('SET_IS_ADMIN', isAdmin)
             commit('SET_USER_INFO', res.data)
           }
         })
