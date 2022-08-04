@@ -8,11 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @SpringBootTest
+@Transactional
 class ProductServiceImplTest {
     private final Logger log = LoggerFactory.getLogger(ProductServiceImplTest.class);
 
@@ -42,7 +42,7 @@ class ProductServiceImplTest {
     @Test
     void registProduct() {
         ProductDto product = ProductDto.builder()
-                .productId("aa")
+                .productCode("aa")
                 .bankId(10345)
                 .name("약오르지 까꿍")
                 .scodeId("A001")
@@ -51,8 +51,6 @@ class ProductServiceImplTest {
                 .build();
 
         ProductDto saved = productService.registProduct(product);
-
-        assertEquals(product.getProductId(), saved.getProductId());
     }
 
     @Test

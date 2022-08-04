@@ -29,6 +29,21 @@ class ProductRepositoryTest {
     }
 
     @Test
+    void insert() {
+        Product product = Product.builder()
+                .productCode("aa")
+                .bankId(10345)
+                .name("된 걸까..")
+                .scodeId("A001")
+                .isDeposit(true)
+                .isEnabled(false)
+                .build();
+
+        Product saved = productRepository.save(product);
+        log.info(saved.toString());
+    }
+
+    @Test
     void findByNameContaining() {
         String name = "KB";
         List<Product> list = productRepository.findByIsEnabledTrueAndNameContaining(name);
