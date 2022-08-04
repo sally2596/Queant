@@ -12,6 +12,6 @@ public interface CustomProductRepository extends JpaRepository<CustomProduct, In
 //    @Query("select c from CustomProduct c left join Member m on m.member_id=c.memberId where m.email=:email")
 //    List<CustomProduct> findByMemberEmail(@Param("email") String email);
 
-    List<CustomProduct> findByMemberId(UUID memberId);
+    Optional<List<CustomProduct>> findByMemberId(UUID memberId);
     Optional<CustomProduct> findByProductId(int productId);
 }

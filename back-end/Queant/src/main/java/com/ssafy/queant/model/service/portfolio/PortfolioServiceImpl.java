@@ -85,10 +85,11 @@ public class PortfolioServiceImpl implements PortfolioService {
    @Override
    public List<CustomProductDto> findCustomProductByMemberId(UUID memberId) throws RuntimeException {
       log.info("[사용자 정의 상품 가져오기");
-      List<CustomProduct> customProductList = customProductRepository.findByMemberId(memberId);
+      Optional<List<CustomProduct>> result = customProductRepository.findByMemberId(memberId);
+      result.orElseThrow(() -> new NoSuchElementException());
 
       List<CustomProductDto> customProductDtoList = new ArrayList<>();
-      for (CustomProduct p:customProductList) {
+      for (CustomProduct p:result.get()) {
             customProductDtoList.add(modelMapper.map(p,CustomProductDto.class));
       }
       return customProductDtoList;
@@ -114,16 +115,21 @@ public class PortfolioServiceImpl implements PortfolioService {
       result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
       Member member = result.get();
 
-      //사용자 정의
-      List<CustomProductDto> customProductDtoList = findCustomProductByMemberId(member.getMember_id());
-      PortfolioResponseDto portfolioResponseDto = PortfolioResponseDto.builder()
-              .customProductList(customProductDtoList)
-              .build();
+      PortfolioResponseDto portfolioResponseDto = new PortfolioResponseDto();
+      //사용자 정의상품 찾기
+      try{
+         List<CustomProductDto> customProductDtoList = findCustomProductByMemberId(member.getMember_id());
+         portfolioResponseDto.setCustomProductList(customProductDtoList);
+      } catch(Exception e){
+         e.printStackTrace();
+      }
 
+      //0번 포트폴리오 찾기
       try {
          List<PortfolioDto> myPortfolioList = getPortfolio(member.getMember_id(), 0);
+         portfolioResponseDto.setPortfolioList(myPortfolioList);
       } catch(Exception e) {
-
+         e.printStackTrace();
       }
 
 
