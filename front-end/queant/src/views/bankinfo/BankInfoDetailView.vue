@@ -9,7 +9,9 @@
       <div 
         v-for="product in products"
         :key="product.product_id">
-        {{ product.name }}
+        <router-link :to="{ name: 'productDetail', params: { productId: product.product_id }}">
+          {{ product.name }}
+        </router-link>
         <hr>
       </div>
     </div>
@@ -21,17 +23,17 @@ import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
 
 export default {
-    name: "BankInfoDetailView",
-    computed: {
-        ...mapGetters(["bank", "products"])
-    },
-    methods: {
-        ...mapActions(["fetchBank"])
-    },
-    created() {
-        this.fetchBank(this.$route.params.bankId);
-    },
-    components: { Navbar }
+  name: 'BankInfoDetailView',
+  components: { Navbar },
+  computed: {
+    ...mapGetters(['bank', 'products'])
+  },
+  methods: {
+    ...mapActions(['fetchBank'])
+  },
+  created() {
+    this.fetchBank(this.$route.params.bankId)
+  }
 }
 </script>
 

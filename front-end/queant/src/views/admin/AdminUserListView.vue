@@ -55,59 +55,22 @@
       </div>
     </div>
     <br><br>
-
-    <!-- 주어진 데이터 길이만 가지고 자체 페이지네이션 -->
-    <!-- ROLE_SET 필터 -->
-    <!-- <select @change="fetchUsersThroughRole($event)">
-      <option selected disabled>권한</option>
-      <option value='ROLE_USER'>ROLE_USER</option>
-      <option value='ROLE_SUPER'>ROLE_SUPER</option>
-      <option value='ROLE_ADMIN'>ROLE_ADMIN</option>
-    </select> -->
-
-    <!-- SOCIAL 필터 -->
-    <!-- <select @change='fetchUsersThroughSocial($event)'>
-      <option selected disabled>가입유형</option>
-      <option value='None'>QueÆnt</option>
-      <option value='Google'>Google</option>
-      <option value='Naver'>Naver</option>
-      <option value='Kakao'>Kakao</option>
-    </select> -->
-
-    <!-- <admin-user-item
-      class="d-flex justify-content-center"
-      v-for="user in orderedUsers.slice((currentPage-1) * 10, (currentPage-1) * 10 + 10)"
-      :key="user.email"
-      :user="user">
-    </admin-user-item> -->
-
-    <!-- <div
-      v-for="page in totalPage"
-      :key="page">
-      <button @click="nextPage(page)">{{ page }}</button>
-    </div> -->
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import _ from 'lodash'
 import AdminUserItem from '@/components/AdminUserItem.vue'
-import Navbar_admin from '@/components/Navbar_admin.vue'
+import NavbarAdmin from '@/components/NavbarAdmin.vue'
 
 export default {
   name: 'AdminUserListView',
-  components: { AdminUserItem, Navbar_admin },
+  components: { AdminUserItem, NavbarAdmin },
   beforeCreate: function() {
-    document.body.className = 'admin_body';
+    document.body.className = 'admin_body'
   },
   computed: {
     ...mapGetters(['users', 'totalPage']),
-    // orderedUsers() {
-    //   return _.orderBy(this.users, 'member_id')
-    // },
-    // totalPage() {
-    //   return (this.users.length - (this.users.length % 10)) / 10 + 1
-    // }
   },
   data() {
     return {
@@ -140,13 +103,8 @@ export default {
       this.payload.social = event.target.value
       this.payload.page = 1
     }
-    // nextPage(num) {
-      //   this.currentPage = num
-    //   console.log(this.currentPage)
-    // },
-    
   },
-  mounted() {
+  created() {
     this.fetchUsers(this.payload)
   },
 }

@@ -11,16 +11,15 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
-import Navbar from '../../components/Navbar.vue';
+import { mapGetters } from 'vuex'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
     name: 'ProductSearchView',
     components: { Navbar },
     computed: {
       ...mapGetters(['products'])
-    },
-    methods: {},
+    }
 }
 </script>
 <style>

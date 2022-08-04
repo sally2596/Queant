@@ -181,14 +181,12 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'ContentListView',
-  components : {
-    Navbar : Navbar
-  },
+  components : { Navbar },
   computed: {
     ...mapGetters(['userInfo', 'isAdmin'])
   },
   beforeCreate: function() {
-      document.body.className = 'home_body'
+    document.body.className = 'home_body'
   },
 }
 </script>

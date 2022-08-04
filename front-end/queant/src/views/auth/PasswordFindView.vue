@@ -31,9 +31,7 @@ import PasswordEdit from '@/components/PasswordEdit.vue'
 
 export default {
   name: 'PasswordFindView',
-  components: {
-    PasswordEdit
-  },
+  components: { PasswordEdit },
   computed: {
     ...mapGetters(['emailCheckedStatus']),
   },

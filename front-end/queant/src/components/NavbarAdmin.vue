@@ -11,11 +11,11 @@
       </li></div>
       <div>
       <li class="m-auto content" style="list-style: none;">
-        <router-link :to="{ name : 'admin' }">유저 관리</router-link>
+        <router-link :to="{ name: 'admin' }">유저 관리</router-link>
       </li></div>
       <div>
       <li class="m-auto content" style="list-style: none;">
-        <router-link :to="{ name : 'adminSpecial' }">특판상품 관리</router-link>
+        <router-link :to="{ name: 'adminSpecial' }">특판상품 관리</router-link>
       </li></div>
     </nav>
   </div>
@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name:"Navbar_admin",
+  name: 'NavbarAdmin',
 }
 </script>
 

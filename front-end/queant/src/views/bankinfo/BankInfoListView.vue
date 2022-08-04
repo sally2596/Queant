@@ -24,9 +24,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'BankInfoListView',
-  components : {
-    Navbar : Navbar
-  },
+  components : { Navbar },
   computed: {
     ...mapGetters(['banks'])
   },
@@ -34,9 +32,9 @@ export default {
     ...mapActions(['fetchBanks'])
   },
   beforeCreate: function() {
-      document.body.className = 'home_body';
+      document.body.className = 'home_body'
   },
-  mounted() {
+  created() {
     this.fetchBanks()
   }
 }

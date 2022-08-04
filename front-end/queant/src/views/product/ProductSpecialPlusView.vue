@@ -193,10 +193,12 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+
 export default {
   name: 'ProductSpecialPlusView',
-  components : {
-    Navbar : Navbar
+  components : { Navbar },
+  beforeCreate: function() {
+    document.body.className = 'home_body'
   },
     beforeCreate: function() {
         document.body.className = 'home_body';
