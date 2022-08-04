@@ -95,20 +95,6 @@
           <option value="">선택안함</option>
         </select>
         <label>성별</label>
-
-        <!-- <input 
-          v-model="credentials.gender"
-          type="radio"
-          value="Female"
-          class="gender-input-female">
-        <p class="female">여성</p>
-        <input
-          v-model="credentials.gender"
-          type="radio"
-          value="Male"
-          class="gender-input-male">
-        <p class="male">남성</p>
-        <label for="gender">성별</label> -->
       </div>
 
       <!-- birthdate -->
@@ -152,7 +138,7 @@ export default {
       var sec = this.timerCount % 60 < 10 ? '0'+this.timerCount % 60 : this.timerCount % 60
   
       //연산한 값을 화면에 뿌려주는 코드
-      return min+":" + sec;
+      return min+':' + sec
     }
   },
   data() {
@@ -174,7 +160,6 @@ export default {
         password2 : ''
       },
       timerCount : 300,
-      
     }
   },
   methods: {
@@ -230,7 +215,7 @@ export default {
     }
   },
   beforeCreate: function() {
-    document.body.className = 'auth';
+    document.body.className = 'auth'
   },
   created() {
     this.SET_EMAIL_CHECKED_STATUS('')

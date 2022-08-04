@@ -1,6 +1,6 @@
-import spring from "@/api/spring";
-import router from "@/router";
-import axios from "axios";
+import spring from '@/api/spring'
+import router from '@/router'
+import axios from 'axios'
 
 export default {
   state: {},
@@ -131,6 +131,5 @@ export default {
       //   var url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id='+clientId+'&redirect_uri='+redirectUri+'&state=1234';
       //   window.location.replace(url)
       // },
-      
   }
 };

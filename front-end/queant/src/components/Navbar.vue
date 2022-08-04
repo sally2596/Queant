@@ -26,9 +26,7 @@
                 <hr>
                 <li style="margin:8px"><router-link :to="{ name : 'productCart' }">장바구니</router-link></li>
                 <hr>
-                <li style="margin:8px"><router-link :to="{ name : 'productSpecialPlus' }">특판 상품 추가</router-link></li>                
-                <hr>
-                <li style="margin:8px"><router-link :to="{ name : 'productComparison' }">상품 비교</router-link></li>
+                <li style="margin:8px"><router-link :to="{ name : 'productSpecialPlus' }">특판 상품 정보</router-link></li>                
               </ul>
             </li>
           </div>
@@ -74,8 +72,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
 export default {
-  name:"Navbar",
+  name: 'Navbar',
   computed: {
     ...mapGetters(['isLoggedIn', 'isAdmin'])
   },
@@ -84,19 +83,6 @@ export default {
     isCollapsed: function() {
       this.searching_place = !this.searching_place
     },
-    // searchresultshow(keyword) {
-    //   if (keyword !== ''){ //검색어를 입력한 경우
-    //     this.$router.push({
-    //       name: "productSearching",
-    //       params: {
-    //         keyword: this.keyword,
-    //       },
-    //     });
-    //     this.keyword = ''
-    //   } else {
-    //     alert('검색어를 입력해주세요!')  //검색어를 입력하지 않은 경우
-    //   }
-    // },
   },
   data() {
     return {

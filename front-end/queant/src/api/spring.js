@@ -5,6 +5,7 @@ const MEMBER = 'member/'
 const SOCIAL = 'social/'
 const BANK = 'bank/'
 const SEARCH = 'search/'
+const PRODUCT = 'product/'
 
 export default {
   member: {
@@ -34,5 +35,8 @@ export default {
   search: {
     search: () => HOST + SEARCH,
     keyword: () => HOST + SEARCH + 'keyword'
+  },
+  product: {
+    detail: (productId) => HOST + PRODUCT + productId
   }
 }

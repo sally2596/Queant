@@ -3,35 +3,35 @@ import store from '@/store/index.js'
 
 
 // oauth
-import KakaoView from '../views/oauth/KakaoView.vue'
-import NaverView from '../views/oauth/NaverView.vue'
-import GoogleView from '../views/oauth/GoogleView.vue'
+import KakaoView from '@/views/oauth/KakaoView.vue'
+import NaverView from '@/views/oauth/NaverView.vue'
+import GoogleView from '@/views/oauth/GoogleView.vue'
 
 // home
-import HomeView from '../views/home/HomeView.vue' 
+import HomeView from '@/views/home/HomeView.vue' 
 
 // bankinfo
-import BankInfoListView from '../views/bankinfo/BankInfoListView.vue'
-import BankInfoDetailView from '../views/bankinfo/BankInfoDetailView.vue'
+import BankInfoListView from '@/views/bankinfo/BankInfoListView.vue'
+import BankInfoDetailView from '@/views/bankinfo/BankInfoDetailView.vue'
 
 // portfolio
-import PortfolioView from '../views/portfolio/PortfolioView.vue'
-import PortfolioEditView from '../views/portfolio/PortfolioEditView.vue'
-import PortfolioAddView from '../views/portfolio/PortfolioAddView.vue'
+import PortfolioView from '@/views/portfolio/PortfolioView.vue'
+import PortfolioEditView from '@/views/portfolio/PortfolioEditView.vue'
+import PortfolioAddView from '@/views/portfolio/PortfolioAddView.vue'
 
 // profile
-import ProfileView from '../views/profile/ProfileView.vue'
-import PasswordEditView from '../views/profile/PasswordEditView.vue'
+import ProfileView from '@/views/profile/ProfileView.vue'
+import PasswordEditView from '@/views/profile/PasswordEditView.vue'
 
 // auth
-import LoginView from '../views/auth/LoginView.vue'
-import RegisterView from '../views/auth/RegisterView.vue'
-import PasswordFindView from '../views/auth/PasswordFindView.vue'
+import LoginView from '@/views/auth/LoginView.vue'
+import RegisterView from '@/views/auth/RegisterView.vue'
+import PasswordFindView from '@/views/auth/PasswordFindView.vue'
 
 // admin
-import AdminUserListView from '../views/admin/AdminUserListView.vue'
-import AdminContentView from '../views/admin/AdminContentView.vue'
-import AdminSpecialView from '../views/admin/AdminSpecialView.vue'
+import AdminUserListView from '@/views/admin/AdminUserListView.vue'
+import AdminContentView from '@/views/admin/AdminContentView.vue'
+import AdminSpecialView from '@/views/admin/AdminSpecialView.vue'
 
 // products
 import ProductRecommendationView from '@/views/product/ProductRecommendationView.vue'
@@ -40,6 +40,7 @@ import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
 import ProductResults from '@/components/ProductResults.vue'
 import ProductSearchView from '@/views/product/ProductSearchView.vue'
+import ProductDetailView from '@/views/product/ProductDetailView.vue'
 
 // content
 import ContentListView from '@/views/content/ContentListView.vue'
@@ -125,6 +126,11 @@ const routes = [
     component: ComparisonView
   },
   {
+    path: '/product/:productId',
+    name: 'productDetail',
+    component: ProductDetailView
+  },
+  {
     path: '/product/search/:keyword',
     name: 'productSearch',
     component: ProductSearchView
@@ -194,27 +200,22 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isLoggedIn = store.getters.isLoggedIn
+  let isLoggedIn = store.getters.isLoggedIn
+  let isAdmin = store.getters.isAdmin
 	// $route.matched 배열에 저장된 라우터 중 meta 필드에 'isLoggedIn'가 있는지 찾는다.
 	if (to.matched.some(record => record.meta.isLoggedIn)) {
     if (!isLoggedIn) { // 로그인 되어있지 않으면 로그인 페이지로 이동
       alert('로그인이 필요합니다.')
       next({ name: 'login' })
-    } else // 로그인 되어 있다면 그대로 라우터 이동
+    } else { // 로그인 되어 있다면 그대로 라우터 이동
       next()
+    }
   } else if (to.matched.some(record => record.meta.isAdmin)) {
-    if (isLoggedIn) {
-      const isAdmin = store.getters.isAdmin
-      if (isAdmin) {
-        next()
-      } else {
-        alert('접근 권한이 없습니다.')
-        next({ name: 'home' })
-      }
-
+    if (isLoggedIn && isAdmin) {
+      next()
     } else {
-      alert('로그인이 필요합니다.')
-      next({ name: 'login' })
+      alert('접근 권한이 없습니다.')
+      history.back()
     }
   } else {
     next()

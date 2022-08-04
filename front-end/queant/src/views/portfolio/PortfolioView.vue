@@ -7,7 +7,7 @@
     <img src="../../assets/image/물음표개미_none.png" alt="" style="width: 300px; height:280px;">
     <h5>포트폴리오가 없습니다.</h5>
     <br><br><br>
-    <button class="btn btn-outline-success" @click="">포트폴리오 만들기</button>
+    <button class="btn btn-outline-success">포트폴리오 만들기</button>
   </div>
   <div class="portfolio">
     
@@ -15,12 +15,13 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue';
+import Navbar from '@/components/Navbar.vue'
+
 export default {
-  name: "PortfolioView",
+  name: 'PortfolioView',
   components: { Navbar },
   beforeCreate: function() {
-    document.body.className = 'home_body';
+    document.body.className = 'home_body'
   },
   
 }
