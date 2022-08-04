@@ -19,7 +19,7 @@ public class Conditions {
     private int conditionId;
 
     @Column(nullable = false)
-    private String productId;
+    private int productId;
 
     @Column(nullable = false)
     private String scodeId;

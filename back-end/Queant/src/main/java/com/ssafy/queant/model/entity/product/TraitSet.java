@@ -16,11 +16,11 @@ import javax.persistence.*;
 public class TraitSet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int traitId;
 
     @Column(nullable = false)
-    private String productId;
+    private int productId;
 
     @Column(nullable = false)
     private String scodeId;

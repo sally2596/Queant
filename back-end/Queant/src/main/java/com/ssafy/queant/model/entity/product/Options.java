@@ -19,7 +19,7 @@ public class Options {
     private int optionId;
 
     @Column(nullable = false)
-    private String productId;
+    private int productId;
 
     @Column(nullable = false)
     private float baseRate;
