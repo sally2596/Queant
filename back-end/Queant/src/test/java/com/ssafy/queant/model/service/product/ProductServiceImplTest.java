@@ -61,4 +61,13 @@ class ProductServiceImplTest {
 
         log.info(saved.toString());
     }
+
+    @Test
+    void findByIsEnabledFalse() {
+        List<ProductDto> list = productService.findByIsEnabledFalse();
+        for (ProductDto p : list
+        ) {
+            log.info(p.toString());
+        }
+    }
 }

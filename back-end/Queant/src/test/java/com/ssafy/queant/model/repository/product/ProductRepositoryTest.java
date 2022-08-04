@@ -23,7 +23,7 @@ class ProductRepositoryTest {
         List<Product> list = productRepository.findByBankIdAndIsEnabledTrue(wooriBankId);
 
         log.info("*****[start logging product list]*****");
-        for (Product p:list) {
+        for (Product p : list) {
             log.info(p.toString());
         }
     }
@@ -49,7 +49,15 @@ class ProductRepositoryTest {
         List<Product> list = productRepository.findByIsEnabledTrueAndNameContaining(name);
 
         log.info("*****[start logging product list]*****");
-        for (Product p:list) {
+        for (Product p : list) {
+            log.info(p.toString());
+        }
+    }
+
+    @Test
+    void findByIsEnabledFalse() {
+        List<Product> list = productRepository.findByIsEnabledFalse();
+        for (Product p : list) {
             log.info(p.toString());
         }
     }
