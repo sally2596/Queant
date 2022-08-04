@@ -5,5 +5,5 @@ import com.ssafy.queant.model.dto.product.ConditionsDto;
 import java.util.List;
 
 public interface ConditionsService {
-    List<ConditionsDto> findByProductId(String productId);
+    List<ConditionsDto> findByProductId(int productId);
 }

@@ -28,7 +28,7 @@ public class ProductController {
     })
     @Operation(summary = "상품 세부 정보", description = "상품 세부 정보 제공")
     @GetMapping("/{productId}")
-    public ResponseEntity<?> getProductInfo(@PathVariable(value = "productId") String productId) throws Exception {
+    public ResponseEntity<?> getProductInfo(@PathVariable(value = "productId") int productId) throws Exception {
         ProductDetailDto productDetailDto = productService.findByProductId(productId);
         if (productDetailDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(productDetailDto, HttpStatus.OK);

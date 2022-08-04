@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class ConditionsServiceImpl implements ConditionsService{
+public class ConditionsServiceImpl implements ConditionsService {
 
     private final ConditionsRepository conditionsRepository;
     private final SpecificCodeRepository specificCodeRepository;
@@ -29,18 +29,18 @@ public class ConditionsServiceImpl implements ConditionsService{
     }
 
     @Override
-    public List<ConditionsDto> findByProductId(String productId) {
+    public List<ConditionsDto> findByProductId(int productId) {
         List<Conditions> list = conditionsRepository.findByProductId(productId);
 
         List<SpecificCode> specificCodeList = specificCodeRepository.findByCodeId("B");
-        Map<String,String> valueMap = specificCodeList.stream().collect(Collectors.toMap(SpecificCode::getScodeId,
+        Map<String, String> valueMap = specificCodeList.stream().collect(Collectors.toMap(SpecificCode::getScodeId,
                 SpecificCode::getScodeValue));
 
         List<ConditionsDto> result = new ArrayList<>();
 
-        if(list.size()>0){
-            for(Conditions c:list){
-                ConditionsDto conditionsDto = modelMapper.map(c,ConditionsDto.class);
+        if (list.size() > 0) {
+            for (Conditions c : list) {
+                ConditionsDto conditionsDto = modelMapper.map(c, ConditionsDto.class);
                 conditionsDto.setValue(valueMap.get(conditionsDto.getScodeId()));
                 result.add(conditionsDto);
             }

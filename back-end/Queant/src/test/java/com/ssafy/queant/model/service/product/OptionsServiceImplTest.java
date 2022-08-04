@@ -19,10 +19,10 @@ class OptionsServiceImplTest {
 
     @Test
     void findByProductId() {
-        String productId = "WR0001B";
+        int productId = 1;
         List<OptionsDto> result = optionsService.findByProductId(productId);
 
-        for (OptionsDto dto:result
+        for (OptionsDto dto : result
         ) {
             log.info(dto.toString());
         }

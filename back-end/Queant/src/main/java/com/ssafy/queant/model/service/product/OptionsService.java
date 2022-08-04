@@ -5,5 +5,5 @@ import com.ssafy.queant.model.dto.product.OptionsDto;
 import java.util.List;
 
 public interface OptionsService {
-    List<OptionsDto> findByProductId(String productId);
+    List<OptionsDto> findByProductId(int productId);
 }

@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDetailDto findByProductId(String productId) {
+    public ProductDetailDto findByProductId(int productId) {
 
         // product
         Optional<Product> result = productRepository.findByProductId(productId);
@@ -121,7 +121,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto updateToProovedProduct(String productId) {
+    public ProductDto updateToProovedProduct(int productId) {
         Optional<Product> result = productRepository.findByProductId(productId);
 
         if (result.isPresent()) {

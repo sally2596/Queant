@@ -28,5 +28,5 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     List<Product> findByBankId(int bankId);
 
     // 상품 세부 정보 제공
-    Optional<Product> findByProductId(String productId);
+    Optional<Product> findByProductId(int productId);
 }

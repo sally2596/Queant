@@ -18,11 +18,11 @@ class JoinwayServiceImplTest {
 
     @Test
     void findByProductId() {
-        String productId = "WR0001A";
+        int productId = 1;
         List<JoinwayDto> result = joinwayService.findByProductId(productId);
 
-        for (JoinwayDto dto:result
-             ) {
+        for (JoinwayDto dto : result
+        ) {
             log.info(dto.toString());
         }
     }
