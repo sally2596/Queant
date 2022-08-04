@@ -2,6 +2,7 @@ package com.ssafy.queant.controller;
 
 import com.ssafy.queant.model.dto.member.MemberDto;
 import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
+import com.ssafy.queant.model.dto.portfolio.PortfolioRequestDto;
 import com.ssafy.queant.model.dto.product.CustomProductDto;
 import com.ssafy.queant.model.service.member.MemberService;
 import com.ssafy.queant.model.service.portfolio.PortfolioService;
@@ -100,20 +101,19 @@ public class PortfolioController {
     }
 
     @ApiResponses({
-            @ApiResponse(code = 200, message="사용자 정의 상품 수정 성공"),
+            @ApiResponse(code = 200, message="포트폴리오 생성 성공"),
             @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
             @ApiResponse(code = 409, message="존재하는 상품이 아닙니다."),
             @ApiResponse(code = 500, message="기타 서버 에러"),
     })
-    @ApiOperation(value="사용자 정의 상품 수정", notes="customProduct의 기존데이터와 수정된데이터 모두 보내주세요")
+    @ApiOperation(value="포트폴리오 생성", notes="유저 email과 Portfolio 리스트 필수")
     @PostMapping
-    public ResponseEntity<?> InsertPortfolio(@RequestBody PortfolioDto portfolioDto, @RequestBody String email, @RequestBody String productId) {
+    public ResponseEntity<?> InsertPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
         log.info("[Controller: InsertPortfolio]");
 
         try{
-            PortfolioDto result = portfolioService.insertPortfolio(email, portfolioDto, productId);
-            return new ResponseEntity<PortfolioDto>(result,HttpStatus.OK);
-
+            portfolioService.insertPortfolio(portfolioRequestDto.getEmail(), portfolioRequestDto.getPortfolioDtoList());
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (UsernameNotFoundException ue) {
             ue.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
