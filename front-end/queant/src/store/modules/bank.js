@@ -1,5 +1,5 @@
-import spring from "@/api/spring"
-import axios from "axios"
+import spring from '@/api/spring'
+import axios from 'axios'
 
 export default {
   state: {

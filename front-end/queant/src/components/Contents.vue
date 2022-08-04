@@ -5,9 +5,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 export default {
-  name:"Contents",
+  name: 'Contents',
 }
 </script>
 
