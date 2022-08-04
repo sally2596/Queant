@@ -126,5 +126,31 @@ public class PortfolioController {
         }
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message="포트폴리오 생성 성공"),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+            @ApiResponse(code = 409, message="존재하는 상품이 아닙니다."),
+            @ApiResponse(code = 500, message="기타 서버 에러"),
+    })
+    @ApiOperation(value="MyPortfolio 조회", notes="유저 email 필수")
+    @PostMapping("/myportfolio")
+    public ResponseEntity<?> MyPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
+        log.info("[Controller: InsertPortfolio]");
+
+        try{
+            portfolioService.insertPortfolio(portfolioRequestDto.getEmail(), portfolioRequestDto.getPortfolioDtoList());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (UsernameNotFoundException ue) {
+            ue.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(NoSuchElementException ne){
+            ne.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

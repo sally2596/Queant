@@ -108,8 +108,37 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
-   public PortfolioResponseDto getMyPortfolio(String email) {
-      return null;
+   public PortfolioResponseDto getMyPortfolio(String email) throws Exception {
+      log.info("[getMyPortfolio] : email: {}", email);
+      Optional<Member> result = memberRepository.findByEmail(email);
+      result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+      Member member = result.get();
+
+      //사용자 정의
+      List<CustomProductDto> customProductDtoList = findCustomProductByMemberId(member.getMember_id());
+      PortfolioResponseDto portfolioResponseDto = PortfolioResponseDto.builder()
+              .customProductList(customProductDtoList)
+              .build();
+
+      try {
+         List<PortfolioDto> myPortfolioList = getPortfolio(member.getMember_id(), 0);
+      } catch(Exception e) {
+
+      }
+
+
+      return portfolioResponseDto;
+   }
+
+   @Override
+   public List<PortfolioDto> getPortfolio(UUID memberId, int portfolioNo) throws Exception {
+      List<PortfolioDto> response = new ArrayList<>();
+      Optional<List<Portfolio>> result = portfolioRepository.findByMemberAndPortfolioNo(memberId, portfolioNo);
+
+      result.orElseThrow(() -> new NoSuchElementException("해당 포트폴리오가 없습니다."));
+
+      result.get().forEach(portfolio -> response.add(modelMapper.map(portfolio, PortfolioDto.class)));
+      return response;
    }
 
    @Override
