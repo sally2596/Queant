@@ -1,9 +1,10 @@
 package com.ssafy.queant.controller;
 
 import com.ssafy.queant.model.dto.member.MemberDto;
+import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
 import com.ssafy.queant.model.dto.product.CustomProductDto;
-import com.ssafy.queant.model.service.MemberService;
-import com.ssafy.queant.model.service.PortfolioService;
+import com.ssafy.queant.model.service.member.MemberService;
+import com.ssafy.queant.model.service.portfolio.PortfolioService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -11,9 +12,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @Slf4j
@@ -95,5 +98,33 @@ public class PortfolioController {
         }
         return new ResponseEntity<CustomProductDto>(savedCustomProduct,HttpStatus.OK);
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="사용자 정의 상품 수정 성공"),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+            @ApiResponse(code = 409, message="존재하는 상품이 아닙니다."),
+            @ApiResponse(code = 500, message="기타 서버 에러"),
+    })
+    @ApiOperation(value="사용자 정의 상품 수정", notes="customProduct의 기존데이터와 수정된데이터 모두 보내주세요")
+    @PostMapping
+    public ResponseEntity<?> InsertPortfolio(@RequestBody PortfolioDto portfolioDto, @RequestBody String email, @RequestBody String productId) {
+        log.info("[Controller: InsertPortfolio]");
+
+        try{
+            PortfolioDto result = portfolioService.insertPortfolio(email, portfolioDto, productId);
+            return new ResponseEntity<PortfolioDto>(result,HttpStatus.OK);
+
+        } catch (UsernameNotFoundException ue) {
+            ue.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(NoSuchElementException ne){
+            ne.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

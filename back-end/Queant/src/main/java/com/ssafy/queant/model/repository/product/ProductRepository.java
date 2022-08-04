@@ -4,9 +4,12 @@ import com.ssafy.queant.model.entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product,String> {
 
+    //productId로 상품 하나 검색
+    Optional<Product> findByProductId(String productId);
     // 단품 검색 (검색어 조합) == 추천
 
     // 상품 검색 (텍스트 검색, 상품명으로 검색)

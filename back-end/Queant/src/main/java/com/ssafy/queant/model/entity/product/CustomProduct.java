@@ -11,8 +11,8 @@ import java.sql.Date;
 import java.util.UUID;
 
 @Data
-//@Entity
-//@Table
+@Entity
+@Table
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
