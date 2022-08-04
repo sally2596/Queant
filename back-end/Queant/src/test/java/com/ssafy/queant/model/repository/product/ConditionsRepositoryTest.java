@@ -19,10 +19,10 @@ class ConditionsRepositoryTest {
 
     @Test
     void findByProductId() {
-        String productId ="WR0001B";
+        int productId = 1;
         List<Conditions> list = conditionsRepository.findByProductId(productId);
 
-        for (Conditions c:list
+        for (Conditions c : list
         ) {
             log.info(c.toString());
         }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class OptionsServiceImpl implements OptionsService{
+public class OptionsServiceImpl implements OptionsService {
 
     private final OptionsRepository optionsRepository;
     private final ModelMapper modelMapper;
@@ -24,14 +24,14 @@ public class OptionsServiceImpl implements OptionsService{
     }
 
     @Override
-    public List<OptionsDto> findByProductId(String productId) {
+    public List<OptionsDto> findByProductId(int productId) {
         List<Options> list = optionsRepository.findByProductId(productId);
 
         List<OptionsDto> result = new ArrayList<>();
 
-        if(list.size()>0){
-            for(Options o:list){
-                result.add(modelMapper.map(o,OptionsDto.class));
+        if (list.size() > 0) {
+            for (Options o : list) {
+                result.add(modelMapper.map(o, OptionsDto.class));
             }
         }
 

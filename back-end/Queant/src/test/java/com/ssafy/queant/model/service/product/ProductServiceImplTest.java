@@ -32,8 +32,7 @@ class ProductServiceImplTest {
 
     @Test
     void findByProductId() {
-        String productId = "0051";
-
+        int productId = 1;
         ProductDetailDto productDetailDto = productService.findByProductId(productId);
         if (productDetailDto == null) log.info("null값 들어옴");
         else log.info(productDetailDto.toString());
@@ -55,7 +54,7 @@ class ProductServiceImplTest {
 
     @Test
     void updateToProovedProduct() {
-        String productId = "aa";
+        int productId = 1;
 
         ProductDto saved = productService.updateToProovedProduct(productId);
 

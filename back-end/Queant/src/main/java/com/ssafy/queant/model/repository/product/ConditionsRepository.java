@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ConditionsRepository extends JpaRepository<Conditions, Integer> {
-    List<Conditions> findByProductId(String productId);
+    List<Conditions> findByProductId(int productId);
 }

@@ -28,18 +28,18 @@ public class JoinwayServiceImpl implements JoinwayService {
     }
 
     @Override
-    public List<JoinwayDto> findByProductId(String productId){
+    public List<JoinwayDto> findByProductId(int productId) {
         List<Joinway> list = joinwayRepository.findByProductId(productId);
 
         List<SpecificCode> specificCodeList = specificCodeRepository.findByCodeId("A");
-        Map<String,String> valueMap = specificCodeList.stream().collect(Collectors.toMap(SpecificCode::getScodeId,
+        Map<String, String> valueMap = specificCodeList.stream().collect(Collectors.toMap(SpecificCode::getScodeId,
                 SpecificCode::getScodeValue));
 
         List<JoinwayDto> result = new ArrayList<>();
 
-        if(list.size()>0){
-            for(Joinway j:list){
-                JoinwayDto joinwayDto = modelMapper.map(j,JoinwayDto.class);
+        if (list.size() > 0) {
+            for (Joinway j : list) {
+                JoinwayDto joinwayDto = modelMapper.map(j, JoinwayDto.class);
                 joinwayDto.setValue(valueMap.get(joinwayDto.getScodeId()));
                 result.add(joinwayDto);
             }
