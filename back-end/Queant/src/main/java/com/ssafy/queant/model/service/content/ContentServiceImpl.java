@@ -28,7 +28,7 @@ public class ContentServiceImpl implements ContentService {
         int page = 5;
 
         for (int i=1; i<=page; i++) {
-            final String url = "https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=101" + "&page=" + i;
+            final String url = "https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=101&sid2=259" + "&page=" + i;
             Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36")
                     .get();
 
