@@ -14,7 +14,7 @@ public interface ProductService {
 
     ProductDto registProduct(ProductDto productDto);
 
-    ProductDto updateToProovedProduct(int productId);
+//    ProductDto updateToProovedProduct(int productId);
 
     List<ProductDto> findByIsEnabledFalse();
 }
