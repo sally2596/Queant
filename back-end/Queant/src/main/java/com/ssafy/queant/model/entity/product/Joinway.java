@@ -19,7 +19,7 @@ public class Joinway {
     private int joinwayId;
 
     @Column(nullable = false)
-    private String productId;
+    private int productId;
 
     @Column(nullable = false)
     private String scodeId;

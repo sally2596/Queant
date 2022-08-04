@@ -11,4 +11,10 @@ public interface ProductService {
     List<ProductDto> findByNameContaining(String name);
 
     ProductDetailDto findByProductId(String productId);
+
+    ProductDto registProduct(ProductDto productDto);
+
+    ProductDto updateToProovedProduct(String productId);
+
+    List<ProductDto> findByIsEnabledFalse();
 }

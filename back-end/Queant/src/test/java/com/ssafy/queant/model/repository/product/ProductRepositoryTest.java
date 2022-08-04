@@ -23,9 +23,24 @@ class ProductRepositoryTest {
         List<Product> list = productRepository.findByBankIdAndIsEnabledTrue(wooriBankId);
 
         log.info("*****[start logging product list]*****");
-        for (Product p:list) {
+        for (Product p : list) {
             log.info(p.toString());
         }
+    }
+
+    @Test
+    void insert() {
+        Product product = Product.builder()
+                .productCode("aa")
+                .bankId(10345)
+                .name("된 걸까..")
+                .scodeId("A001")
+                .isDeposit(true)
+                .isEnabled(false)
+                .build();
+
+        Product saved = productRepository.save(product);
+        log.info(saved.toString());
     }
 
     @Test
@@ -34,7 +49,15 @@ class ProductRepositoryTest {
         List<Product> list = productRepository.findByIsEnabledTrueAndNameContaining(name);
 
         log.info("*****[start logging product list]*****");
-        for (Product p:list) {
+        for (Product p : list) {
+            log.info(p.toString());
+        }
+    }
+
+    @Test
+    void findByIsEnabledFalse() {
+        List<Product> list = productRepository.findByIsEnabledFalse();
+        for (Product p : list) {
             log.info(p.toString());
         }
     }

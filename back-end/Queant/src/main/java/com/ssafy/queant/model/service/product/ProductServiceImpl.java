@@ -111,4 +111,38 @@ public class ProductServiceImpl implements ProductService {
 
         return productDetailDto;
     }
+
+
+    @Override
+    public ProductDto registProduct(ProductDto productDto) {
+        Product product = modelMapper.map(productDto, Product.class);
+        Product savedProduct = productRepository.save(product);
+        return modelMapper.map(savedProduct, ProductDto.class);
+    }
+
+    @Override
+    public ProductDto updateToProovedProduct(String productId) {
+        Optional<Product> result = productRepository.findByProductId(productId);
+
+        if (result.isPresent()) {
+            Product product = result.get();
+            product.setEnabled(true);
+            productRepository.save(product);
+            return modelMapper.map(product, ProductDto.class);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<ProductDto> findByIsEnabledFalse() {
+        List<Product> productList = productRepository.findByIsEnabledFalse();
+        List<ProductDto> productDtoList = new ArrayList<>();
+        if (productList.size() > 0) {
+            for (Product p : productList) {
+                productDtoList.add(modelMapper.map(p, ProductDto.class));
+            }
+        }
+        return productDtoList;
+    }
 }

@@ -36,14 +36,14 @@ public class BankController {
 
     @ApiResponses({
             @ApiResponse(code = 200, message="은행 정보와 해당하는 은행의 상품 조회에 성공했습니다."),
-            @ApiResponse(code = 404, message="은행 정보가 존재하지 않습니다"),
+            @ApiResponse(code = 404, message="해당 은행 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "은행에 따른 정보 받아옴")
     @GetMapping("/{bankId}")
     public ResponseEntity<?> getBankByBankId(@PathVariable("bankId") int bankId) throws Exception {
         BankDto bankDto =bankService.findByBankId(bankId);
-        if(bankDto==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
+        if(bankDto==null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         List<ProductDto> productDtoList = productService.findByBankId(bankId);
         BankResponseDto responseDto = BankResponseDto.builder()
                 .bank(bankDto)
