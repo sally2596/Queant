@@ -18,10 +18,10 @@ class JoinwayRepositoryTest {
 
     @Test
     void findByProductId() {
-        String productId ="WR0001A";
+        int productId = 1;
         List<Joinway> list = joinwayRepository.findByProductId(productId);
 
-        for (Joinway j:list
+        for (Joinway j : list
         ) {
             log.info(j.toString());
         }

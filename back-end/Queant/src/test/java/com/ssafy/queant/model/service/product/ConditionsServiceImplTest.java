@@ -19,10 +19,10 @@ class ConditionsServiceImplTest {
 
     @Test
     void findByProductId() {
-        String productId = "WR0001B";
+        int productId = 1;
         List<ConditionsDto> result = conditionsService.findByProductId(productId);
 
-        for (ConditionsDto dto:result
+        for (ConditionsDto dto : result
         ) {
             log.info(dto.toString());
         }
