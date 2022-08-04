@@ -2,7 +2,7 @@
   <section class="login-form">
     <h1>QueÆnt</h1>
     <!-- Login Form -->
-    <form @submit.prevent="login(credentials)">
+    <form @submit.prevent="login({ credentials, nextPath })">
 
       <div class="int-area">
         <input 
@@ -76,6 +76,7 @@ export default {
         email: '',
         password: '',
       },
+      nextPath: this.$route.redirectedFrom?this.$route.redirectedFrom.fullPath:'/',
       passwordSchema: new PV(),
       error: {
         email : '',

@@ -131,6 +131,5 @@ export default {
       //   var url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id='+clientId+'&redirect_uri='+redirectUri+'&state=1234';
       //   window.location.replace(url)
       // },
-      
   }
 };
