@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class TraitSet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int traitId;
 
     @Column(nullable = false)
