@@ -11,7 +11,9 @@ export default {
     emailCheckedStatus: '',
     emailVerifiedStatus: '',
     passwordCheckedStatus: '',
-    isAdmin: false
+    isAdmin: false,
+    accessTokenExpiryTime: null,
+    refreshTokenExpiryTime: null
   },
   getters: {
     isLoggedIn: state => !!state.accessToken,
@@ -21,7 +23,11 @@ export default {
     authError: state => state.authError,
     emailCheckedStatus: state => state.emailCheckedStatus,
     emailVerifiedStatus: state => state.emailVerifiedStatus,
-    passwordCheckedStatus: state => state.passwordCheckedStatus
+    passwordCheckedStatus: state => state.passwordCheckedStatus,
+    // 액세스토큰 만료 30초 전인가? true/false
+    isAccessTokenExpired: state => state.accessTokenExpiryTime - new Date().getTime() < 30000,
+    // 리프레쉬토큰 만료 30초 전인가? true/false
+    isRefreshTokenExpired: state => state.refreshTokenExpiryTime - new Date().getTime() < 30000
   },
   mutations: {
     SET_USER_INFO: (state, userInfo) => state.userInfo = userInfo,
@@ -31,9 +37,56 @@ export default {
     SET_EMAIL_CHECKED_STATUS: (state, status) => state.emailCheckedStatus = status,
     SET_EMAIL_VERIFIED_STATUS: (state, status) => state.emailVerifiedStatus = status,
     SET_PASSWORD_CHECKED_STATUS: (state, status) => state.passwordCheckedStatus = status,
-    SET_IS_ADMIN: (state, bool) => state.isAdmin = bool
+    SET_IS_ADMIN: (state, bool) => state.isAdmin = bool,
+    SET_ACCESS_TOKEN_EXPIRY_TIME: (state, time) => state.accessTokenExpiryTime = time,
+    SET_REFRESH_TOKEN_EXPIRY_TIME: (state, time) => state.refreshTokenExpiryTime = time
   },
   actions: {
+    updateAccessToken({ dispatch, commit, state }) {
+      axios({
+        url: spring.member.refreshtoken(),
+        method: 'post',
+        data: {
+          email: state.userInfo.email,
+          refreshtoken: state.refreshToken
+        }
+      })
+      .then(res => {
+        console.log(res)
+        const now = new Date().getTime()
+        dispatch('saveAccessToken', res.data)
+        commit('SET_ACCESS_TOKEN_EXPIRY_TIME', now + 60000)
+      })
+      .catch(err => {
+        console.log(err)
+        if (err.response.status === 406) {
+          alert('다시 로그인 해주세요.')
+          dispatch('logout')
+        }
+      })
+    },
+    login({ commit, dispatch }, { credentials, nextPath }) {
+      axios({
+        url: spring.member.login(),
+        method: 'post',
+        data: credentials,
+      })
+      .then(res => {
+        console.log('로그인 되었습니다.')
+        // 액세스토큰 만료시간 구하기
+        const now = new Date().getTime()
+        commit('SET_ACCESS_TOKEN_EXPIRY_TIME', now + 60000)
+        commit('SET_REFRESH_TOKEN_EXPIRY_TIME', now + 180000)
+        const userCredentials = JSON.parse(res.config.data)
+        dispatch('saveAccessToken', res.data.AccessToken)
+        dispatch('saveRefreshToken', res.data.RefreshToken)
+        dispatch('fetchUserInfo', userCredentials.email)
+        router.push(nextPath)
+      })
+      .catch(err => {
+        commit('SET_AUTH_ERROR', err.response.status)
+      })
+    },
     passwordChange({ commit }, credentials) {
       axios({
         url: spring.member.password(),
@@ -44,18 +97,22 @@ export default {
           new_password: credentials.password1
         }
       })
-      .then( res => {
+      .then(res => {
         console.log('비밀번호가 변경되었습니다. 다시 로그인 해주세요.')
         alert('비밀번호가 변경되었습니다! 다시 로그인 해주세요.')
         commit('SET_PASSWORD_CHECKED_STATUS', '')
         router.push({ name: 'login'})
       })
-      .catch( err => {
+      .catch(err => {
         console.log('임시 비밀번호를 확인해주세요.')
         commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
       })
     },
-    passwordCheck({ commit, getters }, password) {
+    passwordCheck({ dispatch, commit, getters }, password) {
+      // 액세스토큰이 만료 됐는지 확인해서 만료됐으면 재발급
+      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired) {
+        dispatch('updateAccessToken')
+      }
       const email = JSON.parse(localStorage.vuex).auth.userInfo.email
       axios({
         url: spring.member.password(),
@@ -66,10 +123,10 @@ export default {
           password: password 
         }
       })
-      .then( res => {
+      .then(res => {
         commit('SET_PASSWORD_CHECKED_STATUS', res.status)
       })
-      .catch( err => {
+      .catch(err => {
         commit('SET_PASSWORD_CHECKED_STATUS', err.response.status)
       })
     },
@@ -81,17 +138,21 @@ export default {
           email: email
         }
       })
-      .then( res => {
+      .then(res => {
         console.log('적어주신 이메일로 임시 비밀번호를 전송했습니다.')
         alert(`${email}로 임시 비밀번호를 전송했습니다.`)
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
-      .catch( err => {
+      .catch(err => {
         console.log('가입된 이메일이 아니므로 임시 비밀번호 전송에 실패했습니다.')
         commit('SET_EMAIL_CHECKED_STATUS', err.response.status)
       })
     },
     editUserInfo({ dispatch, getters }, credentials) {
+      // 액세스토큰이 만료 됐는지 확인해서 만료됐으면 재발급
+      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired) {
+        dispatch('updateAccessToken')
+      }
       axios({
         url: spring.member.info(),
         method: 'put',
@@ -103,12 +164,12 @@ export default {
           birthdate: credentials.birthdate
         }
       })
-      .then( res => {
+      .then(res => {
         console.log(res)
         dispatch('fetchUserInfo', credentials.email)
         router.push({ name: 'home' })
       })
-      .catch( err => {
+      .catch(err => {
         console.log(err)
       })
     },
@@ -121,7 +182,7 @@ export default {
           email: email
         }
       })
-      .then( res => {
+      .then(res => {
         console.log(res)
         dispatch('logout')
       })
@@ -130,10 +191,10 @@ export default {
       })
     },
     logout({ commit, dispatch }) {
+      router.push({ name: 'home' })
       dispatch('removeToken')
       commit('SET_IS_ADMIN', false)
       commit('SET_USER_INFO', {})
-      router.push({ name: 'home' })
     },
     removeToken({ commit }) {
       commit('SET_ACCESS_TOKEN', '')
@@ -141,24 +202,6 @@ export default {
       localStorage.removeItem('vuex')
       localStorage.setItem('accessToken', '')
       localStorage.setItem('refreshToken', '')
-    },
-    login({ commit, dispatch }, { credentials, nextPath }) {
-      axios({
-        url: spring.member.login(),
-        method: 'post',
-        data: credentials,
-      })
-      .then( res => {
-        console.log('로그인 되었습니다.')
-        const userCredentials = JSON.parse(res.config.data)
-        dispatch('saveAccessToken', res.data.AccessToken)
-        dispatch('saveRefreshToken', res.data.RefreshToken)
-        dispatch('fetchUserInfo', userCredentials.email)
-        router.push(nextPath)
-      })
-      .catch( err => {
-        commit('SET_AUTH_ERROR', err.response.status)
-      })
     },
     register({ commit }, credentials) {
       axios({
@@ -172,14 +215,14 @@ export default {
           password: credentials.password1
         }
       })
-      .then( res => {
+      .then(res => {
         console.log('회원가입 되었습니다. 다시 로그인 해주세요.')
         commit('SET_EMAIL_VERIFIED_STATUS', '')
         commit('SET_EMAIL_CHECKED_STATUS', '')
         alert('회원가입이 완료되었습니다! 다시 로그인 해주세요.')
         router.push({ name: 'login' })
       })
-      .catch( err => {
+      .catch(err => {
         commit('SET_EMAIL_VERIFIED_STATUS', '')
         commit('SET_EMAIL_CHECKED_STATUS', '')
       })
@@ -194,7 +237,7 @@ export default {
           email: email
         }
       })
-      .then( res => {
+      .then(res => {
         console.log('이메일 중복 검사에 성공했습니다.')
         commit('SET_EMAIL_CHECKED_STATUS', res.status)
       })
@@ -211,11 +254,11 @@ export default {
           code: code
         }
       })
-      .then( res => {
+      .then(res => {
         console.log('이메일 인증번호 검사에 성공했습니다.')
         commit('SET_EMAIL_VERIFIED_STATUS', res.status)
       })
-      .catch( err => {
+      .catch(err => {
         console.log('이메일 인증번호 검사에 실패했습니다.')
         commit('SET_EMAIL_VERIFIED_STATUS', err.response.status)
       })
@@ -240,7 +283,7 @@ export default {
             email: email
           }
         })
-        .then( res => {
+        .then(res => {
           console.log('유저 정보를 가져오는데 성공했습니다.')
           if (window.location.pathname === '/admin') {
             console.log('가져온 유저 정보를 관리자 페이지에서 검색 결과로 확인할 수 있습니다.')
@@ -252,7 +295,7 @@ export default {
             commit('SET_USER_INFO', res.data)
           }
         })
-        .catch( err => {
+        .catch(err => {
           console.log('유저 정보를 가져오는데 실패했습니다.')
           console.log(err)
         })
