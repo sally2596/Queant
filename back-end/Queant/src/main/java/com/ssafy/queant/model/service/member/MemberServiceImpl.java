@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.service;
+package com.ssafy.queant.model.service.member;
 
 import com.ssafy.queant.model.dto.member.LoginResultDto;
 import com.ssafy.queant.model.dto.member.MemberDto;
@@ -8,6 +8,7 @@ import com.ssafy.queant.model.entity.member.MemberRole;
 import com.ssafy.queant.model.entity.member.Social;
 import com.ssafy.queant.model.repository.CustomMemberRepository;
 import com.ssafy.queant.model.repository.MemberRepository;
+import com.ssafy.queant.model.service.member.MemberService;
 import com.ssafy.queant.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -23,7 +24,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;

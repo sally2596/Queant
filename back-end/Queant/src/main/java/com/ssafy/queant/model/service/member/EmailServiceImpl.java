@@ -1,7 +1,8 @@
-package com.ssafy.queant.model.service;
+package com.ssafy.queant.model.service.member;
 
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.repository.MemberRepository;
+import com.ssafy.queant.model.service.member.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
