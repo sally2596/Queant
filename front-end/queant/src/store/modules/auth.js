@@ -14,7 +14,6 @@ export default {
     isAdmin: false
   },
   getters: {
-    // token 있으면 true, 없으면 false => 로그인 유무
     isLoggedIn: state => !!state.accessToken,
     isAdmin: state => state.isAdmin,
     userInfo: state => state.userInfo,
@@ -105,6 +104,7 @@ export default {
         }
       })
       .then( res => {
+        console.log(res)
         dispatch('fetchUserInfo', credentials.email)
         router.push({ name: 'home' })
       })
@@ -138,13 +138,11 @@ export default {
     removeToken({ commit }) {
       commit('SET_ACCESS_TOKEN', '')
       commit('SET_REFRESH_TOKEN', '')
-      // commit('SET_AUTH_ERROR', null)
       localStorage.removeItem('vuex')
       localStorage.setItem('accessToken', '')
       localStorage.setItem('refreshToken', '')
     },
-    // 일반 로그인
-    login({ commit, dispatch }, credentials) {
+    login({ commit, dispatch }, { credentials, nextPath }) {
       axios({
         url: spring.member.login(),
         method: 'post',
@@ -156,13 +154,12 @@ export default {
         dispatch('saveAccessToken', res.data.AccessToken)
         dispatch('saveRefreshToken', res.data.RefreshToken)
         dispatch('fetchUserInfo', userCredentials.email)
-        router.push({ name: 'home' })
+        router.push(nextPath)
       })
       .catch( err => {
         commit('SET_AUTH_ERROR', err.response.status)
       })
     },
-    // 회원가입
     register({ commit }, credentials) {
       axios({
         url: spring.member.register(),
@@ -223,7 +220,6 @@ export default {
         commit('SET_EMAIL_VERIFIED_STATUS', err.response.status)
       })
     },
-
     saveAccessToken({ commit }, accessToken) {
       console.log('액세스 토큰을 저장합니다.')
       commit('SET_ACCESS_TOKEN', accessToken)

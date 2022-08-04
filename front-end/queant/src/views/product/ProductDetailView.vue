@@ -1,14 +1,18 @@
 <template>
   <div>
-
+    <!-- 단일상품 상세정보 -->
+    {{ product }}
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'ProductDetailView',
+  computed: {
+    ...mapGetters(['product'])
+  },
   methods: {
     ...mapActions(['fetchProduct'])
   },

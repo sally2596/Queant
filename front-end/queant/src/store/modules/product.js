@@ -4,23 +4,35 @@ import axios from 'axios'
 
 export default {
   state: {
-    products: []
+    products: [],
+    product: {}
   },
   getters: {
-    products: state => state.products
+    products: state => state.products,
+    product: state => state.product
   },
   mutations: {
-    SET_PRODUCTS: (state, products) => state.products = products
+    SET_PRODUCTS: (state, products) => state.products = products,
+    SET_PRODUCT: (state, product) => state.product = product
   },
   actions: {
     fetchProduct({ commit }, productId) {
       axios({
         url: spring.product.detail(productId),
-        method: 'get'
+        method: 'get',
+        params: {
+          productId: productId
+        }
+      })
+      .then(res => {
+        console.log(res)
+        commit('SET_PRODUCT', res.data)
+      })
+      .catch(err => {
+        console.log(err)
       })
     },
     searchProduct({ commit }, keyword) {
-      console.log(keyword)
       axios({
         url: spring.search.search(),
         method: 'get',

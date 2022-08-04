@@ -1,5 +1,5 @@
 <template>
-    <Navbar_admin/>
+    <NavbarAdmin/>
     <header id="title-div">
       <h1 class="title" id="title">유저 관리</h1>
     </header>

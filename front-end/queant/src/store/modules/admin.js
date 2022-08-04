@@ -36,6 +36,9 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        if (err.response.status === 403)
+          alert('접근 권한이 없습니다.')
+          history.back()
       })
     },
     editEnabled({ getters }, email) {

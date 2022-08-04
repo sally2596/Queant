@@ -200,27 +200,22 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isLoggedIn = store.getters.isLoggedIn
+  let isLoggedIn = store.getters.isLoggedIn
+  let isAdmin = store.getters.isAdmin
 	// $route.matched 배열에 저장된 라우터 중 meta 필드에 'isLoggedIn'가 있는지 찾는다.
 	if (to.matched.some(record => record.meta.isLoggedIn)) {
     if (!isLoggedIn) { // 로그인 되어있지 않으면 로그인 페이지로 이동
       alert('로그인이 필요합니다.')
       next({ name: 'login' })
-    } else // 로그인 되어 있다면 그대로 라우터 이동
+    } else { // 로그인 되어 있다면 그대로 라우터 이동
       next()
+    }
   } else if (to.matched.some(record => record.meta.isAdmin)) {
-    if (isLoggedIn) {
-      const isAdmin = store.getters.isAdmin
-      if (isAdmin) {
-        next()
-      } else {
-        alert('접근 권한이 없습니다.')
-        next({ name: 'home' })
-      }
-
+    if (isLoggedIn && isAdmin) {
+      next()
     } else {
-      alert('로그인이 필요합니다.')
-      next({ name: 'login' })
+      alert('접근 권한이 없습니다.')
+      history.back()
     }
   } else {
     next()
