@@ -11,7 +11,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 @Data
-@Entity
+@Entity(name="content")
 @Table
 @Builder
 @Getter
@@ -28,14 +28,16 @@ public class Content {
     private String title;
 //    @Lob
 //    @Column(nullable = false)
-//    private Blob content;
+//    private Blob co
+//    ntent;
+    @Column(nullable = false)
     private String content;
 
 
-    public String getContent() {
-        return content;
-    }
-
+//    public String getContent() {
+//        return content;
+//    }
+//
 //    public void setPhoto(Blob content) {
 //        this.content = content;
 //    }

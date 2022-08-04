@@ -152,7 +152,7 @@ public class ContentController { ;
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
-            //컨텐츠 저장
+            //컨텐츠 삭제
             contentRepository.delete(Content.builder().contentId(contentId).build());
             log.info("[ContentDelete] run finished");
             return new ResponseEntity<String>("컨텐츠가 삭제되었습니다.", HttpStatus.OK);

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface ContentRepository extends JpaRepository<Content, Long> {
 
-    @Query(value = "select * from Content where contentId=:contentId", nativeQuery = true)
+    @Query(value = "select * from content where content_id=:contentId", nativeQuery = true)
     Content findByContentId(@Param("contentId") Long contentId);
 
 }
