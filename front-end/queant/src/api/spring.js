@@ -18,7 +18,8 @@ export default {
     status: () => HOST + MEMBER + 'status',
     roles: () => HOST + MEMBER + 'roles',
     social: () => HOST + MEMBER + 'social',
-    list: () => HOST + MEMBER + 'list'
+    list: () => HOST + MEMBER + 'list',
+    refreshtoken: () => HOST + MEMBER + 'refreshtoken'
   },
   social: {
     google: () => HOST + SOCIAL + 'google',
