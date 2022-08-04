@@ -1,6 +1,6 @@
-import spring from "@/api/spring"
-import router from "@/router"
-import axios from "axios"
+import spring from '@/api/spring'
+import router from '@/router'
+import axios from 'axios'
 
 export default {
   state: {
@@ -13,6 +13,12 @@ export default {
     SET_PRODUCTS: (state, products) => state.products = products
   },
   actions: {
+    fetchProduct({ commit }, productId) {
+      axios({
+        url: spring.product.detail(productId),
+        method: 'get'
+      })
+    },
     searchProduct({ commit }, keyword) {
       console.log(keyword)
       axios({

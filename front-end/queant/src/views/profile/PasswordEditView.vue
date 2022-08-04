@@ -33,10 +33,7 @@ import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'PasswordFindView',
-  components: {
-    PasswordEdit,
-    Navbar
-},
+  components: { PasswordEdit, Navbar },
   computed: {
     ...mapGetters(['emailCheckedStatus']),
   },
@@ -53,7 +50,7 @@ export default {
   beforeCreate: function() {
     document.body.className = 'auth'
   },
-  mounted() {
+  created() {
     this.SET_EMAIL_CHECKED_STATUS('')
   }
 }

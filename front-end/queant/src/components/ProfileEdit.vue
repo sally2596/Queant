@@ -78,7 +78,7 @@ export default {
     ...mapActions(['editUserInfo', 'unregister']),
   },
   beforeCreate: function() {
-        document.body.className = 'profile_edit_body';
+    document.body.className = 'profile_edit_body'
   },
 }
 </script>

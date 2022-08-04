@@ -34,10 +34,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'ProfileView',
-  components: { 
-    Navbar,
-    ProfileEdit 
-  },
+  components: { Navbar, ProfileEdit },
   computed: {
     ...mapGetters(['userInfo','passwordCheckedStatus'])
   },

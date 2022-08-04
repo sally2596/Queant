@@ -18,9 +18,7 @@ import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'HomeView',
-  components : {
-    Navbar : Navbar
-  },
+  components : { Navbar },
   beforeCreate: function() {
     document.body.className = 'home_body'
   }

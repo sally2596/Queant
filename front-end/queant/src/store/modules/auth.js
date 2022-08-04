@@ -1,5 +1,5 @@
-import spring from "@/api/spring"
-import router from "@/router"
+import spring from '@/api/spring'
+import router from '@/router'
 import axios from 'axios'
 
 export default {
