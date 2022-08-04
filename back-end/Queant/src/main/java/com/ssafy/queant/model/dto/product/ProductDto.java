@@ -8,7 +8,8 @@ import lombok.*;
 @ToString
 @Builder
 public class ProductDto {
-    private String productId;
+    private int productId;
+    private String productCode;
     private int bankId;
     private String bankName;
     private String name;
