@@ -112,12 +112,11 @@ public class ProductServiceImpl implements ProductService {
         return productDetailDto;
     }
 
-    // 키 생성 전략 수정해야함
+
     @Override
     public ProductDto registProduct(ProductDto productDto) {
         Product product = modelMapper.map(productDto, Product.class);
         Product savedProduct = productRepository.save(product);
-
         return modelMapper.map(savedProduct, ProductDto.class);
     }
 
@@ -133,5 +132,17 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return null;
+    }
+
+    @Override
+    public List<ProductDto> findByIsEnabledFalse() {
+        List<Product> productList = productRepository.findByIsEnabledFalse();
+        List<ProductDto> productDtoList = new ArrayList<>();
+        if (productList.size() > 0) {
+            for (Product p : productList) {
+                productDtoList.add(modelMapper.map(p, ProductDto.class));
+            }
+        }
+        return productDtoList;
     }
 }
