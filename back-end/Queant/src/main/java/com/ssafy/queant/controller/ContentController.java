@@ -1,7 +1,5 @@
 package com.ssafy.queant.controller;
 
-
-
 import com.ssafy.queant.model.dto.news.NewsDetailDto;
 import com.ssafy.queant.model.dto.news.NewsDto;
 import com.ssafy.queant.model.entity.content.Content;
@@ -24,7 +22,6 @@ import java.util.List;
 @Slf4j
 @CrossOrigin("*")
 @RequiredArgsConstructor
-@RequestMapping("/contents")
 public class ContentController { ;
     @Autowired
     private ContentService contentService;
@@ -51,33 +48,33 @@ public class ContentController { ;
         }
     }
 
-    @ApiResponses({
-            @ApiResponse(code = 200, message="기사 내용이 성공적으로 전송되었습니다."),
-            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
-    })
-    @ApiOperation(value="뉴스 기사 상세 조회", notes="기사 링크를 받아옴")
-    @PostMapping("/detail")
-    public ResponseEntity<NewsDetailDto> NewsDetail(@RequestBody String url) throws Exception {
-        log.info("[NewsDetail] is running");
-
-        NewsDetailDto news = contentService.getNewsDetail(url);
-
-        if(news == null) {
-            log.info("[NewsDetail] run failed");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        else {
-            log.info("[NewsDetail] run finished");
-            return new ResponseEntity<NewsDetailDto>(news, HttpStatus.OK);
-        }
-    }
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message="기사 내용이 성공적으로 전송되었습니다."),
+//            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
+//    })
+//    @ApiOperation(value="뉴스 기사 상세 조회", notes="기사 링크를 받아옴")
+//    @PostMapping("/detail")
+//    public ResponseEntity<NewsDetailDto> NewsDetail(@RequestBody String url) throws Exception {
+//        log.info("[NewsDetail] is running");
+//
+//        NewsDetailDto news = contentService.getNewsDetail(url);
+//
+//        if(news == null) {
+//            log.info("[NewsDetail] run failed");
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        else {
+//            log.info("[NewsDetail] run finished");
+//            return new ResponseEntity<NewsDetailDto>(news, HttpStatus.OK);
+//        }
+//    }
 
     @ApiResponses({
             @ApiResponse(code = 200, message="컨텐츠 상세 조회가 성공적으로 처리되었습니다."),
             @ApiResponse(code = 403, message="접속이 거부되었습니다.")
     })
     @ApiOperation(value="컨텐츠 상세 조회", notes="컨텐츠 상세 정보 페이지로 이동")
-    @GetMapping("/{contentId}")
+    @GetMapping("/contents/{contentId}")
     public ResponseEntity<Content> ContentDetail(@PathVariable("contentId") Long contentId) throws Exception {
         log.info("[ContentDetail] is running");
 
@@ -98,55 +95,55 @@ public class ContentController { ;
             @ApiResponse(code = 403, message="접속이 거부되었습니다.")
     })
     @ApiOperation(value="컨텐츠 작성", notes="컨텐츠 작성완료 버튼을 누르면 작동")
-    @PostMapping("/write")
-    public ResponseEntity<Content> ContentInsert(@RequestBody Content entity) throws Exception {
-        log.info("[ContentInsert] is running");
+    @PostMapping("/contents/edit")
+    public ResponseEntity<Content> ContentCreate(@RequestBody Content entity) throws Exception {
+        log.info("[ContentCreate] is running");
 
         //contentId는 자동부여되니까 넣지 않음
         Content article = Content.builder().memberId(entity.getMemberId()).title(entity.getTitle()).content(entity.getContent()).build();
 
         if(article == null) {
-            log.info("[ContentInsert] run failed");
+            log.info("[ContentCreate] run failed");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
             //컨텐츠 저장
             contentRepository.save(article);
-            log.info("[ContentInsert] run finished");
+            log.info("[ContentCreate] run finished");
             return new ResponseEntity<Content>(article, HttpStatus.OK);
         }
     }
 
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="컨텐츠가 수정되었습니다."),
-//            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
-//    })
-//    @ApiOperation(value="컨텐츠 수정", notes="컨텐츠 수정완료 버튼을 누르면 작동 > 근데 좀 이상하게 작성한거같아서 테스트 필요")
-//    @PatchMapping("/modify")
-//    public ResponseEntity<Content> ContentUpdate(@RequestBody Content entity) throws Exception {
-//        log.info("[ContentUpdate] is running");
-//
-//        //contentId는 자동부여되니까 넣지 않음
-//        Content article = Content.builder().contentId(entity.getContentId()).memberId(entity.getMemberId()).title(entity.getTitle()).content(entity.getContent()).build();
-//
-//        if(article == null) {
-//            log.info("[ContentUpdate] run failed");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else {
-//            //컨텐츠 수정
-//            contentRepository.save(article);
-//            log.info("[ContentUpdate] run finished");
-//            return new ResponseEntity<Content>(article, HttpStatus.OK);
-//        }
-//    }
+    @ApiResponses({
+            @ApiResponse(code = 200, message="컨텐츠가 수정되었습니다."),
+            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
+    })
+    @ApiOperation(value="컨텐츠 수정", notes="컨텐츠 수정완료 버튼을 누르면 작동 > 근데 좀 이상하게 작성한거같아서 테스트 필요")
+    @PatchMapping("/contents/edit")
+    public ResponseEntity<Content> ContentUpdate(@RequestBody Content entity) throws Exception {
+        log.info("[ContentUpdate] is running");
+
+        //contentId는 자동부여되니까 넣지 않음
+        Content article = Content.builder().contentId(entity.getContentId()).memberId(entity.getMemberId()).title(entity.getTitle()).content(entity.getContent()).build();
+
+        if(article == null) {
+            log.info("[ContentUpdate] run failed");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            //컨텐츠 수정
+            contentRepository.save(article);
+            log.info("[ContentUpdate] run finished");
+            return new ResponseEntity<Content>(article, HttpStatus.OK);
+        }
+    }
 
     @ApiResponses({
             @ApiResponse(code = 200, message="컨텐츠가 삭제되었습니다."),
             @ApiResponse(code = 403, message="접속이 거부되었습니다.")
     })
     @ApiOperation(value="컨텐츠 삭제", notes="컨텐츠 삭제 버튼을 누르면 작동")
-    @DeleteMapping("/delete")
+    @DeleteMapping("/contents/delete")
     public ResponseEntity<String> ContentDelete(@RequestBody Long contentId) throws Exception {
         log.info("[ContentDelete] is running");
 

@@ -26,40 +26,41 @@ public class Content {
     private String memberId;
     @Column(nullable = false)
     private String title;
-    @Lob
-    @Column(nullable = false)
-    private Blob content;
+//    @Lob
+//    @Column(nullable = false)
+//    private Blob content;
+    private String content;
 
 
-    public Blob getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setPhoto(Blob content) {
-        this.content = content;
-    }
+//    public void setPhoto(Blob content) {
+//        this.content = content;
+//    }
 
     /**
      * Returns the photo Input Stream.
      * @return InputStream
      * @throws SQLException e
      */
-    public InputStream getContentContent() throws SQLException {
-        if (getContent() == null) {
-            return null;
-        }
-
-        return getContent().getBinaryStream();
-    }
+//    public InputStream getContentContent() throws SQLException {
+//        if (getContent() == null) {
+//            return null;
+//        }
+//
+//        return getContent().getBinaryStream();
+//    }
 
     /**
      *
      * @param sourceStream - Photo source input stream
      * @throws IOException e
      */
-    @Transactional
-    public void setContentContent(InputStream sourceStream, SessionFactory sessionFactory) throws IOException {
-        setPhoto(sessionFactory.getCurrentSession().getLobHelper().createBlob(sourceStream, 100L));
-    }
+//    @Transactional
+//    public void setContentContent(InputStream sourceStream, SessionFactory sessionFactory) throws IOException {
+//        setPhoto(sessionFactory.getCurrentSession().getLobHelper().createBlob(sourceStream, 100L));
+//    }
 
 }
