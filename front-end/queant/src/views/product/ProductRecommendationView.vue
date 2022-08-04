@@ -17,7 +17,7 @@
               <input type="checkbox" class="btn-check" name="deposit_bank" id="deposit_bank_saving" autocomplete="off">
                 <label class="btn btn-outline-success" for="deposit_bank_saving">저축은행</label>
               <input type="checkbox" class="btn-check" name="deposit_bank" id="deposit_bank_trust" autocomplete="off">
-                <label class="btn btn-outline-success" for="deposit_bank_trust">신협</label>
+                <label class="btn btn-outline-success" for="deposit_bank_trust">기타 기관</label>
             </div>
 						<div class="col-lg-3 select">
               <h6>예치 기간</h6>
@@ -28,13 +28,6 @@
               <input type="radio" class="btn-check" name="deposit_time" id="deposit_time_24" autocomplete="off">
                 <label class="btn btn-outline-success" for="deposit_time_24">24개월</label>
             </div>
-						<div class="col-lg-3 select">
-              <h6>금리 기준</h6>
-              <input type="radio" class="btn-check" name="deposit_" id="deposit_sort_highest" autocomplete="off">
-                <label class="btn btn-outline-success" for="deposit_sort_highest">최고 금리</label>
-              <input type="radio" class="btn-check" name="deposit_" id="deposit_sort_general" autocomplete="off">
-                <label class="btn btn-outline-success" for="deposit_sort_general">기본 금리</label>
-            </div>						
 						<div class="col-lg-3 select">
               <h6>희망 예치금</h6>
               <input type="number" name="deposit_money" id="deposit_money">
@@ -101,7 +94,7 @@
               <input type="checkbox" class="btn-check" name="saving_bank" id="saving_bank_saving" autocomplete="off">
                 <label class="btn btn-outline-success" for="saving_bank_saving">저축은행</label>
               <input type="checkbox" class="btn-check" name="saving_bank" id="saving_bank_trust" autocomplete="off">
-                <label class="btn btn-outline-success" for="saving_bank_trust">신협</label>
+                <label class="btn btn-outline-success" for="saving_bank_trust">기타 기관</label>
             </div>
 						<div class="col-lg-3 select">
               <h6>적립 기간</h6>
@@ -113,15 +106,15 @@
                 <label class="btn btn-outline-success" for="saving_time_24">24개월</label>
             </div>
 						<div class="col-lg-3 select">
-              <h6>금리 기준</h6>
-              <input type="radio" class="btn-check" name="saving_" id="saving_sort_highest" autocomplete="off">
-                <label class="btn btn-outline-success" for="saving_sort_highest">최고 금리</label>
-              <input type="radio" class="btn-check" name="saving_" id="saving_sort_general" autocomplete="off">
-                <label class="btn btn-outline-success" for="saving_sort_general">기본 금리</label>
-            </div>						
-						<div class="col-lg-3 select">
               <h6>희망 월 적립금</h6>
               <input type="number" name="saving_monthly" id="saving_monthly">
+            </div>
+            <div class="col-lg-3 select">
+              <h6>상품 보기</h6>
+              <input type="radio" class="btn-check" name="saving_" id="saving_show_one" autocomplete="off">
+                <label class="btn btn-outline-success" for="saving_show_one">상품 하나씩 보기</label>
+              <input type="radio" class="btn-check" name="saving_" id="saving_show_group" autocomplete="off" checked>
+                <label class="btn btn-outline-success" for="saving_show_group">상품 묶어서 보기</label>
             </div>
 						<div class="col-lg-6 select">
               <h6>희망 은행</h6>
@@ -171,13 +164,6 @@
                 <label class="btn btn-outline-success" for="saving_interest_withdrawl">입출금</label>
               <input type="checkbox" class="btn-check" name="saving_" id="saving_interest_again" autocomplete="off">
                 <label class="btn btn-outline-success" for="saving_interest_again">재적립</label>
-            </div>
-            <div class="col-lg-6 select">
-              <h6>상품 보기</h6>
-              <input type="radio" class="btn-check" name="saving_" id="saving_show_one" autocomplete="off">
-                <label class="btn btn-outline-success" for="saving_show_one">상품 하나씩 보기</label>
-              <input type="radio" class="btn-check" name="saving_" id="saving_show_group" autocomplete="off" checked>
-                <label class="btn btn-outline-success" for="saving_show_group">상품 묶어서 보기</label>
             </div>
             <div id="saving-result-view">
               <button class="btn btn-primary">결과 보기</button>
