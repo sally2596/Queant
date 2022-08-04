@@ -17,5 +17,4 @@ import java.util.List;
 public class PortfolioResponseDto {
     List<PortfolioDto> portfolioList;
     List<CustomProductDto> customProductList;
-    List<List<PortfolioDto>> portfolioListList;
 }
