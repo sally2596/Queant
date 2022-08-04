@@ -6,11 +6,44 @@
 }
 
 #title {
+  position: relative;
   font-family: 'jua'; 
   margin-top: 50px;
   padding: 1%; padding-left: 2%;
 }
 
+/* bank-info */
 
-/* meny-body */
+.section-floater {
+  display: flex;
+  justify-content: center;
+}
+
+.bank-title {
+  justify-self: center;
+  margin-left: 45%;
+  width: 40%;
+}
+/* featured banks */
+
+#featured_banks {
+  max-width: 1080px;
+  justify-items: center;
+  display: flex;
+}
+
+.card-body {
+  box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+}
+#featured_banks .row {
+  width: 100%
+}
+.banks_ci {
+  height: 5rem;
+  width: 12rem;
+}
+
+.banks img {
+  height: 70px; width: 200px;
+}
   
