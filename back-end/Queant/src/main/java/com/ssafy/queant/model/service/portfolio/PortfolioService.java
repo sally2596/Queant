@@ -22,7 +22,7 @@ public interface PortfolioService {
    PortfolioResponseDto getMyPortfolio(String email);
    //포트폴리오 조회(예상 포트폴리오)
    //포트폴리오 생성(MyPortfolio)
-   PortfolioDto insertPortfolio(String email, PortfolioDto portfolioDto, String productId) throws Exception;
+   void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception;
    //포트폴리오 생성(예상 포트폴리오)
    //포트폴리오 수정(MyPortfolio 상품 추가 및 제거)
    //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)

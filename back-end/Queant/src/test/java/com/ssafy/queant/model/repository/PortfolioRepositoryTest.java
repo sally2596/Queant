@@ -33,10 +33,10 @@ public class PortfolioRepositoryTest {
         Optional<Member> result = memberRepository.findByEmail("string");
         Member member = result.get();
         System.out.println(member.toString());
-        Product product = productRepository.findByProductId("01012000200000000003");
+        //Product product = productRepository.findByProductId("01012000200000000003");
         Portfolio portfolio = Portfolio.builder()
                 .member(member)
-                .product(product)
+                //.product(product)
                 .portfolioNo(0)
                 .amount(10000L)
                 .startDate(new java.util.Date())

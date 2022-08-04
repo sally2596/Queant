@@ -113,24 +113,23 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
-   public PortfolioDto insertPortfolio(String email, PortfolioDto portfolioDto, String productId) throws Exception{
+   public void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception{
 
-      log.info("[insertPortfolio] : email: {}, productId : {}", email, productId);
+      log.info("[insertPortfolio] : email: {} 포트폴리오 추가", email);
       Optional<Member> result = memberRepository.findByEmail(email);
       result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
       Member member = result.get();
 
-      Optional<Product> product = productRepository.findByProductId(productId);
-      product.orElseThrow(() -> new NoSuchElementException());
+      for(PortfolioDto portfolioDto : portfolioDtoList){
+         Optional<Product> product = productRepository.findByProductId(portfolioDto.getProductId());
+         product.orElseThrow(() -> new NoSuchElementException());
 
-      Portfolio portfolio = modelMapper.map(portfolioDto, Portfolio.class);
-      portfolio.setMember(member);
-      portfolio.setProduct(product.get());
+         Portfolio portfolio = modelMapper.map(portfolioDto, Portfolio.class);
+         portfolio.setMember(member);
+         portfolio.setProduct(product.get());
 
-      Portfolio savedPortfolio = portfolioRepository.save(portfolio);
-      PortfolioDto savedPortfolioDto = modelMapper.map(savedPortfolio, PortfolioDto.class);
-      savedPortfolioDto.setProduct(modelMapper.map(savedPortfolioDto.getProduct(), ProductDto.class));
+         portfolioRepository.save(portfolio);
 
-      return savedPortfolioDto;
+      }
    }
 }
