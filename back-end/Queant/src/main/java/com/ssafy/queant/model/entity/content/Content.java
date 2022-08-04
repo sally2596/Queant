@@ -1,9 +1,6 @@
 package com.ssafy.queant.model.entity.content;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.*;
@@ -14,18 +11,19 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 @Data
-//@Entity
-//@Table
+@Entity
+@Table
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Content {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int content_id;
+    private Long contentId;
     @Column(nullable = false)
-    private String member_id;
+    private String memberId;
     @Column(nullable = false)
     private String title;
     @Lob

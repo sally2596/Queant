@@ -64,6 +64,9 @@ dependencies {
 
     // 로그에 남는 쿼리문 (?,?) 안에 채워서 보여줌, 배포시 삭제
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+
+    //Jsoup (크롤링)
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
 }
 
 tasks.named('test') {
