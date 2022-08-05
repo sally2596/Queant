@@ -52,15 +52,16 @@
 .deposit {
   margin-top: 5px;
 }
-.select {
-  padding: auto;
-  padding: 20px;
+
+#banks_container {
+  flex-wrap: wrap;
+  display: flex;
+  justify-self: start;
 }
 
-.select h6 {
-  margin-bottom: 10px;
+.product_section label {
+  font-size: 12px;
 }
-
 /* 가져온 것 */
 
 /* 필터정보 */
