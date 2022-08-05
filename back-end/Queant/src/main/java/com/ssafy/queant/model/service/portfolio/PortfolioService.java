@@ -22,7 +22,7 @@ public interface PortfolioService {
    PortfolioResponseDto getMyPortfolio(String email) throws Exception;
    //포트폴리오 조회(예상 포트폴리오)
    List<PortfolioDto> getPortfolio(UUID memberId, int cnt) throws Exception;
-   //포트폴리오 생성(MyPortfolio)
+   //포트폴리오 생성(MyPortfolio) 아 중복 처리는 어케 하지?
    void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception;
    //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
    //포트폴리오 삭제(예상 포트폴리오)
