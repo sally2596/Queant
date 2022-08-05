@@ -301,23 +301,55 @@ def fetch_specificcode(common_code_join, common_code_condition, common_code_prod
         product_tags[row[2]] = row[0]
     return join_ways, condition_tags, product_tags
 
+def fetch_commoncode_trait(cur):
+    # 공통코드에서 필요한 코드를 가져온다.
+    cur.execute("SELECT code_id FROM queant.common_code where code_value = \"특징\"")
+    row = cur.fetchone()
+    if row != None:
+        common_code_trait = row[0]
+        
+    return common_code_trait
+
+def fetch_specificcode_trait(common_code_trait, cur):
+    #가입 방법 코드
+    query_find_join = """SELECT * FROM queant.specific_code where code_id = (%s)"""
+    cur.execute(query_find_join,common_code_trait)
+    trait_tags = {}
+    while True:
+        row = cur.fetchone()
+        if row == None:
+            break
+        trait_tags[row[2]] = row[0]
+    return trait_tags
+
 
 #상품 table에 정보들을 담는다.
 #python은 전부다 %s를 써야함.
 def save_into_db(cur, conn, data_xml, is_deposit):
-    query_prdt_search = """select * from queant.product where product_id = (%s);""" #중복체크 확인 쿼리문
+    query_prdt_search = """select * from queant.product where product_code = (%s) and bank_id = (%s) and name = (%s);""" #중복체크 확인 쿼리문
+    query_prdt_update_search = """select term_min, term_max from queant.product where product_id = (%s);""" #중복체크 확인 쿼리문
     query_join_search = """select * from queant.joinway where product_id = (%s) and scode_id = (%s);"""
     query_option_search = """select * from queant.options where product_id = (%s) and save_term = (%s) and rate_type = (%s);"""
-    query_condition_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and special_rate = (%s) and condition_info = (%s);"""
-    query_prdt = """INSERT INTO queant.product (product_id, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    query_condition_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info = (%s);"""
+    query_condition_null_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info is null;"""
+    query_trait_search = """select * from queant.trait_set where product_id = (%s) and scode_id = (%s)"""
+    #query_bank_condition_search = """select * from queant.bank_conditions where bank_id = (%s) and scode_id = (%s)"""
+    query_prdt = """INSERT INTO queant.product (product_code, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
     query_join = """INSERT INTO queant.joinway (product_id, scode_id) values (%s,%s);"""
     query_option = """INSERT INTO queant.options (product_id, base_rate, high_base_rate, save_term, rate_type, rsrv_type) values (%s,%s,%s,%s,%s,%s);"""
     query_condition = """INSERT INTO queant.conditions (product_id, scode_id, special_rate, condition_info) values (%s,%s,%s,%s)"""
-    
+    query_trait = """INSERT INTO queant.trait_set (product_id, scode_id) values (%s,%s)"""
+    #query_bank_condition = """INSERT INTO queant.bank_conditions (bank_id, scode_id) values (%s, %s)"""
+    query_update_prdt = """UPDATE queant.product SET term_min = (%s) ,term_max = (%s) where product_id = (%s)"""
+
     common_code_join, common_code_condition, common_code_product = fetch_commoncode(cur)
     join_ways, condition_tags, product_tags = fetch_specificcode(common_code_join, common_code_condition, common_code_product, cur)
+    
+    common_code_trait = fetch_commoncode_trait(cur)
+    trait_tags = fetch_specificcode_trait(common_code_trait,cur)
+    
     for product_tag in data_xml[5]:
-        prdt_id = product_tag[0].find("fin_prdt_cd").text #상품코드
+        prdt_code = product_tag[0].find("fin_prdt_cd").text #상품코드
         
         bank_id = int(product_tag[0].find("fin_co_no").text) #은행코드
         
@@ -332,9 +364,24 @@ def save_into_db(cur, conn, data_xml, is_deposit):
         etc = product_tag[0].find("etc_note").text #기타
         min_cost, max_cost = max_min_cost(etc) #최소, 최대금액
         
-        age_min, age_max = max_min_join(join_member)    
+        age_min, age_max = max_min_join(join_member)
+        
         term_min = None
         term_max = None
+        
+        #상품 table에 상품 저장
+        values = (prdt_code, bank_id, prdt_name)
+        cur.execute(query_prdt_search, values)
+        row = cur.fetchone()
+        if row == None:
+            #product_id, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled
+            values = (prdt_code,bank_id,product_tags["금융감독원API"],deposit,prdt_name, age_min, age_max, term_min, term_max, min_cost, max_cost, etc, 1)
+            cur.execute(query_prdt, values)
+            prdt_id = cur.lastrowid
+        else:
+            prdt_id = row[0]
+
+        
         
         #가입방법 table에 가입방법 저장
         for join_way in join_ways:
@@ -344,7 +391,7 @@ def save_into_db(cur, conn, data_xml, is_deposit):
                 if cur.fetchone() == None:
                     cur.execute(query_join, values)
         
-        #옵션 체크
+        #옵션 체크 후 db저장
         for option_tag in product_tag[1]:
             rate = float(option_tag.find("intr_rate").text)
             high_base_rate = option_tag.find("intr_rate2").text
@@ -374,13 +421,13 @@ def save_into_db(cur, conn, data_xml, is_deposit):
             if cur.fetchone() == None:
                 values = (prdt_id, rate, high_base_rate ,save_term, rate_type, rsrv_type)
                 cur.execute(query_option, values)
-                
-        #상품 table에 상품 저장
-        cur.execute(query_prdt_search, prdt_id)
-        if cur.fetchone() == None:
-            #product_id, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled
-            values = (prdt_id,bank_id,product_tags["금융감독원API"],deposit,prdt_name, age_min, age_max, term_min, term_max, min_cost, max_cost, etc, 1)
-            cur.execute(query_prdt, values)
+        
+        cur.execute(query_prdt_update_search, prdt_id)
+        update_row = cur.fetchone()
+        if update_row != None:
+            if update_row[0] == None:
+                values= (term_min, term_max, prdt_id)
+                cur.execute(query_update_prdt,values)        
             
         #우대사항 table에 조건들 저장
         special = product_tag[0].find("spcl_cnd").text
@@ -390,15 +437,17 @@ def save_into_db(cur, conn, data_xml, is_deposit):
             for tag in data[0]:
                 if is_opverlaped == 0:
                     values = (prdt_id, condition_tags[tag], data[1], data[2])
+                    check_values = (prdt_id, condition_tags[tag], data[2])
                     is_opverlaped = 1
+                    cur.execute(query_condition_search, check_values)
+                    if cur.fetchone() == None:
+                        cur.execute(query_condition, values)  
                 else:
                     values = (prdt_id, condition_tags[tag], data[1], None)
-                
-                cur.execute(query_condition_search, values)
-                if cur.fetchone() == None:
-                    cur.execute(query_condition, values)    
-                
-                
+                    check_values = (prdt_id, condition_tags[tag])
+                    cur.execute(query_condition_null_search, check_values)
+                    if cur.fetchone() == None:
+                        cur.execute(query_condition, values)
     conn.commit()
     
 
