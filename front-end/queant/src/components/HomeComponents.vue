@@ -79,7 +79,7 @@
             <div class="icon-box icon-box-blue">
               <div class="icon"><i class="fa-solid fa-newspaper"></i></div>
               <h4 class="title"><router-link :to="{ name : 'contents' }">컨텐츠</router-link></h4>
-              <p class="description">QueÆnt팀에서 엄선해 제작한 금융 컨텐츠를 즐길 수 있습니다.</p>
+              <p class="description">QueÆnt팀에서 엄선해 제작한 다양한 금융 컨텐츠를 즐길 수 있습니다.</p>
             </div>
           </div>
 
