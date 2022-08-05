@@ -90,16 +90,16 @@
 <br><br><br><br><br><br>
     <!-- ======= Features Section ======= -->
     <section class="features">
-      <div class="container">
+      <div class="container news-section">
 
-        <div class="section-title">
+        <div class="section-title" style="margin-bottom:10%;">
           <h2>News</h2>
           <p>투자에 도움이 되는 금융뉴스입니다.</p>
         </div>
 
-        <div class="row" data-aos="fade-up">
-          <div class="col-md-5">
-            <img src="assets/img/features-1.svg" class="img-fluid" alt="">
+        <a href={{newslist[0].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+          <div class="col-md-5 image-box">
+            <img :src="newslist[0].img_link" class="img-news-thumbnail" alt="">
           </div>
           <div class="col-md-7 pt-4">
             <h3>{{newslist[0].title}}</h3>
@@ -110,11 +110,11 @@
               <li><i class="bi bi-check"></i> {{newslist[0].writer}}</li>
             </ul>
           </div>
-        </div>
+        </div></a>
 
-        <div class="row" data-aos="fade-up">
-          <div class="col-md-5 order-1 order-md-2">
-            <img src="assets/img/features-2.svg" class="img-fluid" alt="">
+        <a href={{newslist[1].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+          <div class="col-md-5 order-1 order-md-2 image-box">
+            <img :src="newslist[1].img_link" class="img-news-thumbnail" alt="">
           </div>
           <div class="col-md-7 pt-5 order-2 order-md-1">
             <h3>{{newslist[1].title}}</h3>
@@ -125,11 +125,11 @@
               {{newslist[1].writer}}
             </p>
           </div>
-        </div>
+        </div></a>
 
-        <div class="row" data-aos="fade-up">
-          <div class="col-md-5">
-            <img src="assets/img/features-3.svg" class="img-fluid" alt="">
+        <a href={{newslist[2].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+          <div class="col-md-5 image-box">
+            <img :src="newslist[2].img_link" class="img-news-thumbnail" alt="">
           </div>
           <div class="col-md-7 pt-5">
             <h3>{{newslist[2].title}}</h3>
@@ -138,11 +138,11 @@
               <li><i class="bi bi-check"></i> {{newslist[2].writer}}</li>
             </ul>
           </div>
-        </div>
+        </div></a>
 
-        <div class="row" data-aos="fade-up">
-          <div class="col-md-5 order-1 order-md-2">
-            <img src="assets/img/features-4.svg" class="img-fluid" alt="">
+        <a href={{newslist[3].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+          <div class="col-md-5 order-1 order-md-2 image-box">
+            <img :src="newslist[3].img_link" class="img-news-thumbnail" alt="">
           </div>
           <div class="col-md-7 pt-5 order-2 order-md-1">
             <h3>{{newslist[3].title}}</h3>
@@ -153,10 +153,10 @@
               {{newslist[3].writer}}
             </p>
           </div>
-        </div>
+        </div></a>
 
       </div>
-    </section><!-- End Features Section -->
+    </section>End Features Section
 
   </main><!-- End #main -->
 </template>
@@ -170,9 +170,6 @@ export default {
   },
   methods: {
     ...mapActions(['getNews']),
-    test() {
-      alert(this.newslist[0].img_link);
-    }
   },
   created() {
     this.getNews();
