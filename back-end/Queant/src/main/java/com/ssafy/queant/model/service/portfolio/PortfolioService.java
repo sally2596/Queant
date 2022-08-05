@@ -1,5 +1,7 @@
-package com.ssafy.queant.model.service;
+package com.ssafy.queant.model.service.portfolio;
 
+import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
+import com.ssafy.queant.model.dto.portfolio.PortfolioResponseDto;
 import com.ssafy.queant.model.dto.product.CustomProductDto;
 
 import java.util.List;
@@ -17,10 +19,12 @@ public interface PortfolioService {
    CustomProductDto updateCustomProduct(CustomProductDto customProductDto) throws Exception;
 
    //포트폴리오 조회(MyPortfolio)
+   PortfolioResponseDto getMyPortfolio(String email) throws Exception;
    //포트폴리오 조회(예상 포트폴리오)
-   //포트폴리오 생성(MyPortfolio)
-   //포트폴리오 생성(예상 포트폴리오)
-   //포트폴리오 수정(MyPortfolio 상품 추가 및 제거)
+   List<PortfolioDto> getPortfolio(UUID memberId, int cnt) throws Exception;
+   //포트폴리오 생성(MyPortfolio) 아 중복 처리는 어케 하지?
+   void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception;
    //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
    //포트폴리오 삭제(예상 포트폴리오)
+   //포트폴리오 비교... 와 암담하다
 }

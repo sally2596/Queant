@@ -1,4 +1,4 @@
-package com.ssafy.queant.model.service;
+package com.ssafy.queant.model.service.member;
 
 import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;

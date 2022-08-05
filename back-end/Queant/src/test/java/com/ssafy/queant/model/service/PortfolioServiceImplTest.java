@@ -2,6 +2,7 @@ package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.product.CustomProductDto;
 import com.ssafy.queant.model.repository.MemberRepository;
+import com.ssafy.queant.model.service.portfolio.PortfolioServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
