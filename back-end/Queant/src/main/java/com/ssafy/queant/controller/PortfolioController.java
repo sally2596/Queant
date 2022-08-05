@@ -35,16 +35,16 @@ public class PortfolioController {
             @ApiResponse(code = 200, message="상품 등록 성공"),
             @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
     })
-    @ApiOperation(value="사용자 정의 상품 등록", notes="email 필수")
+    @ApiOperation(value="사용자 정의 상품 등록", notes="email, customProductDto 필수")
     @PostMapping("/custom")
-    public ResponseEntity<?> registCustomProduct(@RequestBody CustomProductDto customProductDto,@RequestBody String email){
+    public ResponseEntity<?> registCustomProduct(@RequestBody PortfolioRequestDto portfolioRequestDto){
         log.info("[CustomProduct Regist]");
 
-        MemberDto memberDto = memberService.findMember(email);
+        MemberDto memberDto = memberService.findMember(portfolioRequestDto.getEmail());
 
         if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        CustomProductDto saved = portfolioService.registCustomProduct(customProductDto,memberDto.getMemberId());
+        CustomProductDto saved = portfolioService.registCustomProduct(portfolioRequestDto.getCustomProductDto(),memberDto.getMemberId());
 
         // 저장된 Dto를 Response에 담아서 넘겨주어 프로덕트 키 값을 갖게 함
         return new ResponseEntity<CustomProductDto>(saved,HttpStatus.OK);
@@ -54,7 +54,7 @@ public class PortfolioController {
             @ApiResponse(code = 200, message="상품 삭제 성공"),
             @ApiResponse(code = 404, message="존재하는 상품이 아닙니다."),
     })
-    @ApiOperation(value="사용자 정의 상품 삭제", notes="email 필수")
+    @ApiOperation(value="사용자 정의 상품 삭제", notes="삭제하려는 customProduct의 productId 필수")
     @DeleteMapping("/custom")
     public ResponseEntity<?> deleteCustomProduct(@RequestBody CustomProductDto customProductDto){
         log.info("[CustomProduct Delete]");
@@ -161,7 +161,7 @@ public class PortfolioController {
             @ApiResponse(code = 409, message="가상 포트폴리오를 보유하고 있지 않습니다."),
             @ApiResponse(code = 500, message="기타 서버 에러"),
     })
-    @ApiOperation(value="MyPortfolio 조회", notes="유저 email 필수")
+    @ApiOperation(value="가상 포트폴리오 조회", notes="유저 email 필수")
     @PostMapping("/virtual")
     public ResponseEntity<?> VirtualPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
         log.info("[Controller: MyPortfolio 조회]");

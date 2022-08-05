@@ -1,13 +1,11 @@
 package com.ssafy.queant.model.entity.member;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ssafy.queant.model.entity.portfolio.Portfolio;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.sound.sampled.Port;
 import java.sql.Date;
 import java.util.*;
 
@@ -24,7 +22,7 @@ public class Member {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Type(type="org.hibernate.type.UUIDCharType")
-    private UUID member_id;
+    private UUID memberId;
     @Column(nullable = true, unique=true)
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

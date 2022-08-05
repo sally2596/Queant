@@ -14,7 +14,7 @@ import java.util.UUID;
 @ToString
 @Builder
 public class PortfolioDto {
-    private String productId;
+    private int productId;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private ProductDto product;
     private int portfolioNo;

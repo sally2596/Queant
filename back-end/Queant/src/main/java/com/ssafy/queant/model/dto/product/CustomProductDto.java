@@ -1,5 +1,6 @@
 package com.ssafy.queant.model.dto.product;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.sql.Date;
@@ -24,5 +25,4 @@ public class CustomProductDto {
     private Long amountRegular; // 적금일때 한달에 넣을 금액
     private Date startDate;
     private Date endDate;
-    private UUID memberId;
 }

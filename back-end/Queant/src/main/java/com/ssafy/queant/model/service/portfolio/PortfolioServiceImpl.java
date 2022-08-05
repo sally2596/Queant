@@ -3,7 +3,6 @@ package com.ssafy.queant.model.service.portfolio;
 import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
 import com.ssafy.queant.model.dto.portfolio.PortfolioResponseDto;
 import com.ssafy.queant.model.dto.product.CustomProductDto;
-import com.ssafy.queant.model.dto.product.ProductDto;
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.portfolio.Portfolio;
 import com.ssafy.queant.model.entity.product.CustomProduct;
@@ -12,7 +11,6 @@ import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.model.repository.PortfolioRepository;
 import com.ssafy.queant.model.repository.product.CustomProductRepository;
 import com.ssafy.queant.model.repository.product.ProductRepository;
-import com.ssafy.queant.model.service.portfolio.PortfolioService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +99,7 @@ public class PortfolioServiceImpl implements PortfolioService {
       result.orElseThrow(() -> new NoSuchElementException());
 
       CustomProduct customProduct = modelMapper.map(customProductDto, CustomProduct.class);
+      customProduct.setMemberId(result.get().getMemberId());
       CustomProduct savedCustomProduct = customProductRepository.save(customProduct);
 
       CustomProductDto savedCustomProductDto = modelMapper.map(savedCustomProduct,CustomProductDto.class);
@@ -118,7 +117,7 @@ public class PortfolioServiceImpl implements PortfolioService {
       PortfolioResponseDto portfolioResponseDto = new PortfolioResponseDto();
       //사용자 정의상품 찾기
       try{
-         List<CustomProductDto> customProductDtoList = findCustomProductByMemberId(member.getMember_id());
+         List<CustomProductDto> customProductDtoList = findCustomProductByMemberId(member.getMemberId());
          portfolioResponseDto.setCustomProductList(customProductDtoList);
       } catch(Exception e){
          e.printStackTrace();
@@ -126,7 +125,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
       //0번 포트폴리오 찾기
       try {
-         List<PortfolioDto> myPortfolioList = getPortfolio(member.getMember_id(), 0);
+         List<PortfolioDto> myPortfolioList = getPortfolio(member.getMemberId(), 0);
          portfolioResponseDto.setPortfolioList(myPortfolioList);
       } catch(Exception e) {
          e.printStackTrace();
@@ -139,7 +138,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    @Override
    public List<PortfolioDto> getPortfolio(UUID memberId, int portfolioNo) throws Exception {
       List<PortfolioDto> response = new ArrayList<>();
-      Optional<List<Portfolio>> result = portfolioRepository.findByMemberAndPortfolioNo(memberId, portfolioNo);
+      Optional<List<Portfolio>> result = portfolioRepository.findByMemberMemberIdAndPortfolioNo(memberId, portfolioNo);
 
       result.orElseThrow(() -> new NoSuchElementException("해당 포트폴리오가 없습니다."));
 

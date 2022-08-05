@@ -1,5 +1,6 @@
 package com.ssafy.queant.model.dto.portfolio;
 
+import com.ssafy.queant.model.dto.product.CustomProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,5 +14,6 @@ import java.util.List;
 @Builder
 public class PortfolioRequestDto {
     List<PortfolioDto> portfolioDtoList;
+    CustomProductDto customProductDto;
     String email;
 }

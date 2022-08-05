@@ -10,5 +10,5 @@ import java.util.UUID;
 
 public interface PortfolioRepository extends JpaRepository<Portfolio, Integer> {
 
-    Optional<List<Portfolio>> findByMemberAndPortfolioNo(UUID memberId, int portfolioNo);
+    Optional<List<Portfolio>> findByMemberMemberIdAndPortfolioNo(UUID memberId, int portfolioNo);
 }
