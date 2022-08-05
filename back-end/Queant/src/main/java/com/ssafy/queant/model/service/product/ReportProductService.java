@@ -7,7 +7,7 @@ import java.util.List;
 public interface ReportProductService {
     List<ReportProductDto> findAll();
 
-    boolean updateReportToProduct(ReportProductDto reportProductDto);
+    void updateReportToProduct(int reportProductId);
 
-    boolean registReport(ReportProductDto reportProductDto);
+    void registReport(ReportProductDto reportProductDto);
 }
