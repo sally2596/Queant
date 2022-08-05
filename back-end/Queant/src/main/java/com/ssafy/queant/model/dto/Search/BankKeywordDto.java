@@ -11,4 +11,5 @@ public class BankKeywordDto {
     String scodeId;
     String bankId;
     String bankName;
+    String shortName;
 }
