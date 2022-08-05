@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class SearchServiceImpl implements SearchService{
+public class SearchServiceImpl implements SearchService {
 
     private final SpecificCodeRepository specificCodeRepository;
     private final BankRepository bankRepository;
@@ -33,27 +33,33 @@ public class SearchServiceImpl implements SearchService{
         List<SpecificCode> specificJoin = specificCodeRepository.findByCodeId("A");
         List<SpecificCode> specificCondition = specificCodeRepository.findByCodeId("B");
         List<SpecificCode> specificBankType = specificCodeRepository.findByCodeId("C");
+        List<SpecificCode> specificTraitSet = specificCodeRepository.findByCodeId("E");
 
         List<SpecificCodeDto> joinway = new ArrayList<>();
         List<SpecificCodeDto> conditions = new ArrayList<>();
         List<SpecificCodeDto> bankType = new ArrayList<>();
+        List<SpecificCodeDto> traitSet = new ArrayList<>();
 
-        for (SpecificCode j:specificJoin) {
-            joinway.add(modelMapper.map(j,SpecificCodeDto.class));
+        for (SpecificCode j : specificJoin) {
+            joinway.add(modelMapper.map(j, SpecificCodeDto.class));
         }
 
-        for (SpecificCode c:specificCondition) {
-            conditions.add(modelMapper.map(c,SpecificCodeDto.class));
+        for (SpecificCode c : specificCondition) {
+            conditions.add(modelMapper.map(c, SpecificCodeDto.class));
         }
 
-        for (SpecificCode b:specificBankType) {
-            bankType.add(modelMapper.map(b,SpecificCodeDto.class));
+        for (SpecificCode b : specificBankType) {
+            bankType.add(modelMapper.map(b, SpecificCodeDto.class));
+        }
+
+        for (SpecificCode t : specificTraitSet) {
+            traitSet.add(modelMapper.map(t, SpecificCodeDto.class));
         }
 
         List<Bank> bank = bankRepository.findAll();
         List<BankKeywordDto> bankDto = new ArrayList<>();
-        for (Bank b:bank) {
-            bankDto.add(modelMapper.map(b,BankKeywordDto.class));
+        for (Bank b : bank) {
+            bankDto.add(modelMapper.map(b, BankKeywordDto.class));
         }
 
         SearchKeywordDto searchKeywordDto = SearchKeywordDto.builder()
@@ -61,6 +67,7 @@ public class SearchServiceImpl implements SearchService{
                 .bankType(bankType)
                 .conditions(conditions)
                 .bank(bankDto)
+                .traitSet(traitSet)
                 .build();
 
         return searchKeywordDto;

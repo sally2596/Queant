@@ -120,19 +120,19 @@ public class ProductServiceImpl implements ProductService {
         return modelMapper.map(savedProduct, ProductDto.class);
     }
 
-    @Override
-    public ProductDto updateToProovedProduct(int productId) {
-        Optional<Product> result = productRepository.findByProductId(productId);
-
-        if (result.isPresent()) {
-            Product product = result.get();
-            product.setEnabled(true);
-            productRepository.save(product);
-            return modelMapper.map(product, ProductDto.class);
-        }
-
-        return null;
-    }
+//    @Override
+//    public ProductDto updateToProovedProduct(int productId) {
+//        Optional<Product> result = productRepository.findByProductId(productId);
+//
+//        if (result.isPresent()) {
+//            Product product = result.get();
+//            product.setEnabled(true);
+//            productRepository.save(product);
+//            return modelMapper.map(product, ProductDto.class);
+//        }
+//
+//        return null;
+//    }
 
     @Override
     public List<ProductDto> findByIsEnabledFalse() {

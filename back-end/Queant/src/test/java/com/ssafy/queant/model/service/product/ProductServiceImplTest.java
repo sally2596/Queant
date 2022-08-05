@@ -52,14 +52,14 @@ class ProductServiceImplTest {
         ProductDto saved = productService.registProduct(product);
     }
 
-    @Test
-    void updateToProovedProduct() {
-        int productId = 1;
-
-        ProductDto saved = productService.updateToProovedProduct(productId);
-
-        log.info(saved.toString());
-    }
+//    @Test
+//    void updateToProovedProduct() {
+//        int productId = 1;
+//
+//        ProductDto saved = productService.updateToProovedProduct(productId);
+//
+//        log.info(saved.toString());
+//    }
 
     @Test
     void findByIsEnabledFalse() {

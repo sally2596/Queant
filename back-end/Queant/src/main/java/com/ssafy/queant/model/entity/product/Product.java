@@ -18,7 +18,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
-    @Column(nullable = false)
     private String productCode;
 
     @Column(nullable = false)
