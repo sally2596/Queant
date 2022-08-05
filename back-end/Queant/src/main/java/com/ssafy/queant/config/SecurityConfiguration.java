@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     };
     private static final String[] AUTH_WHITELIST = {
             "/social/**", "/member/emailcheck", "/member/emailverify",
-            "/member/register", "/member/login", "/member/refreshtoken"
+            "/member/register", "/member/login", "/member/refreshtoken", "/", "/contents/**"
     };
     private final JwtTokenProvider jwtTokenProvider;
 
