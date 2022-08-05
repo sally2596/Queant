@@ -131,7 +131,7 @@ const routes = [
     component: ProductDetailView
   },
   {
-    path: '/product/search/:keyword',
+    path: '/product/search/:text',
     name: 'productSearch',
     component: ProductSearchView
   },

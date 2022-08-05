@@ -19,10 +19,10 @@ export default {
   },
   actions: {
     fetchUsers({ dispatch, commit, getters }, payload) {
-      // 액세스토큰이 만료 됐는지 확인해서 만료됐으면 재발급
-      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired) {
+      // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
+      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')
-      }
+
       axios({
         url: spring.member.list(),
         method: 'get',
@@ -47,10 +47,10 @@ export default {
       })
     },
     editEnabled({ getters }, email) {
-      // 액세스토큰이 만료 됐는지 확인해서 만료됐으면 재발급
-      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired) {
+      // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
+      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')
-      }
+
       axios({
         url: spring.member.status(),
         method: 'put',
@@ -69,10 +69,10 @@ export default {
       })
     },
     editRoleSet({ getters }, { email, role_set }) {
-      // 액세스토큰이 만료 됐는지 확인해서 만료됐으면 재발급
-      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired) {
+      // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
+      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')
-      }
+        
       if (role_set.length === 2 && role_set[1] === 'ROLE_ADMIN') {
         role_set = ['ROLE_USER', 'ROLE_SUPER', 'ROLE_ADMIN']
       }
