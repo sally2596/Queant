@@ -6,8 +6,11 @@
   <section class="product_section">
     <div class="cart-none">
         <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width: 300px; height:280px;">
+        
+        <br><br>
         <h5>담긴 상품이 없습니다.</h5>
-        <br><br><br>
+        
+        <br><br>
         <button class="btn btn-outline-success">상품 추천받기</button>
     </div>
   </section>
