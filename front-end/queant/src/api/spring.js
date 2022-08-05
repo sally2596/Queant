@@ -7,6 +7,7 @@ const BANK = 'bank/'
 const SEARCH = 'search/'
 const PRODUCT = 'product/'
 const CONTENTS = 'contents/'
+const PORTFOLIO = 'portfolio/'
 
 export default {
   member: {
@@ -45,5 +46,8 @@ export default {
     newslist: () => HOST,
     articledetail: (contentId) => HOST + CONTENTS + contentId,
     edit: () => HOST + CONTENTS + 'edit'
+  },
+  portfolio: {
+    posession: () => HOST + PORTFOLIO + 'posession',
   }
 }

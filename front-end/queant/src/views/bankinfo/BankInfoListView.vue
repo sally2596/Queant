@@ -11,7 +11,7 @@
   <section class="section-floater">
     <div id="featured_banks">
       <div class="row">
-        <div class="col-lg-4 col-6 my-2" v-for="bank in banks" :key="bank.bank_id" v-show="bank.scode_id=='C001'">
+        <div class="col-lg-4 col-6 my-2" v-for="bank in banks" :key="bank.bank_id" v-show="bank.scode_id=='C001'" data-aos="fade-up">
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{bank.bank_name}}</h5>
@@ -35,7 +35,7 @@
   <section class="section-floater">
     <div id="featured_banks">
       <div class="row">
-        <div class="col-lg-4 col-6 my-2" v-for="bank in banks" :key="bank.bank_id" v-show="bank.scode_id=='C002'">
+        <div class="col-lg-4 col-6 my-2" v-for="bank in banks" :key="bank.bank_id" v-show="bank.scode_id=='C002'" data-aos="fade-up">
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{bank.bank_name}}</h5>
