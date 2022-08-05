@@ -25,7 +25,7 @@ public class ContentServiceImpl implements ContentService {
         List<NewsDto> newsList = new ArrayList<>();
         
         //네이버 뉴스에서 한번에 긁어올 페이지 수
-        int page = 5;
+        int page = 1;
 
         for (int i=1; i<=page; i++) {
             final String url = "https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=101&sid2=259" + "&page=" + i;

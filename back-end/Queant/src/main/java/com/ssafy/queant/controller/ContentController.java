@@ -33,7 +33,7 @@ public class ContentController { ;
             @ApiResponse(code = 403, message="접속이 거부되었습니다.")
     })
     @ApiOperation(value="뉴스 기사 목록 조회", notes="기사 리스트 정보 반환.")
-    @PostMapping("/")
+    @GetMapping("/")
     public ResponseEntity<List<NewsDto>> NewsList() throws Exception {
         log.info("[NewsList] is running");
         List<NewsDto> newsList = contentService.getNewsList();
