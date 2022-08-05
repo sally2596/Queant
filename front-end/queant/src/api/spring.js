@@ -6,6 +6,7 @@ const SOCIAL = 'social/'
 const BANK = 'bank/'
 const SEARCH = 'search/'
 const PRODUCT = 'product/'
+const CONTENTS = 'contents/'
 
 export default {
   member: {
@@ -39,5 +40,10 @@ export default {
   },
   product: {
     detail: (productId) => HOST + PRODUCT + productId
+  },
+  contents: {
+    newslist: () => HOST,
+    articledetail: (contentId) => HOST + CONTENTS + contentId,
+    edit: () => HOST + CONTENTS + 'edit'
   }
 }
