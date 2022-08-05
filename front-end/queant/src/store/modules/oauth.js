@@ -7,7 +7,6 @@ export default {
   getters: {},
   mutations: {},
   actions: {
-
     googleLogin() {
       axios({
         url: spring.social.google(),
