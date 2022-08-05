@@ -26,6 +26,9 @@ public class Bank {
     @Column(nullable = false)
     private String bankName;
 
+    @Column(nullable = false)
+    private String shortName;
+
     private String homepage;
     private String tel;
     private String picture;
