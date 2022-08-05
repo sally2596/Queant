@@ -40,7 +40,7 @@ public class ContentServiceImpl implements ContentService {
             Elements articlesSub = element.getElementsByAttributeValue("class","lede");
             Elements articlesWriter = element.getElementsByAttributeValue("class","writing");
 
-            for (int j=0; j<articlesMain.size(); j++) {
+            for (int j=0; j<5; j++) {
                 NewsDto news = new NewsDto();
 
                 Element article = articlesMain.get(j);
