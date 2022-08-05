@@ -17,4 +17,5 @@ public class PortfolioRequestDto {
     List<PortfolioDto> portfolioDtoList;
     CustomProductDto customProductDto;
     String email;
+    int portfolioNo;
 }

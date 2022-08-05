@@ -173,4 +173,69 @@ public class PortfolioServiceImpl implements PortfolioService {
 
       }
    }
+
+   //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
+   @Override
+   public void updatePortfolio(String email, List<PortfolioDto> portfolioDtoList, int portfolioNo) throws Exception {
+      //유저 찾기
+      log.info("[updatePortfolio] : email: {} 포트폴리오 수정, 포트폴리오 번호: {}", email, portfolioNo);
+      Optional<Member> result = memberRepository.findByEmail(email);
+      result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+      Member member = result.get();
+
+      //기존의 포트폴리오 가져오기
+      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findByMemberMemberIdAndPortfolioNo(member.getMemberId(),portfolioNo);
+      result.orElseThrow(() -> new NoSuchElementException());
+
+      HashMap<Integer,Integer> map = new HashMap<>();
+      List<Portfolio> existing = portfolioResult.get();
+
+      for(int i=0; i<existing.size(); i++){
+         map.put(existing.get(i).getPortfolioId(),i);
+      }
+
+      for(PortfolioDto portfolioDto: portfolioDtoList){
+         //기존에 있던 포트폴리오 수정
+         if(map.containsKey(portfolioDto.getPortfolioId())){
+            Portfolio portfolio = existing.get(map.get(portfolioDto.getPortfolioId()));
+            portfolio.setAmount(portfolioDto.getAmount());
+            portfolio.setStartDate(portfolioDto.getStartDate());
+            portfolio.setEndDate(portfolioDto.getEndDate());
+            portfolio.setSpecialRate(portfolioDto.getSpecialRate());
+            portfolio.setAmountFixed(portfolioDto.getAmountFixed());
+
+            portfolioRepository.save(portfolio);
+            map.remove(portfolioDto.getPortfolioId());
+         } else { //기존에 없다면 추가
+            Optional<Product> product = productRepository.findByProductId(portfolioDto.getProductId());
+            product.orElseThrow(() -> new NoSuchFieldException());//해당 상품이 없음
+
+            Portfolio portfolio = modelMapper.map(portfolioDto, Portfolio.class);
+            portfolio.setMember(member);
+            portfolio.setProduct(product.get());
+
+            portfolioRepository.save(portfolio);
+         }
+      }
+      //set에 남아있다면 삭제
+      for(int key : map.keySet()){
+         portfolioRepository.deleteById(key);
+      }
+   }
+
+   @Override
+   public void deletePortfolio(String email, int portfolioNo) throws Exception {
+      //유저 찾기
+      log.info("[updatePortfolio] : email: {} 포트폴리오 수정, 포트폴리오 번호: {}", email, portfolioNo);
+      Optional<Member> result = memberRepository.findByEmail(email);
+      result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
+      Member member = result.get();
+
+
+      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findByMemberMemberIdAndPortfolioNo(member.getMemberId(), portfolioNo);
+      portfolioResult.orElseThrow(()-> new NoSuchElementException());
+
+      portfolioRepository.deleteAll(portfolioResult.get());
+
+   }
 }

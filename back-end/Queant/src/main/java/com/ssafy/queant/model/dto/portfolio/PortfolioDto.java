@@ -14,16 +14,17 @@ import java.util.UUID;
 @ToString
 @Builder
 public class PortfolioDto {
-
+    @Builder.Default
+    private int portfolioId=-1;
     private int productId;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private ProductDto product;
     private int portfolioNo;
     private Long amount;
-    private Date start_date;
-    private Date end_date;
-    private float special_rate;
-    private Long amount_fixed;
+    private Date startDate;
+    private Date endDate;
+    private float specialRate;
+    private Long amountFixed;
 
 
 }
