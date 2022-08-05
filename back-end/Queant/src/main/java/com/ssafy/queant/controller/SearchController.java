@@ -57,7 +57,7 @@ public class SearchController {
             @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "예금 단품 검색", description = "키워드로 예금 단품 검색")
-    @PostMapping(value = "/deposit")
+    @PostMapping(value = "/deposit/single")
     public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto) {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -67,7 +67,7 @@ public class SearchController {
             @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "적금 단품 검색", description = "키워드로 적금 단품 검색")
-    @PostMapping(value = "/deposit")
+    @PostMapping(value = "/saving/single")
     public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto) {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -78,7 +78,7 @@ public class SearchController {
             @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "적금 세트 검색", description = "키워드로 적금 세트 검색")
-    @PostMapping(value = "/deposit")
+    @PostMapping(value = "/saving/set")
     public ResponseEntity<?> getSavingSet(@RequestBody SearchRequestDto searchRequestDto) {
 
 
