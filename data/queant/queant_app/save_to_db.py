@@ -247,6 +247,51 @@ def change_tel(tel):
         tel = tel_front + '-' + tel_middle + '-' + tel_back
     return tel
 
+def change_name(bank_name):
+    new_name = bank_name.replace("주식회사","")
+    new_name = new_name.replace("저축은행","저축")
+    
+    if "키움예스" in new_name:
+        return "키움"
+    
+    elif "상상인" in new_name:
+        return "상상인"
+    
+    elif "한국투자" in new_name:
+        return "한투"
+    
+    elif "한국투자" in new_name:
+        return "한투"
+    
+    elif "대아상호" in new_name:
+        return "대아"
+    
+    elif "머스트삼일" in new_name:
+        return "머스트"
+    
+    elif "에스앤티" in new_name:
+        return "SNT"
+    
+    elif "솔브레인" in new_name:
+        return "솔브"
+    
+    elif "엔에이치" in new_name:
+        return "NH"
+    
+    elif "JT친애" in new_name:
+        return "친애"
+    
+    elif "스탠다드차타드" in new_name:
+        return "SC제일"
+    
+    elif "한국산업은행" in new_name:
+        return "KDB"
+    
+    elif "중소기업은행" in new_name:
+        return "IBK"
+    
+    return new_name.strip()
+
 def connect_db():
     conn = pymysql.connect(host="i7a201.p.ssafy.io", port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
     cur = conn.cursor()
@@ -468,7 +513,8 @@ def save_bank_into_db(cur, conn, data_xml, banktype_num):
         bank_types[row[2]] = row[0]
         
     query_bank_search = """select * from queant.bank where bank_id = (%s);""" #중복체크 확인 쿼리문
-    query_bank = """INSERT INTO queant.bank (bank_id, scode_id, bank_name, homepage, tel) values (%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    query_bank = """INSERT INTO queant.bank (bank_id, scode_id, bank_name,short_name, homepage, tel) values (%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+
     for bank_tag in data_xml[5]:
         bank_code = bank_tag[0].find("fin_co_no").text
         bank_name = bank_tag[0].find("kor_co_nm").text
@@ -476,12 +522,14 @@ def save_bank_into_db(cur, conn, data_xml, banktype_num):
             bank_type = bank_types["은행"]
         else:
             bank_type = bank_types["저축은행"]
+            
+        new_name = change_name(bank_name)
         homepage = bank_tag[0].find("homp_url").text
         tel = change_tel(bank_tag[0].find("cal_tel").text)
         cur.execute(query_bank_search, bank_code)
         if cur.fetchone() == None:
-            values = (bank_code, bank_type, bank_name, homepage, tel)
-            cur.execute(query_bank, values) 
+            values = (bank_code, bank_type, bank_name,new_name, homepage, tel)
+            cur.execute(query_bank, values)
 
     conn.commit()
 

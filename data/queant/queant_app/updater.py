@@ -15,5 +15,5 @@ def start():
     
 def start_bank():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    scheduler.add_job(save_bank_db, trigger='cron',hour=11, minute=27)
+    scheduler.add_job(save_bank_db, trigger='cron',hour=11, minute=29)
     scheduler.start()    
