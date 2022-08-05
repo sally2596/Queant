@@ -97,64 +97,29 @@
           <p>투자에 도움이 되는 금융뉴스입니다.</p>
         </div>
 
-        <a href={{newslist[0].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
-          <div class="col-md-5 image-box">
-            <img :src="newslist[0].img_link" class="img-news-thumbnail" alt="">
+        <div
+          v-for="num in 4"
+          :key="num">
+          <div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+            <div class="col-md-5 image-box">
+              <button @click="redirectArticleLink(newslist[num].article_link)">
+                <img :src=newslist[num].img_link class="img-news-thumbnail" alt="">
+              </button>
+            </div>
+            <div class="col-md-7 pt-4">
+                <h3 style="cursor: pointer" @click="redirectArticleLink(newslist[num].article_link)">
+                  {{ newslist[num].title }}
+                </h3>
+              <p style="cursor: pointer" @click="redirectArticleLink(newslist[num].article_link)" class="fst-italic">
+                {{ newslist[num].preview }}
+              </p>
+              <ul>
+                <li><i class="bi bi-check"></i> {{ newslist[num].writer }}</li>
+              </ul>
+            </div>
           </div>
-          <div class="col-md-7 pt-4">
-            <h3>{{newslist[0].title}}</h3>
-            <p class="fst-italic">
-              {{newslist[0].preview}}
-            </p>
-            <ul>
-              <li><i class="bi bi-check"></i> {{newslist[0].writer}}</li>
-            </ul>
-          </div>
-        </div></a>
-
-        <a href={{newslist[1].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
-          <div class="col-md-5 order-1 order-md-2 image-box">
-            <img :src="newslist[1].img_link" class="img-news-thumbnail" alt="">
-          </div>
-          <div class="col-md-7 pt-5 order-2 order-md-1">
-            <h3>{{newslist[1].title}}</h3>
-            <p class="fst-italic">
-              {{newslist[1].preview}}
-            </p>
-            <p>
-              {{newslist[1].writer}}
-            </p>
-          </div>
-        </div></a>
-
-        <a href={{newslist[2].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
-          <div class="col-md-5 image-box">
-            <img :src="newslist[2].img_link" class="img-news-thumbnail" alt="">
-          </div>
-          <div class="col-md-7 pt-5">
-            <h3>{{newslist[2].title}}</h3>
-            <p>{{newslist[2].preview}}</p>
-            <ul>
-              <li><i class="bi bi-check"></i> {{newslist[2].writer}}</li>
-            </ul>
-          </div>
-        </div></a>
-
-        <a href={{newslist[3].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
-          <div class="col-md-5 order-1 order-md-2 image-box">
-            <img :src="newslist[3].img_link" class="img-news-thumbnail" alt="">
-          </div>
-          <div class="col-md-7 pt-5 order-2 order-md-1">
-            <h3>{{newslist[3].title}}</h3>
-            <p class="fst-italic">
-              {{newslist[3].preview}}
-            </p>
-            <p>
-              {{newslist[3].writer}}
-            </p>
-          </div>
-        </div></a>
-
+        </div>
+        
       </div>
     </section>End Features Section
 
@@ -170,6 +135,9 @@ export default {
   },
   methods: {
     ...mapActions(['getNews']),
+    redirectArticleLink(link) {
+      window.open(link)
+    }
   },
   created() {
     this.getNews();
