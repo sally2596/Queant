@@ -28,7 +28,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final EnumPath<Gender> gender = createEnum("gender", Gender.class);
 
-    public final ComparablePath<java.util.UUID> member_id = createComparable("member_id", java.util.UUID.class);
+    public final ComparablePath<java.util.UUID> memberId = createComparable("memberId", java.util.UUID.class);
 
     public final StringPath name = createString("name");
 
