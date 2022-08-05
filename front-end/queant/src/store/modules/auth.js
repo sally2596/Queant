@@ -10,6 +10,7 @@ export default {
     emailCheckedStatus: '',
     emailVerifiedStatus: '',
     passwordCheckedStatus: '',
+    authError: '',
     isAdmin: false,
     accessTokenExpiryTime: null,
     refreshTokenExpiryTime: null
@@ -18,6 +19,7 @@ export default {
     isLoggedIn: state => !!state.accessToken,
     isAdmin: state => state.isAdmin,
     userInfo: state => state.userInfo,
+    authError: state => state.authError,
     authHeader: state => ({ 'X-AUTH-TOKEN': state.accessToken }),
     emailCheckedStatus: state => state.emailCheckedStatus,
     emailVerifiedStatus: state => state.emailVerifiedStatus,
@@ -104,7 +106,7 @@ export default {
       })
     },
     // 4. 로그인 요청 (액세스, 리프레쉬 토큰 발급)
-    login({ dispatch }, { credentials, nextPath }) {
+    login({ dispatch, commit }, { credentials, nextPath }) {
       axios({
         url: spring.member.login(),
         method: 'post',
@@ -119,11 +121,11 @@ export default {
         router.push(nextPath)
       })
       .catch(err => {
-        console.log(err)
+        commit('SET_AUTH_ERROR', err.response.status)
       })
     },
     // 5. 사용자 정보 요청
-    fetchUserInfo({ commit, getters }, email) {
+    fetchUserInfo({ dispatch, commit, getters }, email) {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')
@@ -294,7 +296,7 @@ export default {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')
-        
+
       axios({
         url: spring.member.status(),
         method: 'put',

@@ -39,10 +39,10 @@
             <input 
             type="text"
             placeholder="빠른 상품 검색"
-            v-model="keyword"
-            @keyup.enter="searchProduct(keyword)"
+            v-model="text"
+            @keyup.enter="fetchProductsByText(text)"
             >
-            <button class="searching" @click="searchProduct(keyword)"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="searching" @click="fetchProductsByText(text)"><i class="fa-solid fa-magnifying-glass"></i></button>
           </li>
           <li class="right_content content" v-show="isAdmin">
             <router-link :to="{ name : 'admin' }">ADMIN</router-link>
@@ -79,7 +79,7 @@ export default {
     ...mapGetters(['isLoggedIn', 'isAdmin'])
   },
   methods: {
-    ...mapActions(['logout', 'searchProduct']),
+    ...mapActions(['logout', 'fetchProductsByText']),
     isCollapsed: function() {
       this.searching_place = !this.searching_place
     },
@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       searching_place : true,
-      keyword : ''
+      text : ''
     }
   },
 }
