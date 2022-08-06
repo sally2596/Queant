@@ -67,6 +67,9 @@ dependencies {
 
     //Jsoup (크롤링)
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
+
+    //aws
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {
