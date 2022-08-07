@@ -23,7 +23,7 @@ public interface PortfolioService {
 //   //포트폴리오 조회(예상 포트폴리오)
 //   List<PortfolioDto> getPortfolio(UUID memberId, int cnt) throws Exception;
 //   //포트폴리오 생성 모두 새로움
-//   void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception;
+      void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception;
 //   //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거) 있는데 달라졌으면 수정하고, 없으면 추가하고, 사라진것은 삭제(포트폴리오 단위로 시행)
 //   void updatePortfolio(String email, List<PortfolioDto> portfolioDtoList, int portfolioNo) throws Exception;
 //   //포트폴리오 삭제(예상 포트폴리오) 통으로 하나 삭제

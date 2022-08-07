@@ -6,7 +6,10 @@ import com.ssafy.queant.model.dto.product.CustomProductDto;
 
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.portfolio.Portfolio;
+import com.ssafy.queant.model.entity.portfolio.PortfolioCondition;
+import com.ssafy.queant.model.entity.product.Conditions;
 import com.ssafy.queant.model.entity.product.CustomProduct;
+import com.ssafy.queant.model.entity.product.Options;
 import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.model.repository.PortfolioRepository;
@@ -153,26 +156,40 @@ public class PortfolioServiceImpl implements PortfolioService {
 //      return response;
 //   }
 
-//   @Override
-//   public void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception{
-//
-//      log.info("[insertPortfolio] : email: {} 포트폴리오 추가", email);
-//      Optional<Member> result = memberRepository.findByEmail(email);
-//      result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
-//      Member member = result.get();
-//
-//      for(PortfolioDto portfolioDto : portfolioDtoList){
-//         Optional<Product> product = productRepository.findByProductId(portfolioDto.getProductId());
-//         product.orElseThrow(() -> new NoSuchElementException());
-//
-//         Portfolio portfolio = modelMapper.map(portfolioDto, Portfolio.class);
-//         //portfolio.setMember(member);
-//         portfolio.setProduct(product.get());
-//
-//         portfolioRepository.save(portfolio);
-//
-//      }
-//   }
+   @Override
+   public void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception{
+
+      log.info("[insertPortfolio] : email: {} 포트폴리오 추가", email);
+
+      for(PortfolioDto portfolioDto : portfolioDtoList){
+         Product product = Product.builder().productId(portfolioDto.getProductId()).build();
+         Options option = Options.builder().optionId(portfolioDto.getOptionId()).build();
+
+         //포트폴리오 생성
+         Portfolio portfolio = Portfolio.builder()
+                 .email(email)
+                 .product(product)
+                 .portfolioNo(portfolioDto.getPortfolioNo())
+                 .amount(portfolioDto.getAmount())
+                 .startDate(portfolioDto.getStartDate())
+                 .endDate(portfolioDto.getEndDate())
+                 .options(option)
+                 .build();
+
+         //컨디션 생성 및 주입
+         for(int conditionId : portfolioDto.getConditionIds()){
+            Conditions condition = Conditions.builder().conditionId(conditionId).build();
+            portfolio.addPortfolioCondition(
+                    PortfolioCondition.builder()
+                            .conditions(condition)
+                            .portfolio(portfolio)
+                            .build()
+            );
+         }
+
+         portfolioRepository.save(portfolio);
+      }
+   }
 //
 //   //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
 //   @Override

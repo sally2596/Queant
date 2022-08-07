@@ -35,7 +35,6 @@ public class PortfolioRepositoryTest {
 
 
     @Test
-//    @Transactional
     public void InsertPortfolio(){
 
         Product product = Product.builder().productId(4).build();
