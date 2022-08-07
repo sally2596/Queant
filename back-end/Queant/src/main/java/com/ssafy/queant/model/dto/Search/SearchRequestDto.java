@@ -12,7 +12,7 @@ import java.util.List;
 public class SearchRequestDto {
     Long amount;
     int period;
-    boolean isSimpleInterest; // true: 단리, false: 복리
+    Boolean isSimpleInterest; // true: 단리, false: 복리
     List<BankKeywordDto> bank;
     List<SpecificCodeDto> joinway; // 가입방법
     List<SpecificCodeDto> conditions; // 우대사항
