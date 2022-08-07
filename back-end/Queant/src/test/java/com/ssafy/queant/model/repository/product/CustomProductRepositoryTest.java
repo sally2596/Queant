@@ -131,13 +131,13 @@ class CustomProductRepositoryTest {
         final CustomProduct savedProduct3 = customProductRepository.save(product3);
 
         //when
-        List<CustomProduct> list = customProductRepository.findByMemberId(uuid);
+        //List<CustomProduct> list = customProductRepository.findByMemberId(uuid);
 
         //then
-        for (int i = 0; i < list.size(); i++) {
-            log.info("["+i+"번째 커스텀 상품]");
-            log.info(list.get(i).toString());
-        }
+//        for (int i = 0; i < list.size(); i++) {
+//            log.info("["+i+"번째 커스텀 상품]");
+//            log.info(list.get(i).toString());
+//        }
     }
 
 }

@@ -9,6 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PortfolioRepository extends JpaRepository<Portfolio, Integer> {
-    Optional<List<Portfolio>> findByMemberMemberIdAndPortfolioNo(UUID memberId, int portfolioNo);
+    //Optional<List<Portfolio>> findByMemberMemberIdAndPortfolioNo(UUID memberId, int portfolioNo);
 
 }
