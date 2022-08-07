@@ -2,11 +2,16 @@ package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.Search.BankKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
+import com.ssafy.queant.model.dto.Search.SearchRequestDto;
 import com.ssafy.queant.model.dto.Search.SpecificCodeDto;
+import com.ssafy.queant.model.dto.product.ProductDto;
 import com.ssafy.queant.model.entity.SpecificCode;
 import com.ssafy.queant.model.entity.product.Bank;
+import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.SpecificCodeRepository;
 import com.ssafy.queant.model.repository.product.BankRepository;
+import com.ssafy.queant.model.repository.product.SearchRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,17 +21,13 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
 
     private final SpecificCodeRepository specificCodeRepository;
     private final BankRepository bankRepository;
+    private final SearchRepository searchRepository;
     private final ModelMapper modelMapper;
-
-    public SearchServiceImpl(SpecificCodeRepository specificCodeRepository, BankRepository bankRepository, ModelMapper modelMapper) {
-        this.specificCodeRepository = specificCodeRepository;
-        this.bankRepository = bankRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public SearchKeywordDto getSearchKeyword() {
@@ -71,5 +72,51 @@ public class SearchServiceImpl implements SearchService {
                 .build();
 
         return searchKeywordDto;
+    }
+
+    @Override
+    public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit) {
+        int period = searchRequestDto.getPeriod();
+        Boolean isSimpleInterest = searchRequestDto.getIsSimpleInterest();
+
+        List<BankKeywordDto> bankKeywordDtos = searchRequestDto.getBank();
+        List<Integer> bank = new ArrayList<>();
+        if (bankKeywordDtos.size() > 0) {
+            for (BankKeywordDto b : bankKeywordDtos)
+                bank.add(b.getBankId());
+        }
+
+        List<SpecificCodeDto> joinwayDto = searchRequestDto.getJoinway();
+        List<String> joinway = new ArrayList<>();
+        if (joinwayDto.size() > 0) {
+            for (SpecificCodeDto s : joinwayDto) {
+                joinway.add(s.getScodeId());
+            }
+        }
+
+        List<SpecificCodeDto> conditionsDto = searchRequestDto.getConditions();
+        List<String> conditions = new ArrayList<>();
+        if (conditionsDto.size() > 0) {
+            for (SpecificCodeDto s : conditionsDto) {
+                conditions.add(s.getScodeId());
+            }
+        }
+        List<SpecificCodeDto> traitSetDto = searchRequestDto.getTraitSet();
+        List<String> traitSet = new ArrayList<>();
+        if (traitSetDto.size() > 0) {
+            for (SpecificCodeDto s : traitSetDto) {
+                traitSet.add(s.getScodeId());
+            }
+        }
+
+        List<Product> result = searchRepository.searchSingle(isDeposit, isSimpleInterest, period, bank, joinway
+                , conditions,
+                traitSet);
+
+        List<ProductDto> list = new ArrayList<>();
+        for (Product p : result) {
+            list.add(modelMapper.map(p, ProductDto.class));
+        }
+        return list;
     }
 }
