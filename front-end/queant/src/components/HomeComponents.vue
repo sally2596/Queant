@@ -97,7 +97,7 @@
           <p>투자에 도움이 되는 금융뉴스입니다.</p>
         </div>
 
-        <a href={{newslist[0].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+        <a :href="newslist[0].article_link"><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
           <div class="col-md-5 image-box">
             <img :src="newslist[0].img_link" class="img-news-thumbnail" alt="">
           </div>
@@ -112,7 +112,7 @@
           </div>
         </div></a>
 
-        <a href={{newslist[1].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+        <a :href="newslist[1].article_link"><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
           <div class="col-md-5 order-1 order-md-2 image-box">
             <img :src="newslist[1].img_link" class="img-news-thumbnail" alt="">
           </div>
@@ -127,7 +127,7 @@
           </div>
         </div></a>
 
-        <a href={{newslist[2].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+        <a :href="newslist[2].article_link"><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
           <div class="col-md-5 image-box">
             <img :src="newslist[2].img_link" class="img-news-thumbnail" alt="">
           </div>
@@ -140,7 +140,7 @@
           </div>
         </div></a>
 
-        <a href={{newslist[3].article_link}}><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
+        <a :href="newslist[3].article_link"><div class="row" data-aos="fade-up" style="margin-bottom:10%;">
           <div class="col-md-5 order-1 order-md-2 image-box">
             <img :src="newslist[3].img_link" class="img-news-thumbnail" alt="">
           </div>
