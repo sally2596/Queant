@@ -1,7 +1,14 @@
 package com.ssafy.queant.model.dto.Search;
 
+import lombok.*;
+
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 public class SearchRequestDto {
     Long amount;
     int period;
