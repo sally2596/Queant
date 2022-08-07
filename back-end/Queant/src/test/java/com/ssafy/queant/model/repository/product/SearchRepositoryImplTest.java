@@ -29,7 +29,9 @@ class SearchRepositoryImplTest {
 //        conditions.add("B003");
         List<String> traitSet = new ArrayList<>();
 //        traitSet.add("E001");
-        List<Product> p = searchRepository.searchSingle(false, null, list, joinway, conditions, traitSet);
+
+        int period = 3;
+        List<Product> p = searchRepository.searchSingle(false, null, period, list, joinway, conditions, traitSet);
         log.info(String.valueOf(p.size()));
 //        for (Product product : p
 //        ) {
