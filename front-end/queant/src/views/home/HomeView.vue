@@ -97,7 +97,7 @@
         </div>
 
         <HomeComponents
-          v-for="news in newslist"
+          v-for="news in newslist.slice(0, 4)"
           :key="news"
           :news=news>
         </HomeComponents>

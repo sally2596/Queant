@@ -315,7 +315,7 @@
                 <label 
                   class="btn btn-outline-success" 
                   :for="`saving-${bank.bank_id}`">
-                  {{ bank.bank_name }}
+                  {{ bank.short_name }}
                 </label>
               </div>
             </div>
