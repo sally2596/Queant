@@ -73,6 +73,26 @@ public class ContentServiceImpl implements ContentService {
         return newsList;
     }
 
+    @Override
+    public List<Content> getPreview(List<Content> article) throws Exception {
+
+        for (int i=0; i<article.size(); i++) {
+            String sub = article.get(i).getContent()
+                    .replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "")
+                    .replaceAll("&nbsp;", "");
+
+
+            if (sub.length()>45) {
+                sub = sub.substring(0,45);
+                sub += "...";
+            }
+
+            article.get(i).setContent(sub);
+        }
+
+        return article;
+    }
+
 //    @Override
 //    public NewsDetailDto getNewsDetail(String articleLink) throws Exception {
 //

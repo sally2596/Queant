@@ -77,7 +77,7 @@ public class ContentController { ;
     public ResponseEntity<List<Content>> ContentsList() throws Exception {
         log.info("[ContentsList] is running");
 
-        List<Content> articles = contentRepository.findAll();
+        List<Content> articles = contentService.getPreview(contentRepository.findAll());
 
         if(articles == null) {
             log.info("[ContentsList] run failed");
@@ -137,29 +137,29 @@ public class ContentController { ;
         }
     }
 
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="컨텐츠가 수정되었습니다."),
-//            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
-//    })
-//    @ApiOperation(value="컨텐츠 수정", notes="컨텐츠 수정완료 버튼을 누르면 작동 > 근데 좀 이상하게 작성한거같아서 테스트 필요")
-//    @PatchMapping("/contents/edit")
-//    public ResponseEntity<Content> ContentUpdate(@RequestBody Content entity) throws Exception {
-//        log.info("[ContentUpdate] is running");
-//
-//        //contentId는 자동부여되니까 넣지 않음
-//        Content article = Content.builder().contentId(entity.getContentId()).memberId(entity.getMemberId()).title(entity.getTitle()).content(entity.getContent()).build();
-//
-//        if(article == null) {
-//            log.info("[ContentUpdate] run failed");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else {
-//            //컨텐츠 수정
-//            contentRepository.save(article);
-//            log.info("[ContentUpdate] run finished");
-//            return new ResponseEntity<Content>(article, HttpStatus.OK);
-//        }
-//    }
+    @ApiResponses({
+            @ApiResponse(code = 200, message="컨텐츠가 수정되었습니다."),
+            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
+    })
+    @ApiOperation(value="컨텐츠 수정", notes="컨텐츠 수정완료 버튼을 누르면 작동 > 근데 좀 이상하게 작성한거같아서 테스트 필요")
+    @PutMapping("/contents/edit")
+    public ResponseEntity<Content> ContentUpdate(@RequestBody Content entity) throws Exception {
+        log.info("[ContentUpdate] is running");
+
+        //contentId는 자동부여되니까 넣지 않음
+        Content article = Content.builder().contentId(entity.getContentId()).memberId(entity.getMemberId()).title(entity.getTitle()).content(entity.getContent()).build();
+
+        if(article == null) {
+            log.info("[ContentUpdate] run failed");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            //컨텐츠 수정
+            contentRepository.save(article);
+            log.info("[ContentUpdate] run finished");
+            return new ResponseEntity<Content>(article, HttpStatus.OK);
+        }
+    }
 
     @ApiResponses({
             @ApiResponse(code = 200, message="컨텐츠가 삭제되었습니다."),
