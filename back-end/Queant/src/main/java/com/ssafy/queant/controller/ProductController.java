@@ -73,7 +73,7 @@ public class ProductController {
     }
 
     @ApiResponses({
-            @ApiResponse(code = 200, message = "제보상품 등록에 성공했습니다."),
+            @ApiResponse(code = 200, message = "제보의 상품화가 성공했습니다."),
             @ApiResponse(code = 404, message = "등록하려는 제보가 없습니다.(제보 id 오류)"),
     })
     @Operation(summary = "제보받은 상품 등록", description = "제보받은 상품 등록 처리")
