@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.queant.model.entity.portfolio.Portfolio;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.sound.sampled.Port;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.*;
 
@@ -19,13 +21,14 @@ import java.util.*;
 @Setter
 @ToString(exclude = "roleSet")
 @Table
-public class Member {
+public class Member implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Type(type="org.hibernate.type.UUIDCharType")
     private UUID memberId;
     @Column(nullable = true, unique=true)
+    @NaturalId
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = true)
@@ -49,6 +52,7 @@ public class Member {
     private String refreshToken;
 
     @ElementCollection(fetch = FetchType.LAZY)
+//    @ToString.Exclude
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 

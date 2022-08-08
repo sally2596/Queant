@@ -1,17 +1,16 @@
 package com.ssafy.queant.model.entity.portfolio;
 
 import com.ssafy.queant.model.entity.member.Member;
+import com.ssafy.queant.model.entity.member.MemberRole;
+import com.ssafy.queant.model.entity.product.Conditions;
+import com.ssafy.queant.model.entity.product.Options;
 import com.ssafy.queant.model.entity.product.Product;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -19,18 +18,27 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Portfolio {
+public class Portfolio implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int portfolioId;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name="memberId")
+    @ToString.Exclude
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "optionId")
+    private Options option;
+
+    @ManyToMany
+    @Builder.Default
+    private Set<Conditions> conditions = new HashSet<>();
 
     @Column(nullable = false)
     private int portfolioNo;
@@ -39,8 +47,9 @@ public class Portfolio {
     @Column(nullable = false)
     private Date startDate;
     private Date endDate;
-    @Column(nullable = false)
-    @Builder.Default
-    private float specialRate = 0f;
     private Long amountFixed;
+
+    public void addCondition(Conditions condition){
+        conditions.add(condition);
+    }
 }

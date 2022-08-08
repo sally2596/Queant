@@ -8,6 +8,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class QueantApplication {
 
+    //없으면 timeout걸림
+    static {
+        System.setProperty("com.amazonaws.sdk.disableEc2Metadata", "true");
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(QueantApplication.class, args);
     }

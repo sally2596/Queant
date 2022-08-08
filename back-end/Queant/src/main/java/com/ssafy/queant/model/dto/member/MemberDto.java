@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 @Data
 public class MemberDto implements UserDetails {
     @ApiModelProperty(hidden = true)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID memberId;
     @Schema(description = "이메일")
     private String email;

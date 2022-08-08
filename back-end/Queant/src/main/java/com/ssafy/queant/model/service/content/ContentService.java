@@ -11,6 +11,6 @@ import java.util.List;
 public interface ContentService {
 
     public List<NewsDto> getNewsList() throws Exception;
-    public NewsDetailDto getNewsDetail(String url) throws Exception;
+    //public NewsDetailDto getNewsDetail(String url) throws Exception;
 
 }
