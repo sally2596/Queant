@@ -37,7 +37,10 @@ export default {
   },
   search: {
     search: () => HOST + SEARCH,
-    keyword: () => HOST + SEARCH + 'keyword'
+    keyword: () => HOST + SEARCH + 'keyword',
+    deposit: () => HOST + SEARCH + 'deposit/' + 'single',
+    saving: () => HOST + SEARCH + 'saving/' + 'single',
+    savings: () => HOST + SEARCH + 'saving/' + 'set'
   },
   product: {
     detail: (productId) => HOST + PRODUCT + productId

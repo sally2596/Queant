@@ -11,6 +11,7 @@
         <button @click="saving_OnOff" :class="{'active' : filter_savings==true}" class="filter_button" id="filter_button_b">적금</button>
       </div>
 
+      <!-- 예금 -->
       <div v-if="filter_deposit" class="container row" id="filter_deposit">
 
         <div class="col-lg-4 m-3">
@@ -20,7 +21,7 @@
               v-for="bankType in keywords.bank_type"
               :key="bankType.scode_id">
               <input
-                v-model="bankTypeFromDeposit"
+                v-model="filtersByDeposit.bankType"
                 type="checkbox" 
                 class="btn-check" 
                 name="deposit_bank"
@@ -43,21 +44,25 @@
 
         <div class="col-lg-3 m-3 select">
           <h6>예치 기간</h6>
-          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-6" autocomplete="off">
+          <input v-model="filtersByDeposit.period" value="6" type="radio" class="btn-check" name="deposit-time" id="deposit-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
-          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-12" autocomplete="off">
+          <input v-model="filtersByDeposit.period" value="12" type="radio" class="btn-check" name="deposit-time" id="deposit-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-12">12개월</label>
-          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-18" autocomplete="off">
+          <input v-model="filtersByDeposit.period" value="18" type="radio" class="btn-check" name="deposit-time" id="deposit-months-18" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-18">18개월</label>
-          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-24" autocomplete="off">
+          <input v-model="filtersByDeposit.period" value="24" type="radio" class="btn-check" name="deposit-time" id="deposit-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-24">24개월</label>
-          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-36" autocomplete="off">
+          <input v-model="filtersByDeposit.period" value="36" type="radio" class="btn-check" name="deposit-time" id="deposit-months-36" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-36">36개월</label>
         </div>
 
         <div class="col-lg-3 m-3">
           <h6>희망 예치금(원)</h6>
-          <input type="number" name="deposit_money" id="deposit_money">
+          <input
+            v-model="filtersByDeposit.amount" 
+            type="number" 
+            name="deposit_money" 
+            id="deposit_money">
         </div>
 
         <div class="col-lg-5 m-3">
@@ -66,10 +71,12 @@
             <div
               v-for="joinway in keywords.joinway"
               :key="joinway.scode_id">
-              <input 
+              <input
+                v-model="filtersByDeposit.joinway"
                 type="checkbox" 
                 class="btn-check" 
-                name="deposit_banks" 
+                name="deposit-joinway" 
+                :value="joinway.scode_id"
                 :id="`deposit-${joinway.scode_id}`" 
                 autocomplete="off">
               <label 
@@ -82,12 +89,43 @@
         </div>
 
         <div class="col-lg-3 m-3">
+          <h6>이자 유형</h6>
+          <input 
+            v-model="filtersByDeposit.isSimpleInterest"
+            type="radio"
+            value="true"
+            class="btn-check" 
+            name="deposit_" 
+            id="deposit-simple-interest-true" 
+            autocomplete="off">
+          <label 
+            class="btn btn-outline-success" 
+            for="deposit-simple-interest-true">
+            단리
+          </label>
+          <input
+            v-model="filtersByDeposit.isSimpleInterest"
+            type="radio"
+            value="false"
+            class="btn-check" 
+            name="deposit_" 
+            id="deposit-simple-interest-false"
+            autocomplete="off">
+          <label 
+            class="btn btn-outline-success" 
+            for="deposit-simple-interest-false">
+            복리
+          </label>
+        </div>
+
+        <div class="col-lg-3 m-3">
           <h6>특수 조건</h6>
           <div id="banks_container">
             <div
             v-for="traitSet in keywords.trait_set"
             :key="traitSet.scode_id">
               <input 
+                v-model="filtersByDeposit.traitSet"
                 type="checkbox" 
                 class="btn-check" 
                 name="deposit_banks" 
@@ -107,9 +145,10 @@
           <div id="banks_container">
             <div
               v-for="bank in keywords.bank"
-              :key="bank.bank_id" v-show="bank.scode_id === bankTypeFromDeposit[0] || bank.scode_id === bankTypeFromDeposit[1]">
+              :key="bank.bank_id" v-show="bank.scode_id === filtersByDeposit.bankType[0] || bank.scode_id === filtersByDeposit.bankType[1]">
               <div>
                 <input 
+                  v-model="filtersByDeposit.bank"
                   type="checkbox" 
                   class="btn-check" 
                   name="deposit_banks" 
@@ -126,12 +165,13 @@
         </div>
         
         <div class="col-lg-12 m-3">
-          <h6>우대 조건</h6>
+          <h6>우대 사항</h6>
           <div id="banks_container">
           <div
             v-for="condition in keywords.conditions"
             :key="condition.scode_id">
-            <input 
+            <input
+              v-model="filtersByDeposit.conditions"
               type="checkbox" 
               class="btn-check" 
               name="deposit_" 
@@ -151,6 +191,7 @@
         </div>
       </div>
 
+      <!-- 적금 -->
       <div v-if="filter_savings" class="container row" id="filter_savings">
 
         <div class="col-lg-4 m-3">
@@ -160,7 +201,7 @@
               v-for="bankType in keywords.bank_type"
               :key="bankType.scode_id">
               <input 
-                v-model="bankTypeFromSaving"
+                v-model="filtersBySaving.bankType"
                 :value="bankType.scode_id"
                 type="checkbox" 
                 class="btn-check" 
@@ -197,7 +238,8 @@
 
         <div class="col-lg-3 m-3">
           <h6>희망 월 적립금(원)</h6>
-          <input 
+          <input
+            v-model="filtersBySaving.amount"
             type="number" 
             name="saving_monthly" 
             id="saving_monthly">
@@ -237,6 +279,7 @@
               v-for="joinway in keywords.joinway"
               :key="joinway.scode_id">
               <input 
+                v-model="filtersBySaving.joinway"
                 type="checkbox" 
                 class="btn-check" 
                 name="saving_banks" 
@@ -254,6 +297,8 @@
         <div class="col-lg-3 m-3">
           <h6>적립 유형</h6>
           <input 
+            v-model="filtersBySaving.isFixed"
+            value="true"
             type="radio" 
             class="btn-check" 
             name="saving_" 
@@ -264,7 +309,9 @@
             for="saving-flat">
             정액적립
           </label>
-          <input 
+          <input
+            v-model="filtersBySaving.isFixed"
+            value="false"
             type="radio" 
             class="btn-check" 
             name="saving_" 
@@ -278,12 +325,40 @@
         </div>
 
         <div class="col-lg-3 m-3">
+          <h6>이자 유형</h6>
+          <input 
+            v-model="filtersBySaving.isSimpleInterest"
+            type="radio" 
+            class="btn-check" 
+            name="saving_" 
+            id="saving-simple-interest-true" 
+            autocomplete="off">
+          <label 
+            class="btn btn-outline-success" 
+            for="saving-simple-interest-true">
+            단리
+          </label>
+          <input 
+            type="radio" 
+            class="btn-check" 
+            name="saving_" 
+            id="saving-simple-interest-false"
+            autocomplete="off">
+          <label 
+            class="btn btn-outline-success" 
+            for="saving-simple-interest-false">
+            복리
+          </label>
+        </div>
+
+        <div class="col-lg-3 m-3">
           <h6>특수 조건</h6>
           <div id="banks_container">
             <div 
               v-for="traitSet in keywords.trait_set"
               :key="traitSet.scode_id">
               <input 
+                v-model="filtersBySaving.traitSet"
                 type="checkbox" 
                 class="btn-check" 
                 name="saving_banks" 
@@ -303,9 +378,10 @@
           <div id="banks_container">
             <div 
               v-for="bank in keywords.bank"
-              :key="bank.bank_id" v-show="bank.scode_id === bankTypeFromSaving[0] || bank.scode_id === bankTypeFromSaving[1]">
+              :key="bank.bank_id" v-show="bank.scode_id === filtersBySaving.bankType[0] || bank.scode_id === filtersBySaving.bankType[1]">
               <div>
                 <input 
+                  v-model="filtersBySaving.bank"
                   type="checkbox" 
                   class="btn-check"
                   :value="bank.scode_id"
@@ -328,6 +404,7 @@
                 v-for="condition in keywords.conditions"
                 :key="condition.scode_id">
                 <input
+                  v-model="filtersBySaving.conditions"
                   type="checkbox" 
                   class="btn-check" 
                   name="saving_" 
@@ -388,7 +465,17 @@ export default {
   },
   data() {
     return {
-      sendingFilters: {
+      filtersByDeposit: {
+        amount: null,
+        period: null,
+        isSimpleInterest: null,
+        bank: [],
+        joinway: [],
+        conditions: [],
+        bankType: [],
+        traitSet: []
+      },
+      filtersBySaving: {
         amount: null,
         period: null,
         isSimpleInterest: null,
@@ -400,9 +487,7 @@ export default {
         traitSet: []
       },
       filter_savings: false,
-      filter_deposit: true,
-      bankTypeFromDeposit: [],
-      bankTypeFromSaving: []
+      filter_deposit: true
     }
   },
   created() {
