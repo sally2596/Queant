@@ -513,7 +513,8 @@ def save_bank_into_db(cur, conn, data_xml, banktype_num):
         bank_types[row[2]] = row[0]
         
     query_bank_search = """select * from queant.bank where bank_id = (%s);""" #중복체크 확인 쿼리문
-    query_bank = """INSERT INTO queant.bank (bank_id, scode_id, bank_name,short_name, homepage, tel) values (%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    query_bank = """INSERT INTO queant.bank (bank_id, scode_id, bank_name,short_name, homepage, tel, picture) values (%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    png_url = "https://queant.s3.ap-northeast-2.amazonaws.com/banks/"
 
     for bank_tag in data_xml[5]:
         bank_code = bank_tag[0].find("fin_co_no").text
@@ -526,9 +527,10 @@ def save_bank_into_db(cur, conn, data_xml, banktype_num):
         new_name = change_name(bank_name)
         homepage = bank_tag[0].find("homp_url").text
         tel = change_tel(bank_tag[0].find("cal_tel").text)
+        bank_img = png_url + new_name + ".png"
         cur.execute(query_bank_search, bank_code)
         if cur.fetchone() == None:
-            values = (bank_code, bank_type, bank_name,new_name, homepage, tel)
+            values = (bank_code, bank_type, bank_name,new_name, homepage, tel, bank_img)
             cur.execute(query_bank, values)
 
     conn.commit()
