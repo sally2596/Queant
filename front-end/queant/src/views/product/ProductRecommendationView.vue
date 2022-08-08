@@ -308,7 +308,7 @@ export default {
     document.body.className = 'menu_body'
   },
   computed: {
-    ...mapGetters(['keywords'])
+    ...mapGetters(['keywords', 'banks'])
   },
   methods: {
     ...mapActions(['fetchKeywords']),

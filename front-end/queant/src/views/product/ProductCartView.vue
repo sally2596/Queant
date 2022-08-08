@@ -9,8 +9,8 @@
         
         <br><br>
         <h5>담긴 상품이 없습니다.</h5>
-        
         <br><br>
+        
         <button class="btn btn-outline-success">상품 추천받기</button>
     </div>
   </section>
