@@ -15,7 +15,7 @@
       <!-- Slide 2 -->
       <div class="carousel-item">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">독보적인 예금, 적금 사이트</h2>
+          <h2 class="animate__animated animate__fadeInDown">예금, 적금 상품</h2>
           <p class="animate__animated animate__fadeInUp">당신의 돈을 안전하고 확실히 굴려보세요.</p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">상품 추천받기</a>
         </div>
@@ -24,7 +24,7 @@
       <!-- Slide 3 -->
       <div class="carousel-item">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">편리한 포트폴리오</h2>
+          <h2 class="animate__animated animate__fadeInDown">포트폴리오</h2>
           <p class="animate__animated animate__fadeInUp">한 눈에 자산 정보를 확인하고, 계획을 세워보세요.</p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">포트폴리오 바로가기</a>
         </div>
