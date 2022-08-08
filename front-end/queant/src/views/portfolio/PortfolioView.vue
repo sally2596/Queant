@@ -5,7 +5,7 @@
   </header>
 
   <!-- 포트폴리오 없을 때 -->
-  <div v-if="portfolio.length === 0" class="portfolio-none">
+  <div class="portfolio-none">
     <img src="../../assets/image/물음표개미_none.png" alt="" style="width: 300px; height:280px;">
     <br><br>
     <h5>포트폴리오가 없습니다.</h5>
@@ -14,8 +14,14 @@
   </div>
 
   <!-- 포트폴리오 있을 때 -->
-  <div v-else class="portfolio">
-    {{ portfolio }}
+  <div class="portfolio">
+    <div
+      v-for="portfolio in portfolios"
+      :key="portfolio.portfolio_id">
+      <div v-if="portfolio.portfolio_no === 0">
+        {{ portfolio }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,16 +33,16 @@ export default {
   name: 'PortfolioView',
   components: { Navbar },
   computed: {
-    ...mapGetters(['portfolio'])
+    ...mapGetters(['portfolios'])
   },
   methods: {
-    ...mapActions(['fetchPortfolio'])
+    ...mapActions(['fetchPortfolios'])
   },
   beforeCreate: function() {
     document.body.className = 'home_body'
   },
   created() {
-    this.fetchPortfolio()
+    this.fetchPortfolios()
   }
 }
 </script>

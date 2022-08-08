@@ -54,7 +54,7 @@ export default {
     remove: () => HOST + CONTENTS + 'delete'
   },
   portfolio: {
-    posession: () => HOST + PORTFOLIO + 'posession',
-    custom: () => HOST + PORTFOLIO + 'custom'
+    portfolio: () => HOST + PORTFOLIO,
+    posession: () => HOST + PORTFOLIO + 'posession'
   }
 }

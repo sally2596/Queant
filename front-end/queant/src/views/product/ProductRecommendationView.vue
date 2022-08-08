@@ -21,10 +21,9 @@
               v-for="bankType in keywords.bank_type"
               :key="bankType.scode_id">
               <input
-                v-model="filtersByDeposit.bankType"
+                v-model="filtersForDeposit.bankType"
                 type="checkbox" 
                 class="btn-check" 
-                name="deposit_bank"
                 :value="bankType.scode_id"
                 :id="`deposit-${bankType.scode_id}`" 
                 autocomplete="off">
@@ -39,25 +38,24 @@
 
         <div class="col-lg-3 m-3">
           <h6>예치 기간</h6>
-          <input v-model="filtersByDeposit.period" value="6" type="radio" class="btn-check" name="deposit-time" id="deposit-months-6" autocomplete="off">
+          <input v-model="filtersForDeposit.period" value="6" type="radio" class="btn-check" id="deposit-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
-          <input v-model="filtersByDeposit.period" value="12" type="radio" class="btn-check" name="deposit-time" id="deposit-months-12" autocomplete="off">
+          <input v-model="filtersForDeposit.period" value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-12">12개월</label>
-          <input v-model="filtersByDeposit.period" value="18" type="radio" class="btn-check" name="deposit-time" id="deposit-months-18" autocomplete="off">
+          <input v-model="filtersForDeposit.period" value="18" type="radio" class="btn-check" id="deposit-months-18" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-18">18개월</label>
-          <input v-model="filtersByDeposit.period" value="24" type="radio" class="btn-check" name="deposit-time" id="deposit-months-24" autocomplete="off">
+          <input v-model="filtersForDeposit.period" value="24" type="radio" class="btn-check" id="deposit-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-24">24개월</label>
-          <input v-model="filtersByDeposit.period" value="36" type="radio" class="btn-check" name="deposit-time" id="deposit-months-36" autocomplete="off">
+          <input v-model="filtersForDeposit.period" value="36" type="radio" class="btn-check" id="deposit-months-36" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-36">36개월</label>
         </div>
 
         <div class="col-lg-2 m-3">
           <h6>희망 예치금(원)</h6>
           <input
-            v-model="filtersByDeposit.amount"
+            v-model="filtersForDeposit.amount"
             type="number"
-            name="deposit_money"
-            id="deposit_money">
+            name="deposit-money">
         </div>
 
         <div class="col-lg-5 m-3">
@@ -67,10 +65,9 @@
               v-for="joinway in keywords.joinway"
               :key="joinway.scode_id">
               <input
-                v-model="filtersByDeposit.joinway"
+                v-model="filtersForDeposit.joinway"
                 type="checkbox" 
                 class="btn-check" 
-                name="deposit-joinway" 
                 :value="joinway.scode_id"
                 :id="`deposit-${joinway.scode_id}`" 
                 autocomplete="off">
@@ -86,11 +83,10 @@
         <div class="col-lg-3 m-3">
           <h6>이자 유형</h6>
           <input 
-            v-model="filtersByDeposit.isSimpleInterest"
+            v-model="filtersForDeposit.isSimpleInterest"
             type="radio"
             value="true"
-            class="btn-check" 
-            name="deposit_" 
+            class="btn-check"
             id="deposit-simple-interest-true" 
             autocomplete="off">
           <label 
@@ -99,11 +95,10 @@
             단리
           </label>
           <input
-            v-model="filtersByDeposit.isSimpleInterest"
+            v-model="filtersForDeposit.isSimpleInterest"
             type="radio"
             value="false"
             class="btn-check" 
-            name="deposit_" 
             id="deposit-simple-interest-false"
             autocomplete="off">
           <label 
@@ -120,10 +115,9 @@
             v-for="traitSet in keywords.trait_set"
             :key="traitSet.scode_id">
               <input 
-                v-model="filtersByDeposit.traitSet"
+                v-model="filtersForDeposit.traitSet"
                 type="checkbox" 
                 class="btn-check" 
-                name="deposit_banks"
                 :value="traitSet.scode_id"
                 :id="`deposit-${traitSet.scode_id}`" 
                 autocomplete="off">
@@ -141,13 +135,12 @@
           <div id="banks_container">
             <div 
               v-for="bank in keywords.bank"
-              :key="bank.bank_id" v-show="bank.scode_id === filtersByDeposit.bankType[0] || bank.scode_id === filtersByDeposit.bankType[1]">
+              :key="bank.bank_id" v-show="bank.scode_id === filtersForDeposit.bankType[0] || bank.scode_id === filtersForDeposit.bankType[1]">
               <div>
                 <input 
-                  v-model="filtersByDeposit.bank"
+                  v-model="filtersForDeposit.bank"
                   type="checkbox" 
                   class="btn-check"
-                  name="deposit_banks" 
                   :id="`deposit-${bank.bank_id}`" 
                   :value="bank.bank_id"
                   autocomplete="off">
@@ -168,10 +161,9 @@
             v-for="condition in keywords.conditions"
             :key="condition.scode_id">
             <input
-              v-model="filtersByDeposit.conditions"
+              v-model="filtersForDeposit.conditions"
               type="checkbox" 
               class="btn-check" 
-              name="deposit_" 
               :id="`deposit-${condition.scode_id}`"
               :value="condition.scode_id"
               autocomplete="off">
@@ -185,7 +177,7 @@
         </div>
 
         <div id="deposit-result-view">
-          <button class="btn btn-primary">결과 보기</button>
+          <button @click="fetchProductsByDepositSingleFilters(filtersForDeposit)" class="btn btn-primary">결과 보기</button>
         </div>
       </div>
 
@@ -199,11 +191,10 @@
               v-for="bankType in keywords.bank_type"
               :key="bankType.scode_id">
               <input 
-                v-model="filtersBySaving.bankType"
+                v-model="filtersForSaving.bankType"
                 :value="bankType.scode_id"
                 type="checkbox" 
                 class="btn-check" 
-                name="saving_bank" 
                 :id="`saving-${bankType.scode_id}`" 
                 autocomplete="off">
               <label 
@@ -217,50 +208,49 @@
 
         <div class="col-lg-3 m-3 select">
           <h6>적립 기간</h6>
-          <input v-model="filtersBySaving.period" value="6" type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
+          <input v-model="filtersForSaving.period" value="6" type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
-          <input v-model="filtersBySaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
+          <input v-model="filtersForSaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-12">12개월</label>
-          <input v-model="filtersBySaving.period" value="18" type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
+          <input v-model="filtersForSaving.period" value="18" type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-18">18개월</label>
-          <input v-model="filtersBySaving.period" value="24" type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
+          <input v-model="filtersForSaving.period" value="24" type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-24">24개월</label>
-          <input v-model="filtersBySaving.period" value="36" type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
+          <input v-model="filtersForSaving.period" value="36" type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-36">36개월</label>
         </div>
 
         <div class="col-lg-2 m-3">
           <h6>희망 월 적립금(원)</h6>
           <input
-            v-model="filtersBySaving.amount"
-            type="number" 
-            name="saving_monthly" 
-            id="saving_monthly">
+            v-model="filtersForSaving.amount"
+            type="number">
         </div>
 
         <div class="col-lg-3 m-3">
           <h6>상품 보기</h6>
-          <input 
+          <input
+            v-model="isSavingSingle"
             type="radio" 
             class="btn-check" 
-            name="saving_" 
-            id="saving_show_one" 
+            id="saving-single"
+            value="true"
             autocomplete="off">
           <label 
             class="btn btn-outline-success" 
-            for="saving_show_one">
+            for="saving-single">
             하나씩 보기
           </label>
-          <input 
+          <input
+            v-model="isSavingSingle"
             type="radio" 
             class="btn-check" 
-            name="saving_" 
-            id="saving_show_group" 
-            autocomplete="off" 
-            checked>
+            id="saving-set"
+            value="false"
+            autocomplete="off">
           <label 
             class="btn btn-outline-success" 
-            for="saving_show_group">
+            for="saving-set">
             묶어서 보기
           </label>
         </div>
@@ -272,10 +262,9 @@
               v-for="joinway in keywords.joinway"
               :key="joinway.scode_id">
               <input 
-                v-model="filtersBySaving.joinway"
+                v-model="filtersForSaving.joinway"
                 type="checkbox" 
                 class="btn-check" 
-                name="saving_banks" 
                 :id="`saving-${joinway.scode_id}`"
                 :value="joinway.scode_id"
                 autocomplete="off">
@@ -291,11 +280,10 @@
         <div class="col-lg-3 m-3">
           <h6>적립 유형</h6>
           <input 
-            v-model="filtersBySaving.isFixed"
+            v-model="filtersForSaving.isFixed"
             value="true"
             type="radio" 
-            class="btn-check" 
-            name="saving_" 
+            class="btn-check"
             id="saving-flat"
             autocomplete="off">
           <label 
@@ -304,11 +292,10 @@
             정액적립
           </label>
           <input
-            v-model="filtersBySaving.isFixed"
+            v-model="filtersForSaving.isFixed"
             value="false"
             type="radio" 
             class="btn-check" 
-            name="saving_" 
             id="saving-free" 
             autocomplete="off">
           <label 
@@ -325,10 +312,9 @@
               v-for="traitSet in keywords.trait_set"
               :key="traitSet.scode_id">
               <input
-                v-model="filtersBySaving.trailSet"
+                v-model="filtersForSaving.traitSet"
                 type="checkbox" 
                 class="btn-check" 
-                name="saving_banks" 
                 :id="`saving-${traitSet.scode_id}`"
                 :value="traitSet.scode_id"
                 autocomplete="off">
@@ -346,13 +332,12 @@
           <div id="banks_container">
             <div 
               v-for="bank in keywords.bank"
-              :key="bank.bank_id" v-show="bank.scode_id === filtersBySaving.bankType[0] || bank.scode_id === filtersBySaving.bankType[1]">
+              :key="bank.bank_id" v-show="bank.scode_id === filtersForSaving.bankType[0] || bank.scode_id === filtersForSaving.bankType[1]">
               <div>
                 <input 
-                  v-model="filtersBySaving.bank"
+                  v-model="filtersForSaving.bank"
                   type="checkbox" 
                   class="btn-check"
-                  name="saving_banks" 
                   :id="`saving-${bank.bank_id}`" 
                   :value="bank.bank_id"
                   autocomplete="off">
@@ -373,10 +358,9 @@
                 v-for="condition in keywords.conditions"
                 :key="condition.scode_id">
                 <input
-                  v-model="filtersBySaving.conditions"
+                  v-model="filtersForSaving.conditions"
                   type="checkbox" 
                   class="btn-check" 
-                  name="saving_" 
                   :id="`saving-${condition.scode_id}`"
                   :value="condition.scode_id"
                   autocomplete="off">
@@ -390,7 +374,8 @@
           </div>
 
         <div id="saving-result-view">
-          <button class="btn btn-primary">결과 보기</button>
+          <button v-if="isSavingSingle" @click="fetchProductsBySavingSingleFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button>
+          <button v-else-if="!isSavingSingle" @click="fetchProductsBySavingSetFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button>
         </div>
 
       </div>
@@ -412,7 +397,7 @@ export default {
     ...mapGetters(['keywords', 'banks'])
   },
   methods: {
-    ...mapActions(['fetchKeywords']),
+    ...mapActions(['fetchKeywords', 'fetchProductsByDepositSingleFilters', 'fetchProductsBySavingSingleFilters', 'fetchProductsBySavingSetFilters']),
     deposit_OnOff: function() {
       if (this.filter_deposit==false) {
       this.filter_deposit = !this.filter_deposit}
@@ -435,7 +420,7 @@ export default {
   },
   data() {
     return {
-      filtersByDeposit: {
+      filtersForDeposit: {
         amount: null,
         period: null,
         isSimpleInterest: null,
@@ -445,7 +430,7 @@ export default {
         bankType: [],
         traitSet: []
       },
-      filtersBySaving: {
+      filtersForSaving: {
         amount: null,
         period: null,
         isSimpleInterest: null,
@@ -457,7 +442,8 @@ export default {
         traitSet: []
       },
       filter_savings: false,
-      filter_deposit: true
+      filter_deposit: true,
+      isSavingSingle: null
     }
   },
   created() {

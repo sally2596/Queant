@@ -66,6 +66,76 @@ export default {
         commit('SET_PRODUCTS', [])
         router.push({ name: 'productSearch', params: { text: text }})
       })
+    },
+    fetchProductsByDepositSingleFilters({ commit }, filters) {
+      axios({
+        url: spring.search.deposit(),
+        method: 'post',
+        data: {
+          amount: filters.amount,
+          period: filters.period,
+          isSimpleInterest: filters.isSimpleInterest,
+          bank: filters.bank,
+          joinway: filters.joinway,
+          conditions: filters.conditions,
+          bankType: filters.bankType,
+          traitSet: filters.traitSet
+        }
+      })
+      .then(res => {
+        console.log(res)
+        commit('SET_PRODUCTS', res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    fetchProductsBySavingSingleFilters({ commit }, filters) {
+      axios({
+        url: spring.search.saving(),
+        method: 'post',
+        data: {
+          amount: filters.amount,
+          period: filters.period,
+          isSimpleInterest: filters.isSimpleInterest,
+          bank: filters.bank,
+          joinway: filters.joinway,
+          conditions: filters.conditions,
+          bankType: filters.bankType,
+          traitSet: filters.traitSet,
+          isFixed: filters.isFixed
+        }
+      })
+      .then(res => {
+        console.log(res)
+        commit('SET_PRODUCTS', res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    fetchProductsBySavingSetFilters({ commit }, filters) {
+      axios({
+        url: spring.search.savings(),
+        method: 'post',
+        data: {
+          amount: filters.amount,
+          period: filters.period,
+          isSimpleInterest: filters.isSimpleInterest,
+          bank: filters.bank,
+          joinway: filters.joinway,
+          conditions: filters.conditions,
+          bankType: filters.bankType,
+          traitSet: filters.traitSet,
+          isFixed: filters.isFixed
+        }
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 }
