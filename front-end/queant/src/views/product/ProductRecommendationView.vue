@@ -289,8 +289,7 @@
             class="btn-check" 
             name="saving_" 
             id="saving-free" 
-            autocomplete="off" 
-            checked>
+            autocomplete="off">
           <label 
             class="btn btn-outline-success" 
             for="saving-free">
