@@ -105,7 +105,7 @@ class PortfolioServiceImplTest {
                 .baseRate(3.3F)
                 .startDate(new Date(System.currentTimeMillis()))
                 .endDate(new Date(System.currentTimeMillis()+1000))
-                .memberId(uuid2)
+                //.memberId(uuid2)
                 .build();
 
 

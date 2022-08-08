@@ -23,7 +23,7 @@ class PortfolioServiceImplTest {
         PortfolioDto portfolioDto= PortfolioDto.builder()
                 .portfolioNo(2)
                 .amount(10000L)
-                .start_date(new Date())
+                .startDate(new Date())
                 .build();
 //        PortfolioDto result = portfolioService.insertPortfolio("string",  portfolioDto,"01012000200000000003");
     }

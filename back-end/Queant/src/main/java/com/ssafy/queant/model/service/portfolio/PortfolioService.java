@@ -19,12 +19,14 @@ public interface PortfolioService {
    CustomProductDto updateCustomProduct(CustomProductDto customProductDto) throws Exception;
 
    //포트폴리오 조회(MyPortfolio)
-   PortfolioResponseDto getMyPortfolio(String email) throws Exception;
+   PortfolioResponseDto getMyPortfolio(UUID memberId) throws Exception;
    //포트폴리오 조회(예상 포트폴리오)
-   List<PortfolioDto> getPortfolio(UUID memberId, int cnt) throws Exception;
-   //포트폴리오 생성(MyPortfolio) 아 중복 처리는 어케 하지?
-   void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception;
-   //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
-   //포트폴리오 삭제(예상 포트폴리오)
+   List<PortfolioDto> getPortfolio(UUID memberId, int portfolioNo) throws Exception;
+   //포트폴리오 생성 모두 새로움
+   void insertPortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList) throws Exception;
+   //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거) 있는데 달라졌으면 수정하고, 없으면 추가하고, 사라진것은 삭제(포트폴리오 단위로 시행)
+   void updatePortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList, int portfolioNo) throws Exception;
+   //포트폴리오 삭제(예상 포트폴리오) 통으로 하나 삭제
+   void deletePortfolio(UUID memberId, int portfolioNo) throws Exception;
    //포트폴리오 비교... 와 암담하다
 }
