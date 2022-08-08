@@ -68,26 +68,26 @@ public class ContentController { ;
         }
     }
 
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="기사 내용이 성공적으로 전송되었습니다."),
-//            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
-//    })
-//    @ApiOperation(value="뉴스 기사 상세 조회", notes="기사 링크를 받아옴")
-//    @PostMapping("/detail")
-//    public ResponseEntity<NewsDetailDto> NewsDetail(@RequestBody String url) throws Exception {
-//        log.info("[NewsDetail] is running");
-//
-//        NewsDetailDto news = contentService.getNewsDetail(url);
-//
-//        if(news == null) {
-//            log.info("[NewsDetail] run failed");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else {
-//            log.info("[NewsDetail] run finished");
-//            return new ResponseEntity<NewsDetailDto>(news, HttpStatus.OK);
-//        }
-//    }
+    @ApiResponses({
+            @ApiResponse(code = 200, message="컨텐츠 리스트가 성공적으로 전송되었습니다."),
+            @ApiResponse(code = 403, message="접속이 거부되었습니다.")
+    })
+    @ApiOperation(value="컨텐츠 리스트 조회", notes="컨텐츠 리스트를 받아옴")
+    @GetMapping("/contents")
+    public ResponseEntity<List<Content>> ContentsList() throws Exception {
+        log.info("[ContentsList] is running");
+
+        List<Content> articles = contentRepository.findAll();
+
+        if(articles == null) {
+            log.info("[ContentsList] run failed");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            log.info("[ContentsList] run finished");
+            return new ResponseEntity<List<Content>>(articles, HttpStatus.OK);
+        }
+    }
 
     @ApiResponses({
             @ApiResponse(code = 200, message="컨텐츠 상세 조회가 성공적으로 처리되었습니다."),
