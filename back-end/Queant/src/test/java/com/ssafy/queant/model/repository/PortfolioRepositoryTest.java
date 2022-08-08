@@ -3,7 +3,6 @@ package com.ssafy.queant.model.repository;
 import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.portfolio.Portfolio;
-import com.ssafy.queant.model.entity.portfolio.PortfolioCondition;
 import com.ssafy.queant.model.entity.product.Conditions;
 import com.ssafy.queant.model.entity.product.Options;
 import com.ssafy.queant.model.entity.product.Product;
@@ -16,13 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

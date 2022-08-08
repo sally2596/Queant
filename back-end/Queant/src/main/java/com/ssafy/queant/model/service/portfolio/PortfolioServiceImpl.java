@@ -1,13 +1,11 @@
 package com.ssafy.queant.model.service.portfolio;
 
-import com.ssafy.queant.model.dto.member.MemberDto;
 import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
 import com.ssafy.queant.model.dto.portfolio.PortfolioResponseDto;
 import com.ssafy.queant.model.dto.product.CustomProductDto;
 
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.portfolio.Portfolio;
-import com.ssafy.queant.model.entity.portfolio.PortfolioCondition;
 import com.ssafy.queant.model.entity.product.Conditions;
 import com.ssafy.queant.model.entity.product.CustomProduct;
 import com.ssafy.queant.model.entity.product.Options;
@@ -20,7 +18,6 @@ import com.ssafy.queant.model.repository.product.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
