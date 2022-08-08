@@ -36,9 +36,23 @@
           </div>
         </div>
 
-        <div class="col-lg-3 m-3">
+        <!-- <div class="col-lg-3 m-3">
           <h6>예치 기간(개월)</h6>
           <input type="number">
+        </div> -->
+
+        <div class="col-lg-3 m-3 select">
+          <h6>예치 기간</h6>
+          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-6" autocomplete="off">
+          <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
+          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-12" autocomplete="off">
+          <label class="btn btn-outline-success" for="deposit-months-12">12개월</label>
+          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-18" autocomplete="off">
+          <label class="btn btn-outline-success" for="deposit-months-18">18개월</label>
+          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-24" autocomplete="off">
+          <label class="btn btn-outline-success" for="deposit-months-24">24개월</label>
+          <input type="radio" class="btn-check" name="deposit-time" id="deposit-months-36" autocomplete="off">
+          <label class="btn btn-outline-success" for="deposit-months-36">36개월</label>
         </div>
 
         <div class="col-lg-3 m-3">
@@ -162,9 +176,23 @@
           </div>
         </div>
         
-        <div class="col-lg-3 m-3">
+        <!-- <div class="col-lg-3 m-3">
           <h6>적립 기간(개월)</h6>
           <input type="number">
+        </div> -->
+
+        <div class="col-lg-3 m-3 select">
+          <h6>예치 기간</h6>
+          <input type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
+          <input type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-12">12개월</label>
+          <input type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-18">18개월</label>
+          <input type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-24">24개월</label>
+          <input type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-36">36개월</label>
         </div>
 
         <div class="col-lg-3 m-3">
@@ -221,6 +249,33 @@
               </label>
             </div>
           </div>
+        </div>
+
+        <div class="col-lg-3 m-3">
+          <h6>적립 유형</h6>
+          <input 
+            type="radio" 
+            class="btn-check" 
+            name="saving_" 
+            id="saving-flat" 
+            autocomplete="off">
+          <label 
+            class="btn btn-outline-success" 
+            for="saving-flat">
+            정액적립
+          </label>
+          <input 
+            type="radio" 
+            class="btn-check" 
+            name="saving_" 
+            id="saving-free" 
+            autocomplete="off" 
+            checked>
+          <label 
+            class="btn btn-outline-success" 
+            for="saving-free">
+            자율적립
+          </label>
         </div>
 
         <div class="col-lg-3 m-3">
@@ -334,6 +389,17 @@ export default {
   },
   data() {
     return {
+      sendingFilters: {
+        amount: null,
+        period: null,
+        isSimpleInterest: null,
+        isFixed: null,
+        bank: [],
+        joinway: [],
+        conditions: [],
+        bankType: [],
+        traitSet: []
+      },
       filter_savings: false,
       filter_deposit: true,
       bankTypeFromDeposit: [],

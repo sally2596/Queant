@@ -1,6 +1,6 @@
 <template>
-    <Navbar/>
-      <!-- ======= Hero Section ======= -->
+  <Navbar/>
+  <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex justify-cntent-center align-items-center">
     <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
@@ -83,9 +83,7 @@
               <p class="description">QueÆnt팀에서 엄선해 제작한 다양한 금융 컨텐츠를 즐길 수 있습니다.</p>
             </div>
           </div>
-
         </div>
-
       </div>
     </section><!-- End Services Section -->
 <br><br><br><br><br><br>
@@ -104,7 +102,7 @@
           :news=news>
         </HomeComponents>
 
-        </div>
+      </div>
     </section>End Features Section
   </main><!-- End #main -->
 </template>
