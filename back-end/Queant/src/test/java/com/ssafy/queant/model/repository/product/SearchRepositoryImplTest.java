@@ -39,7 +39,7 @@ class SearchRepositoryImplTest {
 
         int period = 12;
         Pageable pageable = PageRequest.of(0, 50);
-        Page<Tuple> p = searchRepository.searchSingle(false, null, false, period, list, joinway, conditions, traitSet, pageable);
+        Page<Tuple> p = searchRepository.searchSingle(10000l, false, null, false, period, list, joinway, conditions, traitSet, pageable);
         log.info(String.valueOf(p));
         for (Tuple product : p
         ) {
@@ -47,6 +47,6 @@ class SearchRepositoryImplTest {
             dto.setBaseRate(product.get(1, Float.class));
             log.info("[TUPLE]: " + product.toString());
         }
-        log.info(String.valueOf(p.getSize()));
+        log.info(String.valueOf(p.getTotalElements()));
     }
 }
