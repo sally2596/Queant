@@ -44,7 +44,10 @@ export default {
   contents: {
     newslist: () => HOST,
 		//articledetail: (contentId) => HOST + CONTENTS + contentId,
+    contentlist: () => HOST + CONTENTS,
+    detail: (contentId) => HOST + CONTENTS + contentId,
 		upload: () => HOST + CONTENTS + 'upload',
-    edit: () => HOST + CONTENTS + 'edit'
+    edit: () => HOST + CONTENTS + 'edit',
+    remove: () => HOST + CONTENTS + 'delete'
   }
 }

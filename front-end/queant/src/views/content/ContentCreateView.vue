@@ -62,13 +62,10 @@ export default {
   methods: {
 		...mapActions(['editContent']),
 		write() {
-			this.editContent({},this.content);
+      this.content.content = this.editorData.replace('\"','\\"');
+			this.editContent(this.content);
 			alert("글이 등록되었습니다.");
 		},
-		testbtn() {
-			this.content.content = this.editorData;
-			console.log(this.content);
-		}
   }
 }
 </script>
