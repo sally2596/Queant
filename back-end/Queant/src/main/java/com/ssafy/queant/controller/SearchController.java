@@ -58,8 +58,8 @@ public class SearchController {
     })
     @Operation(summary = "예금 단품 검색", description = "키워드로 예금 단품 검색")
     @PostMapping(value = "/deposit/single")
-    public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto) {
-        List<ProductDto> list = searchService.searchSingle(searchRequestDto, true);
+    public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto, @RequestBody int page) {
+        List<ProductDto> list = searchService.searchSingle(searchRequestDto, true, page);
         if (list.size() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,8 +71,8 @@ public class SearchController {
     })
     @Operation(summary = "적금 단품 검색", description = "키워드로 적금 단품 검색")
     @PostMapping(value = "/saving/single")
-    public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto) {
-        List<ProductDto> list = searchService.searchSingle(searchRequestDto, false);
+    public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto, @RequestBody int page) {
+        List<ProductDto> list = searchService.searchSingle(searchRequestDto, false, page);
         if (list.size() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
