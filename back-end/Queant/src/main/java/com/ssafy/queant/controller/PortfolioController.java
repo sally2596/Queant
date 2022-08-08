@@ -33,18 +33,13 @@ public class PortfolioController {
 
     @ApiResponses({
             @ApiResponse(code = 200, message="상품 등록 성공"),
-            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
     })
     @ApiOperation(value="사용자 정의 상품 등록", notes="email, customProductDto 필수")
     @PostMapping("/custom")
     public ResponseEntity<?> registCustomProduct(@RequestBody PortfolioRequestDto portfolioRequestDto){
         log.info("[CustomProduct Regist]");
 
-        MemberDto memberDto = memberService.findMember(portfolioRequestDto.getEmail());
-
-        if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        CustomProductDto saved = portfolioService.registCustomProduct(portfolioRequestDto.getCustomProductDto(),memberDto.getMemberId());
+        CustomProductDto saved = portfolioService.registCustomProduct(portfolioRequestDto.getCustomProductDto(),portfolioRequestDto.getMemberId());
 
         // 저장된 Dto를 Response에 담아서 넘겨주어 프로덕트 키 값을 갖게 함
         return new ResponseEntity<CustomProductDto>(saved,HttpStatus.OK);
@@ -102,88 +97,77 @@ public class PortfolioController {
         return new ResponseEntity<CustomProductDto>(savedCustomProduct,HttpStatus.OK);
     }
 
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="포트폴리오 생성 성공"),
-//            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
-//            @ApiResponse(code = 409, message="존재하는 상품이 아닙니다."),
-//            @ApiResponse(code = 500, message="기타 서버 에러"),
-//    })
-//    @ApiOperation(value="포트폴리오 생성", notes="유저 email과 Portfolio 리스트 필수")
-//    @PostMapping
-//    public ResponseEntity<?> InsertPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
-//        log.info("[Controller: InsertPortfolio]");
-//
-//        try{
-////            portfolioService.insertPortfolio(portfolioRequestDto.getEmail(), portfolioRequestDto.getPortfolioDtoList());
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (UsernameNotFoundException ue) {
-//            ue.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } catch(NoSuchElementException ne){
-//            ne.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.CONFLICT);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @ApiResponses({
+            @ApiResponse(code = 200, message="포트폴리오 생성 성공"),
+            @ApiResponse(code = 500, message="기타 서버 에러"),
+    })
+    @ApiOperation(value="포트폴리오 생성", notes="memberId, PortfolioDto 리스트 필수")
+    @PostMapping
+    public ResponseEntity<?> InsertPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
+        log.info("[Controller: InsertPortfolio]");
 
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="마이 포트폴리오 가져오기 성공"),
-//            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
-//            @ApiResponse(code = 409, message="마이포트폴리오가 존재하지 않습니다."),
-//            @ApiResponse(code = 500, message="기타 서버 에러"),
-//    })
-//    @ApiOperation(value="MyPortfolio 조회", notes="유저 email 필수")
-//    @PostMapping("/posession")
-//    public ResponseEntity<?> MyPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
-//        log.info("[Controller: MyPortfolio 조회]");
-//
-//        try {
-//            PortfolioResponseDto portfolioResponseDto = portfolioService.getMyPortfolio(portfolioRequestDto.getEmail());
-//            if(portfolioResponseDto.getPortfolioList()==null && portfolioResponseDto.getCustomProductList()==null){
-//                return new ResponseEntity<>(HttpStatus.CONFLICT);
-//            }
-//            return new ResponseEntity<PortfolioResponseDto>(portfolioResponseDto, HttpStatus.OK);
-//        } catch (UsernameNotFoundException e) {
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
+        try{
+            portfolioService.insertPortfolio(portfolioRequestDto.getMemberId(), portfolioRequestDto.getPortfolioDtoList());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-//    }
-//
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="마이 포트폴리오 가져오기 성공"),
-//            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
-//            @ApiResponse(code = 409, message="가상 포트폴리오를 보유하고 있지 않습니다."),
-//            @ApiResponse(code = 500, message="기타 서버 에러"),
-//    })
-//    @ApiOperation(value="가상 포트폴리오 조회", notes="유저 email 필수")
-//    @PostMapping("/virtual")
-//    public ResponseEntity<?> VirtualPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
-//        log.info("[Controller: MyPortfolio 조회]");
-//        List<List<PortfolioDto>> response = new ArrayList<>();
-//        try {
-//            MemberDto memberDto = memberService.findMember(portfolioRequestDto.getEmail());
-//            if(memberDto.getPortfolioCnt()<1) return new ResponseEntity<>(HttpStatus.CONFLICT);
-//
-//
-////            for(int i=1; i<=memberDto.getPortfolioCnt(); i++){
-////                response.add(portfolioService.getPortfolio(memberDto.getMemberId(), i));
-////            }
-//            return new ResponseEntity<List<List<PortfolioDto>>>(response, HttpStatus.OK);
-//        } catch (UsernameNotFoundException e) {
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//    }
+    @ApiResponses({
+            @ApiResponse(code = 200, message="마이 포트폴리오 가져오기 성공"),
+            @ApiResponse(code = 409, message="마이포트폴리오가 존재하지 않습니다."),
+            @ApiResponse(code = 500, message="기타 서버 에러"),
+    })
+    @ApiOperation(value="MyPortfolio 조회", notes="memberId 필수")
+    @PostMapping("/posession")
+    public ResponseEntity<?> MyPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
+        log.info("[Controller: MyPortfolio 조회]");
+
+        try {
+            PortfolioResponseDto portfolioResponseDto = portfolioService.getMyPortfolio(portfolioRequestDto.getMemberId());
+            if(portfolioResponseDto.getPortfolioList()==null && portfolioResponseDto.getCustomProductList()==null){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+            return new ResponseEntity<PortfolioResponseDto>(portfolioResponseDto, HttpStatus.OK);
+        } catch (UsernameNotFoundException e) {
+            e.printStackTrace();
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="가상 포트폴리오 가져오기 성공"),
+            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+            @ApiResponse(code = 409, message="가상 포트폴리오를 보유하고 있지 않습니다."),
+            @ApiResponse(code = 500, message="기타 서버 에러"),
+    })
+    @ApiOperation(value="가상 포트폴리오 조회", notes="memberId, portfolioCnt 필수")
+    @PostMapping("/virtual")
+    public ResponseEntity<?> VirtualPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
+        log.info("[Controller: MyPortfolio 조회]");
+        List<List<PortfolioDto>> response = new ArrayList<>();
+        try {
+            if(portfolioRequestDto.getPortfolioCnt()<1) return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+            for(int i=1; i<=portfolioRequestDto.getPortfolioCnt(); i++){
+                response.add(portfolioService.getPortfolio(portfolioRequestDto.getMemberId(), i));
+            }
+            return new ResponseEntity<List<List<PortfolioDto>>>(response, HttpStatus.OK);
+        } catch (UsernameNotFoundException e) {
+            e.printStackTrace();
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 //
 //    @ApiResponses({
 //            @ApiResponse(code = 200, message="포트폴리오 수정 성공"),

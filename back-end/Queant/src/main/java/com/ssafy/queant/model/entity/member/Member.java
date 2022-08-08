@@ -52,6 +52,7 @@ public class Member implements Serializable {
     private String refreshToken;
 
     @ElementCollection(fetch = FetchType.LAZY)
+//    @ToString.Exclude
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 

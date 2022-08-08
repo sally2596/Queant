@@ -5,18 +5,12 @@ import com.ssafy.queant.model.entity.member.MemberRole;
 import com.ssafy.queant.model.entity.product.Conditions;
 import com.ssafy.queant.model.entity.product.Options;
 import com.ssafy.queant.model.entity.product.Product;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -29,8 +23,10 @@ public class Portfolio implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int portfolioId;
 
-    @Column(nullable = false)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name="memberId")
+    @ToString.Exclude
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "productId")
@@ -38,11 +34,11 @@ public class Portfolio implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "optionId")
-    private Options options;
+    private Options option;
 
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
     @Builder.Default
-    private List<PortfolioCondition> portfolioConditions = new ArrayList<>();
+    private Set<Conditions> conditions = new HashSet<>();
 
     @Column(nullable = false)
     private int portfolioNo;
@@ -53,7 +49,7 @@ public class Portfolio implements Serializable{
     private Date endDate;
     private Long amountFixed;
 
-    public void addPortfolioCondition(PortfolioCondition portfolioCondition){
-        portfolioConditions.add(portfolioCondition);
+    public void addCondition(Conditions condition){
+        conditions.add(condition);
     }
 }

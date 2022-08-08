@@ -1,5 +1,6 @@
 package com.ssafy.queant.model.service.portfolio;
 
+import com.ssafy.queant.model.dto.member.MemberDto;
 import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
 import com.ssafy.queant.model.dto.portfolio.PortfolioResponseDto;
 import com.ssafy.queant.model.dto.product.CustomProductDto;
@@ -113,78 +114,66 @@ public class PortfolioServiceImpl implements PortfolioService {
       return savedCustomProductDto;
    }
 
-//   @Override
-//   public PortfolioResponseDto getMyPortfolio(String email) throws Exception {
-//      log.info("[getMyPortfolio] : email: {}", email);
-//      Optional<Member> result = memberRepository.findByEmail(email);
-//      result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
-//      Member member = result.get();
-//
-//      PortfolioResponseDto portfolioResponseDto = new PortfolioResponseDto();
-//      //사용자 정의상품 찾기
-//      try{
-//
-//         List<CustomProductDto> customProductDtoList = findCustomProductByMemberId(member.getMemberId());
-//
-//         portfolioResponseDto.setCustomProductList(customProductDtoList);
-//      } catch(Exception e){
-//         e.printStackTrace();
-//      }
-//
-//      //0번 포트폴리오 찾기
-//      try {
-//
-//         List<PortfolioDto> myPortfolioList = getPortfolio(member.getMemberId(), 0);
-//
-//         portfolioResponseDto.setPortfolioList(myPortfolioList);
-//      } catch(Exception e) {
-//         e.printStackTrace();
-//      }
-//
-//
-//      return portfolioResponseDto;
-//   }
+   @Override
+   public PortfolioResponseDto getMyPortfolio(UUID memberId) throws Exception {
+      log.info("[getMyPortfolio] : memberId: {}", memberId);
+      PortfolioResponseDto portfolioResponseDto = new PortfolioResponseDto();
+      //사용자 정의상품 찾기
+      try{
+         List<CustomProductDto> customProductDtoList = findCustomProductByMemberId(memberId);
+         portfolioResponseDto.setCustomProductList(customProductDtoList);
+      } catch(Exception e){
+         e.printStackTrace();
+      }
 
-//   @Override
-//   public List<PortfolioDto> getPortfolio(UUID memberId, int portfolioNo) throws Exception {
-//      List<PortfolioDto> response = new ArrayList<>();
-//
-//      Optional<List<Portfolio>> result = portfolioRepository.findByMemberMemberIdAndPortfolioNo(memberId, portfolioNo);
-//      result.orElseThrow(() -> new NoSuchElementException("해당 포트폴리오가 없습니다."));
-//
-//      result.get().forEach(portfolio -> response.add(modelMapper.map(portfolio, PortfolioDto.class)));
-//      return response;
-//   }
+      //0번 포트폴리오 찾기
+
+      try{
+        List<PortfolioDto> portfolioDtoList = getPortfolio(memberId,0);
+        portfolioResponseDto.setPortfolioList(portfolioDtoList);
+      } catch(Exception e){
+         e.printStackTrace();
+      }
+
+      return portfolioResponseDto;
+   }
 
    @Override
-   public void insertPortfolio(String email, List<PortfolioDto> portfolioDtoList) throws Exception{
+   public List<PortfolioDto> getPortfolio(UUID memberId, int portfolioNo) throws Exception {
+      List<PortfolioDto> response = new ArrayList<>();
 
-      log.info("[insertPortfolio] : email: {} 포트폴리오 추가", email);
+      Member member = Member.builder().memberId(memberId).build();
+      Optional<List<Portfolio>> result = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
+      result.orElseThrow(() -> new NoSuchElementException("해당 포트폴리오가 없습니다."));
+
+      result.get().forEach(portfolio -> response.add(modelMapper.map(portfolio, PortfolioDto.class)));
+      return response;
+   }
+
+   @Override
+   public void insertPortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList) throws Exception{
+
+      log.info("[insertPortfolio] : memberId: {} 포트폴리오 추가", memberId);
 
       for(PortfolioDto portfolioDto : portfolioDtoList){
          Product product = Product.builder().productId(portfolioDto.getProductId()).build();
          Options option = Options.builder().optionId(portfolioDto.getOptionId()).build();
-
+         Member member = Member.builder().memberId(memberId).build();
          //포트폴리오 생성
          Portfolio portfolio = Portfolio.builder()
-                 .email(email)
+                 .member(member)
                  .product(product)
                  .portfolioNo(portfolioDto.getPortfolioNo())
                  .amount(portfolioDto.getAmount())
                  .startDate(portfolioDto.getStartDate())
                  .endDate(portfolioDto.getEndDate())
-                 .options(option)
+                 .option(option)
                  .build();
 
          //컨디션 생성 및 주입
          for(int conditionId : portfolioDto.getConditionIds()){
             Conditions condition = Conditions.builder().conditionId(conditionId).build();
-            portfolio.addPortfolioCondition(
-                    PortfolioCondition.builder()
-                            .conditions(condition)
-                            .portfolio(portfolio)
-                            .build()
-            );
+            portfolio.addCondition(condition);
          }
 
          portfolioRepository.save(portfolio);

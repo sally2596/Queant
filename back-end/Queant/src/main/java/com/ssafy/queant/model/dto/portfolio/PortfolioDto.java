@@ -1,14 +1,13 @@
 package com.ssafy.queant.model.dto.portfolio;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ssafy.queant.model.dto.product.ConditionsDto;
+import com.ssafy.queant.model.dto.product.OptionsDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
 import lombok.*;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +26,10 @@ public class PortfolioDto {
     private Date startDate;
     private Date endDate;
     private int optionId;
+    private OptionsDto option;
+    @Builder.Default
+    private Set<ConditionsDto> conditions = new HashSet<>();
+    @Builder.Default
     private List<Integer> conditionIds = new ArrayList<>();
 
 
