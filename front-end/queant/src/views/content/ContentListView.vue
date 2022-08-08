@@ -30,7 +30,9 @@
                 <div class="btn-group">
                   <router-link class="btn btn-sm btn-outline-secondary"
                 :to="{ name: 'contentDetail' , params: { contentId: content.content_id }}">보기</router-link>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="test">삭제</button>
+                  <router-link class="btn btn-sm btn-outline-secondary"
+                :to="{ name: 'contentEdit' , params: { contentId: content.content_id }}">수정</router-link>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(content.content_id)">삭제</button>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>  
@@ -57,10 +59,7 @@ export default {
     document.body.className = 'home_body'
   },
   methods : {
-    ...mapActions(['getContentList', 'getContent', 'deleteContent']),
-    test() {
-      console.log(this.content.content_id)
-    }
+    ...mapActions(['getContentList', 'getContent', 'deleteContent', 'editContent']),
   },
   created() {
     this.getContentList();

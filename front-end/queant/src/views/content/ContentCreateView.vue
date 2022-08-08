@@ -14,7 +14,6 @@
     <div>
       <router-link :to="{name : 'contents'}" class="btn btn-danger my-2">취소</router-link>
       <button class="btn btn-primary my-2" @click="write">작성</button>
-      <button class="btn btn-primary my-2" @click="testbtn">수정</button>
     </div>
   </section>
 </template>

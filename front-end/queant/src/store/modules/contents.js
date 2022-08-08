@@ -88,7 +88,7 @@ export default {
       })
       .then(res => {
 				console.log(res)
-        router.push({ name: 'contents' })
+        router.go()
       })
       .catch(err => {
         console.log(err)
