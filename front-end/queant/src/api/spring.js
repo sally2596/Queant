@@ -1,5 +1,5 @@
-const HOST = 'http://i7a201.p.ssafy.io:8000/'
-// const HOST = 'http://localhost:8000/'
+// const HOST = 'http://i7a201.p.ssafy.io:8000/'
+const HOST = 'http://localhost:8000/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
@@ -44,8 +44,11 @@ export default {
   },
   contents: {
     newslist: () => HOST,
-    articledetail: (contentId) => HOST + CONTENTS + contentId,
-    edit: () => HOST + CONTENTS + 'edit'
+    contentlist: () => HOST + CONTENTS,
+    detail: (contentId) => HOST + CONTENTS + contentId,
+		upload: () => HOST + CONTENTS + 'upload',
+    edit: () => HOST + CONTENTS + 'edit',
+    remove: () => HOST + CONTENTS + 'delete'
   },
   portfolio: {
     posession: () => HOST + PORTFOLIO + 'posession',
