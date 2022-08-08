@@ -6,7 +6,7 @@
   <main>
   <section class="py-5 text-center container">
     <div class="row py-lg-5"> 
-      <input v-model="content.title" placeholder="제목을 입력하세요.">
+      <input v-model="newContent.title" placeholder="제목을 입력하세요.">
     </div>
     <br>
     <div>
@@ -28,6 +28,7 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import CKEditor from '@ckeditor/ckeditor5-vue'
+import Navbar from '@/components/Navbar.vue'
 
 import spring from '@/api/spring'
 import { mapActions, mapGetters } from 'vuex'
@@ -35,7 +36,8 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "ContentCreateView",
 	components: {
-		ckeditor: CKEditor.component
+		ckeditor: CKEditor.component,
+    Navbar: Navbar
 	},
 	computed: {
     ...mapGetters(['content', 'userInfo']),
@@ -52,9 +54,9 @@ export default {
 					uploadUrl: spring.contents.upload()
 				}
 			},
-			content: {
+			newContent: {
 				title: '',
-				memberId: this.userInfo.name,
+				memberId: this.userInfo?.name,
 				content: '',
 			}
     }

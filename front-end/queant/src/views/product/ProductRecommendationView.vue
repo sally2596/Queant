@@ -36,6 +36,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-3 m-3">
           <h6>예치 기간</h6>
           <input v-model="filtersByDeposit.period" value="6" type="radio" class="btn-check" name="deposit-time" id="deposit-months-6" autocomplete="off">
@@ -52,7 +53,11 @@
 
         <div class="col-lg-2 m-3">
           <h6>희망 예치금(원)</h6>
-          <input type="number" name="deposit_money" id="deposit_money">
+          <input
+            v-model="filtersByDeposit.amount"
+            type="number"
+            name="deposit_money"
+            id="deposit_money">
         </div>
 
         <div class="col-lg-5 m-3">
@@ -76,9 +81,6 @@
               </label>
             </div>
           </div>
-=======
-          <input type="number" name="deposit_money" id="deposit_money" style="width:8rem;">
->>>>>>> cedcefd30f557d19558e62d88c6a86e96c4e0fb1
         </div>
 
         <div class="col-lg-3 m-3">
@@ -121,7 +123,8 @@
                 v-model="filtersByDeposit.traitSet"
                 type="checkbox" 
                 class="btn-check" 
-                name="deposit_banks" 
+                name="deposit_banks"
+                :value="traitSet.scode_id"
                 :id="`deposit-${traitSet.scode_id}`" 
                 autocomplete="off">
               <label 
@@ -133,42 +136,27 @@
           </div>
         </div>
 
-        <div class="col-lg-5 m-3">
-          <h6>가입 방법</h6>
+        <div class="col-lg-12 m-3">
+          <h6>희망 은행</h6>
           <div id="banks_container">
-            <div
-<<<<<<< HEAD
+            <div 
               v-for="bank in keywords.bank"
               :key="bank.bank_id" v-show="bank.scode_id === filtersByDeposit.bankType[0] || bank.scode_id === filtersByDeposit.bankType[1]">
               <div>
                 <input 
                   v-model="filtersByDeposit.bank"
                   type="checkbox" 
-                  class="btn-check" 
+                  class="btn-check"
                   name="deposit_banks" 
                   :id="`deposit-${bank.bank_id}`" 
+                  :value="bank.bank_id"
                   autocomplete="off">
-                <label
+                <label 
                   class="btn btn-outline-success" 
                   :for="`deposit-${bank.bank_id}`">
                   {{ bank.short_name }}
                 </label>
               </div>
-=======
-              v-for="joinway in keywords.joinway"
-              :key="joinway.scode_id">
-              <input 
-                type="checkbox" 
-                class="btn-check" 
-                name="deposit_banks" 
-                :id="`deposit-${joinway.scode_id}`" 
-                autocomplete="off">
-              <label 
-                class="btn btn-outline-success"
-                :for="`deposit-${joinway.scode_id}`">
-                {{ joinway.scode_value }}
-              </label>
->>>>>>> cedcefd30f557d19558e62d88c6a86e96c4e0fb1
             </div>
           </div>
         </div>
@@ -179,11 +167,13 @@
           <div
             v-for="condition in keywords.conditions"
             :key="condition.scode_id">
-            <input 
+            <input
+              v-model="filtersByDeposit.conditions"
               type="checkbox" 
               class="btn-check" 
               name="deposit_" 
-              :id="`deposit-${condition.scode_id}`" 
+              :id="`deposit-${condition.scode_id}`"
+              :value="condition.scode_id"
               autocomplete="off">
             <label 
               class="btn btn-outline-success"
@@ -227,21 +217,22 @@
 
         <div class="col-lg-3 m-3 select">
           <h6>적립 기간</h6>
-          <input type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
+          <input v-model="filtersBySaving.period" value="6" type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
-          <input type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
+          <input v-model="filtersBySaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-12">12개월</label>
-          <input type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
+          <input v-model="filtersBySaving.period" value="18" type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-18">18개월</label>
-          <input type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
+          <input v-model="filtersBySaving.period" value="24" type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-24">24개월</label>
-          <input type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
+          <input v-model="filtersBySaving.period" value="36" type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-36">36개월</label>
         </div>
 
         <div class="col-lg-2 m-3">
           <h6>희망 월 적립금(원)</h6>
-          <input 
+          <input
+            v-model="filtersBySaving.amount"
             type="number" 
             name="saving_monthly" 
             id="saving_monthly">
@@ -285,7 +276,8 @@
                 type="checkbox" 
                 class="btn-check" 
                 name="saving_banks" 
-                :id="`saving-${joinway.scode_id}`" 
+                :id="`saving-${joinway.scode_id}`"
+                :value="joinway.scode_id"
                 autocomplete="off">
               <label 
                 class="btn btn-outline-success" 
@@ -293,8 +285,6 @@
                 {{ joinway.scode_value }}
               </label>
             </div>
-=======
->>>>>>> cedcefd30f557d19558e62d88c6a86e96c4e0fb1
           </div>
         </div>
 
@@ -306,7 +296,7 @@
             type="radio" 
             class="btn-check" 
             name="saving_" 
-            id="saving-flat" 
+            id="saving-flat"
             autocomplete="off">
           <label 
             class="btn btn-outline-success" 
@@ -334,11 +324,13 @@
             <div 
               v-for="traitSet in keywords.trait_set"
               :key="traitSet.scode_id">
-              <input 
+              <input
+                v-model="filtersBySaving.trailSet"
                 type="checkbox" 
                 class="btn-check" 
                 name="saving_banks" 
-                :id="`saving-${traitSet.scode_id}`" 
+                :id="`saving-${traitSet.scode_id}`"
+                :value="traitSet.scode_id"
                 autocomplete="off">
               <label 
                 class="btn btn-outline-success" 
@@ -360,9 +352,9 @@
                   v-model="filtersBySaving.bank"
                   type="checkbox" 
                   class="btn-check"
-                  :value="bank.scode_id"
                   name="saving_banks" 
                   :id="`saving-${bank.bank_id}`" 
+                  :value="bank.bank_id"
                   autocomplete="off">
                 <label 
                   class="btn btn-outline-success" 
@@ -373,6 +365,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-12 m-3">
           <h6>우대 조건</h6>
           <div id="banks_container">
@@ -384,7 +377,8 @@
                   type="checkbox" 
                   class="btn-check" 
                   name="saving_" 
-                  :id="`saving-${condition.scode_id}`" 
+                  :id="`saving-${condition.scode_id}`"
+                  :value="condition.scode_id"
                   autocomplete="off">
                 <label 
                   class="btn btn-outline-success" 
