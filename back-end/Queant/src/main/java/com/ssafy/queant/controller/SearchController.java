@@ -58,8 +58,8 @@ public class SearchController {
             @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "예금 단품 검색", description = "키워드로 예금 단품 검색")
-    @PostMapping(value = "/deposit/single")
-    public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto, @RequestBody int page) {
+    @PostMapping(value = "/deposit/single/{page}")
+    public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto, @PathVariable int page) {
         SearchResponseDto list = searchService.searchSingle(searchRequestDto, true, page);
         if (list.getTotalCount() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
@@ -72,8 +72,8 @@ public class SearchController {
             @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "적금 단품 검색", description = "키워드로 적금 단품 검색")
-    @PostMapping(value = "/saving/single")
-    public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto, @RequestBody int page) {
+    @PostMapping(value = "/saving/single/{page}")
+    public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto, @PathVariable int page) {
         SearchResponseDto list = searchService.searchSingle(searchRequestDto, false, page);
         if (list.getTotalCount() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
