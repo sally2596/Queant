@@ -23,4 +23,5 @@ public class ProductDto {
     private int termMax;
     private String etc;
     private boolean isEnabled;
+    private float baseRate;
 }

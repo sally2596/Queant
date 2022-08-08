@@ -11,15 +11,11 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     //productId로 상품 하나 검색
     Optional<Product> findByProductId(String productId);
-    // 단품 검색 (검색어 조합) == 추천
-
 
     // 상품 검색 (텍스트 검색, 상품명으로 검색)
     List<Product> findByIsEnabledTrueAndNameContaining(@Param("name") String name);
 
     List<Product> findByNameContaining(@Param("name") String name);
-
-    // 세트 검색 (검색어 조합) == 추천
 
     // admin이 사용자들이 입력한 상품 확인(isEnabled = false && scodeId = "E003"인 상품 )
     List<Product> findByIsEnabledFalse();

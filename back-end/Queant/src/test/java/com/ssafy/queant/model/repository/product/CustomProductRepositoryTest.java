@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,7 +24,7 @@ class CustomProductRepositoryTest {
     private CustomProductRepository customProductRepository;
 
     @Test
-    public void 사용자정의상품_단품_저장(){
+    public void 사용자정의상품_단품_저장() {
         //given
         final CustomProduct product = CustomProduct.builder()
                 .institutionName("우리은행")
@@ -33,7 +32,7 @@ class CustomProductRepositoryTest {
                 .isDeposit(true)
                 .baseRate(1.5F)
                 .startDate(new Date(System.currentTimeMillis()))
-                .endDate(new Date(System.currentTimeMillis()+1000))
+                .endDate(new Date(System.currentTimeMillis() + 1000))
                 .memberId(UUID.randomUUID())
                 .build();
 
@@ -41,8 +40,8 @@ class CustomProductRepositoryTest {
         final CustomProduct savedProduct = customProductRepository.save(product);
 
         //then
-        assertEquals(product.getProductId(),savedProduct.getProductId());
-        log.info("***************************"+product.getProductId());
+        assertEquals(product.getProductId(), savedProduct.getProductId());
+        log.info("***************************" + product.getProductId());
     }
 
     @Test
@@ -54,7 +53,7 @@ class CustomProductRepositoryTest {
                 .isDeposit(true)
                 .baseRate(1.5F)
                 .startDate(new Date(System.currentTimeMillis()))
-                .endDate(new Date(System.currentTimeMillis()+1000))
+                .endDate(new Date(System.currentTimeMillis() + 1000))
                 .memberId(UUID.randomUUID())
                 .build();
 
@@ -74,7 +73,7 @@ class CustomProductRepositoryTest {
                 .isDeposit(true)
                 .baseRate(1.5F)
                 .startDate(new Date(System.currentTimeMillis()))
-                .endDate(new Date(System.currentTimeMillis()+1000))
+                .endDate(new Date(System.currentTimeMillis() + 1000))
                 .memberId(UUID.randomUUID())
                 .build();
 
@@ -87,21 +86,21 @@ class CustomProductRepositoryTest {
         int expected = savedProduct.getProductId();
 
         // then
-        assertEquals(actual,expected);
+        assertEquals(actual, expected);
     }
 
     @Test
-    public void 사용자이메일로_사용자정의예금상품_찾기(){
+    public void 사용자이메일로_사용자정의예금상품_찾기() {
         //given
         final UUID uuid = UUID.randomUUID();
 
-        final CustomProduct product1= CustomProduct.builder()
+        final CustomProduct product1 = CustomProduct.builder()
                 .institutionName("우리은행")
                 .productName("1111")
                 .isDeposit(true)
                 .baseRate(1.5F)
                 .startDate(new Date(System.currentTimeMillis()))
-                .endDate(new Date(System.currentTimeMillis()+1000))
+                .endDate(new Date(System.currentTimeMillis() + 1000))
                 .memberId(uuid)
                 .build();
 
@@ -111,7 +110,7 @@ class CustomProductRepositoryTest {
                 .isDeposit(true)
                 .baseRate(10.4f)
                 .startDate(new Date(System.currentTimeMillis()))
-                .endDate(new Date(System.currentTimeMillis()+1000))
+                .endDate(new Date(System.currentTimeMillis() + 1000))
                 .memberId(uuid)
                 .build();
 
@@ -121,7 +120,7 @@ class CustomProductRepositoryTest {
                 .isDeposit(true)
                 .baseRate(10.4f)
                 .startDate(new Date(System.currentTimeMillis()))
-                .endDate(new Date(System.currentTimeMillis()+1000))
+                .endDate(new Date(System.currentTimeMillis() + 1000))
                 .memberId(UUID.randomUUID())
                 .build();
 
@@ -131,9 +130,15 @@ class CustomProductRepositoryTest {
         final CustomProduct savedProduct3 = customProductRepository.save(product3);
 
         //when
+<<<<<<< HEAD
+//        List<CustomProduct> list = customProductRepository.findByMemberId(uuid);
+//
+//        //then
+=======
         //List<CustomProduct> list = customProductRepository.findByMemberId(uuid);
 
         //then
+>>>>>>> Back-end
 //        for (int i = 0; i < list.size(); i++) {
 //            log.info("["+i+"번째 커스텀 상품]");
 //            log.info(list.get(i).toString());

@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class BankKeywordDto {
     String scodeId;
-    String bankId;
+    Integer bankId;
     String bankName;
     String shortName;
 }
