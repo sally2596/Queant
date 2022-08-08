@@ -76,7 +76,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit) {
-        int period = searchRequestDto.getPeriod();
+        Integer period = searchRequestDto.getPeriod();
+
         Boolean isSimpleInterest = searchRequestDto.getIsSimpleInterest();
 
         List<BankKeywordDto> bankKeywordDtos = searchRequestDto.getBank();

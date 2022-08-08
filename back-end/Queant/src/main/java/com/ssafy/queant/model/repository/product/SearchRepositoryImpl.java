@@ -19,7 +19,7 @@ public class SearchRepositoryImpl implements SearchRepository {
 
 
     @Override
-    public List<Product> searchSingle(boolean isDeposit, Boolean isSimpleInterest, int period, List<Integer> banks, List<String> joinway, List<String> conditions, List<String> traitSet) {
+    public List<Product> searchSingle(boolean isDeposit, Boolean isSimpleInterest, Integer period, List<Integer> banks, List<String> joinway, List<String> conditions, List<String> traitSet) {
         QJoinway qJoinway = QJoinway.joinway;
         QConditions qConditions = QConditions.conditions;
         QTraitSet qTraitSet = QTraitSet.traitSet;
@@ -30,9 +30,11 @@ public class SearchRepositoryImpl implements SearchRepository {
         // 예금 vs 적금 -> 무조건 설정하게 됨
         builder.and(product.isDeposit.eq(isDeposit));
 
-        // 예치 기간
-        builder.and(product.termMin.loe(period));
-        builder.and(product.termMax.goe(period));
+//        // 예치 기간
+//        if (period != null) {
+//            builder.and(product.termMin.loe(period));
+//            builder.and(product.termMax.goe(period));
+//        }
 
         if (isSimpleInterest != null) {// 단리 복리 설정값이 들어옴
             builder.and(product.productId.in(
@@ -68,8 +70,12 @@ public class SearchRepositoryImpl implements SearchRepository {
 
         List<Product> results = queryFactory
                 .selectFrom(product).distinct()
+                .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
                 .where(builder)
+                .orderBy(qOptions.saveTerm.desc())
                 .fetch();
+
+
         return results;
     }
 }

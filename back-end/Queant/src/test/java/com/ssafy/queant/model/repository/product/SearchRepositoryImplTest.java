@@ -30,12 +30,12 @@ class SearchRepositoryImplTest {
         List<String> traitSet = new ArrayList<>();
 //        traitSet.add("E001");
 
-        int period = 3;
+        int period = 12;
         List<Product> p = searchRepository.searchSingle(false, null, period, list, joinway, conditions, traitSet);
         log.info(String.valueOf(p.size()));
-//        for (Product product : p
-//        ) {
-//            log.info(product.toString());
-//        }
+        for (Product product : p
+        ) {
+            log.info(product.toString());
+        }
     }
 }
