@@ -1,5 +1,6 @@
 package com.ssafy.queant.model.service;
 
+import com.querydsl.core.Tuple;
 import com.ssafy.queant.model.dto.Search.BankKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
@@ -7,13 +8,15 @@ import com.ssafy.queant.model.dto.Search.SpecificCodeDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
 import com.ssafy.queant.model.entity.SpecificCode;
 import com.ssafy.queant.model.entity.product.Bank;
-import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.SpecificCodeRepository;
 import com.ssafy.queant.model.repository.product.BankRepository;
 import com.ssafy.queant.model.repository.product.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -75,10 +78,8 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit) {
-        Integer period = searchRequestDto.getPeriod();
-
-        Boolean isSimpleInterest = searchRequestDto.getIsSimpleInterest();
+    public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit, int page) {
+        Pageable pageable = PageRequest.of(page - 1, 50);
 
         List<BankKeywordDto> bankKeywordDtos = searchRequestDto.getBank();
         List<Integer> bank = new ArrayList<>();
@@ -110,14 +111,21 @@ public class SearchServiceImpl implements SearchService {
             }
         }
 
-        List<Product> result = searchRepository.searchSingle(isDeposit, isSimpleInterest, period, bank, joinway
-                , conditions,
-                traitSet);
+        Page<Tuple> result = searchRepository.searchSingle(
+                isDeposit,
+                searchRequestDto.getIsSimpleInterest(),
+                searchRequestDto.getIsFixed(),
+                searchRequestDto.getPeriod(),
+                bank,
+                joinway,
+                conditions,
+                traitSet,
+                pageable);
 
         List<ProductDto> list = new ArrayList<>();
-        for (Product p : result) {
-            list.add(modelMapper.map(p, ProductDto.class));
-        }
+
+        result.get().forEach(product -> list.add(modelMapper.map(product, ProductDto.class)));
+
         return list;
     }
 }

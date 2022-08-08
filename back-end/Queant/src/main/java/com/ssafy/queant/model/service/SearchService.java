@@ -9,5 +9,5 @@ import java.util.List;
 public interface SearchService {
     SearchKeywordDto getSearchKeyword();
 
-    List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit);
+    List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit, int page);
 }

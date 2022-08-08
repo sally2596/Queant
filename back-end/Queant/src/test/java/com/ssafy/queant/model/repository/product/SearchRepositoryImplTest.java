@@ -1,11 +1,16 @@
 package com.ssafy.queant.model.repository.product;
 
-import com.ssafy.queant.model.entity.product.Product;
+import com.querydsl.core.Tuple;
+import com.ssafy.queant.model.dto.product.ProductDto;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +22,8 @@ class SearchRepositoryImplTest {
 
     @Autowired
     private SearchRepository searchRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Test
     void searchBank() {
@@ -31,11 +38,15 @@ class SearchRepositoryImplTest {
 //        traitSet.add("E001");
 
         int period = 12;
-        List<Product> p = searchRepository.searchSingle(false, null, period, list, joinway, conditions, traitSet);
-        log.info(String.valueOf(p.size()));
-        for (Product product : p
+        Pageable pageable = PageRequest.of(0, 50);
+        Page<Tuple> p = searchRepository.searchSingle(false, null, false, period, list, joinway, conditions, traitSet, pageable);
+        log.info(String.valueOf(p));
+        for (Tuple product : p
         ) {
-            log.info(product.toString());
+            ProductDto dto = modelMapper.map(product, ProductDto.class);
+            dto.setBaseRate(product.get(1, Float.class));
+            log.info("[TUPLE]: " + product.toString());
         }
+        log.info(String.valueOf(p.getSize()));
     }
 }
