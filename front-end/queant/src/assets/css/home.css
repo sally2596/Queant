@@ -83,14 +83,14 @@
 
 #hero h2 {
   margin-bottom: 30px;
-  font-size: 80px;
+  font-size: 2rem;
   font-weight: 700;
   -webkit-text-fill-color: white;
 }
 
 #hero p {
   width: 80%;
-  font-size: 40px;
+  font-size: 1rem;
   margin: 0 auto 30px auto;
   color: antiquewhite;
 }
@@ -98,11 +98,11 @@
 
 #hero .btn-get-started {
   font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 300;
+  font-size: 1rem;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 12px 32px;
+  padding: 12px 20px;
   border-radius: 50px;
   line-height: 2;
   margin: 10px;

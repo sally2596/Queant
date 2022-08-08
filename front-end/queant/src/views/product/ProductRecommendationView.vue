@@ -14,7 +14,7 @@
       <!-- 예금 -->
       <div v-if="filter_deposit" class="container row" id="filter_deposit">
 
-        <div class="col-lg-4 m-3">
+        <div class="col-lg-2 m-3">
           <h6>기관</h6>
           <div id="banks_container">
             <div
@@ -36,13 +36,7 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="col-lg-3 m-3">
-          <h6>예치 기간(개월)</h6>
-          <input type="number">
-        </div> -->
-
-        <div class="col-lg-3 m-3 select">
+        <div class="col-lg-3 m-3">
           <h6>예치 기간</h6>
           <input v-model="filtersByDeposit.period" value="6" type="radio" class="btn-check" name="deposit-time" id="deposit-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
@@ -56,13 +50,9 @@
           <label class="btn btn-outline-success" for="deposit-months-36">36개월</label>
         </div>
 
-        <div class="col-lg-3 m-3">
+        <div class="col-lg-2 m-3">
           <h6>희망 예치금(원)</h6>
-          <input
-            v-model="filtersByDeposit.amount" 
-            type="number" 
-            name="deposit_money" 
-            id="deposit_money">
+          <input type="number" name="deposit_money" id="deposit_money">
         </div>
 
         <div class="col-lg-5 m-3">
@@ -86,6 +76,9 @@
               </label>
             </div>
           </div>
+=======
+          <input type="number" name="deposit_money" id="deposit_money" style="width:8rem;">
+>>>>>>> cedcefd30f557d19558e62d88c6a86e96c4e0fb1
         </div>
 
         <div class="col-lg-3 m-3">
@@ -140,10 +133,11 @@
           </div>
         </div>
 
-        <div class="m-3">
-          <h6>희망 은행</h6>
+        <div class="col-lg-5 m-3">
+          <h6>가입 방법</h6>
           <div id="banks_container">
             <div
+<<<<<<< HEAD
               v-for="bank in keywords.bank"
               :key="bank.bank_id" v-show="bank.scode_id === filtersByDeposit.bankType[0] || bank.scode_id === filtersByDeposit.bankType[1]">
               <div>
@@ -160,18 +154,32 @@
                   {{ bank.short_name }}
                 </label>
               </div>
+=======
+              v-for="joinway in keywords.joinway"
+              :key="joinway.scode_id">
+              <input 
+                type="checkbox" 
+                class="btn-check" 
+                name="deposit_banks" 
+                :id="`deposit-${joinway.scode_id}`" 
+                autocomplete="off">
+              <label 
+                class="btn btn-outline-success"
+                :for="`deposit-${joinway.scode_id}`">
+                {{ joinway.scode_value }}
+              </label>
+>>>>>>> cedcefd30f557d19558e62d88c6a86e96c4e0fb1
             </div>
           </div>
         </div>
         
         <div class="col-lg-12 m-3">
-          <h6>우대 사항</h6>
+          <h6>우대 조건</h6>
           <div id="banks_container">
           <div
             v-for="condition in keywords.conditions"
             :key="condition.scode_id">
-            <input
-              v-model="filtersByDeposit.conditions"
+            <input 
               type="checkbox" 
               class="btn-check" 
               name="deposit_" 
@@ -194,7 +202,7 @@
       <!-- 적금 -->
       <div v-if="filter_savings" class="container row" id="filter_savings">
 
-        <div class="col-lg-4 m-3">
+        <div class="col-lg-2 m-3">
           <h6>기관</h6>
           <div id="banks_container">
             <div
@@ -216,14 +224,9 @@
             </div>
           </div>
         </div>
-        
-        <!-- <div class="col-lg-3 m-3">
-          <h6>적립 기간(개월)</h6>
-          <input type="number">
-        </div> -->
 
         <div class="col-lg-3 m-3 select">
-          <h6>예치 기간</h6>
+          <h6>적립 기간</h6>
           <input type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
           <input type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
@@ -236,10 +239,9 @@
           <label class="btn btn-outline-success" for="saving-months-36">36개월</label>
         </div>
 
-        <div class="col-lg-3 m-3">
+        <div class="col-lg-2 m-3">
           <h6>희망 월 적립금(원)</h6>
-          <input
-            v-model="filtersBySaving.amount"
+          <input 
             type="number" 
             name="saving_monthly" 
             id="saving_monthly">
@@ -291,6 +293,8 @@
                 {{ joinway.scode_value }}
               </label>
             </div>
+=======
+>>>>>>> cedcefd30f557d19558e62d88c6a86e96c4e0fb1
           </div>
         </div>
 
@@ -325,40 +329,12 @@
         </div>
 
         <div class="col-lg-3 m-3">
-          <h6>이자 유형</h6>
-          <input 
-            v-model="filtersBySaving.isSimpleInterest"
-            type="radio" 
-            class="btn-check" 
-            name="saving_" 
-            id="saving-simple-interest-true" 
-            autocomplete="off">
-          <label 
-            class="btn btn-outline-success" 
-            for="saving-simple-interest-true">
-            단리
-          </label>
-          <input 
-            type="radio" 
-            class="btn-check" 
-            name="saving_" 
-            id="saving-simple-interest-false"
-            autocomplete="off">
-          <label 
-            class="btn btn-outline-success" 
-            for="saving-simple-interest-false">
-            복리
-          </label>
-        </div>
-
-        <div class="col-lg-3 m-3">
           <h6>특수 조건</h6>
           <div id="banks_container">
             <div 
               v-for="traitSet in keywords.trait_set"
               :key="traitSet.scode_id">
               <input 
-                v-model="filtersBySaving.traitSet"
                 type="checkbox" 
                 class="btn-check" 
                 name="saving_banks" 
@@ -439,7 +415,7 @@ export default {
     document.body.className = 'menu_body'
   },
   computed: {
-    ...mapGetters(['keywords'])
+    ...mapGetters(['keywords', 'banks'])
   },
   methods: {
     ...mapActions(['fetchKeywords']),
