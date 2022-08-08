@@ -167,16 +167,16 @@ public class ContentController { ;
     })
     @ApiOperation(value="컨텐츠 삭제", notes="컨텐츠 삭제 버튼을 누르면 작동")
     @DeleteMapping("/contents/delete")
-    public ResponseEntity<String> ContentDelete(@RequestBody Long contentId) throws Exception {
+    public ResponseEntity<String> ContentDelete(@RequestBody Content article) throws Exception {
         log.info("[ContentDelete] is running");
 
-        if(contentRepository.findByContentId(contentId) == null) {
+        if(contentRepository.findByContentId(article.getContentId()) == null) {
             log.info("[ContentDelete] run failed");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
             //컨텐츠 삭제
-            contentRepository.delete(Content.builder().contentId(contentId).build());
+            contentRepository.delete(Content.builder().contentId(article.getContentId()).build());
             log.info("[ContentDelete] run finished");
             return new ResponseEntity<String>("컨텐츠가 삭제되었습니다.", HttpStatus.OK);
         }
