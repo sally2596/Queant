@@ -13,15 +13,16 @@
       <div class="row">
         <div class="col-lg-4 col-6 my-2" v-for="bank in banks" :key="bank.bank_id" v-show="bank.scode_id=='C001'" data-aos="fade-up">
           <div class="card">
-            <div class="card-body" id="banks_card">
-                <h5 class="card-title">{{bank.short_name}}</h5>
-                <a :href="bank.homepage">홈페이지</a>
-                <p>전화번호 : {{bank.tel}}</p>
-                <router-link class="banks btn btn-outline-success btn-sm" 
-                :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bank_id }}"
-                style="height: 35px;">
-                  <p style="font-size:14px;">상품 보러가기</p>
-                </router-link>
+            <div class="card-body" id="banks_card"  v-bind:style="{ background:'url('+bank.picture+')'}"
+             style="background-size: 100px; background-repeat :no-repeat; background-position:200px;">
+              <h5 class="card-title">{{bank.short_name}}</h5>
+              <a :href="bank.homepage">홈페이지</a>
+              <p>전화번호 : {{bank.tel}}</p>
+              <router-link class="banks btn btn-outline-success btn-sm" 
+              :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bank_id }}"
+              style="height: 35px;">
+                <p style="font-size:14px;">상품 보러가기</p>
+              </router-link>
             </div>
           </div>
         </div>
@@ -37,7 +38,7 @@
       <div class="row">
         <div class="col-lg-4 col-6 my-2" v-for="bank in banks" :key="bank.bank_id" v-show="bank.scode_id=='C002'" data-aos="fade-up">
           <div class="card">
-            <div class="card-body" style="background-image:url('../../assets/image/banks/{{bank.bankname}}.png}}')">
+            <div class="card-body">
                 <h5 class="card-title">{{bank.short_name}}</h5>
                 <a :href="bank.homepage">홈페이지</a>
                 <p>전화번호 : {{bank.tel}}</p>
