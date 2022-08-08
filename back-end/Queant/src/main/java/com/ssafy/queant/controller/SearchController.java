@@ -3,6 +3,7 @@ package com.ssafy.queant.controller;
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
+import com.ssafy.queant.model.dto.product.SearchResponseDto;
 import com.ssafy.queant.model.service.SearchService;
 import com.ssafy.queant.model.service.product.ProductService;
 import io.swagger.annotations.ApiResponse;
@@ -59,10 +60,11 @@ public class SearchController {
     @Operation(summary = "예금 단품 검색", description = "키워드로 예금 단품 검색")
     @PostMapping(value = "/deposit/single")
     public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto, @RequestBody int page) {
-        List<ProductDto> list = searchService.searchSingle(searchRequestDto, true, page);
-        if (list.size() > 0)
+        SearchResponseDto list = searchService.searchSingle(searchRequestDto, true, page);
+        if (list.getTotalCount() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @ApiResponses({
@@ -72,10 +74,11 @@ public class SearchController {
     @Operation(summary = "적금 단품 검색", description = "키워드로 적금 단품 검색")
     @PostMapping(value = "/saving/single")
     public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto, @RequestBody int page) {
-        List<ProductDto> list = searchService.searchSingle(searchRequestDto, false, page);
-        if (list.size() > 0)
+        SearchResponseDto list = searchService.searchSingle(searchRequestDto, false, page);
+        if (list.getTotalCount() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
