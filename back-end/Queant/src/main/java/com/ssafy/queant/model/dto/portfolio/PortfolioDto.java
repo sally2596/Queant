@@ -26,8 +26,10 @@ public class PortfolioDto {
     private Date startDate;
     private Date endDate;
     private int optionId;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private OptionsDto option;
     @Builder.Default
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Set<ConditionsDto> conditions = new HashSet<>();
     @Builder.Default
     private List<Integer> conditionIds = new ArrayList<>();

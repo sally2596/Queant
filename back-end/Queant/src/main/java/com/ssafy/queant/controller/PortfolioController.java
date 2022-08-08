@@ -168,64 +168,52 @@ public class PortfolioController {
         }
 
     }
-//
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="포트폴리오 수정 성공"),
-//            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
-//            @ApiResponse(code = 409, message="해당 포트폴리오가 존재하지 않습니다.(포트폴리오 번호 확인)"),
-//            @ApiResponse(code = 204, message="존재하지 않는 상품이 포함되어 있습니다."),
-//            @ApiResponse(code = 500, message="기타 서버 에러"),
-//    })
-//    @ApiOperation(value="포트폴리오 수정", notes="기존의 포트폴리오 중 있는데 달라졌으면 수정하고, 없으면 추가하고, 사라진것은 삭제(포트폴리오 단위). email, portfollioDtoList, portfolioNo 필수")
-//    @PutMapping()
-//    public ResponseEntity<?> updatePortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
-//        log.info("[Controller: UpdatePortfolio]");
-//
-//        try {
-//            portfolioService.updatePortfolio(portfolioRequestDto.getEmail(), portfolioRequestDto.getPortfolioDtoList(),portfolioRequestDto.getPortfolioNo());
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (UsernameNotFoundException e) {
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } catch(NoSuchElementException e){
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.CONFLICT);
-//        } catch( NoSuchFieldException e){
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//    }
-//
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message="포트폴리오 수정 성공"),
-//            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
-//            @ApiResponse(code = 409, message="해당 포트폴리오가 존재하지 않습니다.(포트폴리오 번호 확인)"),
-//            @ApiResponse(code = 500, message="기타 서버 에러"),
-//    })
-//    @ApiOperation(value="포트폴리오 전체 삭제", notes="email, portfolioNo 필수")
-//    @DeleteMapping
-//    public ResponseEntity<?> deletePortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
-//        log.info("[Controller: DeletePortfolio]");
-//
-//        try {
-//            portfolioService.deletePortfolio(portfolioRequestDto.getEmail(), portfolioRequestDto.getPortfolioNo());
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (UsernameNotFoundException e) {
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } catch(NoSuchElementException e){
-//            e.printStackTrace();
-//            return  new ResponseEntity<>(HttpStatus.CONFLICT);
-//        }  catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="포트폴리오 수정 성공"),
+            @ApiResponse(code = 409, message="해당 포트폴리오가 존재하지 않습니다.(포트폴리오 번호 확인)"),
+            @ApiResponse(code = 500, message="기타 서버 에러"),
+    })
+    @ApiOperation(value="포트폴리오 수정", notes="기존의 포트폴리오 중 있는데 달라졌으면 수정하고, 없으면 추가하고, 사라진것은 삭제(포트폴리오 단위). memberId, portfollioDtoList, portfolioNo 필수")
+    @PutMapping()
+    public ResponseEntity<?> updatePortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
+        log.info("[Controller: UpdatePortfolio]");
+
+        try {
+            portfolioService.updatePortfolio(portfolioRequestDto.getMemberId(), portfolioRequestDto.getPortfolioDtoList(),portfolioRequestDto.getPortfolioNo());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }  catch(NoSuchElementException e){
+            e.printStackTrace();
+            return  new ResponseEntity<>(HttpStatus.CONFLICT);
+        }  catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message="포트폴리오 수정 성공"),
+            @ApiResponse(code = 409, message="해당 포트폴리오가 존재하지 않습니다.(포트폴리오 번호 확인)"),
+            @ApiResponse(code = 500, message="기타 서버 에러"),
+    })
+    @ApiOperation(value="포트폴리오 전체 삭제", notes="email, portfolioNo 필수")
+    @DeleteMapping
+    public ResponseEntity<?> deletePortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
+        log.info("[Controller: DeletePortfolio]");
+
+        try {
+            portfolioService.deletePortfolio(portfolioRequestDto.getMemberId(), portfolioRequestDto.getPortfolioNo());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }  catch(NoSuchElementException e){
+            e.printStackTrace();
+            return  new ResponseEntity<>(HttpStatus.CONFLICT);
+        }  catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
 
 }
