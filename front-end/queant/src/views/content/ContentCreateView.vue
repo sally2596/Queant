@@ -5,7 +5,7 @@
   </header>
   <main>
   <section class="py-5 text-center container">
-    <div class="row py-lg-5">
+    <div class="row py-lg-5"> 
       <input v-model="content.title" placeholder="제목을 입력하세요.">
     </div>
     <br>
@@ -17,7 +17,7 @@
     </div>
     <br>
     <div class="col-lg-6 col-md-8 mx-auto">
-      <button class="btn btn-danger my-2">취소</button>
+      <router-link :to="{name : 'contents'}" class="btn btn-danger my-2">취소</router-link>
       <button class="btn btn-primary my-2" @click="write">작성</button>
       <button class="btn btn-primary my-2" @click="testbtn">수정</button>
     </div>
@@ -38,12 +38,12 @@ export default {
 		ckeditor: CKEditor.component
 	},
 	computed: {
-    ...mapGetters(['content'])
+    ...mapGetters(['content', 'userInfo']),
   },
   data() {
     return {
 			editor: ClassicEditor,
-			editorData: '<p>Content of the editor.</p>',
+			editorData: '',
 			editorConfig: {
 				// The configuration of the editor.
 				height: '500px',
@@ -54,7 +54,7 @@ export default {
 			},
 			content: {
 				title: '',
-				memberId: 'test',
+				memberId: this.userInfo.name,
 				content: '',
 			}
     }
