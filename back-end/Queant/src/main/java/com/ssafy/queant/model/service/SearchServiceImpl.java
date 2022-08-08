@@ -6,6 +6,7 @@ import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
 import com.ssafy.queant.model.dto.Search.SpecificCodeDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
+import com.ssafy.queant.model.dto.product.SearchResponseDto;
 import com.ssafy.queant.model.entity.SpecificCode;
 import com.ssafy.queant.model.entity.product.Bank;
 import com.ssafy.queant.model.repository.SpecificCodeRepository;
@@ -78,7 +79,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit, int page) {
+    public SearchResponseDto searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit, int page) {
         Pageable pageable = PageRequest.of(page - 1, 50);
 
         List<BankKeywordDto> bankKeywordDtos = searchRequestDto.getBank();
@@ -112,6 +113,7 @@ public class SearchServiceImpl implements SearchService {
         }
 
         Page<Tuple> result = searchRepository.searchSingle(
+                searchRequestDto.getAmount(),
                 isDeposit,
                 searchRequestDto.getIsSimpleInterest(),
                 searchRequestDto.getIsFixed(),
@@ -126,6 +128,11 @@ public class SearchServiceImpl implements SearchService {
 
         result.get().forEach(product -> list.add(modelMapper.map(product, ProductDto.class)));
 
-        return list;
+        SearchResponseDto searchResponseDto = SearchResponseDto.builder()
+                .productDtoList(list)
+                .totalCount(result.getTotalElements())
+                .totalPage(result.getTotalPages())
+                .build();
+        return searchResponseDto;
     }
 }
