@@ -6,7 +6,7 @@
   
   <!-- 은행 목록 -->
     <!-- 제 1금융 목록 -->
-  
+  <section>
   <h1 class="bank-title">은행</h1>
   <section class="section-floater">
     <div id="featured_banks">
@@ -51,6 +51,7 @@
         </div>
       </div>
     </div>
+  </section>
   </section>
 </template>
 
