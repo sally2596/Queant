@@ -60,7 +60,7 @@ export default {
       this.article.content = this.editorData.replaceAll('\"','㉾');
       this.article.memberId = this.userInfo.name;
 			this.modifyContent(this.article);
-			//alert("글이 수정되었습니다.");
+			alert("글이 수정되었습니다.");
 		},
   },
   created() {
