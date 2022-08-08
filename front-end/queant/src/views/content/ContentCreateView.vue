@@ -56,7 +56,7 @@ export default {
   methods: {
 		...mapActions(['editContent']),
 		write() {
-      this.content.content = this.editorData.replace('"','㉾');
+      this.content.content = this.editorData.replaceAll('\"','㉾');
       this.content.memberId = this.userInfo.name;
 			this.editContent(this.content);
 			alert("글이 등록되었습니다.");
