@@ -33,7 +33,7 @@
                 <div class="btn-group">
                   <router-link class="btn btn-sm btn-outline-secondary"
                 :to="{ name: 'contentDetail' , params: { contentId: content.content_id }}">보기</router-link>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(content.content_id)">삭제</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(content.content_id)" v-if="isAdmin">삭제</button>
                 </div>
               </div>  
             </div>
