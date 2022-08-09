@@ -1,6 +1,5 @@
 package com.ssafy.queant.model.service;
 
-import com.ssafy.queant.model.dto.Search.BankKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
 import com.ssafy.queant.model.dto.product.SearchResponseDto;
@@ -32,13 +31,8 @@ class SearchServiceImplTest {
 
     @Test
     void searchSingle() {
-        List<BankKeywordDto> list = new ArrayList<>();
-        list.add(BankKeywordDto.builder()
-                .bankId(10001)
-                .scodeId("C001")
-                .bankName("우리은행")
-                .shortName("우리은행")
-                .build());
+        List<Integer> list = new ArrayList<>();
+        list.add(10001);
         SearchRequestDto searchRequestDto = SearchRequestDto.builder()
                 .isSimpleInterest(null)
                 .isFixed(false)

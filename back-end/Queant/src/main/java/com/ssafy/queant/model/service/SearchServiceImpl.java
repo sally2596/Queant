@@ -84,46 +84,16 @@ public class SearchServiceImpl implements SearchService {
     public SearchResponseDto searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit, int page) {
         Pageable pageable = PageRequest.of(page - 1, 50);
 
-        List<BankKeywordDto> bankKeywordDtos = searchRequestDto.getBank();
-        List<Integer> bank = new ArrayList<>();
-        if (bankKeywordDtos.size() > 0) {
-            for (BankKeywordDto b : bankKeywordDtos)
-                bank.add(b.getBankId());
-        }
-
-        List<SpecificCodeDto> joinwayDto = searchRequestDto.getJoinway();
-        List<String> joinway = new ArrayList<>();
-        if (joinwayDto.size() > 0) {
-            for (SpecificCodeDto s : joinwayDto) {
-                joinway.add(s.getScodeId());
-            }
-        }
-
-        List<SpecificCodeDto> conditionsDto = searchRequestDto.getConditions();
-        List<String> conditions = new ArrayList<>();
-        if (conditionsDto.size() > 0) {
-            for (SpecificCodeDto s : conditionsDto) {
-                conditions.add(s.getScodeId());
-            }
-        }
-        List<SpecificCodeDto> traitSetDto = searchRequestDto.getTraitSet();
-        List<String> traitSet = new ArrayList<>();
-        if (traitSetDto.size() > 0) {
-            for (SpecificCodeDto s : traitSetDto) {
-                traitSet.add(s.getScodeId());
-            }
-        }
-
         Page<Tuple> result = searchRepository.searchSingle(
                 searchRequestDto.getAmount(),
                 isDeposit,
                 searchRequestDto.getIsSimpleInterest(),
                 searchRequestDto.getIsFixed(),
                 searchRequestDto.getPeriod(),
-                bank,
-                joinway,
-                conditions,
-                traitSet,
+                searchRequestDto.getBank(),
+                searchRequestDto.getJoinway(),
+                searchRequestDto.getConditions(),
+                searchRequestDto.getTraitSet(),
                 pageable);
 
         List<ProductDto> productDtoList = new ArrayList<>();
