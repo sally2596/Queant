@@ -36,8 +36,9 @@
           </div>
         </div>
 
+        <!-- 필수 -->
         <div class="col-lg-3 m-3">
-          <h6>예치 기간</h6>
+          <h6>예치 기간 (필수)</h6>
           <input v-model="filtersForDeposit.period" :value="6" type="radio" class="btn-check" id="deposit-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
           <input v-model="filtersForDeposit.period" :value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
@@ -50,8 +51,9 @@
           <label class="btn btn-outline-success" for="deposit-months-36">36개월</label>
         </div>
 
+        <!-- 필수 -->
         <div class="col-lg-2 m-3">
-          <h6>희망 예치금(원)</h6>
+          <h6>희망 예치금(원) (필수)</h6>
           <input
             v-model="filtersForDeposit.amount"
             type="number"
@@ -177,7 +179,7 @@
         </div>
 
         <div id="deposit-result-view">
-          <button @click="fetchProductsByDepositSingleFilters(filtersForDeposit)" class="btn btn-primary">결과 보기</button>
+          <button @click="fetchProductsByDepositFilters(filtersForDeposit)" class="btn btn-primary">결과 보기</button>
         </div>
       </div>
 
@@ -205,9 +207,10 @@
             </div>
           </div>
         </div>
-
+        
+        <!-- 필수 입력 -->
         <div class="col-lg-3 m-3 select">
-          <h6>적립 기간</h6>
+          <h6>적립 기간 (필수)</h6>
           <input v-model="filtersForSaving.period" value="6" type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
           <input v-model="filtersForSaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
@@ -220,14 +223,16 @@
           <label class="btn btn-outline-success" for="saving-months-36">36개월</label>
         </div>
 
+        <!-- 필수 입력 -->
         <div class="col-lg-2 m-3">
-          <h6>희망 월 적립금(원)</h6>
+          <h6>희망 월 적립금(원) (필수)</h6>
           <input
             v-model="filtersForSaving.amount"
             type="number">
         </div>
 
-        <div class="col-lg-3 m-3">
+        <!-- 묶어서 보기 기능 삭제 예정 -->
+        <!-- <div class="col-lg-3 m-3">
           <h6>상품 보기</h6>
           <input
             v-model="isSavingSingle"
@@ -253,7 +258,7 @@
             for="saving-set">
             묶어서 보기
           </label>
-        </div>
+        </div> -->
 
         <div class="col-lg-5 m-3">
           <h6>가입 방법</h6>
@@ -272,6 +277,56 @@
                 class="btn btn-outline-success" 
                 :for="`saving-${joinway.scode_id}`">
                 {{ joinway.scode_value }}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 m-3">
+          <h6>이자 유형</h6>
+          <input 
+            v-model="filtersForSaving.isSimpleInterest"
+            type="radio"
+            :value="true"
+            class="btn-check"
+            id="saving-simple-interest-true" 
+            autocomplete="off">
+          <label 
+            class="btn btn-outline-success" 
+            for="saving-simple-interest-true">
+            단리
+          </label>
+          <input
+            v-model="filtersForSaving.isSimpleInterest"
+            type="radio"
+            :value="false"
+            class="btn-check" 
+            id="saving-simple-interest-false"
+            autocomplete="off">
+          <label 
+            class="btn btn-outline-success" 
+            for="saving-simple-interest-false">
+            복리
+          </label>
+        </div>
+
+        <div class="col-lg-3 m-3">
+          <h6>특수 조건</h6>
+          <div id="banks_container">
+            <div 
+              v-for="traitSet in keywords.trait_set"
+              :key="traitSet.scode_id">
+              <input
+                v-model="filtersForSaving.traitSet"
+                type="checkbox" 
+                class="btn-check" 
+                :id="`saving-${traitSet.scode_id}`"
+                :value="traitSet.scode_id"
+                autocomplete="off">
+              <label 
+                class="btn btn-outline-success" 
+                :for="`saving-${traitSet.scode_id}`">
+                {{ traitSet.scode_value }}
               </label>
             </div>
           </div>
@@ -303,28 +358,6 @@
             for="saving-free">
             자율적립
           </label>
-        </div>
-
-        <div class="col-lg-3 m-3">
-          <h6>특수 조건</h6>
-          <div id="banks_container">
-            <div 
-              v-for="traitSet in keywords.trait_set"
-              :key="traitSet.scode_id">
-              <input
-                v-model="filtersForSaving.traitSet"
-                type="checkbox" 
-                class="btn-check" 
-                :id="`saving-${traitSet.scode_id}`"
-                :value="traitSet.scode_id"
-                autocomplete="off">
-              <label 
-                class="btn btn-outline-success" 
-                :for="`saving-${traitSet.scode_id}`">
-                {{ traitSet.scode_value }}
-              </label>
-            </div>
-          </div>
         </div>
 
         <div class="col-lg-12 m-3">
@@ -374,8 +407,8 @@
           </div>
 
         <div id="saving-result-view">
-          <button v-if="isSavingSingle" @click="fetchProductsBySavingSingleFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button>
-          <button v-else-if="!isSavingSingle" @click="fetchProductsBySavingSetFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button>
+          <button @click="fetchProductsBySavingFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button>
+          <!-- <button v-else-if="!isSavingSingle" @click="fetchProductsBySavingSetFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button> -->
         </div>
 
       </div>
@@ -397,7 +430,7 @@ export default {
     ...mapGetters(['keywords', 'banks'])
   },
   methods: {
-    ...mapActions(['fetchKeywords', 'fetchProductsByDepositSingleFilters', 'fetchProductsBySavingSingleFilters', 'fetchProductsBySavingSetFilters']),
+    ...mapActions(['fetchKeywords', 'fetchProductsByDepositFilters', 'fetchProductsBySavingFilters']),
     deposit_OnOff: function() {
       if (this.filter_deposit==false) {
       this.filter_deposit = !this.filter_deposit}
@@ -422,25 +455,26 @@ export default {
     return {
       filtersForDeposit: {
         amount: null,
-        period: null,
-        isSimpleInterest: null,
         bank: [],
-        joinway: [],
-        conditions: [],
         bankType: [],
+        conditions: [],
+        isSimpleInterest: null,
+        joinway: [],
+        period: null,
         traitSet: [],
         page: 1
       },
       filtersForSaving: {
         amount: null,
-        period: null,
-        isSimpleInterest: null,
-        isFixed: null,
         bank: [],
-        joinway: [],
-        conditions: [],
         bankType: [],
-        traitSet: []
+        conditions: [],
+        isSimpleInterest: null,
+        joinway: [],
+        period: null,
+        traitSet: [],
+        isFixed: null,
+        page: 1
       },
       filter_savings: false,
       filter_deposit: true,

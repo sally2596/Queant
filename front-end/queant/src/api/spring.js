@@ -1,5 +1,5 @@
-const HOST = 'http://i7a201.p.ssafy.io:8000/'
-// const HOST = 'http://localhost:8000/'
+// const HOST = 'http://i7a201.p.ssafy.io:8000/'
+const HOST = 'http://localhost:8000/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
@@ -39,7 +39,7 @@ export default {
     search: () => HOST + SEARCH ,
     keyword: () => HOST + SEARCH + 'keyword',
     deposit: (page) => HOST + SEARCH + 'deposit/' + 'single/' + page,
-    saving: () => HOST + SEARCH + 'saving/' + 'single',
+    saving: (page) => HOST + SEARCH + 'saving/' + 'single/' + page,
     savings: () => HOST + SEARCH + 'saving/' + 'set'
   },
   product: {
