@@ -52,7 +52,7 @@ export default {
       })
       .then(res => {
         console.log(res)
-        res.data.content = res.data.content.replace('㉾','"');
+        res.data.content = res.data.content.replaceAll('㉾','"');
         commit('SET_CONTENT', res.data)
 
       })
@@ -68,6 +68,26 @@ export default {
 					title : content.title,
           member_id : content.memberId,
           content : content.content
+        },
+      })
+      .then(res => {
+				console.log(res)
+        router.push({ name: 'contents' })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+		},
+    modifyContent({}, content) {
+      console.log(content);
+      axios({
+        url: spring.contents.edit(),
+				method: 'put',
+				data: {
+					title : content.title,
+          member_id : content.memberId,
+          content : content.content,
+          content_id : content.contentId
         },
       })
       .then(res => {

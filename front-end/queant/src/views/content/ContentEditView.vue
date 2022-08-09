@@ -3,18 +3,17 @@
   <header id="title-div">
     <h1 class="title" id="title">컨텐츠 수정</h1>
   </header>
-  <h1>{{this.content?.title}}</h1>
   <section id="contents-create-section" class="text-center container">
     <div class="input-group mb-3">
       <span class="input-group-text" id="inputGroup-title">제목</span>
-      <input required v-model="content.title" type="text" class="form-control" aria-label="title-input" aria-describedby="inputGroup-sizing-default">
+      <input required v-model="article.title" type="text" class="form-control" aria-label="title-input" aria-describedby="inputGroup-sizing-default">
     </div>
       <ckeditor 
       :editor="editor" v-model="editorData" :config="editorConfig"
     />
     <div>
       <router-link :to="{name : 'contents'}" class="btn btn-danger my-2">취소</router-link>
-      <button class="btn btn-primary my-2" @click="testbtn">수정</button>
+      <button class="btn btn-primary my-2" @click="write">수정</button>
     </div>
   </section>
 </template>
@@ -47,24 +46,28 @@ export default {
                   uploadUrl: spring.contents.upload()
               }
           },
-          content: {
-              title: this.content?.title,
+          article: {
+              title: '',
               memberId: '',
               content: '',
+              contentId: ''
           }
         }
     },
   methods: {
-		...mapActions(['editContent', 'getContent']),
+		...mapActions(['modifyContent', 'getContent']),
 		write() {
-      this.content.content = this.editorData.replace('"','㉾');
-      this.content.memberId = this.userInfo.name;
-			this.editContent(this.content);
+      this.article.content = this.editorData.replaceAll('\"','㉾');
+      this.article.memberId = this.userInfo.name;
+			this.modifyContent(this.article);
 			alert("글이 수정되었습니다.");
 		},
   },
   created() {
   this.getContent(this.$route.params.contentId);
+  this.editorData = this.content.content;
+  this.article.contentId = this.content.content_id;
+  this.article.title = this.content.title;
   },
 }
 </script>

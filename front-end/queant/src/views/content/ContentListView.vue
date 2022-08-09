@@ -65,6 +65,8 @@ export default {
     this.getContentList();
   },
   data() {
+    return {
+    }
   }
 }
 </script>
