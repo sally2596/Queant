@@ -7,7 +7,5 @@ import java.util.List;
 public interface ReportProductService {
     List<ReportProductDto> findAll();
 
-    void updateReportToProduct(int reportProductId);
-
     void registReport(ReportProductDto reportProductDto);
 }
