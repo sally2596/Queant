@@ -2,6 +2,7 @@ package com.ssafy.queant.model.repository.product;
 
 import com.ssafy.queant.model.entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -27,4 +28,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     // 상품 세부 정보 제공
     Optional<Product> findByProductId(int productId);
+
+    @Query(value = "select LAST_INSERT_ID()", nativeQuery = true)
+    int lastInsertId();
+
 }

@@ -10,7 +10,7 @@ import lombok.*;
 public class ConditionsDto {
     private int conditionId;
     private String value;
-    private String productId;
+    private int productId;
     private String scodeId;
     private float specialRate;
     private String conditionInfo;

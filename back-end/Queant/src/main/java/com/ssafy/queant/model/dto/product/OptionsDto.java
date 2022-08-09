@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class OptionsDto {
     private int optionId;
-    private String productId;
+    private int productId;
     private float baseRate;
     private Float highBaseRate;
     private int saveTerm;

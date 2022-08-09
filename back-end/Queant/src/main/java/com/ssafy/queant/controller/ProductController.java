@@ -80,7 +80,7 @@ public class ProductController {
     @PostMapping("/report/{reportId}")
     public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId, @RequestBody ProductDetailDto productDetail) {
         try {
-            productService.updateReportToProduct(reportId);
+            productService.updateReportToProduct(reportId, productDetail);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

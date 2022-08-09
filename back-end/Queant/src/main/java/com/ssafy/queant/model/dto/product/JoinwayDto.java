@@ -10,6 +10,6 @@ import lombok.*;
 public class JoinwayDto {
     private int joinwayId;
     private String value;
-    private String productId;
+    private int productId;
     private String scodeId;
 }
