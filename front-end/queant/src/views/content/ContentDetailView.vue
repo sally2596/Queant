@@ -24,7 +24,7 @@ export default {
   name: 'ContentDetailView',
   components: { Navbar },
   computed: {
-    ...mapGetters(['content', 'contents', 'userInfo'])
+    ...mapGetters(['content', 'contents', 'userInfo', 'isAdmin'])
   },
   methods: {
     ...mapActions(['getContent', 'deleteContent', 'editContent'])
