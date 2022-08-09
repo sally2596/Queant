@@ -38,15 +38,17 @@ class SearchRepositoryImplTest {
 //        traitSet.add("E001");
 
         int period = 12;
-        Pageable pageable = PageRequest.of(0, 50);
+        Pageable pageable = PageRequest.of(1, 3);
         Page<Tuple> p = searchRepository.searchSingle(10000l, false, null, false, period, list, joinway, conditions, traitSet, pageable);
         log.info(String.valueOf(p));
+        int cnt = 0;
         for (Tuple product : p
         ) {
             ProductDto dto = modelMapper.map(product, ProductDto.class);
             dto.setBaseRate(product.get(1, Float.class));
             log.info("[TUPLE]: " + product.toString());
+            cnt++;
         }
-        log.info(String.valueOf(p.getTotalElements()));
+        log.info(String.valueOf(cnt));
     }
 }

@@ -1,6 +1,7 @@
 package com.ssafy.queant.model.repository.product;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -73,14 +74,16 @@ public class SearchRepositoryImpl implements SearchRepository {
         }
 
 
-        List<Tuple> results = queryFactory
+        QueryResults<Tuple> results = queryFactory
                 .select(product, qOptions.baseRate.as("rate")).distinct()
                 .from(product)
                 .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
                 .where(builder)
                 .orderBy(qOptions.baseRate.desc())
-                .fetch();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
 
-        return new PageImpl<>(results, pageable, results.size());
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 }
