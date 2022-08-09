@@ -4,10 +4,16 @@
   <header id="title-div">
     <h1 class="title" id="title">{{content.title}}</h1>
   </header>
-  <div>
-    <div v-html=content.content></div>
-  </div>
-  <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(content.content_id)">삭제</button>
+  <section class="content">
+    <div class="content_content">
+      <div>
+        <div v-html=content.content></div>
+      </div>
+      <router-link type="button" class="btn btn-sm btn-outline-secondary" v-if="isAdmin"
+      :to="{ name: 'contentEdit' , params: { contentId: content.content_id }}">수정</router-link>
+      <button type="button" class="btn btn-sm btn-outline-secondary" v-if="isAdmin" @click="deleteContent(content.content_id)">삭제</button>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -18,10 +24,10 @@ export default {
   name: 'ContentDetailView',
   components: { Navbar },
   computed: {
-    ...mapGetters(['content', 'contents'])
+    ...mapGetters(['content', 'contents', 'userInfo'])
   },
   methods: {
-    ...mapActions(['getContent', 'deleteContent'])
+    ...mapActions(['getContent', 'deleteContent', 'editContent'])
   },
   created() {
     this.getContent(this.$route.params.contentId);
