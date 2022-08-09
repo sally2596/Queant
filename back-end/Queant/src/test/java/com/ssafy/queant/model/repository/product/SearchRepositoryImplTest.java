@@ -38,8 +38,9 @@ class SearchRepositoryImplTest {
 //        traitSet.add("E001");
 
         int period = 12;
-        Pageable pageable = PageRequest.of(1, 3);
-        Page<Tuple> p = searchRepository.searchSingle(10000l, false, null, false, period, list, joinway, conditions, traitSet, pageable);
+        Pageable pageable = PageRequest.of(0, 500);
+        Page<Tuple> p = searchRepository.searchSingle(0l, false, null, false, period, list, joinway, conditions,
+                traitSet, pageable);
         log.info(String.valueOf(p));
         int cnt = 0;
         for (Tuple product : p

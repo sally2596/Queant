@@ -1,8 +1,9 @@
 package com.ssafy.queant.model.repository.product;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.MathExpressions;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.queant.model.entity.product.QConditions;
@@ -48,6 +49,12 @@ public class SearchRepositoryImpl implements SearchRepository {
             ));
         }
 
+        if (isFixed != null) {// 자유적립 정액적립
+            builder.and(product.productId.in(
+                    JPAExpressions.select(qOptions.productId).from(qOptions).where(qOptions.rsrvType.eq(isFixed))
+            ));
+        }
+
         if (banks.size() > 0) {
             builder.and(product.bankId.in(banks));
         }
@@ -59,12 +66,12 @@ public class SearchRepositoryImpl implements SearchRepository {
                     ));
         }
 
-        if (conditions.size() > 0) {
-            builder.and(
-                    product.productId.in(
-                            JPAExpressions.select(qConditions.productId).from(qConditions).where(qConditions.scodeId.in(conditions))
-                    ));
-        }
+//        if (conditions.size() > 0) {
+//            builder.and(
+//                    product.productId.in(
+//                            JPAExpressions.select(qConditions.productId).from(qConditions).where(qConditions.scodeId.in(conditions))
+//                    ));
+//        }
 
         if (traitSet.size() > 0) {
             builder.and(
@@ -73,17 +80,38 @@ public class SearchRepositoryImpl implements SearchRepository {
                     ));
         }
 
+        List<Tuple> results;
 
-        QueryResults<Tuple> results = queryFactory
-                .select(product, qOptions.baseRate.as("rate")).distinct()
-                .from(product)
-                .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
-                .where(builder)
-                .orderBy(qOptions.baseRate.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetchResults();
+        // 우대 조건이 있을 경우 Conditions 테이블 join
+        if (conditions.size() > 0) {
+            NumberExpression A, B;
+            A = qOptions.baseRate;
+            B = qConditions.specialRate.sum();
+            NumberExpression C = MathExpressions.round(A.add(B), 3);
 
-        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+            results = queryFactory
+                    .select(product, C).distinct()
+                    .from(product)
+                    .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
+                    .join(qConditions).on(product.productId.eq(qConditions.productId), qConditions.scodeId.in(conditions))
+                    .where(builder)
+                    .groupBy(product.productId)
+                    .orderBy(C.desc())
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetch();
+        } else {
+            results = queryFactory
+                    .select(product, qOptions.baseRate.as("rate")).distinct()
+                    .from(product)
+                    .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
+                    .where(builder)
+                    .orderBy(qOptions.baseRate.desc())
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetch();
+        }
+
+        return new PageImpl<>(results, pageable, results.size());
     }
 }
