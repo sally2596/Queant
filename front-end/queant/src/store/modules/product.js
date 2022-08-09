@@ -71,8 +71,6 @@ export default {
       })
     },
     fetchProductsByDepositFilters({ commit }, filters) {
-      console.log('haha')
-      console.log(filters.page)
       axios({
         url: spring.search.deposit(filters.page),
         method: 'post',
@@ -84,40 +82,40 @@ export default {
           is_simple_interest: filters.isSimpleInterest?filters.isSimpleInterest:null,
           joinway: filters.joinway?filters.joinway:[],
           period: filters.period?filters.period:null,
-          trait_set: filters.traitSet?filters.traitSet:[],
+          trait_set: filters.traitSet?filters.traitSet:[]
         },
       })
       .then(res => {
         console.log(res)
         commit('SET_PRODUCTS', res.data)
         commit('SET_FILTERS', filters)
-        router.push({ name: 'productResults' })
+        router.push({ name: 'productDepositResult' })
       })
       .catch(err => {
         console.log(err)
       })
     },
-    fetchProductsBySavingSingleFilters({ commit }, filters) {
-      console.log(filters)
+    fetchProductsBySavingFilters({ commit }, filters) {
       axios({
         url: spring.search.saving(filters.page),
         method: 'post',
         data: {
-          amount: filters.amount,
-          bank: filters.bank,
-          bank_type: filters.bankType,
-          conditions: filters.conditions,
-          is_simple_interest: filters.isSimpleInterest,
-          joinway: filters.joinway,
-          period: filters.period,
-          trait_set: filters.traitSet,
-          is_fixed: filters.isFixed
+          amount: filters.amount?filters.amount:null,
+          bank: filters.bank?filters.bank:[],
+          bank_type: filters.bankType?filters.bankType:[],
+          conditions: filters.conditions?filters.conditions:[],
+          is_simple_interest: filters.isSimpleInterest?filters.isSimpleInterest:null,
+          joinway: filters.joinway?filters.joinway:[],
+          period: filters.period?filters.period:null,
+          trait_set: filters.traitSet?filters.traitSet:[],
+          is_fixed: filters.isFixed?filters.isFixed:null
         }
       })
       .then(res => {
+        console.log(res)
         commit('SET_PRODUCTS', res.data)
         commit('SET_FILTERS', filters)
-        router.push({ name: 'productResults' })
+        router.push({ name: 'productSavingResult' })
       })
       .catch(err => {
         console.log(err)

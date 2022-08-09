@@ -1,5 +1,4 @@
 <template>
-
   <!-- 사용자가 검색한 조건 -->
   <h3>사용자가 검색한 조건</h3>
   <filters-form
@@ -19,11 +18,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import {  mapGetters } from 'vuex'
 import FiltersForm from '@/components/FiltersForm.vue'
 
 export default {
-  name: 'ProductResultsView',
+  name: 'ProductDepositResultView',
   components: { FiltersForm },
   computed: {
     ...mapGetters(['products', 'filters'])

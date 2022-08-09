@@ -1,10 +1,18 @@
 <template>
-
   <!-- 사용자가 검색한 조건 -->
   <div>
-    {{ filters }}
+    <label>납입금</label>
+    <input 
+      type="text"
+      v-model="payload.amount">
+
+    <label for="">기간</label>
+    <input
+      type="text"
+      v-model="payload.period">
+
+    <button>재검색</button>
     <hr>
-    {{ payload }}
   </div>
 
   <!-- 페이지네이션 -->
@@ -39,6 +47,7 @@ export default {
         conditions: this.filters.conditions,
         bankType: this.filters.bank_type,
         traitSet: this.filters.trait_set,
+        isFixed: this.filters.isFixed,
         page: this.filters.page
       }
     }
@@ -47,12 +56,16 @@ export default {
     payload: {
       deep: true,
       handler(value) {
-        this.fetchProductsByDepositFilters(value)
+        console.log(this.$route.name)
+        if (this.$route.name === 'productDepositResult')
+          this.fetchProductsByDepositFilters(value)
+        else if (this.$route.name === 'productSavingResult')
+          this.fetchProductsBySavingFilters(value)
       }
     }
   },
   methods: {
-    ...mapActions(['fetchProductsByDepositFilters']),
+    ...mapActions(['fetchProductsByDepositFilters', 'fetchProductsBySavingFilters']),
     changePage(page) {
       this.payload.page = page
     }
