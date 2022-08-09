@@ -9,6 +9,7 @@ import com.ssafy.queant.model.dto.product.ProductDto;
 import com.ssafy.queant.model.dto.product.SearchResponseDto;
 import com.ssafy.queant.model.entity.SpecificCode;
 import com.ssafy.queant.model.entity.product.Bank;
+import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.SpecificCodeRepository;
 import com.ssafy.queant.model.repository.product.BankRepository;
 import com.ssafy.queant.model.repository.product.SearchRepository;
@@ -32,6 +33,7 @@ public class SearchServiceImpl implements SearchService {
     private final BankRepository bankRepository;
     private final SearchRepository searchRepository;
     private final ModelMapper modelMapper;
+
 
     @Override
     public SearchKeywordDto getSearchKeyword() {
@@ -124,12 +126,16 @@ public class SearchServiceImpl implements SearchService {
                 traitSet,
                 pageable);
 
-        List<ProductDto> list = new ArrayList<>();
+        List<ProductDto> productDtoList = new ArrayList<>();
 
-        result.get().forEach(product -> list.add(modelMapper.map(product, ProductDto.class)));
+        result.get().forEach(product -> {
+            ProductDto productDto = modelMapper.map(product.get(0, Product.class), ProductDto.class);
+            productDto.setBaseRate(product.get(1, Float.class));
+            productDtoList.add(productDto);
+        });
 
         SearchResponseDto searchResponseDto = SearchResponseDto.builder()
-                .productDtoList(list)
+                .productDtoList(productDtoList)
                 .totalCount(result.getTotalElements())
                 .totalPage(result.getTotalPages())
                 .build();
