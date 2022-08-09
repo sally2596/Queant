@@ -21,7 +21,7 @@ export default createStore({
   },
   plugins: [
     createPersistedState({
-      paths: ['auth']
+      paths: ['auth', 'product']
     })
   ]
 })
