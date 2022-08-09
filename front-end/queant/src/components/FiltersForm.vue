@@ -1,6 +1,6 @@
 <template>
   <!-- 사용자가 검색한 조건 -->
-  <div>
+  <!-- <div>
     <label>납입금</label>
     <input 
       type="text"
@@ -13,7 +13,7 @@
 
     <button>재검색</button>
     <hr>
-  </div>
+  </div> -->
 
   <!-- 페이지네이션 -->
   <div>
