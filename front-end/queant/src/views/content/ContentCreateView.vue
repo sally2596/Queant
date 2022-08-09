@@ -3,33 +3,25 @@
   <header id="title-div">
     <h1 class="title" id="title">컨텐츠 작성</h1>
   </header>
-  <main>
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5"> 
-      <input v-model="newContent.title" placeholder="제목을 입력하세요.">
+  <section id="contents-create-section" class="text-center container">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-default">제목</span>
+      <input required v-model="content.title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
-    <br>
-    <div>
-      <ckeditor :editor="editor"
-              v-model="editorData"
-              :config="editorConfig"
+      <ckeditor 
+      :editor="editor" v-model="editorData" :config="editorConfig"
     />
-    </div>
-    <br>
-    <div class="col-lg-6 col-md-8 mx-auto">
+    <div>
       <router-link :to="{name : 'contents'}" class="btn btn-danger my-2">취소</router-link>
       <button class="btn btn-primary my-2" @click="write">작성</button>
-      <button class="btn btn-primary my-2" @click="testbtn">수정</button>
     </div>
   </section>
-  </main>
 </template>
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import Navbar from '@/components/Navbar.vue'
-
 import spring from '@/api/spring'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -37,7 +29,7 @@ export default {
   name: "ContentCreateView",
 	components: {
 		ckeditor: CKEditor.component,
-    Navbar: Navbar
+    Navbar
 	},
 	computed: {
     ...mapGetters(['content', 'userInfo']),
@@ -56,7 +48,7 @@ export default {
 			},
 			newContent: {
 				title: '',
-				memberId: this.userInfo?.name,
+				memberId: '',
 				content: '',
 			}
     }
@@ -64,7 +56,8 @@ export default {
   methods: {
 		...mapActions(['editContent']),
 		write() {
-      this.content.content = this.editorData.replace('\"','\\"');
+      this.content.content = this.editorData.replaceAll('\"','㉾');
+      this.content.memberId = this.userInfo.name;
 			this.editContent(this.content);
 			alert("글이 등록되었습니다.");
 		},
@@ -73,5 +66,5 @@ export default {
 </script>
 
 <style>
-
+@import '../../assets/css/content.css';
 </style>

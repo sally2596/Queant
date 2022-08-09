@@ -1,4 +1,5 @@
 import spring from '@/api/spring'
+import router from '@/router'
 import axios from 'axios'
 
 export default {
@@ -44,14 +45,16 @@ export default {
         console.log(err)
       })
 		},
-		getContent({ commit }, memberId) {
+		getContent({ commit }, contentId) {
       axios({
-        url: spring.contents.detail(memberId),
+        url: spring.contents.detail(contentId),
         method: 'get',
       })
       .then(res => {
         console.log(res)
+        res.data.content = res.data.content.replaceAll('㉾','"');
         commit('SET_CONTENT', res.data)
+
       })
       .catch(err => {
         console.log(err)
@@ -69,6 +72,27 @@ export default {
       })
       .then(res => {
 				console.log(res)
+        router.push({ name: 'contents' })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+		},
+    modifyContent({}, content) {
+      console.log(content);
+      axios({
+        url: spring.contents.edit(),
+				method: 'put',
+				data: {
+					title : content.title,
+          member_id : content.memberId,
+          content : content.content,
+          content_id : content.contentId
+        },
+      })
+      .then(res => {
+				console.log(res)
+        router.push({ name: 'contents' })
       })
       .catch(err => {
         console.log(err)
@@ -84,6 +108,7 @@ export default {
       })
       .then(res => {
 				console.log(res)
+        router.go()
       })
       .catch(err => {
         console.log(err)

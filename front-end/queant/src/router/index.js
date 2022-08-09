@@ -45,6 +45,8 @@ import ProductDetailView from '@/views/product/ProductDetailView.vue'
 // content
 import ContentListView from '@/views/content/ContentListView.vue'
 import ContentCreateView from '@/views/content/ContentCreateView.vue'
+import ContentDetailView from '@/views/content/ContentDetailView.vue'
+import ContentEditView from '@/views/content/ContentEditView.vue'
 
 const routes = [
   // oauth
@@ -146,6 +148,16 @@ const routes = [
     name: 'contentCreate',
     component: ContentCreateView,
     meta: { isAdmin: true }
+  },
+  {
+    path: '/content/:contentId',
+    name: 'contentDetail',
+    component: ContentDetailView
+  },
+  {
+    path: '/content/edit/:contentId',
+    name : 'contentEdit',
+    component: ContentEditView,
   },
   // profile
   {
