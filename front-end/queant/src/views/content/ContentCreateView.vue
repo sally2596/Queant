@@ -6,7 +6,7 @@
   <section id="contents-create-section" class="text-center container">
     <div class="input-group mb-3">
       <span class="input-group-text" id="inputGroup-sizing-default">제목</span>
-      <input required v-model="content.title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+      <input required v-model="article.title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
       <ckeditor 
       :editor="editor" v-model="editorData" :config="editorConfig"
@@ -32,7 +32,7 @@ export default {
     Navbar
 	},
 	computed: {
-    ...mapGetters(['content', 'userInfo']),
+    ...mapGetters(['userInfo']),
   },
   data() {
     return {
@@ -46,7 +46,7 @@ export default {
 					uploadUrl: spring.contents.upload()
 				}
 			},
-			newContent: {
+			article: {
 				title: '',
 				memberId: '',
 				content: '',
@@ -56,9 +56,9 @@ export default {
   methods: {
 		...mapActions(['editContent']),
 		write() {
-      this.content.content = this.editorData.replaceAll('\"','㉾');
-      this.content.memberId = this.userInfo.name;
-			this.editContent(this.content);
+      this.article.content = this.editorData.replaceAll('\"','㉾');
+      this.article.memberId = this.userInfo.name;
+			this.editContent(this.article);
 			alert("글이 등록되었습니다.");
 		},
   }
