@@ -3,7 +3,14 @@
   font-family: 'jua';
   src: url(../font/BMJUA_ttf.ttf);
 }
-
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content_content {
+  max-width: 1080px;
+}
 .home {
   display: flex;
   justify-content: center;
@@ -83,14 +90,14 @@
 
 #hero h2 {
   margin-bottom: 30px;
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 700;
   -webkit-text-fill-color: white;
 }
 
 #hero p {
   width: 80%;
-  font-size: 1rem;
+  font-size: 2rem;
   margin: 0 auto 30px auto;
   color: antiquewhite;
 }

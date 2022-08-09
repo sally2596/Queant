@@ -38,14 +38,16 @@ import ProductRecommendationView from '@/views/product/ProductRecommendationView
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
-import ProductResults from '@/components/ProductResults.vue'
-import ProductSearchView from '@/views/product/ProductSearchView.vue'
+import ProductDepositResultView from '@/views/product/ProductDepositResultView.vue'
+import ProductSavingResultView from '@/views/product/ProductSavingResultView.vue'
+import ProductSearchResultView from '@/views/product/ProductSearchResultView.vue'
 import ProductDetailView from '@/views/product/ProductDetailView.vue'
 
 // content
 import ContentListView from '@/views/content/ContentListView.vue'
 import ContentCreateView from '@/views/content/ContentCreateView.vue'
 import ContentDetailView from '@/views/content/ContentDetailView.vue'
+import ContentEditView from '@/views/content/ContentEditView.vue'
 
 const routes = [
   // oauth
@@ -107,9 +109,14 @@ const routes = [
     component: ProductRecommendationView,
   },
   {
-    path: '/product/results',
-    name: 'productResults',
-    component: ProductResults
+    path: '/product/deposit',
+    name: 'productDepositResult',
+    component: ProductDepositResultView
+  },
+  {
+    path: '/product/saving',
+    name: 'productSavingResult',
+    component: ProductSavingResultView
   },
   {
     path: '/product/cart',
@@ -133,8 +140,8 @@ const routes = [
   },
   {
     path: '/product/search/:text',
-    name: 'productSearch',
-    component: ProductSearchView
+    name: 'productSearchResult',
+    component: ProductSearchResultView
   },
   // contents
   {
@@ -152,6 +159,11 @@ const routes = [
     path: '/content/:contentId',
     name: 'contentDetail',
     component: ContentDetailView
+  },
+  {
+    path: '/content/edit/:contentId',
+    name : 'contentEdit',
+    component: ContentEditView,
   },
   // profile
   {
