@@ -160,7 +160,7 @@ public class ProductServiceImpl implements ProductService {
         ReportProduct reportProduct = result.get();
         reportProduct.setUpdated(true);
 
-        ReportProduct saved = reportProductRepository.save(reportProduct);
+        reportProductRepository.save(reportProduct);
 
         ProductDto productDto = productDetail.getProduct();
         List<OptionsDto> options = productDetail.getOptions();
@@ -174,7 +174,6 @@ public class ProductServiceImpl implements ProductService {
 
         //product 테이블 추가 후 product_id를 각각 가져와야한다.
         int productID = productRepository.lastInsertId();
-        log.info("id value : "+productID);
 
         //options 테이블에 추가
         for (OptionsDto o : options) {
@@ -183,8 +182,6 @@ public class ProductServiceImpl implements ProductService {
             optionsRepository.save(opt);
         }
 
-        log.info("options finish");
-
         //conditions 테이블에 추가
         for (ConditionsDto c : conditions) {
             c.setProductId(productID);
@@ -192,18 +189,23 @@ public class ProductServiceImpl implements ProductService {
             conditionsRepository.save(con);
         }
 
-        log.info("conditions finish");
-
         //joinway 테이블에 추가
         for (JoinwayDto j : joinway) {
             j.setProductId(productID);
             Joinway join = modelMapper.map(j, Joinway.class);
             joinwayRepository.save(join);
         }
+    }
 
-        log.info("joins finish");
+    @Override
+    public void deleteReport(int reportProductId) {
+        //실제로 삭제하는 것이 아닌 isUpdated를 true로
+        Optional<ReportProduct> result =
+                reportProductRepository.findByReportProductId(reportProductId);
 
-        //reportProductId를 이용해 product화 성공시 기존 report삭제 대신 isUpdated true로
-        //reportProductRepository.delete(ReportProduct.builder().reportProductId(reportProductId).build());
+        result.orElseThrow(() -> new NoSuchElementException("잘못된 제보 번호입니다."));
+
+        ReportProduct reportProduct = result.get();
+        reportProduct.setUpdated(true);
     }
 }

@@ -87,4 +87,20 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "제보받은 상품을 삭제했습니다."),
+            @ApiResponse(code = 404, message = "삭제하려는 제보가 없습니다.(제보 id 오류)"),
+    })
+    @Operation(summary = "제보받은 상품 삭제", description = "제보받은 상품 등록 처리")
+    @PutMapping("/report/delete")
+    public ResponseEntity<?> deleteReportProduct(@RequestBody int reportId) {
+        try {
+            productService.deleteReport(reportId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
