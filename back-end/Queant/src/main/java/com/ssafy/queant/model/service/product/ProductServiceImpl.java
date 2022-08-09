@@ -151,20 +151,59 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateReportToProduct(int reportProductId) {
+    public void updateReportToProduct(int reportProductId, ProductDetailDto productDetail) {
+        Optional<ReportProduct> result =
+                reportProductRepository.findByReportProductId(reportProductId);
 
-        //Product data =
+        result.orElseThrow(() -> new NoSuchElementException("잘못된 제보 번호입니다."));
 
-//        Optional<ReportProduct> result =
-//                reportProductRepository.findByReportProductId(reportProductId);
-//
-//        result.orElseThrow(() -> new NoSuchElementException("없는 제보 정보입니다."));
-//
-//        ReportProduct reportProduct = result.get();
-//        reportProduct.setUpdated(true);
+        ReportProduct reportProduct = result.get();
+        reportProduct.setUpdated(true);
 
-//        int bankID = bankRepository.searchBankID(reportProduct.getBankName());
-//
-//        ReportProduct saved = reportProductRepository.save(reportProduct);
+        ReportProduct saved = reportProductRepository.save(reportProduct);
+
+        ProductDto productDto = productDetail.getProduct();
+        List<OptionsDto> options = productDetail.getOptions();
+        List<ConditionsDto> conditions = productDetail.getConditions();
+        List<JoinwayDto> joinway = productDetail.getJoinway();
+
+        //은행 이름을 통한 ID 설정 및 product 테이블에 추가
+        productDto.setBankId(bankRepository.searchBankID(reportProduct.getBankName()));
+        Product product = modelMapper.map(productDto, Product.class);
+        productRepository.save(product);
+
+        //product 테이블 추가 후 product_id를 각각 가져와야한다.
+        int productID = productRepository.lastInsertId();
+        log.info("id value : "+productID);
+
+        //options 테이블에 추가
+        for (OptionsDto o : options) {
+            o.setProductId(productID);
+            Options opt = modelMapper.map(o, Options.class);
+            optionsRepository.save(opt);
+        }
+
+        log.info("options finish");
+
+        //conditions 테이블에 추가
+        for (ConditionsDto c : conditions) {
+            c.setProductId(productID);
+            Conditions con = modelMapper.map(c, Conditions.class);
+            conditionsRepository.save(con);
+        }
+
+        log.info("conditions finish");
+
+        //joinway 테이블에 추가
+        for (JoinwayDto j : joinway) {
+            j.setProductId(productID);
+            Joinway join = modelMapper.map(j, Joinway.class);
+            joinwayRepository.save(join);
+        }
+
+        log.info("joins finish");
+
+        //reportProductId를 이용해 product화 성공시 기존 report삭제 대신 isUpdated true로
+        //reportProductRepository.delete(ReportProduct.builder().reportProductId(reportProductId).build());
     }
 }
