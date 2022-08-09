@@ -17,4 +17,6 @@ public interface ProductService {
 //    ProductDto updateToProovedProduct(int productId);
 
     List<ProductDto> findByIsEnabledFalse();
+
+    void updateReportToProduct(int reportProductId);
 }

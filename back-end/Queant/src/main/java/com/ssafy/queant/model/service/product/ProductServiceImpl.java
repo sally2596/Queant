@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 @Slf4j
 public class ProductServiceImpl implements ProductService {
+
+    private final ReportProductRepository reportProductRepository;
     private final ProductRepository productRepository;
     private final BankRepository bankRepository;
     private final JoinwayRepository joinwayRepository;
@@ -21,7 +24,8 @@ public class ProductServiceImpl implements ProductService {
     private final OptionsRepository optionsRepository;
     private final ModelMapper modelMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, BankRepository bankRepository, JoinwayRepository joinwayRepository, ConditionsRepository conditionsRepository, OptionsRepository optionsRepository, ModelMapper modelMapper) {
+    public ProductServiceImpl(ReportProductRepository reportProductRepository, ProductRepository productRepository, BankRepository bankRepository, JoinwayRepository joinwayRepository, ConditionsRepository conditionsRepository, OptionsRepository optionsRepository, ModelMapper modelMapper) {
+        this.reportProductRepository = reportProductRepository;
         this.productRepository = productRepository;
         this.bankRepository = bankRepository;
         this.joinwayRepository = joinwayRepository;
@@ -144,5 +148,23 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return productDtoList;
+    }
+
+    @Override
+    public void updateReportToProduct(int reportProductId) {
+
+        //Product data =
+
+//        Optional<ReportProduct> result =
+//                reportProductRepository.findByReportProductId(reportProductId);
+//
+//        result.orElseThrow(() -> new NoSuchElementException("없는 제보 정보입니다."));
+//
+//        ReportProduct reportProduct = result.get();
+//        reportProduct.setUpdated(true);
+
+//        int bankID = bankRepository.searchBankID(reportProduct.getBankName());
+//
+//        ReportProduct saved = reportProductRepository.save(reportProduct);
     }
 }

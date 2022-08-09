@@ -78,9 +78,9 @@ public class ProductController {
     })
     @Operation(summary = "제보받은 상품 등록", description = "제보받은 상품 등록 처리")
     @PostMapping("/report/{reportId}")
-    public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId) {
+    public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId, @RequestBody ProductDetailDto productDetail) {
         try {
-            reportProductService.updateReportToProduct(reportId);
+            productService.updateReportToProduct(reportId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
