@@ -130,15 +130,9 @@ class CustomProductRepositoryTest {
         final CustomProduct savedProduct3 = customProductRepository.save(product3);
 
         //when
-<<<<<<< HEAD
 //        List<CustomProduct> list = customProductRepository.findByMemberId(uuid);
-//
-//        //then
-=======
-        //List<CustomProduct> list = customProductRepository.findByMemberId(uuid);
 
         //then
->>>>>>> Back-end
 //        for (int i = 0; i < list.size(); i++) {
 //            log.info("["+i+"번째 커스텀 상품]");
 //            log.info(list.get(i).toString());
