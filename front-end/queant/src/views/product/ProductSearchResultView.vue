@@ -15,7 +15,7 @@ import { mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
 
 export default {
-    name: 'ProductSearchView',
+    name: 'ProductSearchResultView',
     components: { Navbar },
     computed: {
       ...mapGetters(['products'])

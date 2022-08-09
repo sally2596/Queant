@@ -62,12 +62,12 @@ export default {
       .then(res => {
         console.log(res)
         commit('SET_PRODUCTS', res.data)
-        router.push({ name: 'productSearch', params: { text: text }})
+        router.push({ name: 'productSearchResult', params: { text: text }})
       })
       .catch(err => {
         console.log(err)
         commit('SET_PRODUCTS', [])
-        router.push({ name: 'productSearch', params: { text: text }})
+        router.push({ name: 'productSearchResult', params: { text: text }})
       })
     },
     fetchProductsByDepositFilters({ commit }, filters) {

@@ -40,7 +40,7 @@ import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
 import ComparisonView from '@/views/product/ComparisonView.vue'
 import ProductDepositResultView from '@/views/product/ProductDepositResultView.vue'
 import ProductSavingResultView from '@/views/product/ProductSavingResultView.vue'
-import ProductSearchView from '@/views/product/ProductSearchView.vue'
+import ProductSearchResultView from '@/views/product/ProductSearchResultView.vue'
 import ProductDetailView from '@/views/product/ProductDetailView.vue'
 
 // content
@@ -140,8 +140,8 @@ const routes = [
   },
   {
     path: '/product/search/:text',
-    name: 'productSearch',
-    component: ProductSearchView
+    name: 'productSearchResult',
+    component: ProductSearchResultView
   },
   // contents
   {
