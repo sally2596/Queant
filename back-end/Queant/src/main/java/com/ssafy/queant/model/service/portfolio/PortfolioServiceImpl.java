@@ -265,11 +265,24 @@ public class PortfolioServiceImpl implements PortfolioService {
 
       log.info("[updatePortfolio] : memberId: {} 포트폴리오 수정, 포트폴리오 번호: {}", memberId, portfolioNo);
 
-      Member member = Member.builder().memberId(memberId).build();
+      Optional<Member> result = memberRepository.findById(memberId);
+      Member member = result.get();
+
       Optional<List<Portfolio>> portfolioResult = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
       portfolioResult.orElseThrow(()-> new NoSuchElementException());
 
       portfolioRepository.deleteAll(portfolioResult.get());
+
+      for(int i=portfolioNo+1; i<member.getPortfolio_cnt(); i++){
+         Optional<List<Portfolio>> portfolios = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member, i);
+
+         for(Portfolio portfolio : portfolios.get()){
+            portfolio.setPortfolioNo(i-1);
+            portfolioRepository.save(portfolio);
+         }
+      }
+
+      member.setPortfolio_cnt(member.getPortfolio_cnt()-1);
 
    }
 }

@@ -197,7 +197,7 @@ public class PortfolioController {
             @ApiResponse(code = 409, message="해당 포트폴리오가 존재하지 않습니다.(포트폴리오 번호 확인)"),
             @ApiResponse(code = 500, message="기타 서버 에러"),
     })
-    @ApiOperation(value="포트폴리오 전체 삭제", notes="email, portfolioNo 필수")
+    @ApiOperation(value="포트폴리오 전체 삭제", notes="email, portfolioNo 필수. 삭제 후 해당 회원의 portfolio_cnt를 -1 해주시거나 멤버 정보를 다시 요청해주세요")
     @DeleteMapping
     public ResponseEntity<?> deletePortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
         log.info("[Controller: DeletePortfolio]");
