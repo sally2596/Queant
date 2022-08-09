@@ -68,19 +68,20 @@ export default {
       })
     },
     fetchProductsByDepositSingleFilters({ commit }, filters) {
+      console.log(filters)
       axios({
-        url: spring.search.deposit(),
+        url: spring.search.deposit(filters.page),
         method: 'post',
         data: {
           amount: filters.amount,
-          period: filters.period,
-          isSimpleInterest: filters.isSimpleInterest,
           bank: filters.bank,
-          joinway: filters.joinway,
+          bank_type: filters.bankType,
           conditions: filters.conditions,
-          bankType: filters.bankType,
-          traitSet: filters.traitSet
-        }
+          is_simple_interest: filters.isSimpleInterest,
+          joinway: filters.joinway,
+          period: filters.period,
+          trait_set: filters.traitSet,
+        },
       })
       .then(res => {
         console.log(res)

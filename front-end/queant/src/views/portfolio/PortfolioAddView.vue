@@ -5,11 +5,11 @@
   </header>
 
   <!-- 테스트 -->
-  <!-- <div>
+  <div>
     <button @click="addPortfolio()">포트폴리오에 상품 추가</button>
     <button @click="deletePortfolio()">포트폴리오 삭제</button>
     <button @click="editPortfolio()">포트폴리오 변경</button>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -20,7 +20,7 @@ export default {
   name: 'PortfolioAddView',
   components: { Navbar },
   methods: {
-    // ...mapActions(['addPortfolio', 'deletePortfolio', 'editPortfolio'])
+    ...mapActions(['addPortfolio', 'deletePortfolio', 'editPortfolio'])
   }
 }
 </script>

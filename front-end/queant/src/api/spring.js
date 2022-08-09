@@ -36,9 +36,9 @@ export default {
     bank: bankId => HOST + BANK + bankId
   },
   search: {
-    search: () => HOST + SEARCH,
+    search: () => HOST + SEARCH ,
     keyword: () => HOST + SEARCH + 'keyword',
-    deposit: () => HOST + SEARCH + 'deposit/' + 'single',
+    deposit: (page) => HOST + SEARCH + 'deposit/' + 'single/' + page,
     saving: () => HOST + SEARCH + 'saving/' + 'single',
     savings: () => HOST + SEARCH + 'saving/' + 'set'
   },

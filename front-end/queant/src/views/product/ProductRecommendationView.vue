@@ -38,15 +38,15 @@
 
         <div class="col-lg-3 m-3">
           <h6>예치 기간</h6>
-          <input v-model="filtersForDeposit.period" value="6" type="radio" class="btn-check" id="deposit-months-6" autocomplete="off">
+          <input v-model="filtersForDeposit.period" :value="6" type="radio" class="btn-check" id="deposit-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
-          <input v-model="filtersForDeposit.period" value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
+          <input v-model="filtersForDeposit.period" :value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-12">12개월</label>
-          <input v-model="filtersForDeposit.period" value="18" type="radio" class="btn-check" id="deposit-months-18" autocomplete="off">
+          <input v-model="filtersForDeposit.period" :value="18" type="radio" class="btn-check" id="deposit-months-18" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-18">18개월</label>
-          <input v-model="filtersForDeposit.period" value="24" type="radio" class="btn-check" id="deposit-months-24" autocomplete="off">
+          <input v-model="filtersForDeposit.period" :value="24" type="radio" class="btn-check" id="deposit-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-24">24개월</label>
-          <input v-model="filtersForDeposit.period" value="36" type="radio" class="btn-check" id="deposit-months-36" autocomplete="off">
+          <input v-model="filtersForDeposit.period" :value="36" type="radio" class="btn-check" id="deposit-months-36" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-36">36개월</label>
         </div>
 
@@ -85,7 +85,7 @@
           <input 
             v-model="filtersForDeposit.isSimpleInterest"
             type="radio"
-            value="true"
+            :value="true"
             class="btn-check"
             id="deposit-simple-interest-true" 
             autocomplete="off">
@@ -97,7 +97,7 @@
           <input
             v-model="filtersForDeposit.isSimpleInterest"
             type="radio"
-            value="false"
+            :value="false"
             class="btn-check" 
             id="deposit-simple-interest-false"
             autocomplete="off">
@@ -428,7 +428,8 @@ export default {
         joinway: [],
         conditions: [],
         bankType: [],
-        traitSet: []
+        traitSet: [],
+        page: 1
       },
       filtersForSaving: {
         amount: null,

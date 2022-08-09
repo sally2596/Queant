@@ -4,13 +4,13 @@ import axios from 'axios'
 
 export default {
   state: {
-    customPortfolios: {}
+    portfolio: {}
   },
   getters: {
-    portfolios: state => state.portfolios
+    portfolio: state => state.portfolio
   },
   mutations: {
-    SET_PORTFOLIOS: (state, portfolios) => state.portfolios = portfolios
+    SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio
   },
   actions: {
     editPortfolio({ commit, getters }) {
@@ -52,7 +52,7 @@ export default {
         console.log(err)
       })
     },
-    fetchPortfolios({ commit, getters }) {
+    fetchMyPortfolio({ commit, getters }) {
       axios({
         url: spring.portfolio.posession(),
         method: 'post',
@@ -62,14 +62,13 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PORTFOLIOS', res.data.portfolio_list)
+        commit('SET_PORTFOLIO', res.data.portfolio_list)
       })
       .catch(err => {
         console.log(err)
       })
     },
     addPortfolio({ commit, getters }) {
-      console.log("haha")
       console.log(getters.userInfo.member_id)
       axios({
         url: spring.portfolio.portfolio(),
@@ -105,8 +104,8 @@ export default {
               portfolio_no: 0,  // 0은 마이포트폴리오, 1~5 가상포트폴리오, 생성할때 id 입력X, no 입력O (cnt +1)
               product_id: 1
             }
-          ]
-          // portfolio_no: 1
+          ],
+          portfolio_no: 0
         }
       })
       .then(res => {
