@@ -7,19 +7,39 @@ export default {
     products: [],
     product: {},
     keywords: [],
-    filters: []
+    filters: [],
+    cart: []
   },
   getters: {
     products: state => state.products,
     product: state => state.product,
     keywords: state => state.keywords,
-    filters: state => state.filters
+    filters: state => state.filters,
+    cart: state => state.cart
   },
   mutations: {
     SET_PRODUCTS: (state, products) => state.products = products,
     SET_PRODUCT: (state, product) => state.product = product,
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
-    SET_FILTERS: (state, filters) => state.filters = filters
+    SET_FILTERS: (state, filters) => state.filters = filters,
+    CLEAR_CART: state => state.cart = [],
+    PUSH_PRODUCT_TO_CART(state, product) {
+      if (state.cart.find(productInCart => productInCart.product_id === product.product_id))
+        console.log("장바구니에 이미 담긴 상품입니다.")
+      else {
+        state.cart.push(product)
+        console.log("장바구니에 담겼습니다.")
+      }
+    },
+    POP_PRODUCT_IN_CART(state, product) {
+      for (let i = 0; i < state.cart.length; i++) {
+        if (state.cart[i].product_id === product.product_id) {
+          state.cart.splice(i, 1)
+          console.log("상품을 장바구니에서 제거했습니다.")
+          break
+        }
+      }
+    }
   },
   actions: {
     fetchKeywords({ commit }) {

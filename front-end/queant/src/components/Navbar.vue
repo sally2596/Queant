@@ -86,8 +86,8 @@ export default {
   },
   data() {
     return {
-      searching_place : true,
-      text : ''
+      searching_place: true,
+      text: ''
     }
   },
 }

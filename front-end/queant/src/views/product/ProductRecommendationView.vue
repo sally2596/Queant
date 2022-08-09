@@ -408,7 +408,6 @@
 
         <div id="saving-result-view">
           <button @click="fetchProductsBySavingFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button>
-          <!-- <button v-else-if="!isSavingSingle" @click="fetchProductsBySavingSetFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button> -->
         </div>
 
       </div>
@@ -449,7 +448,7 @@ export default {
       } else {
         변수명.classList.remove('클래스 명');
       }
-    },
+    }
   },
   data() {
     return {
