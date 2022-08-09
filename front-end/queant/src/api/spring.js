@@ -36,8 +36,11 @@ export default {
     bank: bankId => HOST + BANK + bankId
   },
   search: {
-    search: () => HOST + SEARCH,
-    keyword: () => HOST + SEARCH + 'keyword'
+    search: () => HOST + SEARCH ,
+    keyword: () => HOST + SEARCH + 'keyword',
+    deposit: (page) => HOST + SEARCH + 'deposit/' + 'single/' + page,
+    saving: (page) => HOST + SEARCH + 'saving/' + 'single/' + page,
+    savings: () => HOST + SEARCH + 'saving/' + 'set'
   },
   product: {
     detail: (productId) => HOST + PRODUCT + productId
@@ -51,7 +54,7 @@ export default {
     remove: () => HOST + CONTENTS + 'delete'
   },
   portfolio: {
-    posession: () => HOST + PORTFOLIO + 'posession',
-    custom: () => HOST + PORTFOLIO + 'custom'
+    portfolio: () => HOST + PORTFOLIO,
+    posession: () => HOST + PORTFOLIO + 'posession'
   }
 }
