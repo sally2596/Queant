@@ -5,53 +5,32 @@ import axios from 'axios'
 export default {
   state: {
     portfolio: {},
-    customPortfolio1: [],
-    customPortfolio2: [],
-    customPortfolio3: []
+    customPortfolios: []
   },
   getters: {
     portfolio: state => state.portfolio,
-    customPortfolio1: state => state.customPortfolio1,
-    customPortfolio2: state => state.customPortfolio2,
-    customPortfolio3: state => state.customPortfolio3
+    customPortfolios: state => state.customPortfolios
   },
   mutations: {
     SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
-    PUSH_PRODUCT_TO_COMPARISON(state, value) {
+    PUSH_PRODUCT_TO_CUSTOM_PORTFOLIOS(state, value) {
       let portfolioNo = value[0].target.value
       let product = value[1]
 
-      if (portfolioNo === "1") {
-        state.customPortfolio1.push(product)
-        console.log(`${product.product_id}번 상품을 1번 가상 포트폴리오에 넣었습니다.`)
+      if (portfolioNo > state.customPortfolios.length) {
+        state.customPortfolios.push([product])
+        console.log('새로운 포트폴리오에 상품이 담겼습니다.')
+      } else {
+        state.customPortfolios[portfolioNo-1].push(product)
+        console.log('기존 포트폴리오에 상품을 추가했습니다.')
       }
-      else if (portfolioNo === "2") {
-        state.customPortfolio2.push(product)
-        console.log(`${product.product_id}번 상품을 2번 가상 포트폴리오에 넣었습니다.`)
-      }
-      else if (portfolioNo === "3") {
-        state.customPortfolio3.push(product)
-        console.log(`${product.product_id}번 상품을 3번 가상 포트폴리오에 넣었습니다.`)
-      }
+    },
+    POP_CUSTOM_PORTFOLIO_FROM_CUSTOM_PORTFOLIOS(state, index) {
+      state.customPortfolios.splice(index, 1)
+      console.log(`${index+1}번 포트폴리오를 삭제했습니다.`)
     }
   },
   actions: {
-    fetchComparisonPortfolio({ getters }) {
-      axios({
-        url: spring.portfolio.virtual(),
-        method: 'post',
-        data: {
-          member_id: getters.userInfo.member_id,
-        }
-      })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log('haha')
-        console.log(err)
-      })
-    },
     editPortfolio({ commit, getters }) {
       axios({
         url: spring.portfolio.portfolio(),
@@ -75,22 +54,6 @@ export default {
         }
       })
     },
-    deletePortfolio({ commit, getters }) {
-      axios({
-        url: spring.portfolio.portfolio(),
-        method: 'delete',
-        data: {
-          member_id: getters.userInfo.member_id,
-          portfolio_no: 0
-        }
-      })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
     fetchMyPortfolio({ commit, getters }) {
       axios({
         url: spring.portfolio.posession(),
@@ -107,7 +70,7 @@ export default {
         console.log(err)
       })
     },
-    addProductToPortfolio({ getters }, payload) {
+    addProductToCustomPortfolio({ getters }, payload) {
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
@@ -133,6 +96,9 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+    addProductToMyPortfolio({ commit }, product) {
+      console.log(product)
     }
   }
 };

@@ -15,30 +15,32 @@
       
       <router-link :to="{name : 'productRecommend'}" class="btn btn-outline-success">상품 추천받기</router-link> 
     </div>
-
     <!-- 장밥구니에 상품이 담겨 있을 때 -->
     <div v-else>
       <button @click="clearCart()">장바구니 전체 비우기</button>
       <div
-        v-for="(productInCart, index) in cart"
-        :key="index">
+        v-for="productInCart in cart"
+        :key="productInCart.product_id">
         {{ productInCart }}
-        <Modal
+        <!-- <Modal
           v-if="showModal" @close="showModal=false"
           :product="modalData">
           <h3>모달 창 제목</h3>
         </Modal>
 
-        <!-- <button id="show-modal" @click="showModal=true">Show Modal</button> -->
-        <button id="show-modal" @click="openModal(productInCart)">가상 포트폴리오에 넣기</button>
+        <button id="show-modal" @click="openModal(productInCart)">가상 포트폴리오에 넣기</button> -->
 
-        <!-- <select @change="pushProductToComparison([$event, productInCart])">
+        <select 
+          @change="pushProductToCustomPortfolios([$event, productInCart])">
           <option selected disabled>선택</option>
-          <option value="1">1번 가상 포트폴리오</option>
-          <option value="2">2번 가상 포트폴리오</option>
-          <option value="3">3번 가상 포트폴리오</option>
-        </select> -->
-        <!-- <button for="haha" @click="test($event)">적용</button> -->
+          <option
+            v-for="number in customPortfolios.length+1"
+            :key="number"
+            :value="number">
+            {{ number }}번 포트폴리오
+          </option>
+        </select>
+
         <button @click="popProductFromCart(productInCart)">장바구니에서 빼기</button>
         <hr>
       </div>
@@ -57,19 +59,18 @@ export default {
   name: 'ProductCartView',
   components : { Navbar, Modal },
   computed: {
-    ...mapGetters(['cart', 'customPortfolio1'])
+    ...mapGetters(['cart', 'customPortfolios'])
   },
   methods: {
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_COMPARISON']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_CUSTOM_PORTFOLIOS']),
     clearCart() {
       this.CLEAR_CART()
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
     },
-    pushProductToComparison(value) {
-      this.PUSH_PRODUCT_TO_COMPARISON(value)
-      this.POP_PRODUCT_FROM_CART(value[1])
+    pushProductToCustomPortfolios(value) {
+      this.PUSH_PRODUCT_TO_CUSTOM_PORTFOLIOS(value)
     },
     openModal(product) {
       this.modalData = product,

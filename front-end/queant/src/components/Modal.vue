@@ -6,10 +6,13 @@
 
       <div class="modal-header">
        <slot name="header">
-        <label for="">어느 가상 포트폴리오 넣을까요? (필수)</label>
-        <input
-          v-model="payload.portfolio_no" 
-          type="number">
+
+         <select 
+          v-for="number in customPortfolio.length+1"
+          :key="number">
+          <option selected disabled>선택</option>
+          <option :value="number">{{ number }}</option>
+        </select>
        </slot>
       </div>
       <hr>
@@ -47,7 +50,7 @@
 
       <div class="modal-footer">
        <slot name="footer">
-        <button @click="[addProductToPortfolio(payload), $emit('close')]">적용</button>
+        <button @click="[addProductToCustomPortfolio(payload), $emit('close')]">적용</button>
         <button class="modal-default-button" @click="$emit('close')">
          닫기
         </button>
@@ -68,10 +71,10 @@ export default {
     product: Object
   },
   computed: {
-    ...mapGetters(['filters'])
+    ...mapGetters(['filters', 'customPortfolio'])
   },
   methods: {
-    ...mapActions(['addProductToPortfolio']),
+    ...mapActions(['addProductToCustomPortfolio']),
     ...mapMutations(['POP_PRODUCT_FROM_CART'])
   },
   data() {

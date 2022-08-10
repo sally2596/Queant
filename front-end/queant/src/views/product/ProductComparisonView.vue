@@ -3,41 +3,43 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 비교하기</h1>
   </header>
+  
+  <div
+    v-for="(customPortfolio, index) in customPortfolios"
+    :key="index">
+    <h3>{{ index+1 }}번 포트폴리오</h3>
+    <button @click="deletePortfolio(index)">포트폴리오 삭제하기</button>
+    <div
+      v-for="product in customPortfolio"
+      :key="product.product_id">
+      {{ product }}
+      <button>상품 삭제하기</button>
+      <hr>
+    </div>
 
-  <div>
-    <h3>1번 가상 포트폴리오</h3>
-    {{ customPortfolio1 }}
   </div>
 
-  <div>
-    <h3>2번 가상 포트폴리오</h3>
-    {{ customPortfolio2 }}
-  </div>
-
-  <div>
-    <h3>3번 가상 포트폴리오</h3>
-    {{ customPortfolio3 }}
-  </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'ProductComparisonView',
   components : { Navbar },
   computed: {
-    ...mapGetters(['customPortfolio1', 'customPortfolio2', 'customPortfolio3'])
+    ...mapGetters(['customPortfolios'])
   },
   methods: {
-    ...mapActions(['fetchComparisonPortfolio'])
+    ...mapActions(['addProductToMyPortfolio']),
+    ...mapMutations(['POP_CUSTOM_PORTFOLIO_FROM_CUSTOM_PORTFOLIOS']),
+    deletePortfolio(index) {
+      this.POP_CUSTOM_PORTFOLIO_FROM_CUSTOM_PORTFOLIOS(index)
+    }
   },
   beforeCreate: function() {
     document.body.className = 'home_body'
-  },
-  created() {
-    this.fetchComparisonPortfolio()
   }
 }
 </script>
