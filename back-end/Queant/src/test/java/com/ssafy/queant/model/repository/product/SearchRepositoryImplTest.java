@@ -33,20 +33,22 @@ class SearchRepositoryImplTest {
         List<String> joinway = new ArrayList<>();
 //        joinway.add("A001");
         List<String> conditions = new ArrayList<>();
-//        conditions.add("B003");
+        conditions.add("B003");
+        conditions.add("B001");
+        conditions.add("B002");
         List<String> traitSet = new ArrayList<>();
 //        traitSet.add("E001");
 
         int period = 12;
         Pageable pageable = PageRequest.of(0, 500);
-        Page<Tuple> p = searchRepository.searchSingle(0l, false, null, false, period, list, joinway, conditions,
+        Page<Tuple> p = searchRepository.searchSingle(0l, false, false, false, period, list, joinway, conditions,
                 traitSet, pageable);
         log.info(String.valueOf(p));
         int cnt = 0;
         for (Tuple product : p
         ) {
             ProductDto dto = modelMapper.map(product, ProductDto.class);
-            dto.setBaseRate(product.get(1, Float.class));
+            //dto.setBaseRate(product.get(1, Float.class));
             log.info("[TUPLE]: " + product.toString());
             cnt++;
         }
