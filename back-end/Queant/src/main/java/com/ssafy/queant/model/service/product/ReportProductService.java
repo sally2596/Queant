@@ -7,5 +7,9 @@ import java.util.List;
 public interface ReportProductService {
     List<ReportProductDto> findAll();
 
+    List<ReportProductDto> findById(String memberEmail);
+
+    ReportProductDto findByReportId(int reportId);
+
     void registReport(ReportProductDto reportProductDto);
 }

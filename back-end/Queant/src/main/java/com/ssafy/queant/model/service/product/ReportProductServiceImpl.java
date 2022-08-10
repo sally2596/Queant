@@ -2,6 +2,7 @@ package com.ssafy.queant.model.service.product;
 
 import com.ssafy.queant.model.dto.product.ReportProductDto;
 import com.ssafy.queant.model.entity.member.Member;
+import com.ssafy.queant.model.entity.product.Options;
 import com.ssafy.queant.model.entity.product.ReportProduct;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.model.repository.product.ReportProductRepository;
@@ -40,6 +41,38 @@ public class ReportProductServiceImpl implements ReportProductService {
             }
         }
         return reportProductDtos;
+    }
+
+    @Override
+    public List<ReportProductDto> findById(String memberEmail) {
+
+        Optional<Member> result = memberRepository.findByEmail(memberEmail);
+        Member member = result.get();
+
+        List<ReportProduct> list = reportProductRepository.findByMemberId(member.getMemberId());
+        List<ReportProductDto> reportProductDtos = new ArrayList<>();
+
+        if (list.size() > 0) {
+            for (ReportProduct r : list) {
+                reportProductDtos.add(modelMapper.map(r, ReportProductDto.class));
+            }
+        }
+        return reportProductDtos;
+    }
+
+    @Override
+    public ReportProductDto findByReportId(int reportId) {
+
+        Optional<ReportProduct> result =
+                reportProductRepository.findByReportProductId(reportId);
+
+        result.orElseThrow(() -> new NoSuchElementException("잘못된 제보 번호입니다."));
+
+        ReportProduct reportProduct = result.get();
+
+        ReportProductDto reportProductDto = modelMapper.map(reportProduct, ReportProductDto.class);
+
+        return reportProductDto;
     }
 
     @Override

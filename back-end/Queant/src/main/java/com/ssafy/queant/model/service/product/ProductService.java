@@ -20,5 +20,5 @@ public interface ProductService {
 
     void updateReportToProduct(int reportProductId, ProductDetailDto productDetail);
 
-    void deleteReport(int reportProductId);
+    String deleteReport(int reportProductId);
 }

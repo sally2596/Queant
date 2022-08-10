@@ -151,7 +151,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateReportToProduct(int reportProductId, ProductDetailDto productDetail) {
+    public String deleteReport(int reportProductId) {
+        //실제로 삭제하는 것이 아닌 isUpdated를 true로
         Optional<ReportProduct> result =
                 reportProductRepository.findByReportProductId(reportProductId);
 
@@ -162,13 +163,21 @@ public class ProductServiceImpl implements ProductService {
 
         reportProductRepository.save(reportProduct);
 
+        return reportProduct.getBankName();
+    }
+
+    @Override
+    public void updateReportToProduct(int reportProductId, ProductDetailDto productDetail) {
+
+        String bankName = deleteReport(reportProductId);
+
         ProductDto productDto = productDetail.getProduct();
         List<OptionsDto> options = productDetail.getOptions();
         List<ConditionsDto> conditions = productDetail.getConditions();
         List<JoinwayDto> joinway = productDetail.getJoinway();
 
         //은행 이름을 통한 ID 설정 및 product 테이블에 추가
-        productDto.setBankId(bankRepository.searchBankID(reportProduct.getBankName()));
+        productDto.setBankId(bankRepository.searchBankID(bankName));
         Product product = modelMapper.map(productDto, Product.class);
         productRepository.save(product);
 
@@ -197,15 +206,9 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    @Override
-    public void deleteReport(int reportProductId) {
-        //실제로 삭제하는 것이 아닌 isUpdated를 true로
-        Optional<ReportProduct> result =
-                reportProductRepository.findByReportProductId(reportProductId);
 
-        result.orElseThrow(() -> new NoSuchElementException("잘못된 제보 번호입니다."));
 
-        ReportProduct reportProduct = result.get();
-        reportProduct.setUpdated(true);
-    }
+
+
+
 }
