@@ -151,8 +151,10 @@ public class PortfolioServiceImpl implements PortfolioService {
    public void insertPortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList) throws Exception{
 
       log.info("[insertPortfolio] : memberId: {} 포트폴리오 추가", memberId);
-
+      int portfolioIdx = 0;
       for(PortfolioDto portfolioDto : portfolioDtoList){
+         portfolioIdx = portfolioDto.getPortfolioNo();
+
          Product product = Product.builder().productId(portfolioDto.getProductId()).build();
          Options option = Options.builder().optionId(portfolioDto.getOptionId()).build();
          Member member = Member.builder().memberId(memberId).build();
@@ -175,6 +177,10 @@ public class PortfolioServiceImpl implements PortfolioService {
 
          portfolioRepository.save(portfolio);
       }
+
+      Member member = memberRepository.findById(memberId).get();
+      member.setPortfolio_cnt(portfolioIdx);
+      memberRepository.save(member);
    }
 
    //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
