@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 # 로컬 내 현재 위치에 있는 모든 파일 및 폴더를 docker 의 /data/ 폴더로 마운트
 ADD ./data /data/ 
 EXPOSE 8600
-CMD ["python", "./queant/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "./queant/manage.py", "runserver", "0.0.0.0:8600"]
