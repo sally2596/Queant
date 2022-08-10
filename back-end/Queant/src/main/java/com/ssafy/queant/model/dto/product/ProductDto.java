@@ -25,4 +25,5 @@ public class ProductDto {
     private boolean isEnabled;
     private float baseRate;
     private String picture;
+    private int selectedOptionId;
 }

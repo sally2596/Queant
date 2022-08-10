@@ -101,6 +101,7 @@ public class SearchServiceImpl implements SearchService {
         result.get().forEach(product -> {
             ProductDto productDto = modelMapper.map(product.get(0, Product.class), ProductDto.class);
             productDto.setBaseRate(product.get(1, Float.class));
+            productDto.setSelectedOptionId(product.get(2, int.class));
             productDtoList.add(productDto);
         });
 
