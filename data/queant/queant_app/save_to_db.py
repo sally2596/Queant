@@ -293,7 +293,7 @@ def change_name(bank_name):
     return new_name.strip()
 
 def connect_db():
-    conn = pymysql.connect(host='172.17.0.2', port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
+    conn = pymysql.connect(host='localhost', port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
     cur = conn.cursor()
     return conn, cur
        
