@@ -8,7 +8,7 @@ const SEARCH = 'search/'
 const PRODUCT = 'product/'
 const CONTENTS = 'contents/'
 const PORTFOLIO = 'portfolio/'
-const REPORT = 'report/'
+const REPORT = PRODUCT + 'report/'
 
 export default {
   member: {
@@ -46,10 +46,10 @@ export default {
   product: {
 		detail: (productId) => HOST + PRODUCT + productId,
 		report: {
-			list: () => HOST + PRODUCT + REPORT,
-			detail: (reportId) => HOST + PRODUCT + REPORT + reportId,
-			delete: () => HOST + PRODUCT + REPORT + 'delete',
-			user: () => HOST + PRODUCT + REPORT + 'user'
+			list: () => HOST + REPORT,
+			detail: (reportId) => HOST + REPORT + reportId,
+			delete: () => HOST + REPORT + 'delete',
+			user: () => HOST + REPORT + 'user'
 		}
   },
   contents: {
