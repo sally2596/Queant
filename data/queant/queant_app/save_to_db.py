@@ -505,6 +505,11 @@ def save_into_db(cur, conn, data_xml, is_deposit):
                         cur.execute(query_condition, values)
     conn.commit()
     
+def test_connect():
+    print("testing!")
+    conn, cur = connect_db()
+    print("hihi")
+    conn.close()
 
 def save_bank_into_db(cur, conn, data_xml, banktype_num):
     cur.execute("SELECT code_id FROM queant.common_code where code_value = \"은행 분류\"")
