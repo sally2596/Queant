@@ -42,4 +42,5 @@ public class Product {
 
     @Column(nullable = false)
     private boolean isEnabled;
+    private String picture;
 }
