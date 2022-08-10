@@ -8,9 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +30,15 @@ class SearchRepositoryImplTest {
         List<String> joinway = new ArrayList<>();
 //        joinway.add("A001");
         List<String> conditions = new ArrayList<>();
-        conditions.add("B003");
-        conditions.add("B001");
-        conditions.add("B002");
+//        conditions.add("B003");
+//        conditions.add("B004");
+//        conditions.add("B005");
         List<String> traitSet = new ArrayList<>();
 //        traitSet.add("E001");
 
         int period = 12;
-        Pageable pageable = PageRequest.of(0, 500);
-        Page<Tuple> p = searchRepository.searchSingle(0l, false, false, false, period, list, joinway, conditions,
-                traitSet, pageable);
+        List<Tuple> p = searchRepository.searchSingle(0l, false, false, false, period, list, joinway, conditions,
+                traitSet);
         log.info(String.valueOf(p));
         int cnt = 0;
         for (Tuple product : p
