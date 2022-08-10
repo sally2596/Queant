@@ -33,13 +33,9 @@ public class SwaggerConfig{
 
 	@Bean
 	public Docket api() {
-		HashSet<String> protocol = new HashSet<>();
-		protocol.add("http");
-		protocol.add("https");
+		Server testServer = new Server("test", "https://i7a201.p.ssafy.io/api", "for testing", Collections.emptyList(), Collections.emptyList());
 		return new Docket(DocumentationType.OAS_30)
-				//.host("https://i7a201.p.ssafy.io/api")
-				//.servers(server, server2)
-				.protocols(protocol)
+				.servers(testServer)
 				.groupName("Queant")
 				.apiInfo(apiInfo())
 				.useDefaultResponseMessages(false)
