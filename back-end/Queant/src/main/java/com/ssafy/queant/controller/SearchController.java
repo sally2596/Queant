@@ -80,19 +80,4 @@ public class SearchController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "적금 세트 검색 성공"),
-            @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
-    })
-    @Operation(summary = "적금 세트 검색", description = "키워드로 적금 세트 검색")
-    @PostMapping(value = "/saving/set")
-    public ResponseEntity<?> getSavingSet(@RequestBody SearchRequestDto searchRequestDto) {
-
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-
 }
