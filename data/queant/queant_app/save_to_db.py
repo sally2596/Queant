@@ -293,7 +293,7 @@ def change_name(bank_name):
     return new_name.strip()
 
 def connect_db():
-    conn = pymysql.connect(host="i7a201.p.ssafy.io", port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
+    conn = pymysql.connect(host="172.17.0.2", port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
     cur = conn.cursor()
     return conn, cur
        
@@ -378,15 +378,16 @@ def save_into_db(cur, conn, data_xml, is_deposit):
     query_condition_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info = (%s);"""
     query_condition_null_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info is null;"""
     query_trait_search = """select * from queant.trait_set where product_id = (%s) and scode_id = (%s)"""
+    query_bank_picture_search = """select picture from queant.bank where bank_id = (%s)"""
     #query_bank_condition_search = """select * from queant.bank_conditions where bank_id = (%s) and scode_id = (%s)"""
-    query_prdt = """INSERT INTO queant.product (product_code, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    query_prdt = """INSERT INTO queant.product (product_code, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled, picture) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
     query_join = """INSERT INTO queant.joinway (product_id, scode_id) values (%s,%s);"""
     query_option = """INSERT INTO queant.options (product_id, base_rate, high_base_rate, save_term, rate_type, rsrv_type) values (%s,%s,%s,%s,%s,%s);"""
     query_condition = """INSERT INTO queant.conditions (product_id, scode_id, special_rate, condition_info) values (%s,%s,%s,%s)"""
     query_trait = """INSERT INTO queant.trait_set (product_id, scode_id) values (%s,%s)"""
     #query_bank_condition = """INSERT INTO queant.bank_conditions (bank_id, scode_id) values (%s, %s)"""
     query_update_prdt = """UPDATE queant.product SET term_min = (%s) ,term_max = (%s) where product_id = (%s)"""
-
+    
     common_code_join, common_code_condition, common_code_product = fetch_commoncode(cur)
     join_ways, condition_tags, product_tags = fetch_specificcode(common_code_join, common_code_condition, common_code_product, cur)
     
@@ -408,19 +409,28 @@ def save_into_db(cur, conn, data_xml, is_deposit):
         
         etc = product_tag[0].find("etc_note").text #기타
         min_cost, max_cost = max_min_cost(etc) #최소, 최대금액
-        
         age_min, age_max = max_min_join(join_member)
         
         term_min = None
         term_max = None
+
+        if not max_cost:
+            max_cost = product_tag[0].find("max_limit").text
         
+        cur.execute(query_bank_picture_search, bank_id)
+        row = cur.fetchone()
+        if row == None:
+            picture = None
+        else:
+            picture = row[0]
+    
         #상품 table에 상품 저장
         values = (prdt_code, bank_id, prdt_name)
         cur.execute(query_prdt_search, values)
         row = cur.fetchone()
         if row == None:
             #product_id, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled
-            values = (prdt_code,bank_id,product_tags["금융감독원API"],deposit,prdt_name, age_min, age_max, term_min, term_max, min_cost, max_cost, etc, 1)
+            values = (prdt_code,bank_id,product_tags["금융감독원API"],deposit,prdt_name, age_min, age_max, term_min, term_max, min_cost, max_cost, etc, 1, picture)
             cur.execute(query_prdt, values)
             prdt_id = cur.lastrowid
         else:
