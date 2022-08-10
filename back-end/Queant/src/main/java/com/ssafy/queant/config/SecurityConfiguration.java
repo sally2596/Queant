@@ -37,9 +37,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/webjars/**"
     };
     private static final String[] AUTH_WHITELIST = {
-            "/api/social/**", "/api/member/emailcheck", "/api/member/emailverify",
-            "/api/member/register", "/api/member/login", "/api/member/refreshtoken", "/", "/api/contents/**",
-            "/api/member/password","/api/portfolio/**"
+            "/social/**", "/member/emailcheck", "/member/emailverify",
+            "/member/register", "/member/login", "/member/refreshtoken", "/", "/contents/**",
+            "/member/password","/portfolio/**"
     };
     private final JwtTokenProvider jwtTokenProvider;
 
