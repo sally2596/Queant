@@ -24,4 +24,5 @@ public class ProductDto {
     private String etc;
     private boolean isEnabled;
     private float baseRate;
+    private String picture;
 }
