@@ -11,9 +11,7 @@ import com.ssafy.queant.model.entity.product.QJoinway;
 import com.ssafy.queant.model.entity.product.QOptions;
 import com.ssafy.queant.model.entity.product.QTraitSet;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,13 +20,15 @@ import static com.ssafy.queant.model.entity.product.QProduct.product;
 
 @RequiredArgsConstructor
 @Repository
+@Slf4j
 public class SearchRepositoryImpl implements SearchRepository {
 
     private final JPAQueryFactory queryFactory;
 
 
     @Override
-    public Page<Tuple> searchSingle(Long amount, boolean isDeposit, Boolean isSimpleInterest, Boolean isFixed, Integer period, List<Integer> banks, List<String> joinway, List<String> conditions, List<String> traitSet, Pageable pageable) {
+    public List<Tuple> searchSingle(Long amount, boolean isDeposit, Boolean isSimpleInterest, Boolean isFixed,
+                                    Integer period, List<Integer> banks, List<String> joinway, List<String> conditions, List<String> traitSet) {
         QJoinway qJoinway = QJoinway.joinway;
         QConditions qConditions = QConditions.conditions;
         QTraitSet qTraitSet = QTraitSet.traitSet;
@@ -90,37 +90,42 @@ public class SearchRepositoryImpl implements SearchRepository {
 
         List<Tuple> results;
 
+//        NumberExpression A, B;
+//        A = qOptions.baseRate;
+//        B = qConditions.specialRate.max().coalesce(0f);
+//        NumberExpression C = MathExpressions.round(A.add(B), 3);
+
         NumberExpression A, B;
         A = qOptions.baseRate;
         B = qConditions.specialRate.max().coalesce(0f);
         NumberExpression C = MathExpressions.round(A.add(B), 3);
-
         // 우대 조건이 있을 경우 Conditions 테이블 join
         if (conditions.size() > 0) {
-//            results = queryFactory.select(
-//                            JPAExpressions.select(product, C).distinct()
-//                                    .from(product)
-//                                    .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
-//                                    .leftJoin(qConditions).on(product.productId.eq(qConditions.productId),
-//                                            qConditions.scodeId.in(conditions))
-//                                    .where(builder)
-//                                    .groupBy(product.productId)
-//                                    .orderBy(C.desc(), product.name.asc()))
-//                    .from(product)
-//                    .fetch();
-
+            // 원래 돌아가는 로직 -> 우대금리 다 더한 값
             results = queryFactory
-                    .select(product, C, qOptions.optionId).distinct()
+                    .select(product, A, qOptions.optionId, B, qConditions.scodeId).distinct()
                     .from(product)
                     .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
                     .leftJoin(qConditions).on(product.productId.eq(qConditions.productId),
                             qConditions.scodeId.in(conditions))
                     .where(builder)
-                    .groupBy(product.productId)
-                    .orderBy(C.desc(), product.name.asc())
-                    .offset(pageable.getOffset())
-                    .limit(pageable.getPageSize())
+                    .groupBy(product.productId, qConditions.scodeId)
+                    .orderBy(qOptions.baseRate.desc(), product.name.asc())
                     .fetch();
+
+//            // 원래 돌아가는 로직 -> 우대금리 다 더한 값
+//            results = queryFactory
+//                    .select(product, B, qOptions.optionId).distinct()
+//                    .from(product)
+//                    .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
+//                    .leftJoin(qConditions).on(product.productId.eq(qConditions.productId),
+//                            qConditions.scodeId.in(conditions))
+//                    .where(builder)
+//                    .groupBy(product.productId, qConditions.scodeId)
+//                    .offset(pageable.getOffset())
+//                    .limit(pageable.getPageSize())
+//                    .fetch();
+
         } else { // 우대금리 없을 경우
             results = queryFactory
                     .select(product, A, qOptions.optionId).distinct()
@@ -128,11 +133,9 @@ public class SearchRepositoryImpl implements SearchRepository {
                     .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
                     .where(builder)
                     .orderBy(A.desc(), product.name.asc())
-                    .offset(pageable.getOffset())
-                    .limit(pageable.getPageSize())
                     .fetch();
         }
 
-        return new PageImpl<>(results, pageable, results.size());
+        return results;
     }
 }
