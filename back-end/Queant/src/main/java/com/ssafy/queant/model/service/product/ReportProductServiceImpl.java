@@ -61,6 +61,21 @@ public class ReportProductServiceImpl implements ReportProductService {
     }
 
     @Override
+    public ReportProductDto findByReportId(int reportId) {
+
+        Optional<ReportProduct> result =
+                reportProductRepository.findByReportProductId(reportId);
+
+        result.orElseThrow(() -> new NoSuchElementException("잘못된 제보 번호입니다."));
+
+        ReportProduct reportProduct = result.get();
+
+        ReportProductDto reportProductDto = modelMapper.map(reportProduct, ReportProductDto.class);
+
+        return reportProductDto;
+    }
+
+    @Override
     public void registReport(ReportProductDto reportProductDto) {
         Optional<Member> result = memberRepository.findByEmail(reportProductDto.getMemberEmail());
         result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));

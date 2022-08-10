@@ -62,10 +62,26 @@ public class ProductController {
     })
     @Operation(summary = "제보 등록", description = "")
     @PostMapping("/report")
-    public ResponseEntity<?> registReportProduct(ReportProductDto reportProductDto) {
+    public ResponseEntity<?> registReportProduct(@RequestBody ReportProductDto reportProductDto) {
         try {
             reportProductService.registReport(reportProductDto);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "제보의 상세 정보 조회에 성공했습니다."),
+            @ApiResponse(code = 404, message = "조회하려는 제보가 없습니다.(제보 id 오류)"),
+    })
+    @Operation(summary = "제보 내용 상세정보", description = "조회 번호에 해당하는 제보 정보를 가져옴")
+    @GetMapping("/report/{reportId}")
+    public ResponseEntity<?> getReportProductDetail(@PathVariable(value = "reportId") int reportId) {
+        try {
+            ReportProductDto reportProductDto = reportProductService.findByReportId(reportId);
+            return new ResponseEntity<>(reportProductDto,HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
