@@ -76,7 +76,7 @@ public class ProductController {
             @ApiResponse(code = 200, message = "제보의 상품화가 성공했습니다."),
             @ApiResponse(code = 404, message = "등록하려는 제보가 없습니다.(제보 id 오류)"),
     })
-    @Operation(summary = "제보받은 상품 등록", description = "제보받은 상품 등록 처리")
+    @Operation(summary = "제보받은 상품 등록", description = "admin이 제보받은 상품 등록 처리")
     @PostMapping("/report/{reportId}")
     public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId, @RequestBody ProductDetailDto productDetail) {
         try {
@@ -92,7 +92,7 @@ public class ProductController {
             @ApiResponse(code = 200, message = "제보받은 상품을 삭제했습니다."),
             @ApiResponse(code = 404, message = "삭제하려는 제보가 없습니다.(제보 id 오류)"),
     })
-    @Operation(summary = "제보받은 상품 삭제", description = "제보받은 상품 등록 처리")
+    @Operation(summary = "제보받은 상품 삭제", description = "admin이 제보받은 상품 삭제 처리")
     @PutMapping("/report/delete")
     public ResponseEntity<?> deleteReportProduct(@RequestBody int reportId) {
         try {
@@ -103,4 +103,15 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "사용자별 제보 목록들 조회에 성공했습니다."),
+    })
+    @Operation(summary = "사용자별 제보 목록", description = "자신이 작성한 제보 리스트를 받아옴")
+    @GetMapping("/report/user")
+    public ResponseEntity<?> getReportProductById(@RequestBody String memberEmail) {
+        List<ReportProductDto> reportProductDtos = reportProductService.findById(memberEmail);
+        return new ResponseEntity<>(reportProductDtos, HttpStatus.OK);
+    }
+
 }
