@@ -1,5 +1,5 @@
-const HOST = 'http://i7a201.p.ssafy.io:8000/'
-//const HOST = 'http://localhost:8000/'
+//const HOST = 'https://i7a201.p.ssafy.io/api'
+const HOST = 'http://localhost:8000/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
@@ -8,6 +8,7 @@ const SEARCH = 'search/'
 const PRODUCT = 'product/'
 const CONTENTS = 'contents/'
 const PORTFOLIO = 'portfolio/'
+const REPORT = 'report/'
 
 export default {
   member: {
@@ -43,7 +44,13 @@ export default {
     savings: () => HOST + SEARCH + 'saving/' + 'set'
   },
   product: {
-    detail: (productId) => HOST + PRODUCT + productId
+		detail: (productId) => HOST + PRODUCT + productId,
+		report: {
+			list: () => HOST + PRODUCT + REPORT,
+			detail: (reportId) => HOST + PRODUCT + REPORT + reportId,
+			delete: () => HOST + PRODUCT + REPORT + 'delete',
+			user: () => HOST + PRODUCT + REPORT + 'user'
+		}
   },
   contents: {
     newslist: () => HOST,
