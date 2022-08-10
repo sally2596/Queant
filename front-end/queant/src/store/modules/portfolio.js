@@ -36,6 +36,22 @@ export default {
     }
   },
   actions: {
+    fetchComparisonPortfolio({ getters }) {
+      axios({
+        url: spring.portfolio.virtual(),
+        method: 'post',
+        data: {
+          member_id: getters.userInfo.member_id,
+        }
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log('haha')
+        console.log(err)
+      })
+    },
     editPortfolio({ commit, getters }) {
       axios({
         url: spring.portfolio.portfolio(),
@@ -91,9 +107,7 @@ export default {
         console.log(err)
       })
     },
-    addProductToPortfolio({ commit, getters }, payload) {
-      console.log(payload)
-      console.log(getters.filters)
+    addProductToPortfolio({ getters }, payload) {
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
@@ -101,22 +115,20 @@ export default {
           member_id: getters.userInfo.member_id,
           portfolio_dto_list: [
             {
-              amount: getters.filters.amount,  // 예금일때 돈
-              // amount_fixed: 0,  // 적금일때 돈
-              condition_ids: getters.filters.conditions, // 우대사항 array
+              amount: getters.filters.amount,
+              condition_ids: getters.filters.conditions,
               start_date: payload.start_date,
               end_date: payload.end_date,
-              option_id: 2992,  // 개월수에 따라 금리의 차이를 알려주는 속성
-              // portfolio_id: 0,  // 수정할때만 입력, 실존하는 포트폴리오 id, 수정 삭제가 반복될 때마다 오토인크
-              portfolio_no: payload.portfolio_no,  // 0은 마이포트폴리오, 1~5 가상포트폴리오, 생성할때 id 입력X, no 입력O (cnt +1)
-              product_id: 1
+              option_id: payload.option_id,
+              portfolio_no: payload.portfolio_no,
+              product_id: payload.product_id
             }
-          ],
-          // portfolio_no: payload.portfolio_no
+          ]
         }
       })
       .then(res => {
         console.log(res)
+        console.log('포트폴리오에 상품이 등록됐습니다.')
       })
       .catch(err => {
         console.log(err)

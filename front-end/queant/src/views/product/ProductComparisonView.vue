@@ -22,7 +22,7 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'ProductComparisonView',
@@ -30,9 +30,15 @@ export default {
   computed: {
     ...mapGetters(['customPortfolio1', 'customPortfolio2', 'customPortfolio3'])
   },
+  methods: {
+    ...mapActions(['fetchComparisonPortfolio'])
+  },
   beforeCreate: function() {
     document.body.className = 'home_body'
   },
+  created() {
+    this.fetchComparisonPortfolio()
+  }
 }
 </script>
 

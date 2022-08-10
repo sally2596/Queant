@@ -6,37 +6,48 @@
 
       <div class="modal-header">
        <slot name="header">
-        <label for="">가상 포트폴리오</label>
+        <label for="">어느 가상 포트폴리오 넣을까요? (필수)</label>
         <input
           v-model="payload.portfolio_no" 
           type="number">
        </slot>
       </div>
-      {{ product }}
       <hr>
-      {{ filters }}
+
       <div class="modal-body">
        <slot name="body">
-          <label for="">예상 시작날짜</label>
+         <label for="">상품 이름</label>
+         <input 
+           v-model="product.name" type="text"
+           disabled>
+
+          <label for="">납임금액</label>
+          <input
+            v-model="filters.amount"
+            type="text"
+            disabled>
+          
+          <label for="">기간(개월)</label>
+          <input
+            v-model="filters.period"
+            type="text"
+            disabled>
+
+          <label for="">예상 가입날짜</label>
           <input 
             v-model="payload.start_date"
             type="date">
 
-          <label for="">예상 종료날짜</label>
+          <label for="">예상 만기날짜</label>
           <input 
             v-model="payload.end_date"
             type="date">
-
-          <label for="">상품 이름</label>
-          <input 
-            v-model="product.name" type="text"
-            disabled>
        </slot>
       </div>
 
       <div class="modal-footer">
        <slot name="footer">
-        <button @click="addProductToPortfolio(payload)">적용</button>
+        <button @click="[addProductToPortfolio(payload), $emit('close')]">적용</button>
         <button class="modal-default-button" @click="$emit('close')">
          닫기
         </button>
@@ -49,7 +60,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Modal',
@@ -60,7 +71,8 @@ export default {
     ...mapGetters(['filters'])
   },
   methods: {
-    ...mapActions(['addProductToPortfolio'])
+    ...mapActions(['addProductToPortfolio']),
+    ...mapMutations(['POP_PRODUCT_FROM_CART'])
   },
   data() {
     return {
@@ -68,11 +80,8 @@ export default {
         start_date: null,
         end_date: null,
         portfolio_no: null,
-        product_id: this.product.product_id
-      //   amount: 100000,
-      //   amount_fixed: 10,
-      //   condition_ids: this.filters.conditions,
-      //   option_id: 2992,
+        product_id: this.product.product_id,
+        option_id: this.product.selected_option_id
       }
     }
   }

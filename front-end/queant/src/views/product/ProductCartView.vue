@@ -30,7 +30,7 @@
         </Modal>
 
         <!-- <button id="show-modal" @click="showModal=true">Show Modal</button> -->
-        <button id="show-modal" @click="openModal(productInCart)">Show Modal</button>
+        <button id="show-modal" @click="openModal(productInCart)">가상 포트폴리오에 넣기</button>
 
         <!-- <select @change="pushProductToComparison([$event, productInCart])">
           <option selected disabled>선택</option>
