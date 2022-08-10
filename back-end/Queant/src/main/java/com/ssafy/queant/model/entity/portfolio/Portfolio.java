@@ -47,7 +47,6 @@ public class Portfolio implements Serializable{
     @Column(nullable = false)
     private Date startDate;
     private Date endDate;
-    private Long amountFixed;
 
     public void addCondition(Conditions condition){
         conditions.add(condition);

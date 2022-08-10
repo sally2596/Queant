@@ -120,6 +120,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public MemberDto findMemberbyId(UUID memberId) throws RuntimeException{
+        Optional<Member> member = memberRepository.findById(memberId);
+        log.info("member 생일 {}", member.get().getBirthdate());
+        if(member.isPresent()){
+            MemberDto memberDto = modelMapper.map(member.get(), MemberDto.class);
+            log.info("memberDto 생일 {}", memberDto.getBirthdate());
+            return memberDto;
+        }
+        return null;
+    }
+
+    @Override
     public MemberDto updateMember(MemberDto memberDto) throws RuntimeException{
         Optional<Member> result = memberRepository.findByEmail(memberDto.getEmail());
         Member member = result.get();
