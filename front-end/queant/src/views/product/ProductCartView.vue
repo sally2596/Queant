@@ -23,7 +23,14 @@
         v-for="productInCart in cart"
         :key="productInCart.product_id">
         {{ productInCart }}
-        <button @click="popProductInCart(productInCart)">장바구니에서 빼기</button>
+        <select @change="pushProductToComparison([$event, productInCart])">
+          <option selected disabled>선택</option>
+          <option value="1">1번 가상 포트폴리오</option>
+          <option value="2">2번 가상 포트폴리오</option>
+          <option value="3">3번 가상 포트폴리오</option>
+        </select>
+        <!-- <button for="haha" @click="test($event)">적용</button> -->
+        <button @click="popProductFromCart(productInCart)">장바구니에서 빼기</button>
         <hr>
       </div>
     </div>
@@ -38,15 +45,22 @@ export default {
   name: 'ProductCartView',
   components : { Navbar },
   computed: {
-    ...mapGetters(['cart'])
+    ...mapGetters(['cart', 'customPortfolio1'])
   },
   methods: {
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_IN_CART']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_COMPARISON']),
     clearCart() {
       this.CLEAR_CART()
     },
-    popProductInCart(product) {
-      this.POP_PRODUCT_IN_CART(product)
+    popProductFromCart(product) {
+      this.POP_PRODUCT_FROM_CART(product)
+    },
+    pushProductToComparison(value) {
+      this.PUSH_PRODUCT_TO_COMPARISON(value)
+    }
+  },
+  data() {
+    return {
     }
   },
   beforeCreate: function() {

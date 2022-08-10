@@ -31,7 +31,7 @@ export default {
         console.log("장바구니에 담겼습니다.")
       }
     },
-    POP_PRODUCT_IN_CART(state, product) {
+    POP_PRODUCT_FROM_CART(state, product) {
       for (let i = 0; i < state.cart.length; i++) {
         if (state.cart[i].product_id === product.product_id) {
           state.cart.splice(i, 1)

@@ -9,7 +9,7 @@
 import Navbar from '@/components/Navbar.vue'
 
 export default {
-  name: 'ComparisonView',
+  name: 'ProductComparisonView',
   components : { Navbar },
   beforeCreate: function() {
     document.body.className = 'home_body'

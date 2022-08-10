@@ -4,13 +4,34 @@ import axios from 'axios'
 
 export default {
   state: {
-    portfolio: {}
+    portfolio: {},
+    customPortfolio1: [],
+    customPortfolio2: [],
+    customPortfolio3: []
   },
   getters: {
-    portfolio: state => state.portfolio
+    portfolio: state => state.portfolio,
+    customPortfolio1: state => state.customPortfolio1
   },
   mutations: {
-    SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio
+    SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
+    PUSH_PRODUCT_TO_COMPARISON(state, value) {
+      let portfolioNo = value[0].target.value
+      let product = value[1]
+
+      if (portfolioNo === "1") {
+        state.customPortfolio1.push(product)
+        console.log(`${product.product_id}번 상품을 1번 가상 포트폴리오에 넣었습니다.`)
+      }
+      else if (portfolioNo === "2") {
+        state.customPortfolio2.push(product)
+        console.log(`${product.product_id}번 상품을 2번 가상 포트폴리오에 넣었습니다.`)
+      }
+      else if (portfolioNo === "3") {
+        state.customPortfolio3.push(product)
+        console.log(`${product.product_id}번 상품을 3번 가상 포트폴리오에 넣었습니다.`)
+      }
+    }
   },
   actions: {
     editPortfolio({ commit, getters }) {
