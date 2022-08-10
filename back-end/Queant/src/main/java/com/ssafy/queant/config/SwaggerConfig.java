@@ -33,7 +33,7 @@ public class SwaggerConfig{
 
 	@Bean
 	public Docket api() {
-		Server testServer = new Server("test", "https://i7a201.p.ssafy.io/api", "for testing", Collections.emptyList(), Collections.emptyList());
+		Server testServer = new Server("test", "https://i7a201.p.ssafy.io", "for testing", Collections.emptyList(), Collections.emptyList());
 		return new Docket(DocumentationType.OAS_30)
 				.servers(testServer)
 				.groupName("Queant")
