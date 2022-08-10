@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.thymeleaf.expression.Sets;
 import springfox.documentation.PathProvider;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -19,6 +20,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
+import java.util.HashSet;
 
 import static springfox.documentation.spring.web.paths.Paths.removeAdjacentForwardSlashes;
 
@@ -31,11 +33,13 @@ public class SwaggerConfig{
 
 	@Bean
 	public Docket api() {
-		//Server server = new Server("queant", "https://i7a201.p.ssafy.io/api", "testserver", Collections.emptyList(), Collections.emptyList());
-		//Server server2 = new Server("queant", "https://i7a201.p.ssafy.io/api", "testserver", Collections.emptyList(), Collections.emptyList());
+		HashSet<String> protocol = new HashSet<>();
+		protocol.add("http");
+		protocol.add("https");
 		return new Docket(DocumentationType.OAS_30)
 				//.host("https://i7a201.p.ssafy.io/api")
 				//.servers(server, server2)
+				.protocols(protocol)
 				.groupName("Queant")
 				.apiInfo(apiInfo())
 				.useDefaultResponseMessages(false)
