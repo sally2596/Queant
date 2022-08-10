@@ -2,6 +2,8 @@ package com.ssafy.queant.model.dto.product;
 
 import lombok.*;
 
+import java.util.HashMap;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +26,9 @@ public class ProductDto {
     private String etc;
     private boolean isEnabled;
     private float baseRate;
+    private float specialRateSum;
+    private float totalRate;
+    private HashMap<String, Float> appliedSpecialRate;
     private String picture;
     private int selectedOptionId;
 }
