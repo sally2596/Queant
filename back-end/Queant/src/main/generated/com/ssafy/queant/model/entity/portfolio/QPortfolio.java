@@ -24,8 +24,6 @@ public class QPortfolio extends EntityPathBase<Portfolio> {
 
     public final NumberPath<Long> amount = createNumber("amount", Long.class);
 
-    public final NumberPath<Long> amountFixed = createNumber("amountFixed", Long.class);
-
     public final SetPath<com.ssafy.queant.model.entity.product.Conditions, com.ssafy.queant.model.entity.product.QConditions> conditions = this.<com.ssafy.queant.model.entity.product.Conditions, com.ssafy.queant.model.entity.product.QConditions>createSet("conditions", com.ssafy.queant.model.entity.product.Conditions.class, com.ssafy.queant.model.entity.product.QConditions.class, PathInits.DIRECT2);
 
     public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
