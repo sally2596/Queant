@@ -22,7 +22,6 @@ public class PortfolioDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private ProductDto product;
     private Long amount;
-    private Long amountFixed;
     private Date startDate;
     private Date endDate;
     private int optionId;

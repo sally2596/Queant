@@ -7,6 +7,7 @@ import com.ssafy.queant.model.entity.member.MemberRole;
 import com.ssafy.queant.model.entity.member.Social;
 
 import java.util.Set;
+import java.util.UUID;
 
 public interface MemberService {
     boolean register(MemberDto memberDto) throws RuntimeException;
@@ -15,6 +16,7 @@ public interface MemberService {
 
     //회원정보 조회
     MemberDto findMember(String email)throws RuntimeException;
+    MemberDto findMemberbyId(UUID memberId) throws RuntimeException;
     //회원정보 변경
     MemberDto updateMember(MemberDto memberDto)throws RuntimeException;
     //회원 탈퇴

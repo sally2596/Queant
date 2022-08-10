@@ -198,7 +198,6 @@ public class PortfolioServiceImpl implements PortfolioService {
             //기존 -> portfolio 새거-> portfolioDto
             Portfolio portfolio = existing.get(map.get(portfolioDto.getPortfolioId()));
             portfolio.setAmount(portfolioDto.getAmount());
-            portfolio.setAmountFixed(portfolioDto.getAmountFixed());
             portfolio.setStartDate(portfolioDto.getStartDate());
             portfolio.setEndDate(portfolioDto.getEndDate());
 
