@@ -20,26 +20,26 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String[] SWAGGER_WHITELIST = {
-            "/v2/api-docs",
-            "/v3/api-docs",
-            "/**/v3/api-docs",
-            "/swagger-ui/index",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
+            "/api/v2/api-docs",
+            "/api/v3/api-docs",
+            "/api/**/v3/api-docs",
+            "/api/swagger-ui/index",
+            "/api/swagger-resources",
+            "/api/swagger-resources/**",
+            "/api/configuration/ui",
+            "/api/configuration/security",
+            "/api/swagger-ui.html",
             "**/swagger-ui.html",
-            "/**/swagger-ui.html**",
-            "/swagger-ui.html**",
-            "/swagger-ui/**",
-            "/img/**",
-            "/webjars/**"
+            "/api/**/swagger-ui.html**",
+            "/api/swagger-ui.html**",
+            "/api/swagger-ui/**",
+            "/api/img/**",
+            "/api/webjars/**"
     };
     private static final String[] AUTH_WHITELIST = {
-            "/social/**", "/member/emailcheck", "/member/emailverify",
-            "/member/register", "/member/login", "/member/refreshtoken", "/", "/contents/**",
-            "/member/password","/portfolio/**"
+            "/api/social/**", "/api/member/emailcheck", "/api/member/emailverify",
+            "/api/member/register", "/api/member/login", "/api/member/refreshtoken", "/", "/api/contents/**",
+            "/api/member/password","/api/portfolio/**"
     };
     private final JwtTokenProvider jwtTokenProvider;
 
