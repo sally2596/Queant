@@ -6,7 +6,4 @@ services:
     command: bash -c "ls -la && cd ./queant && gunicorn queant.wsgi:application --bind 0.0.0.0:8600"
     expose:
       - "8600"
-networks:
-  default:
-    external:
-      name: bridge
+    network_mode: bridge
