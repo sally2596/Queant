@@ -5,15 +5,15 @@
   </header>
   
   <div
-    v-for="(customPortfolio, index) in customPortfolios"
-    :key="index">
-    <h3>{{ index+1 }}번 포트폴리오</h3>
-    <button @click="deletePortfolio(index)">포트폴리오 삭제하기</button>
+    v-for="(portfolio, portfolioIdx) in portfolios"
+    :key="portfolioIdx">
+    <h3>{{ portfolioIdx+1 }}번 포트폴리오</h3>
+    <button @click="popPortfolioFromPortfolios(portfolioIdx)">포트폴리오 삭제하기</button>
     <div
-      v-for="product in customPortfolio"
-      :key="product.product_id">
+      v-for="(product, productIdx) in portfolio"
+      :key="productIdx">
       {{ product }}
-      <button>상품 삭제하기</button>
+      <button @click="popProductFromPortfolio([portfolioIdx, productIdx])">상품 삭제하기</button>
       <hr>
     </div>
 
@@ -23,19 +23,21 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'ProductComparisonView',
   components : { Navbar },
   computed: {
-    ...mapGetters(['customPortfolios'])
+    ...mapGetters(['portfolios'])
   },
   methods: {
-    ...mapActions(['addProductToMyPortfolio']),
-    ...mapMutations(['POP_CUSTOM_PORTFOLIO_FROM_CUSTOM_PORTFOLIOS']),
-    deletePortfolio(index) {
-      this.POP_CUSTOM_PORTFOLIO_FROM_CUSTOM_PORTFOLIOS(index)
+    ...mapMutations(['POP_PORTFOLIO_FROM_PORTFOLIOS', 'POP_PRODUCT_FROM_PORTFOLIO']),
+    popPortfolioFromPortfolios(portfolioIdx) {
+      this.POP_PORTFOLIO_FROM_PORTFOLIOS(portfolioIdx)
+    },
+    popProductFromPortfolio(Idxs) {
+      this.POP_PRODUCT_FROM_PORTFOLIO(Idxs)
     }
   },
   beforeCreate: function() {

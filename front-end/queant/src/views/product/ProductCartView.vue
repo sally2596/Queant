@@ -31,10 +31,10 @@
         <button id="show-modal" @click="openModal(productInCart)">가상 포트폴리오에 넣기</button> -->
 
         <select 
-          @change="pushProductToCustomPortfolios([$event, productInCart])">
+          @change="pushProductToPortfolio([$event, productInCart])">
           <option selected disabled>선택</option>
           <option
-            v-for="number in customPortfolios.length+1"
+            v-for="number in portfolios.length+1"
             :key="number"
             :value="number">
             {{ number }}번 포트폴리오
@@ -59,23 +59,23 @@ export default {
   name: 'ProductCartView',
   components : { Navbar, Modal },
   computed: {
-    ...mapGetters(['cart', 'customPortfolios'])
+    ...mapGetters(['cart', 'portfolios'])
   },
   methods: {
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_CUSTOM_PORTFOLIOS']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
     },
-    pushProductToCustomPortfolios(value) {
-      this.PUSH_PRODUCT_TO_CUSTOM_PORTFOLIOS(value)
+    pushProductToPortfolio(value) {
+      this.PUSH_PRODUCT_TO_PORTFOLIO(value)
     },
-    openModal(product) {
-      this.modalData = product,
-      this.showModal = true
-    }
+    // openModal(product) {
+    //   this.modalData = product,
+    //   this.showModal = true
+    // }
   },
   data() {
     return {
