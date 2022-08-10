@@ -9,7 +9,7 @@ def start():
     #scheduler.add_job(save_db, 'interval', seconds = 10)
     #scheduler.add_job(save_bank_db, 'interval', seconds = 10)
     #scheduler.add_job(save_db, trigger='cron', day_of_week='wed', hour=11, minute=15)
-    scheduler.add_job(save_db, trigger='cron', hour=15, minute=45)
+    scheduler.add_job(save_db, trigger='cron', hour=16, minute=1)
     scheduler.start()
     
     
