@@ -150,11 +150,11 @@ public class PortfolioController {
     @ApiOperation(value="가상 포트폴리오 전체 조회", notes="memberId 필수")
     @PostMapping("/virtual")
     public ResponseEntity<?> VirtualPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
-        log.info("[Controller: MyPortfolio 조회]");
+        log.info("[Controller: 가상Portfolio 조회]");
         List<List<PortfolioDto>> response = new ArrayList<>();
         try {
             MemberDto member = memberService.findMemberbyId(portfolioRequestDto.getMemberId());
-            if(portfolioRequestDto.getPortfolioCnt()<1) return new ResponseEntity<>(HttpStatus.CONFLICT);
+            if(member.getPortfolioCnt()<1) return new ResponseEntity<>(HttpStatus.CONFLICT);
 
             for(int i=1; i<=member.getPortfolioCnt(); i++){
                 response.add(portfolioService.getPortfolio(portfolioRequestDto.getMemberId(), i));
