@@ -219,6 +219,79 @@ def spcl_parsing(spcl):
         data_list.append(data)
     return data_list   
 
+
+def change_tel(tel):
+    if len(tel) == 8:
+        tel_front = tel[:4]
+        tel_back = tel[4:]
+        tel = tel_front + "-" + tel_back
+    elif len(tel) == 9:
+        tel_front = tel[:2]
+        tel_middle = tel[2:5]
+        tel_back = tel[5:]
+        tel = tel_front + '-' + tel_middle + '-' + tel_back
+    elif len(tel) == 10 and tel[0] == '0' and tel[1] == '2':
+        tel_front = tel[:2]
+        tel_middle = tel[2:6]
+        tel_back = tel[6:]
+        tel = tel_front + '-' + tel_middle + '-' + tel_back
+    elif len(tel) == 10:
+        tel_front = tel[:3]
+        tel_middle = tel[3:6]
+        tel_back = tel[6:]
+        tel = tel_front + '-' + tel_middle + '-' + tel_back
+    elif len(tel) == 11:
+        tel_front = tel[:3]
+        tel_middle = tel[3:7]
+        tel_back = tel[7:]
+        tel = tel_front + '-' + tel_middle + '-' + tel_back
+    return tel
+
+def change_name(bank_name):
+    new_name = bank_name.replace("주식회사","")
+    new_name = new_name.replace("저축은행","저축")
+    
+    if "키움예스" in new_name:
+        return "키움"
+    
+    elif "상상인" in new_name:
+        return "상상인"
+    
+    elif "한국투자" in new_name:
+        return "한투"
+    
+    elif "한국투자" in new_name:
+        return "한투"
+    
+    elif "대아상호" in new_name:
+        return "대아"
+    
+    elif "머스트삼일" in new_name:
+        return "머스트"
+    
+    elif "에스앤티" in new_name:
+        return "SNT"
+    
+    elif "솔브레인" in new_name:
+        return "솔브"
+    
+    elif "엔에이치" in new_name:
+        return "NH"
+    
+    elif "JT친애" in new_name:
+        return "친애"
+    
+    elif "스탠다드차타드" in new_name:
+        return "SC제일"
+    
+    elif "한국산업은행" in new_name:
+        return "KDB"
+    
+    elif "중소기업은행" in new_name:
+        return "IBK"
+    
+    return new_name.strip()
+
 def connect_db():
     conn = pymysql.connect(host="i7a201.p.ssafy.io", port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
     cur = conn.cursor()
@@ -273,23 +346,55 @@ def fetch_specificcode(common_code_join, common_code_condition, common_code_prod
         product_tags[row[2]] = row[0]
     return join_ways, condition_tags, product_tags
 
+def fetch_commoncode_trait(cur):
+    # 공통코드에서 필요한 코드를 가져온다.
+    cur.execute("SELECT code_id FROM queant.common_code where code_value = \"특징\"")
+    row = cur.fetchone()
+    if row != None:
+        common_code_trait = row[0]
+        
+    return common_code_trait
+
+def fetch_specificcode_trait(common_code_trait, cur):
+    #가입 방법 코드
+    query_find_join = """SELECT * FROM queant.specific_code where code_id = (%s)"""
+    cur.execute(query_find_join,common_code_trait)
+    trait_tags = {}
+    while True:
+        row = cur.fetchone()
+        if row == None:
+            break
+        trait_tags[row[2]] = row[0]
+    return trait_tags
+
 
 #상품 table에 정보들을 담는다.
 #python은 전부다 %s를 써야함.
 def save_into_db(cur, conn, data_xml, is_deposit):
-    query_prdt_search = """select * from queant.product where product_id = (%s);""" #중복체크 확인 쿼리문
+    query_prdt_search = """select * from queant.product where product_code = (%s) and bank_id = (%s) and name = (%s);""" #중복체크 확인 쿼리문
+    query_prdt_update_search = """select term_min, term_max from queant.product where product_id = (%s);""" #중복체크 확인 쿼리문
     query_join_search = """select * from queant.joinway where product_id = (%s) and scode_id = (%s);"""
     query_option_search = """select * from queant.options where product_id = (%s) and save_term = (%s) and rate_type = (%s);"""
-    query_condition_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and special_rate = (%s) and condition_info = (%s);"""
-    query_prdt = """INSERT INTO queant.product (product_id, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    query_condition_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info = (%s);"""
+    query_condition_null_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info is null;"""
+    query_trait_search = """select * from queant.trait_set where product_id = (%s) and scode_id = (%s)"""
+    #query_bank_condition_search = """select * from queant.bank_conditions where bank_id = (%s) and scode_id = (%s)"""
+    query_prdt = """INSERT INTO queant.product (product_code, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
     query_join = """INSERT INTO queant.joinway (product_id, scode_id) values (%s,%s);"""
     query_option = """INSERT INTO queant.options (product_id, base_rate, high_base_rate, save_term, rate_type, rsrv_type) values (%s,%s,%s,%s,%s,%s);"""
     query_condition = """INSERT INTO queant.conditions (product_id, scode_id, special_rate, condition_info) values (%s,%s,%s,%s)"""
-    
+    query_trait = """INSERT INTO queant.trait_set (product_id, scode_id) values (%s,%s)"""
+    #query_bank_condition = """INSERT INTO queant.bank_conditions (bank_id, scode_id) values (%s, %s)"""
+    query_update_prdt = """UPDATE queant.product SET term_min = (%s) ,term_max = (%s) where product_id = (%s)"""
+
     common_code_join, common_code_condition, common_code_product = fetch_commoncode(cur)
     join_ways, condition_tags, product_tags = fetch_specificcode(common_code_join, common_code_condition, common_code_product, cur)
+    
+    common_code_trait = fetch_commoncode_trait(cur)
+    trait_tags = fetch_specificcode_trait(common_code_trait,cur)
+    
     for product_tag in data_xml[5]:
-        prdt_id = product_tag[0].find("fin_prdt_cd").text #상품코드
+        prdt_code = product_tag[0].find("fin_prdt_cd").text #상품코드
         
         bank_id = int(product_tag[0].find("fin_co_no").text) #은행코드
         
@@ -304,9 +409,24 @@ def save_into_db(cur, conn, data_xml, is_deposit):
         etc = product_tag[0].find("etc_note").text #기타
         min_cost, max_cost = max_min_cost(etc) #최소, 최대금액
         
-        age_min, age_max = max_min_join(join_member)    
+        age_min, age_max = max_min_join(join_member)
+        
         term_min = None
         term_max = None
+        
+        #상품 table에 상품 저장
+        values = (prdt_code, bank_id, prdt_name)
+        cur.execute(query_prdt_search, values)
+        row = cur.fetchone()
+        if row == None:
+            #product_id, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled
+            values = (prdt_code,bank_id,product_tags["금융감독원API"],deposit,prdt_name, age_min, age_max, term_min, term_max, min_cost, max_cost, etc, 1)
+            cur.execute(query_prdt, values)
+            prdt_id = cur.lastrowid
+        else:
+            prdt_id = row[0]
+
+        
         
         #가입방법 table에 가입방법 저장
         for join_way in join_ways:
@@ -316,7 +436,7 @@ def save_into_db(cur, conn, data_xml, is_deposit):
                 if cur.fetchone() == None:
                     cur.execute(query_join, values)
         
-        #옵션 체크
+        #옵션 체크 후 db저장
         for option_tag in product_tag[1]:
             rate = float(option_tag.find("intr_rate").text)
             high_base_rate = option_tag.find("intr_rate2").text
@@ -346,13 +466,13 @@ def save_into_db(cur, conn, data_xml, is_deposit):
             if cur.fetchone() == None:
                 values = (prdt_id, rate, high_base_rate ,save_term, rate_type, rsrv_type)
                 cur.execute(query_option, values)
-                
-        #상품 table에 상품 저장
-        cur.execute(query_prdt_search, prdt_id)
-        if cur.fetchone() == None:
-            #product_id, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled
-            values = (prdt_id,bank_id,product_tags["금융감독원API"],deposit,prdt_name, age_min, age_max, term_min, term_max, min_cost, max_cost, etc, 1)
-            cur.execute(query_prdt, values)
+        
+        cur.execute(query_prdt_update_search, prdt_id)
+        update_row = cur.fetchone()
+        if update_row != None:
+            if update_row[0] == None:
+                values= (term_min, term_max, prdt_id)
+                cur.execute(query_update_prdt,values)        
             
         #우대사항 table에 조건들 저장
         special = product_tag[0].find("spcl_cnd").text
@@ -362,18 +482,59 @@ def save_into_db(cur, conn, data_xml, is_deposit):
             for tag in data[0]:
                 if is_opverlaped == 0:
                     values = (prdt_id, condition_tags[tag], data[1], data[2])
+                    check_values = (prdt_id, condition_tags[tag], data[2])
                     is_opverlaped = 1
+                    cur.execute(query_condition_search, check_values)
+                    if cur.fetchone() == None:
+                        cur.execute(query_condition, values)  
                 else:
                     values = (prdt_id, condition_tags[tag], data[1], None)
-                
-                cur.execute(query_condition_search, values)
-                if cur.fetchone() == None:
-                    cur.execute(query_condition, values)    
-                
-                
+                    check_values = (prdt_id, condition_tags[tag])
+                    cur.execute(query_condition_null_search, check_values)
+                    if cur.fetchone() == None:
+                        cur.execute(query_condition, values)
     conn.commit()
     
-    
+
+def save_bank_into_db(cur, conn, data_xml, banktype_num):
+    cur.execute("SELECT code_id FROM queant.common_code where code_value = \"은행 분류\"")
+
+    row = cur.fetchone()
+    if row != None:
+        common_code_bank = row[0] #D가 저장됨
+        
+    query_find_bank = """SELECT * FROM queant.specific_code where code_id = (%s)"""
+    cur.execute(query_find_bank,common_code_bank)
+    bank_types = {}
+    while True:
+        row = cur.fetchone()
+        if row == None:
+            break
+        bank_types[row[2]] = row[0]
+        
+    query_bank_search = """select * from queant.bank where bank_id = (%s);""" #중복체크 확인 쿼리문
+    query_bank = """INSERT INTO queant.bank (bank_id, scode_id, bank_name,short_name, homepage, tel, picture) values (%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    png_url = "https://queant.s3.ap-northeast-2.amazonaws.com/banks/"
+
+    for bank_tag in data_xml[5]:
+        bank_code = bank_tag[0].find("fin_co_no").text
+        bank_name = bank_tag[0].find("kor_co_nm").text
+        if banktype_num == 0:
+            bank_type = bank_types["은행"]
+        else:
+            bank_type = bank_types["저축은행"]
+            
+        new_name = change_name(bank_name)
+        homepage = bank_tag[0].find("homp_url").text
+        tel = change_tel(bank_tag[0].find("cal_tel").text)
+        bank_img = png_url + new_name + ".png"
+        cur.execute(query_bank_search, bank_code)
+        if cur.fetchone() == None:
+            values = (bank_code, bank_type, bank_name,new_name, homepage, tel, bank_img)
+            cur.execute(query_bank, values)
+
+    conn.commit()
+
 def save_db():
     #DB연결
     conn, cur = connect_db()
@@ -438,3 +599,21 @@ def save_db():
         
     conn.close()
     
+    
+def save_bank_db():
+    conn, cur = connect_db()
+    bankcode = ["020000","030300"]
+    
+    banktype_num = 0
+    url = "http://finlife.fss.or.kr/finlifeapi/companySearch.xml?auth=47c0e868fdb16333d47d0e385641c3c0&topFinGrpNo=" + bankcode[banktype_num]+ "&pageNo=1"
+    data_str = urllib.request.urlopen(url).read().decode('euc-kr')
+    data_xml = ET.fromstring(data_str)
+    save_bank_into_db(cur, conn, data_xml, banktype_num)
+    
+    banktype_num = 1
+    url = "http://finlife.fss.or.kr/finlifeapi/companySearch.xml?auth=47c0e868fdb16333d47d0e385641c3c0&topFinGrpNo=" + bankcode[banktype_num]+ "&pageNo=1"
+    data_str = urllib.request.urlopen(url).read().decode('euc-kr')
+    data_xml = ET.fromstring(data_str)
+    save_bank_into_db(cur, conn, data_xml, banktype_num)
+    
+    conn.close()
