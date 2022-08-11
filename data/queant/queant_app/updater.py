@@ -22,5 +22,5 @@ def start_bank():
     
 def start_post():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    scheduler.add_job(save_postdata_db, trigger='cron',hour=11, minute=51)
+    scheduler.add_job(save_postdata_db, trigger='cron',hour=11, minute=53)
     scheduler.start()
