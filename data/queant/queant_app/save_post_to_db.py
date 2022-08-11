@@ -572,8 +572,9 @@ def save_into_db(cur, conn, contents):
     query_condition_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info = (%s);"""
     query_condition_null_search = """select * from queant.conditions where product_id = (%s) and scode_id = (%s) and condition_info is null;"""
     query_trait_search = """select * from queant.trait_set where product_id = (%s) and scode_id = (%s)"""
+    query_bank_picture_search = """select picture from queant.bank where bank_id = (%s)"""
     #query_bank_condition_search = """select * from queant.bank_conditions where bank_id = (%s) and scode_id = (%s)"""
-    query_prdt = """INSERT INTO queant.product (bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
+    query_prdt = """INSERT INTO queant.product (product_code, bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled, picture) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""" #데이터 insert 쿼리문
     query_join = """INSERT INTO queant.joinway (product_id, scode_id) values (%s,%s);"""
     query_option = """INSERT INTO queant.options (product_id, base_rate, high_base_rate, save_term, rate_type, rsrv_type) values (%s,%s,%s,%s,%s,%s);"""
     query_condition = """INSERT INTO queant.conditions (product_id, scode_id, special_rate, condition_info) values (%s,%s,%s,%s)"""
@@ -590,6 +591,14 @@ def save_into_db(cur, conn, contents):
     
     cur.execute(query_bank_search, "우체국")
     bank_id = cur.fetchone()
+    
+    
+    cur.execute(query_bank_picture_search, bank_id)
+    row = cur.fetchone()
+    if row == None:
+        picture = None
+    else:
+        picture = row[0]
         
     for i in contents:
         
@@ -628,7 +637,7 @@ def save_into_db(cur, conn, contents):
         row = cur.fetchone()
         if row == None:
             #bank_id, scode_id, is_deposit, name, age_min, age_max, term_min, term_max, budget_min, budget_max, etc, is_enabled
-            values = (bank_id,product_tags["우체국API"],is_deposit,prdt_name, min_age, max_age, None, None, min_cost, max_cost, None, 1)
+            values = (bank_id,product_tags["우체국API"],is_deposit,prdt_name, min_age, max_age, None, None, min_cost, max_cost, None, 1, picture)
             cur.execute(query_prdt, values)
             prdt_id = cur.lastrowid
         else:
@@ -691,8 +700,14 @@ def save_into_db(cur, conn, contents):
                         cur.execute(query_condition, values)
     conn.commit()
         
+        
+        
 def save_postdata_db():
+    print("111")
     conn, cur = connect_db()
+    print("222")
     contents = get_contents()
+    print("333")
     save_into_db(cur, conn, contents)
+    print("444")
     conn.close()
