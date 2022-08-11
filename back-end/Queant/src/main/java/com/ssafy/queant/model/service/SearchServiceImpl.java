@@ -5,9 +5,11 @@ import com.ssafy.queant.model.dto.Search.BankKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
 import com.ssafy.queant.model.dto.Search.SpecificCodeDto;
+import com.ssafy.queant.model.dto.product.ConditionsDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
 import com.ssafy.queant.model.entity.SpecificCode;
 import com.ssafy.queant.model.entity.product.Bank;
+import com.ssafy.queant.model.entity.product.Conditions;
 import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.SpecificCodeRepository;
 import com.ssafy.queant.model.repository.product.BankRepository;
@@ -18,6 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -78,6 +81,10 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit) {
 
+        List<SpecificCode> specificCodeList = specificCodeRepository.findByCodeId("B");
+        Map<String, String> valueMap = specificCodeList.stream().collect(Collectors.toMap(SpecificCode::getScodeId,
+                SpecificCode::getScodeValue));
+
         List<Tuple> result = searchRepository.searchSingle(
                 searchRequestDto.getAmount() == null ? 0l : searchRequestDto.getAmount(),
                 isDeposit,
@@ -94,14 +101,14 @@ public class SearchServiceImpl implements SearchService {
             ProductDto productDto = modelMapper.map(r.get(0, Product.class), ProductDto.class);
             Float baseRate = r.get(1, Float.class);
             Float specialRate = null;
-            String scodeId = null;
+            Conditions condition = null;
             if (searchRequestDto.getConditions().size() > 0) {
                 specialRate = r.get(3, Float.class);
-                scodeId = r.get(4, String.class);
+                condition = r.get(4, Conditions.class);
             }
             Integer optionId = r.get(2, Integer.class);
             ProductDto p;
-            HashMap<String, Float> appliedSpecialRate = null;
+            List<ConditionsDto> appliedSpecialRate = null;
 
             if (map.containsKey(productDto.getProductId())) { //이미 존재하는 경우 우대 금리가 더 있다는 뜻
                 p = map.get(productDto.getProductId());
@@ -112,10 +119,12 @@ public class SearchServiceImpl implements SearchService {
             }
 
             if (appliedSpecialRate == null) // 우대금리 map이 없으면 만들기
-                appliedSpecialRate = new HashMap<>();
-            if (scodeId != null && specialRate != null) { // 우대 금리가 있으면
+                appliedSpecialRate = new ArrayList<>();
+            if (condition != null && specialRate != null) { // 우대 금리가 있으면
                 p.setSpecialRateSum(p.getSpecialRateSum() + specialRate); // 우대 금리 합산
-                appliedSpecialRate.put(scodeId, specialRate); //우대 금리 조건, 우대금리 값 넣기
+                ConditionsDto c = modelMapper.map(condition, ConditionsDto.class);
+                c.setValue(valueMap.get(c.getScodeId()));
+                appliedSpecialRate.add(c); //우대 금리 조건, 우대금리 값 넣기
             }
 
             p.setAppliedSpecialRate(appliedSpecialRate);

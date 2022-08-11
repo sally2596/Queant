@@ -103,7 +103,7 @@ public class SearchRepositoryImpl implements SearchRepository {
         if (conditions.size() > 0) {
             // 원래 돌아가는 로직 -> 우대금리 다 더한 값
             results = queryFactory
-                    .select(product, A, qOptions.optionId, B, qConditions.scodeId).distinct()
+                    .select(product, A, qOptions.optionId, B, qConditions).distinct()
                     .from(product)
                     .join(qOptions).on(product.productId.eq(qOptions.productId), qOptions.saveTerm.eq(period))
                     .leftJoin(qConditions).on(product.productId.eq(qConditions.productId),
