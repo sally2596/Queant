@@ -12,6 +12,7 @@
       <h5>포트폴리오에 상품이 없습니다.</h5>
       <br><br>
       <router-link :to="{ name : 'portfolioAdd' }"><button class="btn btn-outline-success">포트폴리오에 상품 추가하기</button></router-link>
+      
     </div>
 
       <!-- 포트폴리오 있을 때 -->
