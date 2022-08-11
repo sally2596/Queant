@@ -134,9 +134,7 @@ export default {
       alert("제보가 삭제되었습니다.");
     },
     updateReport() {
-      console.log(this.product);
-      console.log(this.options);
-      console.log(this.conditions);
+
     },
     addOptionForm() {
       this.options.push(this.option);

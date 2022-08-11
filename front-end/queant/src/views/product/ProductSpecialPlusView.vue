@@ -1,15 +1,25 @@
 <template>
     <Navbar/>
     <header id="title-div">
-      <h1 class="title" id="title">특판 상품 정보</h1>
+      <h1 class="title" id="title">특판 상품 제보</h1>
     </header>
     <section>
-      <div></div>
+      <div>
+        <form>
+          <br>
+          은행이름 <input type="text" v-model="product.bank_name"><br>
+          상품명 <input type="text" v-model="product.product_name"><br>
+          관련링크 <input type="text" v-model="product.reference_data"><br>
+          <!-- 예금/적금 <input type="text" v-model="product.is_deposit"><br> -->
+          <button type="button" class="btn btn-sm btn-outline-secondary" @click="regist()">제보하기</button>
+	      </form>
+      </div>
     </section>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'ProductSpecialPlusView',
@@ -41,10 +51,27 @@ export default {
       }
     },
   },
+  computed: {
+    ...mapGetters(['userInfo']),
+  },
   data() {
     return {
       filter_savings:false,
-      filter_deposit:true
+      filter_deposit:true,
+      product : {
+        memberEmail : '',
+        bankName : '',
+        productName : '',
+        referenceData : '',
+        //isDeposit : '',
+      },
+    }
+  },
+  methods: {
+    ...mapActions(['registReport']),
+    regist() {
+      this.product.memberEmail = this.userInfo.email;
+      this.registReport(this.product);
     }
   }
 }

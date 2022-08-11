@@ -40,7 +40,8 @@ export default {
 					member_email : reportProductDto.memberEmail,
 					bank_name : reportProductDto.bankName,
 					product_name : reportProductDto.productName,
-					is_deposit : reportProductDto.isDeposit,
+					is_deposit : false,
+          reference_data : reportProductDto.referenceData,
 					is_updated : false,
 				}
       })
@@ -64,15 +65,14 @@ export default {
         console.log(err)
       })
 		},
-		updateReport({}, reportId, productDetail) {
+		updateReport({}, reportId, product, options, conditions) {
       axios({
         url: spring.product.report.detail(reportId),
 				method: 'post',
 				data: {
-					product : productDetail.product,
-					options : productDetail.options,
-					conditions : productDetail.conditions,
-					joinway : productDetail.joinway
+					product : product,
+					options : options,
+					conditions : conditions
 				}
       })
       .then(res => {
