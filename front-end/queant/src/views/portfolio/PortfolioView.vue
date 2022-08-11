@@ -17,6 +17,7 @@
 
       <!-- 포트폴리오 있을 때 -->
     <div v-else class="portfolio">
+      <router-link :to="{ name: 'portfolioEdit' }"><button class="btn btn-outline-success">포트폴리오 관리하기</button></router-link><br>
       {{ portfolio }}
     </div>
 
