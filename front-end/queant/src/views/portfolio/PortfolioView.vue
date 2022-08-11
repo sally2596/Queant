@@ -16,7 +16,7 @@
 
       <!-- 포트폴리오 있을 때 -->
     <div v-else class="portfolio">
-        {{portfolio}}
+      {{ portfolio }}
     </div>
 
   </div>

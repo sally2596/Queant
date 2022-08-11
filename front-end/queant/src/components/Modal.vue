@@ -4,53 +4,89 @@
     <div class="modal-wrapper">
      <div class="modal-container">
 
-      <div class="modal-header">
+      <!-- <div class="modal-header">
        <slot name="header">
-
-         <select 
-          v-for="number in customPortfolio.length+1"
-          :key="number">
+        포트폴리오 no. (필수)
+        <select v-model="payload.portfolioNo">
           <option selected disabled>선택</option>
-          <option :value="number">{{ number }}</option>
+          <option 
+            v-for="number in portfolios.length+1"
+            :key="number"
+            :value="number">
+            {{ number }}번 포트폴리오
+          </option>
         </select>
        </slot>
-      </div>
+      </div> -->
       <hr>
 
       <div class="modal-body">
        <slot name="body">
          <label for="">상품 이름</label>
          <input 
-           v-model="product.name" type="text"
+           v-model="modalData[1].name"
+           type="text"
            disabled>
 
           <label for="">납임금액</label>
           <input
-            v-model="filters.amount"
+            v-model="modalData[0].amount"
             type="text"
             disabled>
           
           <label for="">기간(개월)</label>
           <input
-            v-model="filters.period"
+            v-model="modalData[0].period"
             type="text"
             disabled>
+          <hr>
+
+          이자유형 & 개월수
+          <select v-model="payload.selectedOption">
+            <option selected disabled>선택</option>
+            <option 
+              v-for="option in product.options"
+              :key="option"
+              :value="option.option_id">
+              <p v-if="option.rate_type">복리</p>
+              <p v-else>단리</p>
+              {{ option.save_term }}개월
+              {{ option.base_rate }}%
+            </option>
+          </select>
+          <hr>
+
+          우대사항
+          <div
+            v-for="condition in product.conditions"
+            :key="condition">
+            <label :for="condition.condition_id">
+              [설명] {{ condition.value }}<br>
+              [추가금리] {{ condition.special_rate }}%
+            </label>
+            <input
+              v-model="payload.selectedConditions"
+              type="checkbox"
+              :value="condition"
+              :id="condition.condition_id">
+          </div>
+          <hr>
 
           <label for="">예상 가입날짜</label>
           <input 
-            v-model="payload.start_date"
+            v-model="payload.startDate"
             type="date">
 
           <label for="">예상 만기날짜</label>
           <input 
-            v-model="payload.end_date"
+            v-model="payload.endDate"
             type="date">
        </slot>
       </div>
 
       <div class="modal-footer">
        <slot name="footer">
-        <button @click="[addProductToCustomPortfolio(payload), $emit('close')]">적용</button>
+        <button @click="[pushProductToCart(payload), $emit('close')]">적용</button>
         <button class="modal-default-button" @click="$emit('close')">
          닫기
         </button>
@@ -63,28 +99,32 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Modal',
   props: {
-    product: Object
+    modalData: Object
   },
   computed: {
-    ...mapGetters(['filters', 'customPortfolio'])
+    ...mapGetters(['filters', 'portfolios', 'product'])
   },
   methods: {
-    ...mapActions(['addProductToCustomPortfolio']),
-    ...mapMutations(['POP_PRODUCT_FROM_CART'])
+    ...mapMutations(['PUSH_PRODUCT_TO_CART']),
+    pushProductToCart(payload) {
+      this.PUSH_PRODUCT_TO_CART(payload)
+    },
   },
   data() {
     return {
       payload: {
-        start_date: null,
-        end_date: null,
-        portfolio_no: null,
-        product_id: this.product.product_id,
-        option_id: this.product.selected_option_id
+        filters: this.modalData[0],
+        amount: this.modalData[0].amount,
+        product: this.modalData[1],
+        selectedOption: this.modalData[1].selected_option_id,
+        selectedConditions: [],
+        startDate: null,
+        endDate: null
       }
     }
   }
