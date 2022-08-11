@@ -1,15 +1,8 @@
 <template>
   <Navbar/>
-  <!-- 사용자가 검색한 조건 -->
-  <!-- <h3>사용자가 검색한 조건</h3>
-  <filters-form
-    :filters="filters"
-    :totalPage="products?.total_page">
-  </filters-form>
-  <hr> -->
-
-  <!-- 검색 결과 나온 상품들 -->
-  <h3>검색 결과 나온 상품들</h3>
+  <header id="title-div">
+    <h1 class="title" id="title">추천 결과</h1>
+  </header>
   <div
     v-for="product in products.product_dto_list"
     :key="product">
