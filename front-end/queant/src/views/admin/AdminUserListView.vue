@@ -51,7 +51,7 @@
       <div
         v-for="page in totalPage"
         :key="page">
-        <button @click="changeCurrentPage(page)"  class="pages btn btn-sm">{{ page }}</button>
+        <button @click="changeCurrentPage(page)" class="pages btn btn-sm">{{ page }}</button>
       </div>
     </div>
     <br><br>

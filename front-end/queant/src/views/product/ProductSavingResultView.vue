@@ -4,7 +4,7 @@
     <h1 class="title" id="title">추천 결과</h1>
   </header>
   <div
-    v-for="product in products[1]"
+    v-for="product in tenProducts"
     :key="product">
     <router-link
       :to="{ name: 'productDetail', params: { productId: product.product_id } }">
@@ -20,6 +20,13 @@
     :modalData="modalData">
     <h3>모달 창 제목</h3>
   </Modal>
+
+  <!-- 페이지네이션 -->
+  <div
+    v-for="page in totalPage"
+    :key="page">
+    <button class="btn btn-sm" @click="changePage(page)">{{ page }}</button>
+  </div>
 </template>
 
 <script>
@@ -31,7 +38,17 @@ export default {
   name: 'ProductSavingResultView',
   components: { Navbar, Modal },
   computed: {
-    ...mapGetters(['products'])
+    ...mapGetters(['products']),
+    tenProducts() {
+      return this.products[1].slice(this.productIdx, this.productIdx + 10)
+    },
+    totalPage() {
+      let productsLength = this.products[1].length
+      if (productsLength % 10)
+        return ((productsLength - (productsLength % 10)) / 10) + 1
+      else
+        return (productsLength - (productsLength % 10)) / 10
+    }
   },
   methods: {
     ...mapActions(['fetchProduct']),
@@ -39,12 +56,16 @@ export default {
       this.modalData = value,
       this.showModal = true,
       this.fetchProduct(value[1].product_id)
+    },
+    changePage(page) {
+      this.productIdx = (page - 1) * 10 
     }
   },
   data() {
     return {
       showModal: false,
-      modalData: null
+      modalData: null,
+      productIdx: 0
     }
   }
 }
