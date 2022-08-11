@@ -81,6 +81,7 @@ public class ReportProductServiceImpl implements ReportProductService {
         result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
 
         ReportProduct reportProduct = modelMapper.map(reportProductDto, ReportProduct.class);
+        reportProduct.setMember_id(result.get().getMemberId());
         reportProductRepository.save(reportProduct);
     }
 }
