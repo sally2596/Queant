@@ -155,3 +155,18 @@ tbody::after {
   width: 60%;
   border-bottom: 1px solid lightgrey;
 }
+
+/* detail */
+
+.product-detail-box {
+  display: flex; justify-content: center;
+}
+
+.product-detail {
+  width: 1080px;
+  border-radius: 5px;
+  box-shadow: 0 5px 26px 0 rgba(68, 88, 144, 0.14);
+}
+.prd-btn-area {
+  position:absolute 100% 100%;
+}
