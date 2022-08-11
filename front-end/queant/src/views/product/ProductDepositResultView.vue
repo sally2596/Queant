@@ -11,32 +11,54 @@
   <!-- 검색 결과 나온 상품들 -->
   <h3>검색 결과 나온 상품들</h3>
   <div
-    v-for="product in products"
+    v-for="product in products[1]"
     :key="product">
     <router-link
       :to="{ name: 'productDetail', params: { productId: product.product_id } }">
       {{ product }}
     </router-link>
-    <button @click="pushProductToCart(product)">장바구니에 넣기</button>
+
+    <!-- 모달 -->
+    <Modal
+      v-if="showModal" @close="showModal=false"
+      :modalData="modalData">
+      <h3>모달 창 제목</h3>
+    </Modal>
+    <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
+    <!-- <button @click="pushProductToCart([products[0], product])">장바구니에 넣기</button> -->
     <hr>
   </div>
 </template>
 
 <script>
-import {  mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import FiltersForm from '@/components/FiltersForm.vue'
 import Navbar from '@/components/Navbar.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
   name: 'ProductDepositResultView',
-  components: { FiltersForm, Navbar },
+  components: { FiltersForm, Navbar, Modal },
   computed: {
     ...mapGetters(['products', 'filters'])
   },
   methods: {
+    ...mapActions(['fetchProduct']),
     ...mapMutations(['PUSH_PRODUCT_TO_CART']),
-    pushProductToCart(product) {
-      this.PUSH_PRODUCT_TO_CART(product)
+    pushProductToCart(value) {
+      this.PUSH_PRODUCT_TO_CART(value)
+    },
+    openModal(value) {
+      this.modalData = value,
+      this.showModal = true,
+      this.fetchProduct(value[1].product_id)
+    }
+  },
+  data() {
+    return {
+      showModal: false,
+      productIdx: '',
+      modalData: null
     }
   }
 }

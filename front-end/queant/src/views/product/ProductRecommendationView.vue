@@ -88,7 +88,7 @@
           <input 
             v-model="filtersForDeposit.isSimpleInterest"
             type="radio"
-            :value="true"
+            :value="false"
             class="btn-check"
             id="deposit-simple-interest-true" 
             autocomplete="off">
@@ -100,7 +100,7 @@
           <input
             v-model="filtersForDeposit.isSimpleInterest"
             type="radio"
-            :value="false"
+            :value="true"
             class="btn-check" 
             id="deposit-simple-interest-false"
             autocomplete="off">
@@ -461,8 +461,7 @@ export default {
         isSimpleInterest: null,
         joinway: [],
         period: null,
-        traitSet: [],
-        page: 1
+        traitSet: []
       },
       filtersForSaving: {
         amount: null,
@@ -473,8 +472,7 @@ export default {
         joinway: [],
         period: null,
         traitSet: [],
-        isFixed: null,
-        page: 1
+        isFixed: null
       },
       filter_savings: false,
       filter_deposit: true,

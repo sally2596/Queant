@@ -14,14 +14,13 @@ export default {
   mutations: {
     SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
     PUSH_PRODUCT_TO_PORTFOLIO(state, value) {
-      let portfolioNo = value[0].target.value
-      let product = value[1]
+      let portfolioNo = value.portfolioNo
 
       if (portfolioNo > state.portfolios.length) {
-        state.portfolios.push([product])
+        state.portfolios.push([value])
         console.log('새로운 포트폴리오에 상품이 담겼습니다.')
       } else {
-        state.portfolios[portfolioNo-1].push(product)
+        state.portfolios[portfolioNo-1].push(value)
         console.log('기존 포트폴리오에 상품을 추가했습니다.')
       }
     },
