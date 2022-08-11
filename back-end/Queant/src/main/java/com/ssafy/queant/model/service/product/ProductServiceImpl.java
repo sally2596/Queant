@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ReportProductRepository reportProductRepository;
@@ -23,16 +24,10 @@ public class ProductServiceImpl implements ProductService {
     private final ConditionsRepository conditionsRepository;
     private final OptionsRepository optionsRepository;
     private final ModelMapper modelMapper;
+    private final ConditionsService conditionsService;
+    private final OptionsService optionsService;
+    private final JoinwayService joinwayService;
 
-    public ProductServiceImpl(ReportProductRepository reportProductRepository, ProductRepository productRepository, BankRepository bankRepository, JoinwayRepository joinwayRepository, ConditionsRepository conditionsRepository, OptionsRepository optionsRepository, ModelMapper modelMapper) {
-        this.reportProductRepository = reportProductRepository;
-        this.productRepository = productRepository;
-        this.bankRepository = bankRepository;
-        this.joinwayRepository = joinwayRepository;
-        this.conditionsRepository = conditionsRepository;
-        this.optionsRepository = optionsRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public List<ProductDto> findByBankId(int bankId) {
