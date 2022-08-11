@@ -7,3 +7,4 @@ class QueantAppConfig(AppConfig):
     print("Sever running!")
     updater.start()
     updater.start_bank()
+    updater.start_post()

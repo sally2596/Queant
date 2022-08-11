@@ -703,11 +703,7 @@ def save_into_db(cur, conn, contents):
         
         
 def save_postdata_db():
-    print("111")
     conn, cur = connect_db()
-    print("222")
     contents = get_contents()
-    print("333")
     save_into_db(cur, conn, contents)
-    print("444")
     conn.close()
