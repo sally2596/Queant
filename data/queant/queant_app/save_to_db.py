@@ -372,10 +372,47 @@ def fetch_specificcode_trait(common_code_trait, cur):
         trait_tags[row[2]] = row[0]
     return trait_tags
 
+def make_data_list():
+    #DB연결
+    conn, cur = connect_db()
+    cur.execute("SELECT product_id, name FROM queant.product where scode_id = \"D001\"")
+    data_lists = cur.fetchall()
+    data_lists = list(data_lists)
+    return data_lists
+
+def delete_prdt_from_list(data_lists, values, conn, cur):
+    search_prdt = """SELECT is_enabled FROM queant.product where product_id = (%s) and name = (%s)"""
+    update_prdt = """UPDATE queant.product SET is_enabled = 1 where product_id = (%s) and name = (%s)"""
+    #목록에 value값이 있을때.
+    if values in data_lists:
+        cur.execute(search_prdt,values)
+        row = cur.fetchone()
+        #만약 row[0] 1이면 삭제진행
+        if row[0] == 1:
+            data_lists.remove(values)
+        #만약 1이 아니면 없어졌다가 다시 생긴 데이터일 것이므로 is_enabled를 수정해준다.
+        else:
+            cur.execute(update_prdt, values)
+            data_lists.remove(values)
+    conn.commit()
+    return data_lists
+
+def last_check_prdt(data_lists, conn, cur):
+    search_prdt = """SELECT is_enabled FROM queant.product where product_id = (%s) and name = (%s)"""
+    update_prdt = """UPDATE queant.product SET is_enabled = 0 where product_id = (%s) and name = (%s)"""
+    for values in data_lists:
+        cur.execute(search_prdt, values)
+        row = cur.fetchone()
+        if row[0] == 1:
+            cur.execute(update_prdt, values)
+    conn.commit()
+            
+
+
 
 #상품 table에 정보들을 담는다.
 #python은 전부다 %s를 써야함.
-def save_into_db(cur, conn, data_xml, is_deposit):
+def save_into_db(cur, conn, data_xml, is_deposit, data_lists):
     query_prdt_search = """select * from queant.product where product_code = (%s) and bank_id = (%s) and name = (%s);""" #중복체크 확인 쿼리문
     query_prdt_update_search = """select term_min, term_max from queant.product where product_id = (%s);""" #중복체크 확인 쿼리문
     query_join_search = """select * from queant.joinway where product_id = (%s) and scode_id = (%s);"""
@@ -410,6 +447,8 @@ def save_into_db(cur, conn, data_xml, is_deposit):
         prdt_name = prdt_name.replace("\n", " ")
         
         join = product_tag[0].find("join_way").text # 가입방법
+        if not join:
+            join = "영업점"
         join_member = product_tag[0].find("join_member").text #가입제한
         
         etc = product_tag[0].find("etc_note").text #기타
@@ -441,7 +480,8 @@ def save_into_db(cur, conn, data_xml, is_deposit):
         else:
             prdt_id = row[0]
 
-        
+        values = (prdt_id, prdt_name)
+        data_lists = delete_prdt_from_list(data_lists, values, conn, cur)        
         
         #가입방법 table에 가입방법 저장
         for join_way in join_ways:
@@ -509,13 +549,9 @@ def save_into_db(cur, conn, data_xml, is_deposit):
                     if cur.fetchone() == None:
                         cur.execute(query_condition, values)
     conn.commit()
+    return data_lists
     
-def test_connect():
-    print("testing!")
-    conn, cur = connect_db()
-    print("hihi")
-    conn.close()
-
+    
 def save_bank_into_db(cur, conn, data_xml, banktype_num):
     cur.execute("SELECT code_id FROM queant.common_code where code_value = \"은행 분류\"")
 
@@ -558,7 +594,7 @@ def save_bank_into_db(cur, conn, data_xml, banktype_num):
 def save_db():
     #DB연결
     conn, cur = connect_db()
-    
+    data_lists = make_data_list()
     #api활용할 url부분
     #각 데이터 별 url 앞부분
     url_deposit = ["https://finlife.fss.or.kr/finlifeapi/savingProductsSearch.xml?auth=", "https://finlife.fss.or.kr/finlifeapi/depositProductsSearch.xml?auth="]
@@ -581,7 +617,7 @@ def save_db():
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[0] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
-        save_into_db(cur, conn, data_xml, is_deposit)
+        data_lists = save_into_db(cur, conn, data_xml, is_deposit, data_lists)
         
     url = url_deposit[is_deposit] + api_key + code_front + code_bank[1] + page_front + page_num[0]
     data_str = urllib.request.urlopen(url).read().decode('euc-kr')
@@ -592,7 +628,7 @@ def save_db():
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[1] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
-        save_into_db(cur, conn, data_xml, is_deposit)
+        data_lists = save_into_db(cur, conn, data_xml, is_deposit, data_lists)
     
     is_deposit = 1
     url = url_deposit[is_deposit] + api_key + code_front + code_bank[0] + page_front + page_num[0]
@@ -604,7 +640,7 @@ def save_db():
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[0] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
-        save_into_db(cur, conn, data_xml, is_deposit)
+        data_lists = save_into_db(cur, conn, data_xml, is_deposit, data_lists)
         
     url = url_deposit[is_deposit] + api_key + code_front + code_bank[1] + page_front + page_num[0]
     data_str = urllib.request.urlopen(url).read().decode('euc-kr')
@@ -615,8 +651,9 @@ def save_db():
         url = url_deposit[is_deposit] + api_key + code_front + code_bank[1] + page_front + page_num[i]
         data_str = urllib.request.urlopen(url).read().decode('euc-kr')
         data_xml = ET.fromstring(data_str)
-        save_into_db(cur, conn, data_xml, is_deposit)
-        
+        data_lists = save_into_db(cur, conn, data_xml, is_deposit, data_lists)
+    
+    last_check_prdt(data_lists, conn, cur)
     conn.close()
     
     

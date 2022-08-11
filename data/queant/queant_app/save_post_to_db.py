@@ -562,6 +562,42 @@ def parsing_option(pyo, datas): # 표, 저축방식, 상품이름
     return option_list
 
 
+def make_data_list():
+    #DB연결
+    conn, cur = connect_db()
+    cur.execute("SELECT product_id, name FROM queant.product where scode_id = \"D002\"")
+    data_lists = cur.fetchall()
+    data_lists = list(data_lists)
+    return data_lists
+
+def delete_prdt_from_list(data_lists, values, conn, cur):
+    search_prdt = """SELECT is_enabled FROM queant.product where product_id = (%s) and name = (%s)"""
+    update_prdt = """UPDATE queant.product SET is_enabled = 1 where product_id = (%s) and name = (%s)"""
+    #목록에 value값이 있을때.
+    if values in data_lists:
+        cur.execute(search_prdt,values)
+        row = cur.fetchone()
+        #만약 row[0] 1이면 삭제진행
+        if row[0] == 1:
+            data_lists.remove(values)
+        #만약 1이 아니면 없어졌다가 다시 생긴 데이터일 것이므로 is_enabled를 수정해준다.
+        else:
+            cur.execute(update_prdt, values)
+            data_lists.remove(values)
+    conn.commit()
+    return data_lists
+
+def last_check_prdt(data_lists, conn, cur):
+    search_prdt = """SELECT is_enabled FROM queant.product where product_id = (%s) and name = (%s)"""
+    update_prdt = """UPDATE queant.product SET is_enabled = 0 where product_id = (%s) and name = (%s)"""
+    for values in data_lists:
+        cur.execute(search_prdt, values)
+        row = cur.fetchone()
+        if row[0] == 1:
+            cur.execute(update_prdt, values)
+    conn.commit()
+            
+
 def save_into_db(cur, conn, contents):
     
     query_bank_search = """select bank_id from queant.bank where bank_name = (%s);"""
@@ -582,6 +618,7 @@ def save_into_db(cur, conn, contents):
     #query_bank_condition = """INSERT INTO queant.bank_conditions (bank_id, scode_id) values (%s, %s)"""
     query_update_prdt = """UPDATE queant.product SET term_min = (%s) ,term_max = (%s) where product_id = (%s)"""
 
+    data_lists = make_data_list()
     
     common_code_join, common_code_condition, common_code_product = fetch_commoncode(cur)
     join_ways, condition_tags, product_tags = fetch_specificcode(common_code_join, common_code_condition, common_code_product, cur)
@@ -642,7 +679,10 @@ def save_into_db(cur, conn, contents):
             prdt_id = cur.lastrowid
         else:
             prdt_id = row[0]
-        
+       
+       
+        values = (prdt_id, prdt_name)
+        data_lists = delete_prdt_from_list(data_lists, values, conn, cur) 
         #가입방법 table에 가입방법 저장
         for join_way in join_ways:
             if join_way in join_list:
@@ -698,6 +738,8 @@ def save_into_db(cur, conn, contents):
                     cur.execute(query_condition_null_search, check_values)
                     if cur.fetchone() == None:
                         cur.execute(query_condition, values)
+                        
+    last_check_prdt(data_lists, conn, cur)
     conn.commit()
         
         
