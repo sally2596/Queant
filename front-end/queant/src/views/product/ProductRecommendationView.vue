@@ -14,7 +14,7 @@
       <!-- 예금 -->
       <div v-if="filter_deposit" class="container row" id="filter_deposit">
 
-        <div class="col-lg-2 m-3">
+        <div class="col-lg-2 m-3 select">
           <h6>기관</h6>
           <div id="banks_container">
             <div
@@ -53,8 +53,9 @@
 
         <!-- 필수 -->
         <div class="col-lg-2 m-3">
-          <h6>희망 예치금(원) (필수)</h6>
+          <h6>예치금(원) (필수)</h6>
           <input
+            required
             v-model="filtersForDeposit.amount"
             type="number"
             name="deposit-money">
@@ -179,7 +180,7 @@
         </div>
 
         <div id="deposit-result-view">
-          <button @click="fetchProductsByDepositFilters(filtersForDeposit)" class="btn btn-primary">결과 보기</button>
+          <button @click="fetchProductsByDepositFilters(filtersForDeposit)" class="btn btn-outline-primary btn-sm">결과 보기</button>
         </div>
       </div>
 
@@ -407,8 +408,7 @@
           </div>
 
         <div id="saving-result-view">
-          <button @click="fetchProductsBySavingFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button>
-          <!-- <button v-else-if="!isSavingSingle" @click="fetchProductsBySavingSetFilters(filtersForSaving)" class="btn btn-primary">결과 보기</button> -->
+          <button @click="fetchProductsBySavingFilters(filtersForSaving)" class="btn btn-outline-primary btn-sm">결과 보기</button>
         </div>
 
       </div>
@@ -449,7 +449,7 @@ export default {
       } else {
         변수명.classList.remove('클래스 명');
       }
-    },
+    }
   },
   data() {
     return {

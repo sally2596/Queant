@@ -6,12 +6,16 @@
   <div 
     v-for="product in products"
     :key="product.product_id">
-    {{ product }}
+     <router-link
+      :to="{ name: 'productDetail', params: { productId: product.product_id } }">
+      {{ product }}
+    </router-link>
+    <button @click="pushProductToCart(product)">장바구니에 넣기</button>
     <hr>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
 
 export default {
@@ -19,6 +23,12 @@ export default {
     components: { Navbar },
     computed: {
       ...mapGetters(['products'])
+    },
+    methods: {
+      ...mapMutations(['PUSH_PRODUCT_TO_CART']),
+      pushProductToCart(product) {
+        this.PUSH_PRODUCT_TO_CART(product)
+      }
     }
 }
 </script>
