@@ -79,7 +79,7 @@ public class SearchServiceImpl implements SearchService {
     public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit) {
 
         List<Tuple> result = searchRepository.searchSingle(
-                searchRequestDto.getAmount(),
+                searchRequestDto.getAmount() == null ? 0l : searchRequestDto.getAmount(),
                 isDeposit,
                 searchRequestDto.getIsSimpleInterest(),
                 searchRequestDto.getIsFixed(),
