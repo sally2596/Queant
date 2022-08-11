@@ -35,16 +35,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findByBankId(int bankId) {
-        List<Product> list = productRepository.findByBankIdAndIsEnabledTrue(bankId);
+        List<Tuple> list = productRepositoryImpl.findByBankIdAndIsEnabledTrue(bankId);
 
         Optional<Bank> bankResult = bankRepository.findByBankId(bankId);
         String bankName = bankResult.get().getBankName();
 
         List<ProductDto> result = new ArrayList<>();
 
-        for (Product p : list) {
-            ProductDto dto = modelMapper.map(p, ProductDto.class);
+        for (Tuple t : list) {
+            ProductDto dto = modelMapper.map(t.get(0, Product.class), ProductDto.class);
             dto.setBankName(bankName);
+            dto.setBaseRate(t.get(1, Float.class));
             result.add(dto);
         }
         return result;

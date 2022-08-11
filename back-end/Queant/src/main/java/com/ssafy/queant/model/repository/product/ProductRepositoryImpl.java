@@ -33,4 +33,20 @@ public class ProductRepositoryImpl {
                 .fetch();
         return list;
     }
+
+    public List<Tuple> findByBankIdAndIsEnabledTrue(int bankId) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(product.isEnabled.eq(true));
+        builder.and(product.bankId.eq(bankId));
+
+        List<Tuple> list = queryFactory
+                .select(product, options.baseRate.min())
+                .from(product)
+                .where(builder)
+                .leftJoin(options).on(product.productId.eq(options.productId))
+                .groupBy(product.productId)
+                .fetch();
+        return list;
+    }
+
 }
