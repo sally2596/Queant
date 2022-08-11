@@ -14,32 +14,48 @@
         </tr>
       </thead>
         <br>
-      <tbody v-for="product in products" :key="product.product_id">
+      <tbody v-for="product in products[1]" :key="product.product_id">
         <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
         <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
         <td>{{product.base_rate}}</td>
         <td>{{product.term_min}}</td>
-        <button @click="pushProductToCart(product)">장바구니에 넣기</button>
+        <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
+
       </tbody>
     </table>
   </div>
+  <!-- 모달 -->
+  <Modal
+    v-if="showModal" @close="showModal=false"
+    :modalData="modalData">
+    <h3>모달 창 제목</h3>
+  </Modal>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
-    name: 'ProductSearchResultView',
-    components: { Navbar },
-    computed: {
-      ...mapGetters(['products'])
-    },
-    methods: {
-      ...mapMutations(['PUSH_PRODUCT_TO_CART']),
-      pushProductToCart(product) {
-        this.PUSH_PRODUCT_TO_CART(product)
-      }
+  name: 'ProductSearchResultView',
+  components: { Navbar, Modal },
+  computed: {
+    ...mapGetters(['products'])
+  },
+  methods: {
+    ...mapActions(['fetchProduct']),
+    openModal(value) {
+      this.modalData = value,
+      this.showModal = true,
+      this.fetchProduct(value[1].product_id)
     }
+  },
+  data() {
+    return {
+      showModal: false,
+      modalData: null
+    }
+  }
 }
 </script>
 <style>

@@ -4,9 +4,14 @@
     <div class="modal-wrapper">
      <div class="modal-container">
 
-      <!-- <div class="modal-header">
+      <div class="modal-header">
        <slot name="header">
-        포트폴리오 no. (필수)
+        <label>상품명</label>
+        <input 
+          v-model="modalData[1].name"
+          type="text"
+          disabled>
+        <!-- 포트폴리오 no. (필수)
         <select v-model="payload.portfolioNo">
           <option selected disabled>선택</option>
           <option 
@@ -15,32 +20,24 @@
             :value="number">
             {{ number }}번 포트폴리오
           </option>
-        </select>
+        </select> -->
        </slot>
-      </div> -->
+      </div>
       <hr>
 
       <div class="modal-body">
        <slot name="body">
-         <label for="">상품 이름</label>
-         <input 
-           v-model="modalData[1].name"
-           type="text"
-           disabled>
-
           <label for="">납임금액</label>
           <input
-            v-model="modalData[0].amount"
-            type="text"
-            disabled>
+            v-model="payload.amount"
+            type="number">
           
-          <label for="">기간(개월)</label>
+          <!-- <label for="">기간(개월)</label>
           <input
-            v-model="modalData[0].period"
-            type="text"
-            disabled>
-          <hr>
+            v-model="payload.period"
+            type="number"> -->
 
+          <br>
           이자유형 & 개월수
           <select v-model="payload.selectedOption">
             <option selected disabled>선택</option>
@@ -119,9 +116,10 @@ export default {
     return {
       payload: {
         filters: this.modalData[0],
-        amount: this.modalData[0].amount,
+        amount: this.modalData[0]?.amount,
+        period: this.modalData[0]?.period,
         product: this.modalData[1],
-        selectedOption: this.modalData[1].selected_option_id,
+        selectedOption: this.modalData[1].selected_option_id?this.modalData[1].selected_option_id:'선택',
         selectedConditions: [],
         startDate: null,
         endDate: null
