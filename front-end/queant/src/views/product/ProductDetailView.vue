@@ -17,7 +17,7 @@
           </dd>
           <br>
           <dd class="foot">
-            <p>추가 금리 조건</p>
+            <p><strong>추가 금리 조건</strong></p>
               <ul v-for="condition in product.conditions">
                 <li style="list-style:none;">- {{condition.value}} : {{condition.condition_info}}</li>
               </ul>
