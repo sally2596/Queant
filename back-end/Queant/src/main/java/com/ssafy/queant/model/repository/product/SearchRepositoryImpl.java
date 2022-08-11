@@ -36,6 +36,8 @@ public class SearchRepositoryImpl implements SearchRepository {
 
         BooleanBuilder builder = new BooleanBuilder();
 
+        builder.and(product.isEnabled.eq(true));
+
         // 예금 vs 적금 -> 무조건 설정하게 됨
         builder.and(product.isDeposit.eq(isDeposit));
 
