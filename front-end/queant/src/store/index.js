@@ -6,6 +6,7 @@ import bank from './modules/bank'
 import product from './modules/product'
 import contents from './modules/contents'
 import portfolio from './modules/portfolio'
+import report from './modules/report'
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -17,7 +18,8 @@ export default createStore({
     bank,
     product,
     contents,
-    portfolio
+    portfolio,
+    report
   },
   plugins: [
     createPersistedState({

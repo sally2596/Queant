@@ -32,7 +32,7 @@ export default {
         console.log(err)
       })
 		},
-		registReports({}, reportProductDto) {
+		registReport({}, reportProductDto) {
       axios({
         url: spring.product.report.list(),
 				method: 'post',
@@ -64,7 +64,7 @@ export default {
         console.log(err)
       })
 		},
-		updateReports({}, reportId, productDetail) {
+		updateReport({}, reportId, productDetail) {
       axios({
         url: spring.product.report.detail(reportId),
 				method: 'post',
@@ -82,7 +82,7 @@ export default {
         console.log(err)
       })
 		},
-		deleteReports({}, reportId) {
+		deleteReport({}, reportId) {
       console.log(content);
       axios({
         url: spring.contents.delete(),

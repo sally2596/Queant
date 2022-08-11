@@ -23,11 +23,13 @@ export default {
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
     SET_FILTERS: (state, filters) => state.filters = filters,
     CLEAR_CART: state => state.cart = [],
-    PUSH_PRODUCT_TO_CART(state, product) {
-      if (state.cart.find(productInCart => productInCart.product_id === product.product_id))
+    PUSH_PRODUCT_TO_CART(state, value) {
+      let filters = value.filters
+      let product = value.product
+      if (state.cart.find(productInCart => productInCart[1].product_id === product.product_id))
         alert("이미 장바구니에 담긴 상품입니다.")
       else {
-        state.cart.push(product)
+        state.cart.push([filters, product])
         console.log(`${product.product_id}번 상품을 장바구니에 추가했습니다.`)
       }
     },
@@ -107,8 +109,8 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PRODUCTS', res.data)
-        commit('SET_FILTERS', filters)
+        commit('SET_PRODUCTS', [filters, res.data])
+        // commit('SET_FILTERS', filters)
         router.push({ name: 'productDepositResult' })
       })
       .catch(err => {

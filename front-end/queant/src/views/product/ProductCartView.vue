@@ -22,38 +22,18 @@
         v-for="productInCart in cart"
         :key="productInCart.product_id">
         {{ productInCart }}
-        <!-- <Modal
-          v-if="showModal" @close="showModal=false"
-          :product="modalData">
-          <h3>모달 창 제목</h3>
-        </Modal>
-
-        <button id="show-modal" @click="openModal(productInCart)">가상 포트폴리오에 넣기</button> -->
-
-        <select 
-          @change="pushProductToPortfolio([$event, productInCart])">
-          <option selected disabled>선택</option>
-          <option
-            v-for="number in portfolios.length+1"
-            :key="number"
-            :value="number">
-            {{ number }}번 포트폴리오
-          </option>
-        </select>
 
         <button @click="popProductFromCart(productInCart)">장바구니에서 빼기</button>
         <hr>
       </div>
     </div>
-    
-
   </section>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Modal from '@/components/Modal.vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'ProductCartView',
@@ -62,6 +42,7 @@ export default {
     ...mapGetters(['cart', 'portfolios'])
   },
   methods: {
+    ...mapActions(['fetchProduct']),
     ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
@@ -72,10 +53,11 @@ export default {
     pushProductToPortfolio(value) {
       this.PUSH_PRODUCT_TO_PORTFOLIO(value)
     },
-    // openModal(product) {
-    //   this.modalData = product,
-    //   this.showModal = true
-    // }
+    openModal(value) {
+      this.modalData = value,
+      this.showModal = true,
+      this.fetchProduct(value[1].product_id)
+    }
   },
   data() {
     return {
