@@ -19,7 +19,7 @@ class ProductRepositoryTest {
 
     @Test
     void findByBankId() {
-        int wooriBankId = 10345;
+        int wooriBankId = 17801;
         List<Product> list = productRepository.findByBankIdAndIsEnabledTrue(wooriBankId);
 
         log.info("*****[start logging product list]*****");

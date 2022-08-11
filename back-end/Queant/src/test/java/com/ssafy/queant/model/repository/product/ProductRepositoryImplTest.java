@@ -29,4 +29,18 @@ class ProductRepositoryImplTest {
         }
         log.info(String.valueOf(cnt));
     }
+
+    @Test
+    void findByIsEnabledTrueAndBankId() {
+        int id = 17801;
+        List<Tuple> list = productRepository.findByBankIdAndIsEnabledTrue(id);
+
+        log.info("*****[start logging product list]*****");
+        int cnt = 0;
+        for (Tuple p : list) {
+            log.info(p.toString());
+            cnt++;
+        }
+        log.info(String.valueOf(cnt));
+    }
 }
