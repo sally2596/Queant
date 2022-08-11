@@ -2,7 +2,7 @@ package com.ssafy.queant.model.service;
 
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
-import com.ssafy.queant.model.dto.product.SearchResponseDto;
+import com.ssafy.queant.model.dto.product.ProductDto;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,22 +32,32 @@ class SearchServiceImplTest {
     @Test
     void searchSingle() {
         List<Integer> list = new ArrayList<>();
-        list.add(10001);
+//        list.add(10001);
+
+        List<String> conditions = new ArrayList<>();
+        conditions.add("B003");
+        conditions.add("B004");
+        conditions.add("B005");
         SearchRequestDto searchRequestDto = SearchRequestDto.builder()
-                .isSimpleInterest(null)
+                .isSimpleInterest(false)
                 .isFixed(false)
                 .bank(list)
                 .bankType(new ArrayList<>())
-                .conditions(new ArrayList<>())
+                .conditions(conditions)
                 .joinway(new ArrayList<>())
                 .traitSet(new ArrayList<>())
                 .period(12)
                 .amount(0l)
                 .build();
 
-        SearchResponseDto searchResponseDto = searchService.searchSingle(searchRequestDto, false, 1);
-        log.info(searchResponseDto.getProductDtoList().toString());
-        log.info("[totalCount]: " + String.valueOf(searchResponseDto.getTotalCount()));
-        log.info("[totalPage]: " + searchResponseDto.getTotalPage());
+        List<ProductDto> searchResponseDto = searchService.searchSingle(searchRequestDto, false);
+        int cnt = 0;
+        for (ProductDto product : searchResponseDto
+        ) {
+            log.info(product.toString());
+//            log.info("[TUPLE]: " + product.getProductId() + "  금리: " + product.getTotalRate());
+            cnt++;
+        }
+        log.info(String.valueOf(cnt));
     }
 }

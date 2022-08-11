@@ -26,9 +26,20 @@ class ProductServiceImplTest {
 
     @Test
     void findByNameContaining() {
-        String name = "우리 SUPER정기예금";
+        String name = "OK정기예금";
 
         List<ProductDto> list = productService.findByNameContaining(name);
+        for (ProductDto p : list
+        ) {
+            log.info(p.toString());
+        }
+    }
+
+    @Test
+    void 은행아이디로찾기() {
+        int id = 10528;
+
+        List<ProductDto> list = productService.findByBankId(id);
         for (ProductDto p : list
         ) {
             log.info(p.toString());

@@ -3,7 +3,6 @@ package com.ssafy.queant.controller;
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
-import com.ssafy.queant.model.dto.product.SearchResponseDto;
 import com.ssafy.queant.model.service.SearchService;
 import com.ssafy.queant.model.service.product.ProductService;
 import io.swagger.annotations.ApiResponse;
@@ -58,10 +57,10 @@ public class SearchController {
             @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "예금 단품 검색", description = "키워드로 예금 단품 검색")
-    @PostMapping(value = "/deposit/single/{page}")
-    public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto, @PathVariable int page) {
-        SearchResponseDto list = searchService.searchSingle(searchRequestDto, true, page);
-        if (list.getTotalCount() > 0)
+    @PostMapping(value = "/deposit/single")
+    public ResponseEntity<?> getDepositSingle(@RequestBody SearchRequestDto searchRequestDto) {
+        List<ProductDto> list = searchService.searchSingle(searchRequestDto, true);
+        if (list.size() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,27 +71,12 @@ public class SearchController {
             @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
     })
     @Operation(summary = "적금 단품 검색", description = "키워드로 적금 단품 검색")
-    @PostMapping(value = "/saving/single/{page}")
-    public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto, @PathVariable int page) {
-        SearchResponseDto list = searchService.searchSingle(searchRequestDto, false, page);
-        if (list.getTotalCount() > 0)
+    @PostMapping(value = "/saving/single")
+    public ResponseEntity<?> getSavingSingle(@RequestBody SearchRequestDto searchRequestDto) {
+        List<ProductDto> list = searchService.searchSingle(searchRequestDto, false);
+        if (list.size() > 0)
             return new ResponseEntity<>(list, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "적금 세트 검색 성공"),
-            @ApiResponse(code = 404, message = "검색 정보가 존재하지 않습니다."),
-    })
-    @Operation(summary = "적금 세트 검색", description = "키워드로 적금 세트 검색")
-    @PostMapping(value = "/saving/set")
-    public ResponseEntity<?> getSavingSet(@RequestBody SearchRequestDto searchRequestDto) {
-
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-
 }

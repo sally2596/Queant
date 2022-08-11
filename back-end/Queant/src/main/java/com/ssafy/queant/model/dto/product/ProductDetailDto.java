@@ -14,4 +14,5 @@ public class ProductDetailDto {
     private List<OptionsDto> options;
     private List<ConditionsDto> conditions;
     private List<JoinwayDto> joinway;
+    private List<TraitSetDto> traitSet;
 }

@@ -5,10 +5,11 @@ import com.ssafy.queant.model.dto.Search.BankKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchKeywordDto;
 import com.ssafy.queant.model.dto.Search.SearchRequestDto;
 import com.ssafy.queant.model.dto.Search.SpecificCodeDto;
+import com.ssafy.queant.model.dto.product.ConditionsDto;
 import com.ssafy.queant.model.dto.product.ProductDto;
-import com.ssafy.queant.model.dto.product.SearchResponseDto;
 import com.ssafy.queant.model.entity.SpecificCode;
 import com.ssafy.queant.model.entity.product.Bank;
+import com.ssafy.queant.model.entity.product.Conditions;
 import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.SpecificCodeRepository;
 import com.ssafy.queant.model.repository.product.BankRepository;
@@ -16,13 +17,10 @@ import com.ssafy.queant.model.repository.product.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -81,11 +79,14 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public SearchResponseDto searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit, int page) {
-        Pageable pageable = PageRequest.of(page - 1, 50);
+    public List<ProductDto> searchSingle(SearchRequestDto searchRequestDto, boolean isDeposit) {
 
-        Page<Tuple> result = searchRepository.searchSingle(
-                searchRequestDto.getAmount(),
+        List<SpecificCode> specificCodeList = specificCodeRepository.findByCodeId("B");
+        Map<String, String> valueMap = specificCodeList.stream().collect(Collectors.toMap(SpecificCode::getScodeId,
+                SpecificCode::getScodeValue));
+
+        List<Tuple> result = searchRepository.searchSingle(
+                searchRequestDto.getAmount() == null ? 0l : searchRequestDto.getAmount(),
                 isDeposit,
                 searchRequestDto.getIsSimpleInterest(),
                 searchRequestDto.getIsFixed(),
@@ -93,22 +94,62 @@ public class SearchServiceImpl implements SearchService {
                 searchRequestDto.getBank(),
                 searchRequestDto.getJoinway(),
                 searchRequestDto.getConditions(),
-                searchRequestDto.getTraitSet(),
-                pageable);
+                searchRequestDto.getTraitSet());
 
-        List<ProductDto> productDtoList = new ArrayList<>();
+        HashMap<Integer, ProductDto> map = new HashMap<>();
+        result.forEach(r -> {
+            ProductDto productDto = modelMapper.map(r.get(0, Product.class), ProductDto.class);
+            Float baseRate = r.get(1, Float.class);
+            Float specialRate = null;
+            Conditions condition = null;
+            if (searchRequestDto.getConditions().size() > 0) {
+                specialRate = r.get(3, Float.class);
+                condition = r.get(4, Conditions.class);
+            }
+            Integer optionId = r.get(2, Integer.class);
+            ProductDto p;
+            List<ConditionsDto> appliedSpecialRate = null;
 
-        result.get().forEach(product -> {
-            ProductDto productDto = modelMapper.map(product.get(0, Product.class), ProductDto.class);
-            productDto.setBaseRate(product.get(1, Float.class));
-            productDtoList.add(productDto);
+            if (map.containsKey(productDto.getProductId())) { //이미 존재하는 경우 우대 금리가 더 있다는 뜻
+                p = map.get(productDto.getProductId());
+                appliedSpecialRate = p.getAppliedSpecialRate();
+            } else {
+                p = productDto;
+                p.setTotalRate(p.getTotalRate() + baseRate);
+            }
+
+            if (appliedSpecialRate == null) // 우대금리 map이 없으면 만들기
+                appliedSpecialRate = new ArrayList<>();
+            if (condition != null && specialRate != null) { // 우대 금리가 있으면
+                p.setSpecialRateSum(p.getSpecialRateSum() + specialRate); // 우대 금리 합산
+                ConditionsDto c = modelMapper.map(condition, ConditionsDto.class);
+                c.setValue(valueMap.get(c.getScodeId()));
+                appliedSpecialRate.add(c); //우대 금리 조건, 우대금리 값 넣기
+            }
+
+            p.setAppliedSpecialRate(appliedSpecialRate);
+            p.setBaseRate(baseRate);
+            p.setSelectedOptionId(optionId);
+            p.setTotalRate(p.getTotalRate() + (specialRate != null ? specialRate : 0));
+
+            map.put(p.getProductId(), p);
         });
 
-        SearchResponseDto searchResponseDto = SearchResponseDto.builder()
-                .productDtoList(productDtoList)
-                .totalCount(result.getTotalElements())
-                .totalPage(result.getTotalPages())
-                .build();
-        return searchResponseDto;
+        List<ProductDto> list = new ArrayList<>();
+        for (Integer key : map.keySet()) {
+            list.add(map.get(key));
+        }
+        Collections.sort(list, new Comparator<ProductDto>() {
+            @Override
+            public int compare(ProductDto o1, ProductDto o2) {
+                if (o2.getTotalRate() > o1.getTotalRate())
+                    return 1;
+                else if (o2.getTotalRate() < o1.getTotalRate())
+                    return -1;
+                else return 0;
+            }
+        });
+
+        return list;
     }
 }
