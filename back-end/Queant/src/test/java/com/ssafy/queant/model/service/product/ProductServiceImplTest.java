@@ -26,7 +26,7 @@ class ProductServiceImplTest {
 
     @Test
     void findByNameContaining() {
-        String name = "우리 SUPER정기예금";
+        String name = "OK정기예금";
 
         List<ProductDto> list = productService.findByNameContaining(name);
         for (ProductDto p : list
