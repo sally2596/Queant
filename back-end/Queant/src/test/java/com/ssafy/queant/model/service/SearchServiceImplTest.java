@@ -54,7 +54,8 @@ class SearchServiceImplTest {
         int cnt = 0;
         for (ProductDto product : searchResponseDto
         ) {
-            log.info("[TUPLE]: " + product.getProductId() + "  금리: " + product.getTotalRate());
+            log.info(product.toString());
+//            log.info("[TUPLE]: " + product.getProductId() + "  금리: " + product.getTotalRate());
             cnt++;
         }
         log.info(String.valueOf(cnt));

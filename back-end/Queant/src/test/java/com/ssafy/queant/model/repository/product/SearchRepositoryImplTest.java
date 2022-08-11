@@ -30,9 +30,9 @@ class SearchRepositoryImplTest {
         List<String> joinway = new ArrayList<>();
 //        joinway.add("A001");
         List<String> conditions = new ArrayList<>();
-//        conditions.add("B003");
-//        conditions.add("B004");
-//        conditions.add("B005");
+        conditions.add("B003");
+        conditions.add("B004");
+        conditions.add("B005");
         List<String> traitSet = new ArrayList<>();
 //        traitSet.add("E001");
 
