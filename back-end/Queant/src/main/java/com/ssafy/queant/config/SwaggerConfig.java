@@ -41,7 +41,6 @@ public class SwaggerConfig{
 				.useDefaultResponseMessages(false)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.ssafy.queant.controller"))
-//				.paths(PathSelectors.ant("/book/**"))
 				.build();
 	}
 
