@@ -8,3 +8,4 @@ class QueantAppConfig(AppConfig):
     updater.start()
     updater.start_bank()
     updater.start_post()
+    updater.save_manually()

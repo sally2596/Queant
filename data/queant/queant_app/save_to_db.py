@@ -178,6 +178,10 @@ def spcl_parsing(spcl):
     spcl = spcl.replace("  :", " ")
     spcl = spcl.replace(":  "," ")
     spcl = spcl.replace("  0", " :0")
+    p = re.compile("[주][\n][ㄱ-ㅎ|ㅏ-ㅣ|가-힣]")
+    check = p.search(spcl)
+    if check:
+        spcl = spcl.replace("\n", " ")
     spcl = spcl.replace("  ", "\n")
     spcl = split_line_num(spcl)
     
@@ -199,7 +203,8 @@ def spcl_parsing(spcl):
                 continue
         
         if "최고" in tag or "최대" in tag:
-            continue
+            if tag == split_spcl[0]:
+                continue
                             
         percent = find_percent(tag)
         if percent == None:
@@ -631,4 +636,12 @@ def save_bank_db():
     data_xml = ET.fromstring(data_str)
     save_bank_into_db(cur, conn, data_xml, banktype_num)
     
+    conn.close()
+    
+    
+def save_db_by_myself():
+    conn, cur = connect_db()
+    cur.execute("INSERT INTO queant.specific_code (scode_id,code_id, scode_value) values (C003,C,\"기타\")")
+    cur.execute("UPDATE queant.bank SET short_name = \"상상인플러스\" ,picture = \"https://queant.s3.ap-northeast-2.amazonaws.com/banks/상상인플러스.png\" where bank_name = \"상상인플러스저축은행\"")
+    conn.commit()
     conn.close()
