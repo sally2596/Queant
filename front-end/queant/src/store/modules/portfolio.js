@@ -54,32 +54,32 @@ export default {
         console.log(err)
       })
     },
-    addCustomProduct({ getters }, payload) {
-      axios({
-        url: spring.portfolio.portfolio(),
-        method: 'post',
-        data: {
-          member_id: getters.userInfo.member_id,
-          portfolio_dto_list: [
-            {
-              amount: getters.filters.amount,
-              condition_ids: getters.filters.conditions,
-              start_date: payload.start_date,
-              end_date: payload.end_date,
-              option_id: payload.option_id,
-              portfolio_no: payload.portfolio_no,
-              product_id: payload.product_id
-            }
-          ]
-        }
-      })
-      .then(res => {
-        console.log(res)
-        console.log('포트폴리오에 상품이 등록됐습니다.')
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
+    // addProductToCustomPortfolio({ getters }, payload) {
+    //   axios({
+    //     url: spring.portfolio.portfolio(),
+    //     method: 'post',
+    //     data: {
+    //       member_id: getters.userInfo.member_id,
+    //       portfolio_dto_list: [
+    //         {
+    //           amount: getters.filters.amount,
+    //           condition_ids: getters.filters.conditions,
+    //           start_date: payload.start_date,
+    //           end_date: payload.end_date,
+    //           option_id: payload.option_id,
+    //           portfolio_no: payload.portfolio_no,
+    //           product_id: payload.product_id
+    //         }
+    //       ]
+    //     }
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //     console.log('포트폴리오에 상품이 등록됐습니다.')
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+    // }
   }
 };
