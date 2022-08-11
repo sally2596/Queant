@@ -231,36 +231,7 @@
             v-model="filtersForSaving.amount"
             type="number">
         </div>
-
-        <!-- 묶어서 보기 기능 삭제 예정 -->
-        <!-- <div class="col-lg-3 m-3">
-          <h6>상품 보기</h6>
-          <input
-            v-model="isSavingSingle"
-            type="radio" 
-            class="btn-check" 
-            id="saving-single"
-            value="true"
-            autocomplete="off">
-          <label 
-            class="btn btn-outline-success" 
-            for="saving-single">
-            하나씩 보기
-          </label>
-          <input
-            v-model="isSavingSingle"
-            type="radio" 
-            class="btn-check" 
-            id="saving-set"
-            value="false"
-            autocomplete="off">
-          <label 
-            class="btn btn-outline-success" 
-            for="saving-set">
-            묶어서 보기
-          </label>
-        </div> -->
-
+        
         <div class="col-lg-5 m-3">
           <h6>가입 방법</h6>
           <div id="banks_container">
