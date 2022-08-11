@@ -30,14 +30,13 @@
           <label for="">납임금액</label>
           <input
             v-model="payload.amount"
-            type="text"
-            disabled>
+            type="number">
           
-          <label for="">기간(개월)</label>
+          <!-- <label for="">기간(개월)</label>
           <input
             v-model="payload.period"
-            type="text"
-            disabled>
+            type="number"> -->
+
           <br>
           이자유형 & 개월수
           <select v-model="payload.selectedOption">
