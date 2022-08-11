@@ -5,31 +5,30 @@ import axios from 'axios'
 export default {
   state: {
     products: [],
+    searchProducts: [],
     product: {},
     keywords: [],
-    filters: [],
     cart: []
   },
   getters: {
     products: state => state.products,
+    searchProducts: state => state.searchProducts,
     product: state => state.product,
     keywords: state => state.keywords,
-    filters: state => state.filters,
     cart: state => state.cart
   },
   mutations: {
     SET_PRODUCTS: (state, products) => state.products = products,
+    SET_SEARCH_PRODUCTS: (state, products) => state.searchProducts = products,
     SET_PRODUCT: (state, product) => state.product = product,
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
-    SET_FILTERS: (state, filters) => state.filters = filters,
     CLEAR_CART: state => state.cart = [],
-    PUSH_PRODUCT_TO_CART(state, value) {
-      let filters = value.filters
-      let product = value.product
-      if (state.cart.find(productInCart => productInCart[1].product_id === product.product_id))
+    PUSH_PRODUCT_TO_CART(state, payload) {
+      let product = payload.product
+      if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
         alert("이미 장바구니에 담긴 상품입니다.")
       else {
-        state.cart.push([filters, product])
+        state.cart.push(payload)
         console.log(`${product.product_id}번 상품을 장바구니에 추가했습니다.`)
       }
     },
@@ -83,7 +82,7 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PRODUCTS', res.data)
+        commit('SET_PRODUCTS', [null, res.data])
         router.push({ name: 'productSearchResult', params: { text: text }})
       })
       .catch(err => {
@@ -110,7 +109,6 @@ export default {
       .then(res => {
         console.log(res)
         commit('SET_PRODUCTS', [filters, res.data])
-        // commit('SET_FILTERS', filters)
         router.push({ name: 'productDepositResult' })
       })
       .catch(err => {
@@ -135,36 +133,12 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PRODUCTS', res.data)
-        commit('SET_FILTERS', filters)
+        commit('SET_PRODUCTS', [filters, res.data])
         router.push({ name: 'productSavingResult' })
       })
       .catch(err => {
         console.log(err)
       })
-    },
-    // fetchProductsBySavingSetFilters({ commit }, filters) {
-    //   axios({
-    //     url: spring.search.savings(),
-    //     method: 'post',
-    //     data: {
-    //       amount: filters.amount,
-    //       period: filters.period,
-    //       isSimpleInterest: filters.isSimpleInterest,
-    //       bank: filters.bank,
-    //       joinway: filters.joinway,
-    //       conditions: filters.conditions,
-    //       bankType: filters.bankType,
-    //       traitSet: filters.traitSet,
-    //       isFixed: filters.isFixed
-    //     }
-    //   })
-    //   .then(res => {
-    //     console.log(res)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    // }
+    }
   }
 }
