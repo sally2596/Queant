@@ -3,6 +3,7 @@ package com.ssafy.queant.model.service.product;
 import com.ssafy.queant.model.dto.product.*;
 import com.ssafy.queant.model.entity.product.*;
 import com.ssafy.queant.model.repository.product.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -76,30 +77,13 @@ public class ProductServiceImpl implements ProductService {
         product.setBankName(bankResult.get().getBankName());
 
         //joinway
-        List<Joinway> resultJoin = joinwayRepository.findByProductId(productId);
-        List<JoinwayDto> joinway = new ArrayList<>();
-        if (resultJoin.size() > 0) {
-            for (Joinway j : resultJoin) {
-                joinway.add(modelMapper.map(j, JoinwayDto.class));
-            }
-        }
+        List<JoinwayDto> joinway = joinwayService.findByProductId(productId);
+
         //Conditions
-        List<Conditions> resultConditions = conditionsRepository.findByProductId(productId);
-        List<ConditionsDto> conditions = new ArrayList<>();
-        if (resultConditions.size() > 0) {
-            for (Conditions c : resultConditions) {
-                conditions.add(modelMapper.map(c, ConditionsDto.class));
-            }
-        }
+        List<ConditionsDto> conditions = conditionsService.findByProductId(productId);
 
         //Options
-        List<Options> resultOptions = optionsRepository.findByProductId(productId);
-        List<OptionsDto> options = new ArrayList<>();
-        if (resultOptions.size() > 0) {
-            for (Options o : resultOptions) {
-                options.add(modelMapper.map(o, OptionsDto.class));
-            }
-        }
+        List<OptionsDto> options = optionsService.findByProductId(productId);
 
         ProductDetailDto productDetailDto = ProductDetailDto.builder()
                 .product(product)
@@ -200,10 +184,6 @@ public class ProductServiceImpl implements ProductService {
             joinwayRepository.save(join);
         }
     }
-
-
-
-
 
 
 }
