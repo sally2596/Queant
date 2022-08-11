@@ -15,54 +15,73 @@
       
       <router-link :to="{name : 'productRecommend'}" class="btn btn-outline-success">상품 추천받기</router-link> 
     </div>
-
     <!-- 장밥구니에 상품이 담겨 있을 때 -->
-    <div v-else id="cart-item">
-      <button class="btn btn-outline-success btn-sm" @click="clearCart()">장바구니 전체 비우기</button>
-      <br><br><br>
-      <table>
-        <thead>
-          <tr>
-            <th><input type="checkbox" name="__allcheck" class="MS_input_checkbox" checked=""></th>
-            <th>은행</th>
-            <th>상품명</th>
-            <th>기본 금리</th>
-            <th>최소 가입 기간(개월)</th>
-          </tr>
-        </thead>
-        <br>
-        <tbody v-for="productInCart in cart" :key="productInCart.product_id">
-          <td><input type="checkbox" name="basketchks" id="basketchks" checked="checked" class="MS_input_checkbox"></td>
-          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.bank_id }}"><img :src="productInCart.picture" alt=""></router-link></td>
-          <td><router-link :to="{ name: 'productDetail' , params: { productId: productInCart.product_id }}">{{productInCart.name}}</router-link></td>
-          <td>{{productInCart.base_rate}}</td>
-          <td>{{productInCart.term_min}}</td>
-          <button class="btn btn-outline-second btn-sm" @click="addProductInCart(productInCart)">선택 상품 포트폴리오에 넣기</button>
-          <button class="btn btn-outline-second btn-sm" @click="popProductInCart(productInCart)">선택 상품 삭제</button>
-        </tbody>
-      </table>
-      <br><br><br><br>
+    <div v-else>
+      <button @click="clearCart()">장바구니 전체 비우기</button>
+      <div
+        v-for="productInCart in cart"
+        :key="productInCart.product_id">
+        {{ productInCart }}
+        <!-- <Modal
+          v-if="showModal" @close="showModal=false"
+          :product="modalData">
+          <h3>모달 창 제목</h3>
+        </Modal>
+
+        <button id="show-modal" @click="openModal(productInCart)">가상 포트폴리오에 넣기</button> -->
+
+        <select 
+          @change="pushProductToPortfolio([$event, productInCart])">
+          <option selected disabled>선택</option>
+          <option
+            v-for="number in portfolios.length+1"
+            :key="number"
+            :value="number">
+            {{ number }}번 포트폴리오
+          </option>
+        </select>
+
+        <button @click="popProductFromCart(productInCart)">장바구니에서 빼기</button>
+        <hr>
+      </div>
     </div>
+    
+
   </section>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Modal from '@/components/Modal.vue'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'ProductCartView',
-  components : { Navbar },
+  components : { Navbar, Modal },
   computed: {
-    ...mapGetters(['cart', 'banks'])
+    ...mapGetters(['cart', 'portfolios'])
   },
   methods: {
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_IN_CART']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
     },
-    popProductInCart(product) {
-      this.POP_PRODUCT_IN_CART(product)
+    popProductFromCart(product) {
+      this.POP_PRODUCT_FROM_CART(product)
+    },
+    pushProductToPortfolio(value) {
+      this.PUSH_PRODUCT_TO_PORTFOLIO(value)
+    },
+    // openModal(product) {
+    //   this.modalData = product,
+    //   this.showModal = true
+    // }
+  },
+  data() {
+    return {
+      showModal: false,
+      productIdx: '',
+      modalData: null
     }
   },
   beforeCreate: function() {

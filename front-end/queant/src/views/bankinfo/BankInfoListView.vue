@@ -19,7 +19,7 @@
               <a :href="bank.homepage">홈페이지</a>
               <p>전화번호 : {{bank.tel}}</p>
               <router-link class="banks btn btn-outline-success btn-sm" 
-              :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bank_id }}"
+              :to="{ name: 'bankInfoDetail', params: { bankId: bank.bank_id }}"
               style="height: 35px;">
                 <p style="font-size:14px;">상품 보러가기</p>
               </router-link>

@@ -15,7 +15,7 @@
                 <p>최소 가입 기간 : {{product.term_min}}개월</p>
                 <p>최대 가입 기간 : {{product.term_max}}개월</p>
                 <router-link class="banks btn btn-outline-success btn-sm" 
-                :to="{ name: 'productDetail' , params: { productId: product.product_id }}"
+                :to="{ name: 'productDetail', params: { productId: product.product_id }}"
                 style="height: 35px;">
                   <p style="font-size:14px;">상세 정보</p>
                 </router-link>

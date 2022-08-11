@@ -28,14 +28,14 @@ export default {
         alert("이미 장바구니에 담긴 상품입니다.")
       else {
         state.cart.push(product)
-        alert("장바구니에 상품을 담았습니다.")
+        console.log(`${product.product_id}번 상품을 장바구니에 추가했습니다.`)
       }
     },
-    POP_PRODUCT_IN_CART(state, product) {
+    POP_PRODUCT_FROM_CART(state, product) {
       for (let i = 0; i < state.cart.length; i++) {
         if (state.cart[i].product_id === product.product_id) {
           state.cart.splice(i, 1)
-          alert("상품을 장바구니에서 제거했습니다.")
+          console.log(`${product.product_id}번 상품을 장바구니에서 제거했습니다.`)
           break
         }
       }
@@ -92,7 +92,7 @@ export default {
     },
     fetchProductsByDepositFilters({ commit }, filters) {
       axios({
-        url: spring.search.deposit(filters.page),
+        url: spring.search.deposit(),
         method: 'post',
         data: {
           amount: filters.amount?filters.amount:null,
@@ -117,7 +117,7 @@ export default {
     },
     fetchProductsBySavingFilters({ commit }, filters) {
       axios({
-        url: spring.search.saving(filters.page),
+        url: spring.search.saving(),
         method: 'post',
         data: {
           amount: filters.amount?filters.amount:null,

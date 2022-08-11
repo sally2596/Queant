@@ -37,7 +37,7 @@ import AdminSpecialView from '@/views/admin/AdminSpecialView.vue'
 import ProductRecommendationView from '@/views/product/ProductRecommendationView.vue'
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
-import ComparisonView from '@/views/product/ComparisonView.vue'
+import ProductComparisonView from '@/views/product/ProductComparisonView.vue'
 import ProductDepositResultView from '@/views/product/ProductDepositResultView.vue'
 import ProductSavingResultView from '@/views/product/ProductSavingResultView.vue'
 import ProductSearchResultView from '@/views/product/ProductSearchResultView.vue'
@@ -131,7 +131,7 @@ const routes = [
   {
     path: '/product/comparison',
     name: 'productComparison',
-    component: ComparisonView
+    component: ProductComparisonView
   },
   {
     path: '/product/:productId',

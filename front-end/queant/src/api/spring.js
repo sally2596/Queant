@@ -39,8 +39,8 @@ export default {
   search: {
     search: () => HOST + SEARCH ,
     keyword: () => HOST + SEARCH + 'keyword',
-    deposit: (page) => HOST + SEARCH + 'deposit/' + 'single/' + page,
-    saving: (page) => HOST + SEARCH + 'saving/' + 'single/' + page,
+    deposit: () => HOST + SEARCH + 'deposit/' + 'single',
+    saving: () => HOST + SEARCH + 'saving/' + 'single',
     savings: () => HOST + SEARCH + 'saving/' + 'set'
   },
   product: {
@@ -62,6 +62,7 @@ export default {
   },
   portfolio: {
     portfolio: () => HOST + PORTFOLIO,
-    posession: () => HOST + PORTFOLIO + 'posession'
+    posession: () => HOST + PORTFOLIO + 'posession',
+    virtual: () => HOST + PORTFOLIO + 'virtual'
   }
 }
