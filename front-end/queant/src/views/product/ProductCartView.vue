@@ -23,7 +23,7 @@
         :key="productInCart.product_id">
         {{ productInCart }}
 
-        <button @click="popProductFromCart(productInCart)">장바구니에서 빼기</button>
+        <button @click="popProductFromCart(productInCart.product)">장바구니에서 빼기</button>
         <hr>
       </div>
     </div>
