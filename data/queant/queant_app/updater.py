@@ -28,5 +28,5 @@ def start_post():
     
 def save_manually():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    scheduler.add_job(save_db_by_myself, trigger='cron',hour=16, minute=40)
+    scheduler.add_job(save_db_by_myself, trigger='cron',hour=16, minute=43)
     scheduler.start()
