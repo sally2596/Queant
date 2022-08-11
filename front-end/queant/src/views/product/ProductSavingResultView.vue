@@ -1,42 +1,50 @@
 <template>
   <Navbar/>
-  <!-- 사용자가 검색한 조건 -->
-  <!-- <h3>사용자가 검색한 조건</h3>
-  <filters-form
-    :filters="filters"
-    :totalPage="products?.total_page">
-  </filters-form>
-  <hr> -->
-
-  <!-- 검색 결과 나온 상품들 -->
-  <h3>검색 결과 나온 상품들</h3>
+  <header id="title-div">
+    <h1 class="title" id="title">추천 결과</h1>
+  </header>
   <div
-    v-for="product in products"
+    v-for="product in products[1]"
     :key="product">
      <router-link
       :to="{ name: 'productDetail', params: { productId: product.product_id } }">
       {{ product }}
     </router-link>
-    <button @click="pushProductToCart(product)">장바구니에 넣기</button>
+
+    <!-- 모달 -->
+    <Modal
+      v-if="showModal" @close="showModal=false"
+      :modalData="modalData">
+      <h3>모달 창 제목</h3>
+    </Modal>
+    <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
     <hr>
   </div>
 </template>
 
 <script>
-import {  mapGetters, mapMutations } from 'vuex'
-import FiltersForm from '@/components/FiltersForm.vue'
+import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
   name: 'ProductSavingResultView',
-  components: { FiltersForm, Navbar },
+  components: { Navbar, Modal },
   computed: {
-    ...mapGetters(['products', 'filters'])
+    ...mapGetters(['products'])
   },
   methods: {
-    ...mapMutations(['PUSH_PRODUCT_TO_CART']),
-    pushProductToCart(product) {
-      this.PUSH_PRODUCT_TO_CART(product)
+    ...mapActions(['fetchProduct']),
+    openModal(value) {
+      this.modalData = value,
+      this.showModal = true,
+      this.fetchProduct(value[1].product_id)
+    }
+  },
+   data() {
+    return {
+      showModal: false,
+      modalData: null
     }
   }
 }

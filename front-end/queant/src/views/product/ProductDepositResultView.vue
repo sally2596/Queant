@@ -18,29 +18,23 @@
       <h3>모달 창 제목</h3>
     </Modal>
     <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
-    <!-- <button @click="pushProductToCart([products[0], product])">장바구니에 넣기</button> -->
     <hr>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-import FiltersForm from '@/components/FiltersForm.vue'
+import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
 import Modal from '@/components/Modal.vue'
 
 export default {
   name: 'ProductDepositResultView',
-  components: { FiltersForm, Navbar, Modal },
+  components: { Navbar, Modal },
   computed: {
-    ...mapGetters(['products', 'filters'])
+    ...mapGetters(['products'])
   },
   methods: {
     ...mapActions(['fetchProduct']),
-    ...mapMutations(['PUSH_PRODUCT_TO_CART']),
-    pushProductToCart(value) {
-      this.PUSH_PRODUCT_TO_CART(value)
-    },
     openModal(value) {
       this.modalData = value,
       this.showModal = true,
@@ -50,7 +44,6 @@ export default {
   data() {
     return {
       showModal: false,
-      productIdx: '',
       modalData: null
     }
   }

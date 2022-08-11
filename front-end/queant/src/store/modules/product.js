@@ -7,21 +7,18 @@ export default {
     products: [],
     product: {},
     keywords: [],
-    filters: [],
     cart: []
   },
   getters: {
     products: state => state.products,
     product: state => state.product,
     keywords: state => state.keywords,
-    filters: state => state.filters,
     cart: state => state.cart
   },
   mutations: {
     SET_PRODUCTS: (state, products) => state.products = products,
     SET_PRODUCT: (state, product) => state.product = product,
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
-    SET_FILTERS: (state, filters) => state.filters = filters,
     CLEAR_CART: state => state.cart = [],
     PUSH_PRODUCT_TO_CART(state, value) {
       let filters = value.filters
@@ -110,7 +107,6 @@ export default {
       .then(res => {
         console.log(res)
         commit('SET_PRODUCTS', [filters, res.data])
-        // commit('SET_FILTERS', filters)
         router.push({ name: 'productDepositResult' })
       })
       .catch(err => {
@@ -136,35 +132,11 @@ export default {
       .then(res => {
         console.log(res)
         commit('SET_PRODUCTS', res.data)
-        commit('SET_FILTERS', filters)
         router.push({ name: 'productSavingResult' })
       })
       .catch(err => {
         console.log(err)
       })
-    },
-    // fetchProductsBySavingSetFilters({ commit }, filters) {
-    //   axios({
-    //     url: spring.search.savings(),
-    //     method: 'post',
-    //     data: {
-    //       amount: filters.amount,
-    //       period: filters.period,
-    //       isSimpleInterest: filters.isSimpleInterest,
-    //       bank: filters.bank,
-    //       joinway: filters.joinway,
-    //       conditions: filters.conditions,
-    //       bankType: filters.bankType,
-    //       traitSet: filters.traitSet,
-    //       isFixed: filters.isFixed
-    //     }
-    //   })
-    //   .then(res => {
-    //     console.log(res)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    // }
+    }
   }
 }
