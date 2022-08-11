@@ -92,7 +92,7 @@ export default {
     },
     fetchProductsByDepositFilters({ commit }, filters) {
       axios({
-        url: spring.search.deposit(filters.page),
+        url: spring.search.deposit(),
         method: 'post',
         data: {
           amount: filters.amount?filters.amount:null,
@@ -117,7 +117,7 @@ export default {
     },
     fetchProductsBySavingFilters({ commit }, filters) {
       axios({
-        url: spring.search.saving(filters.page),
+        url: spring.search.saving(),
         method: 'post',
         data: {
           amount: filters.amount?filters.amount:null,

@@ -11,7 +11,7 @@
   <!-- 검색 결과 나온 상품들 -->
   <h3>검색 결과 나온 상품들</h3>
   <div
-    v-for="product in products.product_dto_list"
+    v-for="product in products"
     :key="product">
      <router-link
       :to="{ name: 'productDetail', params: { productId: product.product_id } }">
