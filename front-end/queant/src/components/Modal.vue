@@ -104,7 +104,7 @@ export default {
     modalData: Object
   },
   computed: {
-    ...mapGetters(['filters', 'portfolios', 'product'])
+    ...mapGetters(['portfolios', 'product'])
   },
   methods: {
     ...mapMutations(['PUSH_PRODUCT_TO_CART']),
