@@ -1,5 +1,6 @@
 package com.ssafy.queant.model.service.product;
 
+import com.querydsl.core.Tuple;
 import com.ssafy.queant.model.dto.product.*;
 import com.ssafy.queant.model.entity.product.*;
 import com.ssafy.queant.model.repository.product.*;
@@ -20,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ReportProductRepository reportProductRepository;
     private final ProductRepository productRepository;
+    private final ProductRepositoryImpl productRepositoryImpl;
     private final BankRepository bankRepository;
     private final JoinwayRepository joinwayRepository;
     private final ConditionsRepository conditionsRepository;
@@ -50,11 +52,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findByNameContaining(String name) {
-        List<Product> list = productRepository.findByIsEnabledTrueAndNameContaining(name);
+        List<Tuple> list = productRepositoryImpl.findByIsEnabledTrueAndNameContaining(name);
         List<ProductDto> result = new ArrayList<>();
 
-        for (Product p : list) {
-            ProductDto dto = modelMapper.map(p, ProductDto.class);
+        for (Tuple t : list) {
+            ProductDto dto = modelMapper.map(t.get(0, Product.class), ProductDto.class);
+            dto.setBaseRate(t.get(1, Float.class));
 
             Optional<Bank> bankResult = bankRepository.findByBankId(dto.getBankId());
             dto.setBankName(bankResult.get().getBankName());
