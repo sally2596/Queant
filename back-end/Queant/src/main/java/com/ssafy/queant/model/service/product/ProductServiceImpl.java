@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
     private final ConditionsService conditionsService;
     private final OptionsService optionsService;
     private final JoinwayService joinwayService;
+    private final TraitSetService traitSetService;
 
 
     @Override
@@ -85,11 +86,14 @@ public class ProductServiceImpl implements ProductService {
         //Options
         List<OptionsDto> options = optionsService.findByProductId(productId);
 
+        List<TraitSetDto> traitSet = traitSetService.findByProductId(productId);
+
         ProductDetailDto productDetailDto = ProductDetailDto.builder()
                 .product(product)
                 .joinway(joinway)
                 .conditions(conditions)
                 .options(options)
+                .traitSet(traitSet)
                 .build();
 
         return productDetailDto;
