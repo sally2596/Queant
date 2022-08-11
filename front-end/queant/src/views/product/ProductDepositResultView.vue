@@ -10,16 +10,16 @@
       :to="{ name: 'productDetail', params: { productId: product.product_id } }">
       {{ product }}
     </router-link>
-
-    <!-- 모달 -->
-    <Modal
-      v-if="showModal" @close="showModal=false"
-      :modalData="modalData">
-      <h3>모달 창 제목</h3>
-    </Modal>
     <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
     <hr>
   </div>
+
+  <!-- 모달 -->
+  <Modal
+    v-if="showModal" @close="showModal=false"
+    :modalData="modalData">
+    <h3>모달 창 제목</h3>
+  </Modal>
 </template>
 
 <script>
