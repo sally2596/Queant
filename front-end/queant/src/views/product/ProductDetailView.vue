@@ -1,41 +1,35 @@
 <template>
 <Navbar></Navbar>
   <header id="title-div">
-    <h1 class="title" id="title">'{{product.product.name}}' 상세 페이지</h1>
+    <h1 class="title" id="title">{{product.product.name}}</h1>
   </header>
-  <section class="product-detail-box">
-      <div class="product-detail">
-        <div class="product clearfix">
-            <div class="prd-info">
-                <dl>
-                    <dt class="name">상품 이름 : {{product.product.name}}</dt>
-                    <dd class="subject">
-                        <div>
-                          <dl><dt>가입기간</dt><dd><span>최소 {{product.product.term_min}}개월 ~ 최대 {{product.product.term_max}}개월</span></dd></dl>
-                          <dl><dt>가입금액</dt><dd>1백만원 이상</dd></dl>
-                          <dl><dt>최소 금리(12개월 기준)</dt><dd>{{product.options[0].base_rate}}</dd></dl>
-                        </div>
-                    </dd>
-                    <dd class="foot">
-                      <p>추가 금리 조건</p>
-                        <ul v-for="condition in product.conditions">
-                          <li>{{condition.value}} : {{condition.condition_info}}</li>
-                        </ul>
-                    </dd>
-                </dl>
-                <div class="prd-btn-area">                       
-                  <span class=" btn-pack btn-type-3c ui-btn-pack-a ui-set-btn-pack ui-set-btn-pack-event"><a href="#none" @click="pushProductToCart(product)">장바구니에 넣기</a></span>	                
-                </div>
-            </div>   
-            <div class="prd-image">
-              <img alt="" :src="product.product.picture">
-            </div>
-          </div>
+  <section class="product-detail-box">     
+    <div class="product-detail" v-bind:style="{ background:'url('+product.product.picture+')'}"
+             style="background-size: 300px;; background-repeat :no-repeat; background-position:90% 50%;">
+      <div class="prd-info m-5">
+        <dl>
+          <dd class="subject">
+              <div>
+                <dl><dt>가입기간</dt><dd><br><span>최소 {{product.product.term_min}}개월 ~ 최대 {{product.product.term_max}}개월</span></dd></dl><br>
+                <dl><dt>최소 가입 연령</dt><dd><br>{{product.product.age_min}}세</dd></dl><br>
+                <dl><dt>최소 금리(12개월 기준, 세전)</dt><dd><br>{{product.options[0].base_rate}}%</dd></dl>
+              </div>
+          </dd>
+          <br>
+          <dd class="foot">
+            <p>추가 금리 조건</p>
+              <ul v-for="condition in product.conditions">
+                <li style="list-style:none;">- {{condition.value}} : {{condition.condition_info}}</li>
+              </ul>
+          </dd>
+        </dl>
       </div>
-
       
-      
-      
+      <div class="prd-btn-area m-5 d-flex justify-content-center">
+        <button class="btn btn-outline-success btn-sm mx-3">내 포트폴리오에 넣기</button>
+        <button class="btn btn-outline-success btn-sm mx-3" @click="pushProductToCart(product)">장바구니에 넣기</button>	                
+      </div>
+    </div>
   </section>
 </template>
 
@@ -51,11 +45,14 @@ export default {
     methods: {
         ...mapActions(["fetchProduct"]),
         ...mapMutations(["CLEAR_CART", "POP_PRODUCT_FROM_CART", "PUSH_PRODUCT_TO_PORTFOLIO", "PUSH_PRODUCT_TO_CART"]),
+        pushProductToCart(product) {
+        this.PUSH_PRODUCT_TO_CART(product)
+      }
     },
     created() {
         this.fetchProduct(this.$route.params.productId);
     },
-    components: { Navbar }
+    components: { Navbar,},
 }
 </script>
 
