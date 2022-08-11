@@ -8,7 +8,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top:0;
 }
 
 #title-div {
@@ -112,4 +111,47 @@
 
 .cart-none img {
   width: 350px; height: 300px;
+}
+
+#cart-item {
+  width: 60%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+table::after {
+  width: 60%;
+  border-top: 1px solid #bcbcbc;
+}
+
+thead {
+  text-align: center;
+  font-weight: bold;
+}
+
+th {
+  border-right: 1px lightsteelblue;
+}
+
+tbody {
+  text-align: center;
+  font-size: 12px;
+}
+
+td {
+  padding: 15px 0px;
+  font-size: 1rem;
+}
+
+td img {
+  width: 100px;
+}
+
+tbody::after {
+  width: 60%;
+  border-bottom: 1px solid lightgrey;
 }

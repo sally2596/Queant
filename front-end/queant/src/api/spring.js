@@ -8,6 +8,7 @@ const SEARCH = 'search/'
 const PRODUCT = 'product/'
 const CONTENTS = 'contents/'
 const PORTFOLIO = 'portfolio/'
+const REPORT = PRODUCT + 'report/'
 
 export default {
   member: {
@@ -43,7 +44,13 @@ export default {
     savings: () => HOST + SEARCH + 'saving/' + 'set'
   },
   product: {
-    detail: (productId) => HOST + PRODUCT + productId
+		detail: (productId) => HOST + PRODUCT + productId,
+		report: {
+			list: () => HOST + REPORT,
+			detail: (reportId) => HOST + REPORT + reportId,
+			delete: () => HOST + REPORT + 'delete',
+			user: () => HOST + REPORT + 'user'
+		}
   },
   contents: {
     newslist: () => HOST,

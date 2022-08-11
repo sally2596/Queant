@@ -25,7 +25,7 @@ export default {
     CLEAR_CART: state => state.cart = [],
     PUSH_PRODUCT_TO_CART(state, product) {
       if (state.cart.find(productInCart => productInCart.product_id === product.product_id))
-        console.log("장바구니에 이미 담긴 상품입니다.")
+        alert("이미 장바구니에 담긴 상품입니다.")
       else {
         state.cart.push(product)
         console.log(`${product.product_id}번 상품을 장바구니에 추가했습니다.`)
