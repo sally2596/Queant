@@ -80,8 +80,10 @@ public class ReportProductServiceImpl implements ReportProductService {
         Optional<Member> result = memberRepository.findByEmail(reportProductDto.getMemberEmail());
         result.orElseThrow(() -> new UsernameNotFoundException("해당 유저가 존재하지 않습니다."));
 
+        Member member = result.get();
+
         ReportProduct reportProduct = modelMapper.map(reportProductDto, ReportProduct.class);
-        reportProduct.setMember_id(result.get().getMemberId());
+        reportProduct.builder().member_id(member.getMemberId()).build();
         reportProductRepository.save(reportProduct);
     }
 }
