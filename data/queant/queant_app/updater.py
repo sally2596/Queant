@@ -26,7 +26,7 @@ def start_post():
     scheduler.add_job(save_postdata_db, trigger='cron',hour=11, minute=58)
     scheduler.start()
     
-def save_manually():
-    scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    scheduler.add_job(save_db_by_myself, trigger='cron',hour=16, minute=43)
-    scheduler.start()
+#def save_manually():
+#    scheduler = BackgroundScheduler(timezone='Asia/Seoul')
+#    scheduler.add_job(save_db_by_myself, trigger='cron',hour=16, minute=43)
+#    scheduler.start()
