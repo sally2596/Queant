@@ -20,11 +20,11 @@
           min term <input type="text" v-model="product.term_min"><br>
           max term <input type="text" v-model="product.term_max"><br>
           기타 <input type="text" v-model="product.etc"><br>
-	      </form>
+				</form>
         <br>
         Option
         <button type="button" class="btn btn-sm btn-outline-secondary" @click="addOptionForm()">옵션 추가</button>
-        <form v-for="(option, index) in options">
+        <form v-for="(option, index) in options" v-bind:key="option">
           Option 정보 입력
           <br>
           기본금리 <input type="text" v-model="option.base_rate"><br>
@@ -34,11 +34,11 @@
           저축방식 <input type="text" v-model="option.rsrv_type"><br>
           <button type="button" class="btn btn-sm btn-outline-secondary" @click="removeOptionForm(index)">옵션 삭제</button>
           <br>
-	      </form>
+				</form>
         <br>
         Conditon
         <button type="button" class="btn btn-sm btn-outline-secondary" @click="addConditionForm()">우대조건 추가</button>
-        <form v-for="(condition, index) in conditions">
+        <form v-for="(condition, index) in conditions" v-bind:key="condition">
           Condition 정보 입력
           <br>
           S코드명 <input type="text" v-model="condition.scode_id"><br>
@@ -46,7 +46,7 @@
           세부내용 <input type="text" v-model="condition.condition_info"><br>
           <button type="button" class="btn btn-sm btn-outline-secondary" @click="removeConditionForm(index)">우대조건 삭제</button>
           <br>
-	      </form>
+				</form>
         <br>
         <form>
           <button type="button" class="btn btn-sm btn-outline-secondary" @click="closeInputForm()">창 닫기</button>
@@ -55,7 +55,7 @@
       </div>
     </div>
     <br><br>
-    <div v-for="report in reports">
+    <div v-for="report in reports" v-bind:key="report">
       {{ report }}
       <div>
         <button type="button" class="btn btn-sm btn-outline-secondary" @click="openInputForm(report.report_product_id)">입력</button>

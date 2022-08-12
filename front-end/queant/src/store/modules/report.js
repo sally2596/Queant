@@ -1,5 +1,6 @@
 import spring from '@/api/spring'
 import router from '@/router'
+import { faSleigh } from "@fortawesome/free-solid-svg-icons"
 import axios from 'axios'
 
 export default {
@@ -40,13 +41,14 @@ export default {
 					member_email : reportProductDto.memberEmail,
 					bank_name : reportProductDto.bankName,
 					product_name : reportProductDto.productName,
-					is_deposit : false,
+					deposit : false,
           reference_data : reportProductDto.referenceData,
-					is_updated : false,
+					updated : false,
 				}
       })
       .then(res => {
-        console.log(res)
+				console.log(res)
+				alert("제보에 성공했습니다!");
       })
       .catch(err => {
         console.log(err)
@@ -65,16 +67,13 @@ export default {
         console.log(err)
       })
 		},
-		updateReport({}, reportId, product, options, conditions) {
-      axios({
-        url: spring.product.report.detail(reportId),
-				method: 'post',
-				data: {
-					product : product,
-					options : options,
-					conditions : conditions
+		updateReport({ }, data) {
+      axios.post(
+        spring.product.report.regist(),
+				JSON.stringify(data), {
+					headers: { 'Content-Type': 'application/json' }
 				}
-      })
+      )
       .then(res => {
         console.log(res)
       })
