@@ -52,9 +52,26 @@ export default {
     PUSH_PRODUCT_TO_CPORTFOLIO(state, value) {
         let portfolioNo = value[0]
         let product = value[1]
-        console.log(product)
-        state.comparisonportfolios[portfolioNo-1].products.push(product)
+        let cportfolios = state.comparisonportfolios
+        if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product.product_id === product.product.product_id)) {
+          alert('이미 포트폴리오에 있는 상품입니다.')
+        } else {
+          state.comparisonportfolios[portfolioNo-1].products.push(product)
         console.log(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
+        }
+    },
+
+    POP_PRODUCT_FROM_CPORTFOLIO(state, Idxs) {
+      let portfolioIdx = Idxs[0]
+      let productIdx = Idxs[1]
+
+      state.comparisonportfolios[portfolioIdx].product.splice(productIdx, 1)
+      console.log(`${portfolioIdx+1}번 포트폴리오의 ${productIdx+1}번 상품을 삭제했습니다.`)
+    },
+
+    POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolioIdx) {
+      state.comparisonportfolios.splice(cportfolioIdx-1, 1)
+      console.log(`${cportfolioIdx}번 포트폴리오를 삭제했습니다.`)
     },
 
     CLEAR_CPORTFOLIOS(state) {

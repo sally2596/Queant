@@ -3,7 +3,6 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
-  {{comparisonportfolios}}
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
     <div v-if="cart.length === 0" class="cart-none">
@@ -38,7 +37,11 @@
           <td>{{productInCart.product.term_min}}</td>
           <button class="btn btn-outline-second btn-sm" @click="addProductInCart(productInCart)">선택 상품 내 포트폴리오에 넣기</button>
           <div v-for="cportfolio in comparisonportfolios" :key="cportfolio.cportfolio_cnt">
+<<<<<<< HEAD
             <button class="btn btn-outline-second btn-sm" @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart.product])">{{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품 추가</button>
+=======
+            <button class="btn btn-outline-second btn-sm" @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart])">{{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품 추가</button>
+>>>>>>> f4b14fec4906f26599659dce01d80c240c66e2fe
           </div>
           <button class="btn btn-outline-second btn-sm" @click="popProductInCart(productInCart)">선택 상품 삭제</button>
         </tbody>
@@ -60,10 +63,13 @@
       <div class="container row">
         <div class="col-3" v-for="cportfolio in comparisonportfolios" :key="cportfolio">
           <div v-if="cportfolio.products.length === 0">
-            <p>아직 포트폴리오에 상품이 없습니다.</p>
+            <div>아직 {{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품이 없습니다.</div>
           </div>
           <div v-else>
-            <p>{{cportfolio.products}}</p>
+            <h5>{{cportfolio.cportfolio_cnt}}번 포트폴리오 상품</h5>
+            <div v-for="cproduct in cportfolio.products">
+            <p>{{cproduct.product.name}}</p>
+            </div>
           </div>
         </div>
       </div>
