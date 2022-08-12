@@ -54,7 +54,7 @@
                     <label for="enddate">종료일</label>
                 </div>
                 <div class="btn-area">
-                    <button @click="$emit('close-modal')">등록</button>
+                    <button @click="addCustomProduct()">등록</button>
                 </div>
                 <div class="btn-area">
                     <button @click="$emit('close-modal')">취소</button>
@@ -65,6 +65,10 @@
 </template>
 
 <script>
+import axios from 'axios';
+import spring from '@/api/spring'
+import { mapGetters } from 'vuex'
+
 export default {
     methods:{
         setDeposit(event){
@@ -78,11 +82,28 @@ export default {
             this.custom_product_dto.deposit = !this.custom_product_dto.deposit;
         },
         addCustomProduct(){
-
+            console.log(this.custom_product_dto)
+            console.log(this.userInfo.member_id)
+            axios({
+                url: spring.portfolio.custom(),
+                method: 'post',
+                data: {
+                    member_id: this.userInfo.member_id,
+                    custom_product_dto: this.custom_product_dto
+                }
+            })
+            .then(res => {
+                console.log(res)
+                alert("사용자정의 상품 추가 완료")
+            })
+            .catch(err => {
+                console.log(err)
+            })
         }
 
     },
     computed: {
+        ...mapGetters(['userInfo']),
         deposit : function (){
             return !this.custom_product_dto.deposit;
         }
