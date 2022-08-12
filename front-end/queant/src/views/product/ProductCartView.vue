@@ -37,11 +37,7 @@
           <td>{{productInCart.product.term_min}}</td>
           <button class="btn btn-outline-second btn-sm" @click="addProductInCart(productInCart)">선택 상품 내 포트폴리오에 넣기</button>
           <div v-for="cportfolio in comparisonportfolios" :key="cportfolio.cportfolio_cnt">
-<<<<<<< HEAD
-            <button class="btn btn-outline-second btn-sm" @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart.product])">{{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품 추가</button>
-=======
             <button class="btn btn-outline-second btn-sm" @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart])">{{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품 추가</button>
->>>>>>> f4b14fec4906f26599659dce01d80c240c66e2fe
           </div>
           <button class="btn btn-outline-second btn-sm" @click="popProductInCart(productInCart)">선택 상품 삭제</button>
         </tbody>
