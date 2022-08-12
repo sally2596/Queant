@@ -12,7 +12,6 @@ import java.util.UUID;
 @ToString
 @Builder
 public class CustomProductDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int productId;
     private String institutionName;
     private String productName;
