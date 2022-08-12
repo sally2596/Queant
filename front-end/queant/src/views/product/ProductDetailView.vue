@@ -17,8 +17,8 @@
           </dd>
           <br>
           <dd class="foot">
-            <p><strong>추가 금리 조건</strong></p>
-              <ul v-for="condition in product.conditions">
+            <p>추가 금리 조건</p>
+              <ul v-for="condition in product.conditions" :key="condition">
                 <li style="list-style:none;">- {{condition.value}} : {{condition.condition_info}}</li>
               </ul>
           </dd>
@@ -27,32 +27,45 @@
       
       <div class="prd-btn-area m-5 d-flex justify-content-center">
         <button class="btn btn-outline-success btn-sm mx-3">내 포트폴리오에 넣기</button>
-        <button class="btn btn-outline-success btn-sm mx-3" @click="pushProductToCart(product)">장바구니에 넣기</button>	                
+        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal([null, product.product])">장바구니에 넣기</button>	                
       </div>
     </div>
+    <!-- 모달 -->
+    <Modal
+      v-if="showModal" @close="showModal=false"
+      :modalData="modalData">
+      <h3>모달 창 제목</h3>
+    </Modal>
   </section>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
-    name: "ProductDetailView",
-    computed: {
-        ...mapGetters(["product"])
-    },
-    methods: {
-        ...mapActions(["fetchProduct"]),
-        ...mapMutations(["CLEAR_CART", "POP_PRODUCT_FROM_CART", "PUSH_PRODUCT_TO_PORTFOLIO", "PUSH_PRODUCT_TO_CART"]),
-        pushProductToCart(product) {
-        this.PUSH_PRODUCT_TO_CART(product)
-      }
-    },
-    created() {
-        this.fetchProduct(this.$route.params.productId);
-    },
-    components: { Navbar,},
+  name: 'ProductDetailView',
+  components: { Navbar, Modal },
+  computed: {
+    ...mapGetters(['product'])
+  },
+  methods: {
+    ...mapActions(['fetchProduct']),
+    openModal(value) {
+      this.modalData = value,
+      this.showModal = true
+    }
+  },
+  data() {
+    return {
+      showModal: false,
+      modalData: null
+    }
+  },
+  created() {
+    this.fetchProduct(this.$route.params.productId);
+  }
 }
 </script>
 

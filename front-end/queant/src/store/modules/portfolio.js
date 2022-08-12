@@ -37,6 +37,32 @@ export default {
     }
   },
   actions: {
+    editPortfolio({ commit, getters }, product) {
+      axios({
+        url: spring.portfolio.portfolio(),
+        method: 'put',
+        data: {
+          member_id: getters.userInfo.member_id,
+          portfolio_dto_list: [
+            {
+              amount: product.amount,
+              condition_ids: product.condition_ids,
+              start_date: product.start_date,
+              end_date: product.end_date,
+              option_id: product.option_id,
+              portfolio_no: product.portfolio_no,
+              product_id: product.product_id
+            }
+          ]
+        }
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
     fetchMyPortfolio({ commit, getters }) {
       axios({
         url: spring.portfolio.posession(),
@@ -53,7 +79,7 @@ export default {
         console.log(err)
       })
     },
-    addCustomProduct({ getters }, payload) {
+    addProductToPortfolio({ getters }, payload) {
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
