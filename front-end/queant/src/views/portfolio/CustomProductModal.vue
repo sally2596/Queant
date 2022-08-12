@@ -12,18 +12,18 @@
                     <label class="form-label" for="institute" autocomplete="off">* 기관명</label>
                 </div>
                 <div class="choose-area">
-                    <select @change="setDeposit($event)">
-                    <option selected disabled>선택</option>
-                    <option value="true">예금</option>
-                    <option value="false">적금</option>
+                    <select v-model="custom_product_dto.deposit">
+                        <option :value="0">선택</option>
+                        <option :value='true'>예금</option>
+                        <option :value='false'>적금</option>
                     </select>
                     <label>* 예적금 분류</label>
                 </div>
-                <div class="choose-area" v-show="this.deposit">
-                    <select @change="setReserve($event)">
-                        <option selected disabled>선택</option>
-                        <option value="true">정액적립</option>
-                        <option value="false">자유적립</option>
+                <div class="choose-area" v-show="!custom_product_dto.deposit">
+                    <select v-model="custom_product_dto.fixed_rsrv">
+                        <option :value="0">선택</option>
+                        <option :value='true'>정액적립</option>
+                        <option :value='false'>자유적립</option>
                     </select>
                     <label>* 적립방식</label>
                 </div>
@@ -54,7 +54,8 @@
                     <label for="enddate">종료일</label>
                 </div>
                 <div class="btn-area">
-                    <button @click="addCustomProduct()">등록</button>
+                    <button v-if="!this.customDto" @click="addCustomProduct()">등록</button>
+                    <button v-else @click="updateCustomProduct()">수정</button>
                 </div>
                 <div class="btn-area">
                     <button @click="$emit('close-modal')">취소</button>
@@ -71,16 +72,6 @@ import { mapGetters } from 'vuex'
 
 export default {
     methods:{
-        setDeposit(event){
-            if(event.target.value === "true") this.custom_product_dto.deposit = true;
-            else this.custom_product_dto.deposit = false;
-        },
-        setReserve(event){
-            this.custom_product_dto.fixed_rsrv = event.target.value;
-        },
-        change(){
-            this.custom_product_dto.deposit = !this.custom_product_dto.deposit;
-        },
         addCustomProduct(){
             console.log(this.custom_product_dto)
             console.log(this.userInfo.member_id)
@@ -99,8 +90,46 @@ export default {
             .catch(err => {
                 console.log(err)
             })
+        },
+        updateCustomProduct(){
+            console.log(this.custom_product_dto);
+            this.custom_product_dto.fixed_rsrv = false;
+            axios({
+                url: spring.portfolio.custom(),
+                method: 'PUT',
+                data: this.custom_product_dto
+                
+            })
+            .then(res => {
+                console.log(res)
+                alert("사용자정의 상품 수정 완료")
+            })
+            .catch(err => {
+                console.log(err)
+            })
         }
 
+    },
+    props: {
+        customDto : {type: Object}
+    },
+    created(){
+        if(this.customDto){
+            this.custom_product_dto.product_id = this.customDto?.product_id;
+            this.custom_product_dto.product_name= this.customDto?.product_name;
+            this.custom_product_dto.institution_name= this.customDto?.institution_name;
+            this.custom_product_dto.deposit= this.customDto?.deposit;
+            this.custom_product_dto.amount=this.customDto?.amount;
+            this.custom_product_dto.base_rate= this.customDto?.base_rate;
+            this.custom_product_dto.special_rate= this.customDto?.special_rate;
+            this.custom_product_dto.start_date= this.customDto?.start_date;
+            this.custom_product_dto.end_date= this.customDto?.end_date;
+            this.custom_product_dto.etc= this.customDto?.etc;
+            
+            if(!this.customDto.deposit){
+                this.custom_product_dto.fixed_rsrv= this.customDto?.fixed_rsrv;
+            }
+        }
     },
     computed: {
         ...mapGetters(['userInfo']),
@@ -113,14 +142,14 @@ export default {
             custom_product_dto:{
                 product_name: "",
                 institution_name: "",
-                deposit: true,
+                deposit: "0",
                 amount:0,
                 base_rate: 0,
                 special_rate: 0,
                 start_date: "",
                 end_date: "",
                 etc: "",
-                fixed_rsrv: null,
+                fixed_rsrv: "0",
             }
         }
     }

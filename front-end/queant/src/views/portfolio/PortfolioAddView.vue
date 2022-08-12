@@ -6,8 +6,7 @@
 
   <!-- 테스트 -->
   <div>
-    <CustomProductModal v-if="isModalViewed" @close-modal="isModalViewed=false">
-      
+    <CustomProductModal v-bind:customDto="this.testObject" v-if="isModalViewed" @close-modal="isModalViewed=false">
     </CustomProductModal>
     <button @click="isModalViewed=true">사용자 정의 상품 추가</button>
     <button @click="addPortfolio()">상품 추가</button>
@@ -30,6 +29,14 @@ export default {
   data(){
     return {
       isModalViewed: false,
+      testObject:{
+        product_id:3,
+        amount: 888,
+        base_rate: 2.3,
+        institution_name: "elice",
+        deposit: true,
+        product_name: "elice"
+      }
     }
   }
 }
