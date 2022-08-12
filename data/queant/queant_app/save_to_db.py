@@ -407,8 +407,9 @@ def last_check_prdt(data_lists, conn, cur):
         cur.execute(search_prdt, values)
         print(values)
         row = cur.fetchone()
-        print(row)
+        print(row[0])
         if row[0] == 1:
+            print(row[0])
             cur.execute(update_prdt, values)
     conn.commit()
             
