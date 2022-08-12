@@ -36,7 +36,7 @@ public class Portfolio implements Serializable{
     @JoinColumn(name = "optionId")
     private Options option;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @Builder.Default
     private Set<Conditions> conditions = new HashSet<>();
 
