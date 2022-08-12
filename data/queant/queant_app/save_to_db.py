@@ -405,7 +405,9 @@ def last_check_prdt(data_lists, conn, cur):
     update_prdt = """UPDATE queant.product SET is_enabled = 0 where product_id = (%s) and name = (%s)"""
     for values in data_lists:
         cur.execute(search_prdt, values)
+        print(values)
         row = cur.fetchone()
+        print(row)
         if row[0] == 1:
             cur.execute(update_prdt, values)
     conn.commit()
