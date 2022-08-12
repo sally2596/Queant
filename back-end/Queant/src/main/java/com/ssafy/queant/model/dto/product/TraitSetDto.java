@@ -10,6 +10,6 @@ import lombok.*;
 public class TraitSetDto {
     private int traitSetId;
     private String value;
-    private String productId;
+    private int productId;
     private String scodeId;
 }

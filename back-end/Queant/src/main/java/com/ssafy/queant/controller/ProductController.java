@@ -1,7 +1,7 @@
 package com.ssafy.queant.controller;
 
-import com.ssafy.queant.model.dto.product.ProductDetailDto;
-import com.ssafy.queant.model.dto.product.ReportProductDto;
+import com.ssafy.queant.model.dto.product.*;
+import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.service.product.ProductService;
 import com.ssafy.queant.model.service.product.ReportProductService;
 import io.swagger.annotations.ApiResponse;
@@ -88,15 +88,31 @@ public class ProductController {
         }
     }
 
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "제보의 상품화가 성공했습니다."),
+//            @ApiResponse(code = 404, message = "등록하려는 제보가 없습니다.(제보 id 오류)"),
+//    })
+//    @Operation(summary = "제보받은 상품 등록", description = "admin이 제보받은 상품 등록 처리")
+//    @PostMapping("/report/{reportId}")
+//    public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId, @RequestBody ProductDetailDto productDetail) {
+//        try {
+//            productService.updateReportToProduct(reportId, productDetail);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "제보의 상품화가 성공했습니다."),
             @ApiResponse(code = 404, message = "등록하려는 제보가 없습니다.(제보 id 오류)"),
     })
     @Operation(summary = "제보받은 상품 등록", description = "admin이 제보받은 상품 등록 처리")
-    @PostMapping("/report/{reportId}")
-    public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId, @RequestBody ProductDetailDto productDetail) {
+    @PostMapping("/report/regist")
+    public ResponseEntity<?> test(@RequestBody UpdateDetailDto updateDetailDto) {
         try {
-            productService.updateReportToProduct(reportId, productDetail);
+            productService.updateReportToProduct(updateDetailDto);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +128,7 @@ public class ProductController {
     @PutMapping("/report/delete")
     public ResponseEntity<?> deleteReportProduct(@RequestBody int reportId) {
         try {
-            productService.deleteReport(reportId);
+            productService.reportStatusToUpdated(reportId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
