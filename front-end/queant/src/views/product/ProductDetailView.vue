@@ -26,7 +26,7 @@
       </div>
       
       <div class="prd-btn-area m-5 d-flex justify-content-center">
-        <button class="btn btn-outline-success btn-sm mx-3">내 포트폴리오에 넣기</button>
+        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(['myPortfolio', product.product])">내 포트폴리오에 넣기</button>
         <button class="btn btn-outline-success btn-sm mx-3" @click="openModal([null, product.product])">장바구니에 넣기</button>	                
       </div>
     </div>

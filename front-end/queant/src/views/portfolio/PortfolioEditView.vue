@@ -4,7 +4,12 @@
     <h1>PortfolioEditView</h1>
     <h1>PortfolioEditView</h1>
     <!-- 테스트 -->
-    <button @click="addProductToPortfolio()">상품 추가하기</button>
+    <input 
+      type="text"
+      placeholder="Queant에서 상품찾기"
+      v-model="text"
+      @keyup.enter="fetchProductsByText(text)">
+    <button class="searching" @click="fetchProductsByText(text)"><i class="fa-solid fa-magnifying-glass"></i></button>
 
     <portfolio-edit-item
       v-for="product in portfolio"
@@ -26,7 +31,12 @@ export default {
     ...mapGetters(['portfolio'])
   },
   methods: {
-    ...mapActions(['editPortfolio', 'addProductToPortfolio'])
+    ...mapActions(['editPortfolio', 'addProductToPortfolio', 'fetchProductsByText'])
+  },
+  data() {
+    return {
+      text: ''
+    }
   }
 }
 </script>

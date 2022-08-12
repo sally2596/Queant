@@ -37,13 +37,13 @@ export default {
     }
   },
   actions: {
-    deletePortfolio({ dispatch, getters }, portfolio_id) {
+    deletePortfolio({ dispatch }, portfolio_id) {
+      console.log(portfolio_id)
       axios({
         url: spring.portfolio.single(),
         method: 'delete',
         data: {
-          member_id: getters.userInfo.member_id,
-          portfolio_id: portfolio_id
+          portfolio_id: 1
         }
       })
       .then(res => {
@@ -54,22 +54,20 @@ export default {
         console.log(err)
       })
     },
-    editPortfolio({ dispatch, getters }, payload) {
+    editPortfolio({ dispatch }, payload) {
       axios({
         url: spring.portfolio.single(),
         method: 'put',
         data: {
-          member_id: getters.userInfo.member_id,
-          portfolio_id: portfolioId,
           portfolio_dto: {
             amount: 100000,
-            condition_ids: [479, 480],
+            condition_ids: [1, 3, 5],
             start_date: '2020-01-01',
             end_date: '2020-12-31',
-            option_id: 2992,
+            option_id: 1,
+            portfolio_id: payload.portfolio_id,
             portfolio_no: 0,
-            product_id: 1,
-            portfolio_id: payload.portfolio_id
+            product_id: 1
           }
         }
       })
@@ -97,7 +95,8 @@ export default {
         console.log(err)
       })
     },
-    addProductToPortfolio({ dispatch, getters }, payload) {
+    pushProductToPortfolio({ dispatch, getters }, payload) {
+      console.log(payload)
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
@@ -105,13 +104,13 @@ export default {
           member_id: getters.userInfo.member_id,
           portfolio_dto_list: [
             {
-              amount: 100000,
+              amount: payload.amount,
               condition_ids: [],
-              start_date: '2020-01-01',
-              end_date: '2020-12-31',
-              option_id: 1,
+              start_date: payload.startDate,
+              end_date: payload.endDate,
+              option_id: payload.selectedOption,
               portfolio_no: 0,
-              product_id: 1
+              product_id: payload.product.product_id
             }
           ]
         }

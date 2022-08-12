@@ -64,7 +64,7 @@
             <input
               v-model="payload.selectedConditions"
               type="checkbox"
-              :value="condition"
+              :value="condition.condition_id"
               :id="condition.condition_id">
           </div>
           <hr>
@@ -83,7 +83,12 @@
 
       <div class="modal-footer">
        <slot name="footer">
-        <button @click="[pushProductToCart(payload), $emit('close')]">적용</button>
+        <div v-if="modalData[0]==='myPortfolio'">
+          <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오에 넣기</button>
+        </div>
+        <div v-else>
+          <button @click="[pushProductToCart(payload), $emit('close')]">장바구니에 넣기</button>
+        </div>
         <button class="modal-default-button" @click="$emit('close')">
          닫기
         </button>
@@ -96,7 +101,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Modal',
@@ -107,6 +112,7 @@ export default {
     ...mapGetters(['portfolios', 'product'])
   },
   methods: {
+    ...mapActions(['pushProductToPortfolio']),
     ...mapMutations(['PUSH_PRODUCT_TO_CART']),
     pushProductToCart(payload) {
       this.PUSH_PRODUCT_TO_CART(payload)

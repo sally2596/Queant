@@ -13,19 +13,19 @@
     
     <label>가입일</label>
     <input 
-      type="date"
+      type="text"
       v-model="payload.start_date">
 
     <label>만기일</label>
     <input 
-      type="date"
+      type="text"
       v-model="payload.end_date">
 
-    <label>은행사진</label>
+    <!-- <label>은행사진</label>
     <input 
       type="text"
       v-model="product.product.picture"
-      disabled>
+      disabled> -->
 
     <label>예금여부</label>
     <input 
@@ -33,8 +33,7 @@
       v-model="product.product.deposit"
       disabled>
     
-    적용 우대사항
-    <!-- {{ con }} -->
+    <!-- 적용 우대사항
     <div
       v-for="condition in payload.condition_ids"
       :key="condition">
@@ -44,7 +43,7 @@
         type="checkbox"
         :value="condition.condition_id"
         :id="condition.condition_id">
-    </div>
+    </div> -->
     
     <label>기본금리</label>
     <input 
@@ -62,7 +61,6 @@
       v-model="product.portfolio_id"
       type="number"
       disabled>
-
     <button @click="editPortfolio(payload)">수정</button>
     <button @click="deletePortfolio(product.portfolio_id)">삭제</button>
   </div>  
@@ -75,12 +73,6 @@ export default {
   name: 'PortfolioEditItem',
   props: {
     product: Object
-  },
-  computed: {
-    totalRate() {
-      this.product.conditions.map(condition => this.specialRate += condition.special_rate)
-      return specialRate
-    }
   },
   methods: {
     ...mapActions(['editPortfolio', 'deletePortfolio'])
@@ -96,8 +88,7 @@ export default {
         portfolio_no: this.product.portfolio_no,
         product_id: this.product.product_id,
         portfolio_id: this.product.portfolio_id
-      },
-      specialRate: 0
+      }
     }
   }
 }
