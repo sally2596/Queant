@@ -11,14 +11,24 @@
       <br><br>
       <h5>포트폴리오에 상품이 없습니다.</h5>
       <br><br>
-      <router-link :to="{ name : 'portfolioAdd' }"><button class="btn btn-outline-success">포트폴리오에 상품 추가하기</button></router-link>
+      <router-link :to="{ name : 'portfolioEdit' }"><button class="btn btn-outline-success">포트폴리오에 상품 추가하기</button></router-link>
       
     </div>
 
-      <!-- 포트폴리오 있을 때 -->
+    <!-- 포트폴리오 있을 때 -->
     <div v-else class="portfolio">
       <router-link :to="{ name: 'portfolioEdit' }"><button class="btn btn-outline-success">포트폴리오 관리하기</button></router-link><br>
-      {{ portfolio }}
+      
+      <!-- 포트폴리오 뭉텅이로 볼 때 -->
+      <!-- {{ portfolio }} -->
+
+      <!-- 포트폴리오의 상품을 개별로 볼 때 -->
+      <div
+        v-for="product in portfolio"
+        :key="product">
+        {{ product }}
+        <hr>
+      </div>
     </div>
 
   </div>
