@@ -3,7 +3,7 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
-  {{cart}}
+  {{comparisonportfolios}}
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
     <div v-if="cart.length === 0" class="cart-none">
@@ -30,17 +30,46 @@
           </tr>
         </thead>
         <br>
-        <tbody v-for="productInCart in cart" :key="productInCart.product_id">
+        <tbody v-for="productInCart in cart" :key="productInCart.product.product_id">
           <td><input type="checkbox" name="basketchks" id="basketchks" checked="checked" class="MS_input_checkbox"></td>
-          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.bank_id }}"><img :src="productInCart.picture" alt=""></router-link></td>
-          <td><router-link :to="{ name: 'productDetail' , params: { productId: productInCart.product_id }}">{{productInCart.name}}</router-link></td>
-          <td>{{productInCart.base_rate}}</td>
-          <td>{{productInCart.term_min}}</td>
-          <button class="btn btn-outline-second btn-sm" @click="addProductInCart(productInCart)">선택 상품 포트폴리오에 넣기</button>
+          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt=""></router-link></td>
+          <td><router-link :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
+          <td>{{productInCart.product.base_rate}}</td>
+          <td>{{productInCart.product.term_min}}</td>
+          <button class="btn btn-outline-second btn-sm" @click="addProductInCart(productInCart)">선택 상품 내 포트폴리오에 넣기</button>
+          <div v-for="cportfolio in comparisonportfolios" :key="cportfolio.cportfolio_cnt">
+            <button class="btn btn-outline-second btn-sm" @click="pushProductToCportfolio(cportfolio.cportfolio_cnt, productIncart.product)">{{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품 추가</button>
+          </div>
           <button class="btn btn-outline-second btn-sm" @click="popProductInCart(productInCart)">선택 상품 삭제</button>
         </tbody>
       </table>
       <br><br><br><br>
+    </div>
+  </section>
+  <section class="product_section">
+    <div v-if="comparisonportfolios.length === 0" class="cart-none">
+      <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width: 30%; height: 30%;">
+      
+      <br><br>
+      <h5>가상 포트폴리오가 없습니다.</h5>
+      <br><br>
+      
+      <button class="btn btn-outline-success" @click="addcomparisonportfolio(userInfo)">가상 포트폴리오 추가하기</button> 
+    </div>
+    <div v-else>
+      <div class="container row">
+        <div class="col-3" v-for="cportfolio in comparisonportfolios">
+          <div v-if="cportfolio.products.length === 0">
+            <p>아직 포트폴리오에 상품이 없습니다.</p>
+          </div>
+          <div v-else>
+            <p>{{cportfolio.products}}</p>
+          </div>
+        </div>
+      </div>
+      
+    <button class="btn btn-outline-success" @click="addcomparisonportfolio(userInfo)">포트폴리오 추가하기</button> 
+    <button class="btn btn-outline-success" @click="clearcomparisonportfolio()">포트폴리오 전체 삭제</button>
     </div>
   </section>
 </template>
@@ -49,16 +78,17 @@
 import Navbar from '@/components/Navbar.vue'
 import Modal from '@/components/Modal.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'ProductCartView',
-  components : { Navbar, Modal },
+  components : { Navbar, Modal, draggable},
   computed: {
-    ...mapGetters(['cart', 'portfolios'])
+    ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonportfolios'])
   },
   methods: {
     ...mapActions(['fetchProduct']),
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
     },
@@ -72,6 +102,15 @@ export default {
       this.modalData = value,
       this.showModal = true,
       this.fetchProduct(value[1].product_id)
+    },
+    addcomparisonportfolio(value) {
+      this.PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(value)
+    },
+    clearcomparisonportfolio() {
+      this.CLEAR_CPORTFOLIOS()
+    },
+    pushProductToCportfolio(portfolioNo, product) {
+      this.PUSH_PRODUCT_TO_CPORTFOLIO(portfolioNo, product)
     }
   },
   data() {
