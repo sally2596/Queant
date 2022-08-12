@@ -656,6 +656,7 @@ def save_db():
         data_xml = ET.fromstring(data_str)
         data_lists = save_into_db(cur, conn, data_xml, is_deposit, data_lists)
     
+    print(data_lists)
     last_check_prdt(data_lists, conn, cur)
     conn.close()
     
