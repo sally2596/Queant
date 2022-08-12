@@ -10,16 +10,16 @@
       :to="{ name: 'productDetail', params: { productId: product.product_id } }">
       {{ product }}
     </router-link>
-    <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
+    <!-- <button id="show-modal" @click="openModal(product)">장바구니에 넣기</button> -->
     <hr>
   </div>
 
   <!-- 모달 -->
-  <Modal
+  <!-- <Modal
     v-if="showModal" @close="showModal=false"
     :modalData="modalData">
     <h3>모달 창 제목</h3>
-  </Modal>
+  </Modal> -->
 
   <!-- 페이지네이션 -->
   <div
@@ -40,10 +40,10 @@ export default {
   computed: {
     ...mapGetters(['products']),
     tenProducts() {
-      return this.products[1].slice(this.productIdx, this.productIdx + 10)
+      return this.products.slice(this.productIdx, this.productIdx + 10)
     },
     totalPage() {
-      let productsLength = this.products[1].length
+      let productsLength = this.products.length
       if (productsLength % 10)
         return ((productsLength - (productsLength % 10)) / 10) + 1
       else
@@ -52,10 +52,10 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProduct']),
-    openModal(value) {
-      this.modalData = value,
+    openModal(product) {
+      this.modalData = product,
       this.showModal = true,
-      this.fetchProduct(value[1].product_id)
+      this.fetchProduct(product.product_id)
     },
     changePage(page) {
       this.productIdx = (page - 1) * 10 

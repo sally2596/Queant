@@ -3,12 +3,12 @@
    <div class="modal-mask">
     <div class="modal-wrapper">
      <div class="modal-container">
-
+      
       <div class="modal-header">
        <slot name="header">
         <label>상품명</label>
         <input 
-          v-model="product.product.name"
+          v-model="modalData.product.name"
           type="text"
           disabled>
        </slot>
@@ -21,8 +21,7 @@
           <input
             v-model="payload.amount"
             type="number">
-
-          <br>
+          <br> 
           이자유형 & 개월수
           <select v-model="payload.option_id">
             <option selected disabled>선택</option>

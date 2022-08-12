@@ -8,7 +8,7 @@
        <slot name="header">
         <label>상품명</label>
         <input 
-          v-model="modalData[1].name"
+          v-model="modalData.name"
           type="text"
           disabled>
        </slot>
@@ -56,13 +56,13 @@
           </div>
           <hr>
 
-          <label for="">예상 가입날짜</label>
+          <label>예상 가입날짜</label>
           <input 
             v-model="payload.start_date"
             type="date"
             required>
 
-          <label for="">예상 만기날짜</label>
+          <label>예상 만기날짜</label>
           <input 
             v-model="payload.end_date"
             type="date"
@@ -72,15 +72,10 @@
 
       <div class="modal-footer">
        <slot name="footer">
-        <div v-if="modalData[0]==='myPortfolio'">
-          <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오에 넣기</button>
-        </div>
-        <div v-else>
-          <button @click="[pushProductToCart(payload), $emit('close')]">장바구니에 넣기</button>
-        </div>
-        <button class="modal-default-button" @click="$emit('close')">
-         닫기
-        </button>
+
+        <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
+        <button @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
+        <button class="modal-default-button" @click="$emit('close')">닫기</button>
        </slot>
       </div>
      </div>
@@ -110,14 +105,12 @@ export default {
   data() {
     return {
       payload: {
-        filters: this.modalData[0],
-        amount: this.modalData[0]?.amount,
-        period: this.modalData[0]?.period,
-        product: this.modalData[1],
-        option_id: this.modalData[1].selected_option_id?this.modalData[1].selected_option_id:'선택',
+        amount: this.modalData.amount,
         condition_ids: [],
         start_date: null,
-        end_date: null
+        end_date: null,
+        option_id: this.modalData.selected_option_id?this.modalData.selected_option_id:'선택',
+        product: this.modalData
       }
     }
   }

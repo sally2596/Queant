@@ -3,17 +3,38 @@
   <header id="title-div">
     <h1 class="title" id="title">추천 결과</h1>
   </header>
-  <!-- {{ tenProducts }} -->
-  <div
+
+  <div id="cart-item">
+    <table>
+      <thead>
+        <tr>
+          <th>은행</th>
+          <th>상품명</th>
+          <th>기본 금리</th>
+          <th>최소 가입 기간(개월)</th>
+        </tr>
+      </thead>
+        <br>
+      <tbody v-for="product in tenProducts" :key="product.product_id">
+        <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
+        <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
+        <td>{{product.base_rate}}</td>
+        <td>{{product.term_min}}</td>
+        <button id="show-modal" @click="openModal(product)">장바구니에 넣기</button>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- <div
     v-for="product in tenProducts"
     :key="product">
     <router-link
       :to="{ name: 'productDetail', params: { productId: product.product_id } }">
       {{ product }}
     </router-link>
-    <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
+    <button id="show-modal" @click="openModal(product)">장바구니에 넣기</button>
     <hr>
-  </div>
+  </div> -->
 
   <!-- 모달 -->
   <Modal
@@ -41,10 +62,10 @@ export default {
   computed: {
     ...mapGetters(['products']),
     tenProducts() {
-      return this.products[1].slice(this.productIdx, this.productIdx + 10)
+      return this.products.slice(this.productIdx, this.productIdx + 10)
     },
     totalPage() {
-      let productsLength = this.products[1].length
+      let productsLength = this.products.length
       if (productsLength % 10)
         return ((productsLength - (productsLength % 10)) / 10) + 1
       else
@@ -53,10 +74,10 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProduct']),
-    openModal(value) {
-      this.modalData = value,
+    openModal(product) {
+      this.modalData = product,
       this.showModal = true,
-      this.fetchProduct(value[1].product_id)
+      this.fetchProduct(product.product_id)
     },
     changePage(page) {
       this.productIdx = (page - 1) * 10 
@@ -73,5 +94,6 @@ export default {
 </script>
 
 <style>
-
+@import '@/assets/css/home.css';
+@import '@/assets/css/product.css';
 </style>

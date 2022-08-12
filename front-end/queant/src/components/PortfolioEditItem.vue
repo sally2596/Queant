@@ -29,13 +29,13 @@
         <td>
           <input 
             type="date"
-            v-model="startDate"
+            v-model="payload.start_date"
             disabled>
         </td>
         <td>
           <input 
             type="date"
-            v-model="endDate"
+            v-model="payload.end_date"
             disabled>
         </td>
         <td>
@@ -61,20 +61,7 @@
       type="text"
       v-model="myProduct.myProduct.picture"
       disabled> -->
-    
-    <!-- 적용 우대사항
-    <div
-      v-for="condition in product.conditions"
-      :key="condition">
-      <label :for="condition.condition_id">{{ condition.condition_info }}</label>
-      <input
-        v-model="payload.condition_ids"
-        type="checkbox"
-        :value="condition.condition_id"
-        :id="condition.condition_id">
-    </div> -->
 
-    <!-- <button @click="editPortfolio(payload)">수정</button> -->
     <button @click="openModal(payload)">수정</button>
     <button @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
     
@@ -85,6 +72,7 @@
       <h3>모달 창 제목</h3>
     </portfolio-edit-modal>
     <hr>
+
   </div>
 </template>
 
@@ -116,20 +104,6 @@ export default {
         return '예금'
       else
         return '적금'
-    },
-    startDate() {
-      var date = new Date(this.myProduct.start_date)
-      var year = date.getFullYear().toString(); //년도 뒤에 두자리
-      var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
-      var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
-      return year + "-" + month + "-" + day
-    },
-    endDate() {
-      var date = new Date(this.myProduct.end_date)
-      var year = date.getFullYear().toString(); //년도 뒤에 두자리
-      var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
-      var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
-      return year + "-" + month + "-" + day
     }
   },
   methods: {
@@ -148,8 +122,8 @@ export default {
       var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
       this.payload.end_date = year + "-" + month + "-" + day
     },
-    openModal(value) {
-      this.modalData = value,
+    openModal(payload) {
+      this.modalData = payload,
       this.showModal = true
     }
   },
@@ -164,7 +138,8 @@ export default {
         option_id: this.myProduct.option_id,
         portfolio_no: this.myProduct.portfolio_no,
         product_id: this.myProduct.product_id,
-        portfolio_id: this.myProduct.portfolio_id
+        portfolio_id: this.myProduct.portfolio_id,
+        product: this.myProduct.product
       },
       showModal: false,
       modalData: null
@@ -172,7 +147,6 @@ export default {
   },
   created() {
     this.changeTimeStamp()
-    this.fetchProduct(this.myProduct.product_id)
   }
 }
 </script>
