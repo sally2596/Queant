@@ -34,10 +34,10 @@ public class PortfolioController {
     @ApiResponses({
             @ApiResponse(code = 200, message="상품 등록 성공"),
     })
-    @ApiOperation(value="사용자 정의 상품 등록", notes="email, customProductDto 필수")
+    @ApiOperation(value="사용자 정의 상품 등록", notes="memberId, customProductDto 필수")
     @PostMapping("/custom")
     public ResponseEntity<?> registCustomProduct(@RequestBody PortfolioRequestDto portfolioRequestDto){
-        log.info("[CustomProduct Regist]");
+        log.info("[CustomProduct Regist] : {}", portfolioRequestDto.toString());
 
         CustomProductDto saved = portfolioService.registCustomProduct(portfolioRequestDto.getCustomProductDto(),portfolioRequestDto.getMemberId());
 

@@ -20,6 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -51,6 +52,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public CustomProductDto registCustomProduct(CustomProductDto customProductDto, UUID memberId) throws RuntimeException{
 
       // dto -> entity
@@ -69,6 +71,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public boolean deleteCustomProduct(CustomProductDto customProductDto) throws RuntimeException{
       log.info("[사용자 정의 상품 삭제]");
 
@@ -84,6 +87,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public List<CustomProductDto> findCustomProductByMemberId(UUID memberId) throws RuntimeException {
       log.info("[사용자 정의 상품 가져오기");
       Optional<List<CustomProduct>> result = customProductRepository.findByMemberId(memberId);
@@ -97,6 +101,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public CustomProductDto updateCustomProduct(CustomProductDto customProductDto) throws Exception {
       Optional<CustomProduct> result = customProductRepository.findByProductId(customProductDto.getProductId());
       result.orElseThrow(() -> new NoSuchElementException());
@@ -112,6 +117,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public PortfolioResponseDto getMyPortfolio(UUID memberId) throws Exception {
       log.info("[getMyPortfolio] : memberId: {}", memberId);
       PortfolioResponseDto portfolioResponseDto = new PortfolioResponseDto();
@@ -136,6 +142,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public List<PortfolioDto> getPortfolio(UUID memberId, int portfolioNo) throws Exception {
       List<PortfolioDto> response = new ArrayList<>();
 
@@ -148,6 +155,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public void insertPortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList) throws Exception{
 
       log.info("[insertPortfolio] : memberId: {} 포트폴리오 추가", memberId);
@@ -185,6 +193,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
    //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
    @Override
+   @Transactional
    public void updatePortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList, int portfolioNo) throws Exception {
       //기존의 포트폴리오 가져오기
       Member member = Member.builder().memberId(memberId).build();
@@ -266,6 +275,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public void deletePortfolio(UUID memberId, int portfolioNo) throws Exception {
 
       log.info("[updatePortfolio] : memberId: {} 포트폴리오 수정, 포트폴리오 번호: {}", memberId, portfolioNo);
@@ -292,6 +302,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public void updatePortfolioSingle(PortfolioDto portfolioDto) throws Exception {
       Optional<Portfolio> result = portfolioRepository.findById(portfolioDto.getPortfolioId());
       result.orElseThrow(() -> new NoSuchElementException());
@@ -331,6 +342,7 @@ public class PortfolioServiceImpl implements PortfolioService {
    }
 
    @Override
+   @Transactional
    public void deletePortfolioSingle(int portfolioId) throws Exception {
       Optional<Portfolio> portfolio = portfolioRepository.findById(portfolioId);
       portfolio.orElseThrow(() -> new NoSuchElementException());
