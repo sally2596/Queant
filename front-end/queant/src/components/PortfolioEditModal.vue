@@ -8,7 +8,7 @@
        <slot name="header">
         <label>상품명</label>
         <input 
-          v-model="modalData[1].name"
+          v-model="product.product.name"
           type="text"
           disabled>
        </slot>
@@ -20,8 +20,7 @@
           <label for="">납임금액</label>
           <input
             v-model="payload.amount"
-            type="number"
-            required>
+            type="number">
 
           <br>
           이자유형 & 개월수
@@ -30,8 +29,7 @@
             <option 
               v-for="option in product.options"
               :key="option"
-              :value="option.option_id"
-              required>
+              :value="option.option_id">
               <p v-if="option.rate_type">복리</p>
               <p v-else>단리</p>
               {{ option.save_term }}개월
@@ -39,7 +37,7 @@
             </option>
           </select>
           <hr>
-      
+          
           우대사항
           <div
             v-for="condition in product.conditions"
@@ -59,25 +57,18 @@
           <label for="">예상 가입날짜</label>
           <input 
             v-model="payload.start_date"
-            type="date"
-            required>
+            type="date">
 
           <label for="">예상 만기날짜</label>
           <input 
             v-model="payload.end_date"
-            type="date"
-            required>
+            type="date">
        </slot>
       </div>
 
       <div class="modal-footer">
        <slot name="footer">
-        <div v-if="modalData[0]==='myPortfolio'">
-          <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오에 넣기</button>
-        </div>
-        <div v-else>
-          <button @click="[pushProductToCart(payload), $emit('close')]">장바구니에 넣기</button>
-        </div>
+        <button @click="[editPortfolio(payload), $emit('close')]">수정</button>
         <button class="modal-default-button" @click="$emit('close')">
          닫기
         </button>
@@ -90,34 +81,30 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'Modal',
+  name: 'PortfolioEditModal',
   props: {
     modalData: Object
   },
   computed: {
-    ...mapGetters(['portfolios', 'product'])
+    ...mapGetters(['product'])
   },
   methods: {
-    ...mapActions(['pushProductToPortfolio']),
-    ...mapMutations(['PUSH_PRODUCT_TO_CART']),
-    pushProductToCart(payload) {
-      this.PUSH_PRODUCT_TO_CART(payload)
-    },
+    ...mapActions(['editPortfolio'])
   },
   data() {
     return {
       payload: {
-        filters: this.modalData[0],
-        amount: this.modalData[0]?.amount,
-        period: this.modalData[0]?.period,
-        product: this.modalData[1],
-        option_id: this.modalData[1].selected_option_id?this.modalData[1].selected_option_id:'선택',
-        condition_ids: [],
-        start_date: null,
-        end_date: null
+        amount: this.modalData.amount,
+        condition_ids: this.modalData.condition_ids,
+        start_date: this.modalData.start_date,
+        end_date: this.modalData.end_date,
+        option_id: this.modalData.option_id,
+        portfolio_id: this.modalData.portfolio_id,
+        portfolio_no: 0,
+        product_id: this.modalData.product_id
       }
     }
   }

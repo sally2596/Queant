@@ -17,7 +17,7 @@
     <portfolio-edit-item
       v-for="product in portfolio"
       :key="product.portfolio_id"
-      :product="product">
+      :myProduct="product">
     </portfolio-edit-item>
   </div>
 </template>
