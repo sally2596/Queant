@@ -11,7 +11,7 @@ import com.ssafy.queant.model.entity.product.CustomProduct;
 import com.ssafy.queant.model.entity.product.Options;
 import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.MemberRepository;
-import com.ssafy.queant.model.repository.PortfolioRepository;
+import com.ssafy.queant.model.repository.portfolio.PortfolioRepository;
 import com.ssafy.queant.model.repository.product.CustomProductRepository;
 import com.ssafy.queant.model.repository.product.ProductRepository;
 
@@ -290,4 +290,51 @@ public class PortfolioServiceImpl implements PortfolioService {
       member.setPortfolio_cnt(member.getPortfolio_cnt()-1);
 
    }
+
+   @Override
+   public void updatePortfolioSingle(PortfolioDto portfolioDto) throws Exception {
+      Optional<Portfolio> result = portfolioRepository.findById(portfolioDto.getPortfolioId());
+      result.orElseThrow(() -> new NoSuchElementException());
+      Portfolio portfolio = result.get();
+
+      portfolio.setAmount(portfolioDto.getAmount());
+      portfolio.setStartDate(portfolioDto.getStartDate());
+      portfolio.setEndDate(portfolioDto.getEndDate());
+
+      //옵션 수정
+      if(portfolio.getOption().getOptionId() != portfolioDto.getOptionId()){
+         portfolio.setOption(Options.builder().optionId(portfolioDto.getOptionId()).build());
+      }
+
+      //컨디션 수정
+      HashSet<Integer> conds = new HashSet<>();
+      Set<Conditions> changeConditions = new HashSet<>();
+      for(Conditions conditions : portfolio.getConditions()){
+         conds.add(conditions.getConditionId());
+      }
+
+      for(int cond : portfolioDto.getConditionIds()){
+         //이미 있으면 비교 set 에서 제거
+         if(conds.contains(cond)){
+            Conditions condition = Conditions.builder().conditionId(cond).build();
+            changeConditions.add(condition);
+            conds.remove(cond);
+         } else { //없으면 추가해주기
+            Conditions condition = Conditions.builder().conditionId(cond).build();
+            changeConditions.add(condition);
+         }
+      }
+
+      portfolio.setConditions(changeConditions);
+
+      portfolioRepository.save(portfolio);
+   }
+
+   @Override
+   public void deletePortfolioSingle(int portfolioId) throws Exception {
+      Optional<Portfolio> portfolio = portfolioRepository.findById(portfolioId);
+      portfolio.orElseThrow(() -> new NoSuchElementException());
+      portfolioRepository.delete(portfolio.get());
+   }
+
 }

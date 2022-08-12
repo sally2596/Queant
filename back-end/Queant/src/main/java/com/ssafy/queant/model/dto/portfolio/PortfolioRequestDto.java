@@ -16,8 +16,10 @@ import java.util.UUID;
 @Builder
 public class PortfolioRequestDto {
     List<PortfolioDto> portfolioDtoList;
+    PortfolioDto portfolioDto;
     CustomProductDto customProductDto;
     UUID memberId;
+    int portfolioId;
     int portfolioNo;
     int portfolioCnt;
 }

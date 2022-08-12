@@ -3,6 +3,7 @@ package com.ssafy.queant.model.repository;
 import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
 import com.ssafy.queant.model.entity.member.Member;
 import com.ssafy.queant.model.entity.portfolio.Portfolio;
+import com.ssafy.queant.model.repository.portfolio.PortfolioRepository;
 import com.ssafy.queant.model.repository.product.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

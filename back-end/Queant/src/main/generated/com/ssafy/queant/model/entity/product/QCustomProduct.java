@@ -21,8 +21,6 @@ public class QCustomProduct extends EntityPathBase<CustomProduct> {
 
     public final NumberPath<Long> amount = createNumber("amount", Long.class);
 
-    public final NumberPath<Long> amountRegular = createNumber("amountRegular", Long.class);
-
     public final NumberPath<Float> baseRate = createNumber("baseRate", Float.class);
 
     public final DatePath<java.sql.Date> endDate = createDate("endDate", java.sql.Date.class);

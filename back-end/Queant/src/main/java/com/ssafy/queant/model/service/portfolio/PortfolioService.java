@@ -28,5 +28,6 @@ public interface PortfolioService {
    void updatePortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList, int portfolioNo) throws Exception;
    //포트폴리오 삭제(예상 포트폴리오) 통으로 하나 삭제
    void deletePortfolio(UUID memberId, int portfolioNo) throws Exception;
-   //포트폴리오 비교... 와 암담하다
+   void updatePortfolioSingle(PortfolioDto portfolioDto ) throws Exception;
+   void deletePortfolioSingle(int portfolioId) throws Exception;
 }

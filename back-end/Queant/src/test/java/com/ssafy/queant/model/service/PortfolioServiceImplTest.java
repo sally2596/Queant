@@ -16,7 +16,6 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@Transactional
 class PortfolioServiceImplTest {
 
     private final Logger log = LoggerFactory.getLogger(PortfolioServiceImplTest.class);
@@ -70,5 +69,10 @@ class PortfolioServiceImplTest {
 
         // then
         assertEquals(actual, true);
+    }
+
+    @Test
+    public void deletePortfolio() throws Exception {
+        portfolioService.deletePortfolioSingle(2);
     }
 }
