@@ -2,6 +2,7 @@ package com.ssafy.queant.model.service.portfolio;
 
 import com.ssafy.queant.model.dto.portfolio.PortfolioDto;
 import com.ssafy.queant.model.dto.portfolio.PortfolioResponseDto;
+import com.ssafy.queant.model.dto.product.ConditionsDto;
 import com.ssafy.queant.model.dto.product.CustomProductDto;
 
 import com.ssafy.queant.model.entity.member.Member;
@@ -151,6 +152,10 @@ public class PortfolioServiceImpl implements PortfolioService {
       result.orElseThrow(() -> new NoSuchElementException("해당 포트폴리오가 없습니다."));
 
       result.get().forEach(portfolio -> response.add(modelMapper.map(portfolio, PortfolioDto.class)));
+
+      for(PortfolioDto portfolioDto : response){
+         portfolioDto.addConditionIds();
+      }
       return response;
    }
 

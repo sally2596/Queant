@@ -34,4 +34,10 @@ public class PortfolioDto {
     private List<Integer> conditionIds = new ArrayList<>();
 
 
+    public void addConditionIds(){
+        for(ConditionsDto condition : conditions){
+            conditionIds.add(condition.getConditionId());
+        }
+    }
+
 }
