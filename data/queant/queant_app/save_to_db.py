@@ -260,7 +260,10 @@ def change_name(bank_name):
         return "키움"
     
     elif "상상인" in new_name:
-        return "상상인"
+        if "플러스" in new_name:
+            return "상상인플러스"
+        else:
+            return "상상인"
     
     elif "한국투자" in new_name:
         return "한투"
