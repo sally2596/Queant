@@ -222,7 +222,7 @@ public class PortfolioController {
             @ApiResponse(code = 500, message="기타 서버 에러"),
     })
     @ApiOperation(value="포트폴리오 개별 수정", notes="portfolioDto 필수")
-    @PutMapping()
+    @PutMapping("/single")
     public ResponseEntity<?> updatePortfolioSingle(@RequestBody PortfolioRequestDto portfolioRequestDto) {
         log.info("[Controller: UpdatePortfolio]");
 
@@ -245,7 +245,7 @@ public class PortfolioController {
             @ApiResponse(code = 500, message="기타 서버 에러"),
     })
     @ApiOperation(value="포트폴리오 개별 삭제", notes="portfolioId 필수")
-    @DeleteMapping
+    @DeleteMapping("/single")
     public ResponseEntity<?> deletePortfolioSingle(@RequestBody PortfolioRequestDto portfolioRequestDto) {
         log.info("[Controller: DeletePortfolio]");
 
