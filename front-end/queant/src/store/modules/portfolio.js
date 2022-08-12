@@ -43,7 +43,7 @@ export default {
         url: spring.portfolio.single(),
         method: 'delete',
         data: {
-          portfolio_id: 1
+          portfolio_id: portfolio_id
         }
       })
       .then(res => {
@@ -60,14 +60,14 @@ export default {
         method: 'put',
         data: {
           portfolio_dto: {
-            amount: 100000,
-            condition_ids: [1, 3, 5],
-            start_date: '2020-01-01',
-            end_date: '2020-12-31',
-            option_id: 1,
+            amount: payload.amount,
+            condition_ids: [1],
+            start_date: payload.start_date,
+            end_date: payload.end_date,
+            option_id: payload.option_id,
             portfolio_id: payload.portfolio_id,
             portfolio_no: 0,
-            product_id: 1
+            product_id: payload.product_id
           }
         }
       })
@@ -105,7 +105,7 @@ export default {
           portfolio_dto_list: [
             {
               amount: payload.amount,
-              condition_ids: [],
+              condition_ids: payload.condition_ids,
               start_date: payload.startDate,
               end_date: payload.endDate,
               option_id: payload.selectedOption,

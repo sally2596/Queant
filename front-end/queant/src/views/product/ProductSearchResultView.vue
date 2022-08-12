@@ -19,6 +19,7 @@
         <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
         <td>{{product.base_rate}}</td>
         <td>{{product.term_min}}</td>
+        <button id="show-modal" @click="openModal(['myPortfolio', product])">내 포트폴리오에 넣기</button>
         <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
 
       </tbody>

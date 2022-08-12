@@ -52,7 +52,7 @@
             </option>
           </select>
           <hr>
-
+          
           우대사항
           <div
             v-for="condition in product.conditions"

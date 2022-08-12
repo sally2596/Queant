@@ -13,12 +13,12 @@
     
     <label>가입일</label>
     <input 
-      type="text"
+      type="date"
       v-model="payload.start_date">
 
     <label>만기일</label>
     <input 
-      type="text"
+      type="date"
       v-model="payload.end_date">
 
     <!-- <label>은행사진</label>
@@ -27,11 +27,11 @@
       v-model="product.product.picture"
       disabled> -->
 
-    <label>예금여부</label>
+    <!-- <label>예금여부</label>
     <input 
       type="text"
       v-model="product.product.deposit"
-      disabled>
+      disabled> -->
     
     <!-- 적용 우대사항
     <div
@@ -63,7 +63,7 @@
       disabled>
     <button @click="editPortfolio(payload)">수정</button>
     <button @click="deletePortfolio(product.portfolio_id)">삭제</button>
-  </div>  
+  </div> 
 </template>
 
 <script>
@@ -75,21 +75,38 @@ export default {
     product: Object
   },
   methods: {
-    ...mapActions(['editPortfolio', 'deletePortfolio'])
+    ...mapActions(['editPortfolio', 'deletePortfolio']),
+    // 타임스탬프 포맷(15자리 숫자)을 정상적인 날짜로 변경
+    changeTimeStamp() {
+      var date = new Date(this.product.start_date)
+      var year = date.getFullYear().toString(); //년도 뒤에 두자리
+      var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+      var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+      this.payload.start_date = year + "-" + month + "-" + day
+
+      var date = new Date(this.product.end_date)
+      var year = date.getFullYear().toString(); //년도 뒤에 두자리
+      var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+      var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+      this.payload.end_date = year + "-" + month + "-" + day
+    }
   },
   data() {
     return {
       payload: {
         amount: this.product.amount,
         condition_ids: this.product.conditions,
-        start_date: this.product.start_date,
-        end_date: this.product.end_date,
+        start_date: null,
+        end_date: null,
         option_id: this.product.option_id,
         portfolio_no: this.product.portfolio_no,
         product_id: this.product.product_id,
         portfolio_id: this.product.portfolio_id
       }
     }
+  },
+  created() {
+    this.changeTimeStamp()
   }
 }
 </script>
