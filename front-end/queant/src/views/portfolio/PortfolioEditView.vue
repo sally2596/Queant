@@ -3,10 +3,12 @@
   <div>
     <h1>PortfolioEditView</h1>
     <h1>PortfolioEditView</h1>
-    <router-link :to="{ name: 'portfolioAdd' }"><button>상품 추가하기</button></router-link>
+    <!-- 테스트 -->
+    <button @click="addProductToPortfolio()">상품 추가하기</button>
+
     <portfolio-edit-item
       v-for="product in portfolio"
-      :key="product.product_id"
+      :key="product.portfolio_id"
       :product="product">
     </portfolio-edit-item>
   </div>
@@ -24,7 +26,7 @@ export default {
     ...mapGetters(['portfolio'])
   },
   methods: {
-    ...mapActions(['editPortfolio'])
+    ...mapActions(['editPortfolio', 'addProductToPortfolio'])
   }
 }
 </script>

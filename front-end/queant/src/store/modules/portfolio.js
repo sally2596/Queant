@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default {
   state: {
-    portfolio: {},
+    portfolio: [],
     portfolios: []
   },
   getters: {
@@ -37,27 +37,45 @@ export default {
     }
   },
   actions: {
-    editPortfolio({ commit, getters }, product) {
+    deletePortfolio({ dispatch, getters }, portfolio_id) {
       axios({
-        url: spring.portfolio.portfolio(),
-        method: 'put',
+        url: spring.portfolio.single(),
+        method: 'delete',
         data: {
           member_id: getters.userInfo.member_id,
-          portfolio_dto_list: [
-            {
-              amount: product.amount,
-              condition_ids: product.condition_ids,
-              start_date: product.start_date,
-              end_date: product.end_date,
-              option_id: product.option_id,
-              portfolio_no: product.portfolio_no,
-              product_id: product.product_id
-            }
-          ]
+          portfolio_id: portfolio_id
         }
       })
       .then(res => {
         console.log(res)
+        dispatch('fetchMyPortfolio')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    editPortfolio({ dispatch, getters }, payload) {
+      axios({
+        url: spring.portfolio.single(),
+        method: 'put',
+        data: {
+          member_id: getters.userInfo.member_id,
+          portfolio_id: portfolioId,
+          portfolio_dto: {
+            amount: 100000,
+            condition_ids: [479, 480],
+            start_date: '2020-01-01',
+            end_date: '2020-12-31',
+            option_id: 2992,
+            portfolio_no: 0,
+            product_id: 1,
+            portfolio_id: payload.portfolio_id
+          }
+        }
+      })
+      .then(res => {
+        console.log(res)
+        dispatch('fetchMyPortfolio')
       })
       .catch(err => {
         console.log(err)
@@ -79,7 +97,7 @@ export default {
         console.log(err)
       })
     },
-    addProductToPortfolio({ getters }, payload) {
+    addProductToPortfolio({ dispatch, getters }, payload) {
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
@@ -87,13 +105,13 @@ export default {
           member_id: getters.userInfo.member_id,
           portfolio_dto_list: [
             {
-              amount: getters.filters.amount,
-              condition_ids: getters.filters.conditions,
-              start_date: payload.start_date,
-              end_date: payload.end_date,
-              option_id: payload.option_id,
-              portfolio_no: payload.portfolio_no,
-              product_id: payload.product_id
+              amount: 100000,
+              condition_ids: [],
+              start_date: '2020-01-01',
+              end_date: '2020-12-31',
+              option_id: 1,
+              portfolio_no: 0,
+              product_id: 1
             }
           ]
         }
@@ -101,6 +119,7 @@ export default {
       .then(res => {
         console.log(res)
         console.log('포트폴리오에 상품이 등록됐습니다.')
+        dispatch('fetchMyPortfolio')
       })
       .catch(err => {
         console.log(err)
