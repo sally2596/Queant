@@ -11,7 +11,7 @@ def start():
     #scheduler.add_job(save_db, 'interval', seconds = 10)
     #scheduler.add_job(save_bank_db, 'interval', seconds = 10)
     #scheduler.add_job(save_db, trigger='cron', day_of_week='wed', hour=11, minute=15)
-    scheduler.add_job(save_db, trigger='cron', hour=12, minute=3)
+    scheduler.add_job(save_db, trigger='cron', hour=12, minute=55)
     scheduler.start()
     
     
@@ -23,7 +23,7 @@ def start_bank():
     
 def start_post():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    scheduler.add_job(save_postdata_db, trigger='cron',hour=11, minute=58)
+    scheduler.add_job(save_postdata_db, trigger='cron',hour=12, minute=57)
     scheduler.start()
     
 #def save_manually():
