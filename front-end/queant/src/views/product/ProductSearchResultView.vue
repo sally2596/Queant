@@ -19,17 +19,9 @@
         <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
         <td>{{product.base_rate}}</td>
         <td>{{product.term_min}}</td>
-        <button id="show-modal" @click="openModal([products[0], product])">장바구니에 넣기</button>
-
       </tbody>
     </table>
   </div>
-  <!-- 모달 -->
-  <Modal
-    v-if="showModal" @close="showModal=false"
-    :modalData="modalData">
-    <h3>모달 창 제목</h3>
-  </Modal>
 
   <!-- 페이지네이션 -->
   <div
@@ -42,11 +34,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
-import Modal from '@/components/Modal.vue'
 
 export default {
   name: 'ProductSearchResultView',
-  components: { Navbar, Modal },
+  components: { Navbar },
   computed: {
     ...mapGetters(['products']),
     tenProducts() {
@@ -62,19 +53,12 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProduct']),
-    openModal(value) {
-      this.modalData = value,
-      this.showModal = true,
-      this.fetchProduct(value[1].product_id)
-    },
     changePage(page) {
       this.productIdx = (page - 1) * 10 
     }
   },
   data() {
     return {
-      showModal: false,
-      modalData: null,
       productIdx: 0
     }
   }

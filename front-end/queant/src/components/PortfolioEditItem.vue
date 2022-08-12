@@ -1,61 +1,152 @@
 <template>
   <div>
-    <label>이름</label>
+    <table>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>납입금액</th>
+          <th>가입일</th>
+          <th>만기일</th>
+          <th>예금/적금</th>
+          <th>우대사항</th>
+          <th>적용금리</th>
+        </tr>
+      </thead><br>
+      
+      <tbody>
+        <td>
+          <input 
+            type="text"
+            v-model="myProduct.product.name"
+            disabled>
+        </td>
+        <td>
+          <input 
+            type="number"
+            v-model="myProduct.amount"
+            disabled>
+        </td>
+        <td>
+          <input 
+            type="date"
+            v-model="payload.start_date"
+            disabled>
+        </td>
+        <td>
+          <input 
+            type="date"
+            v-model="payload.end_date"
+            disabled>
+        </td>
+        <td>
+          <input 
+            type="text"
+            v-model="productType"
+            disabled>
+        </td>
+        <td>
+          {{ myProduct.conditions.length }}개 적용
+        </td>
+        <td>
+          <input 
+            type="number"
+            v-model="appliedRate"
+            disabled>
+        </td>
+      </tbody>
+    </table>
+
+    <!-- <label>은행사진</label>
     <input 
       type="text"
-      v-model="product.product.name"
-      disabled>
+      v-model="myProduct.myProduct.picture"
+      disabled> -->
+
+    <button @click="openModal(payload)">수정</button>
+    <button @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
     
-    <label>납입금액</label>
-    <input 
-      type="number"
-      v-model="payload.amount">
-    
-    <label>가입일</label>
-    <input 
-      type="date"
-      v-model="payload.start_date">
+     <!-- 모달 -->
+    <portfolio-edit-modal
+      v-if="showModal" @close="showModal=false"
+      :modalData="modalData">
+      <h3>모달 창 제목</h3>
+    </portfolio-edit-modal>
+    <hr>
 
-    <label>만기일</label>
-    <input 
-      type="date"
-      v-model="payload.end_date">
-
-    <label>은행사진</label>
-    <input 
-      type="text"
-      v-model="product.product.picture"
-      disabled>
-
-    <label>예금여부</label>
-    <input 
-      type="text"
-      v-model="product.product.deposit"
-      disabled>
-
-    <button @click="editPortfolio(product)">수정</button>
-    <button>삭제</button>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import PortfolioEditModal from '@/components/PortfolioEditModal.vue'
+
 export default {
   name: 'PortfolioEditItem',
+  components: { PortfolioEditModal },
   props: {
-    product: Object
+    myProduct: Object
+  },
+  computed: {
+    ...mapGetters(['product']),
+    appliedRate() {
+      let rate = this.myProduct.option.base_rate
+      for (const condition1 of this.product.conditions) {
+        for (const condition2 of this.myProduct.conditions) {
+          if (condition1.condition_id === condition2.condition_id) {
+            rate += condition1.special_rate
+          }
+        }
+      }
+      return rate.toFixed(2)
+    },
+    productType() {
+      if (this.myProduct.product.depost === true)
+        return '예금'
+      else
+        return '적금'
+    }
+  },
+  methods: {
+    ...mapActions(['editPortfolio', 'deletePortfolio', 'fetchProduct']),
+    // 타임스탬프 포맷(15자리 숫자)을 정상적인 날짜로 변경
+    changeTimeStamp() {
+      var date = new Date(this.myProduct.start_date)
+      var year = date.getFullYear().toString(); //년도 뒤에 두자리
+      var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+      var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+      this.payload.start_date = year + "-" + month + "-" + day
+
+      var date = new Date(this.myProduct.end_date)
+      var year = date.getFullYear().toString(); //년도 뒤에 두자리
+      var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+      var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+      this.payload.end_date = year + "-" + month + "-" + day
+    },
+    openModal(payload) {
+      this.modalData = payload,
+      this.showModal = true
+    }
   },
   data() {
     return {
       payload: {
-        amount: this.product.amount,
-        condition_ids: this.product.condition_ids,
-        start_date: this.product.start_date,
-        end_date: this.product.end_date,
-        option_id: this.product.option_id,
-        portfolio_no: this.product.portfolio_no,
-        product_id: this.product.product_id
-      }
+        amount: this.myProduct.amount,
+        conditions: this.myProduct.conditions,
+        condition_ids: this.myProduct.condition_ids,
+        start_date: null,
+        end_date: null,
+        option_id: this.myProduct.option_id,
+        portfolio_no: this.myProduct.portfolio_no,
+        product_id: this.myProduct.product_id,
+        portfolio_id: this.myProduct.portfolio_id,
+        product: this.myProduct.product
+      },
+      showModal: false,
+      modalData: null
     }
+  },
+  created() {
+    this.changeTimeStamp()
   }
 }
 </script>

@@ -63,6 +63,7 @@ export default {
   portfolio: {
     portfolio: () => HOST + PORTFOLIO,
     posession: () => HOST + PORTFOLIO + 'posession',
-    virtual: () => HOST + PORTFOLIO + 'virtual'
+    virtual: () => HOST + PORTFOLIO + 'virtual',
+    single: () => HOST + PORTFOLIO + 'single'
   }
 }

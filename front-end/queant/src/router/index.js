@@ -134,14 +134,14 @@ const routes = [
     component: ProductComparisonView
   },
   {
-    path: '/product/:productId',
-    name: 'productDetail',
-    component: ProductDetailView
-  },
-  {
     path: '/product/search/:text',
     name: 'productSearchResult',
     component: ProductSearchResultView
+  },
+  {
+    path: '/product/:productId',
+    name: 'productDetail',
+    component: ProductDetailView
   },
   // contents
   {
@@ -156,14 +156,14 @@ const routes = [
     meta: { isAdmin: true }
   },
   {
-    path: '/content/:contentId',
-    name: 'contentDetail',
-    component: ContentDetailView
-  },
-  {
     path: '/content/edit/:contentId',
     name : 'contentEdit',
     component: ContentEditView,
+  },
+  {
+    path: '/content/:contentId',
+    name: 'contentDetail',
+    component: ContentDetailView
   },
   // profile
   {
