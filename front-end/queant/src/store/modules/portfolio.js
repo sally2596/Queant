@@ -5,14 +5,17 @@ import axios from 'axios'
 export default {
   state: {
     portfolio: {},
-    portfolios: []
-  },
+    portfolios: [],
+    comparisonportfolios: []
+    },
   getters: {
     portfolio: state => state.portfolio,
-    portfolios: state => state.portfolios
+    portfolios: state => state.portfolios,
+    comparisonportfolios: state => state.comparisonportfolios
   },
   mutations: {
     SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
+
     PUSH_PRODUCT_TO_PORTFOLIO(state, value) {
       let portfolioNo = value.portfolioNo
 
@@ -24,6 +27,39 @@ export default {
         console.log('기존 포트폴리오에 상품을 추가했습니다.')
       }
     },
+
+    PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(state, value) {
+      let member_id = value.member_id
+      if (state.comparisonportfolios.length === 0) {
+        state.comparisonportfolios.push({
+          "member_id" : member_id,
+          "cportfolio_cnt" : 1,
+          "products" : []
+        }),
+        console.log('새로운 가상 포트폴리오가 추가되었습니다.')
+      } else if (state.comparisonportfolios.length < 4){
+        state.comparisonportfolios.push({
+          "member_id" : member_id,
+          "cportfolio_cnt" : (state.comparisonportfolios.length) +1,
+          "products" : []
+        }),
+        console.log('새로운 가상 포트폴리오가 추가되었습니다.')
+      } else if ( state.comparisonportfolios.length >= 4) {
+        alert('더 이상 가상 포트폴리오를 만들 수 없습니다.')
+      }
+    },
+
+    PUSH_PRODUCT_TO_CPORTFOLIO(state, portfolioNo, product) {
+      
+        console.log(product)
+        state.comparisonportfolios[portfolioNo-1].products.push(product)
+        console.log(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
+    },
+
+    CLEAR_CPORTFOLIOS(state) {
+      state.comparisonportfolios = []
+    },
+
     POP_PORTFOLIO_FROM_PORTFOLIOS(state, portfolioIdx) {
       state.portfolios.splice(portfolioIdx, 1)
       console.log(`${portfolioIdx+1}번 포트폴리오를 삭제했습니다.`)

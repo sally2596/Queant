@@ -28,6 +28,7 @@
     "vue": "^3.2.13",
     "vue-loader": "^17.0.0",
     "vue-router": "^4.0.13",
+    "vuedraggable": "^2.24.3",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },
