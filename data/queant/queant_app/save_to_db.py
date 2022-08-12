@@ -392,6 +392,8 @@ def delete_prdt_from_list(data_lists, values, conn, cur):
         row = cur.fetchone()
         #만약 row[0] 1이면 삭제진행
         if row[0] == 1:
+            print(values)
+            print(row[0])
             data_lists.remove(values)
         #만약 1이 아니면 없어졌다가 다시 생긴 데이터일 것이므로 is_enabled를 수정해준다.
         else:
