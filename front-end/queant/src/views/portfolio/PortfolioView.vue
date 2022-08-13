@@ -5,34 +5,6 @@
   </header>
 
   <div class="content">
-    <div id="Summary" class="container row justify">
-      <div class="col-6">
-        <pie-chart
-          v-bind:series="summarySeries"
-          :chartOptionLabels="summaryChartOptionLabels"
-        ></pie-chart>
-      </div>
-      <div class="col-6">
-        <h4>총 투자액</h4>
-        <h2>{{ filtered(depositTotalAmount + savingTotalAmount) }}원</h2>
-        <div class="d-flex justify-content-between">
-          <h6>예금</h6>
-          <div>{{ filtered(depositTotalAmount) }}원</div>
-        </div>
-        <div class="d-flex justify-content-between">
-          <div>적금 총액</div>
-          <div>{{ filtered(savingTotalAmount) }}원</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- <apexchart
-    type="bar"
-    height="200"
-    :options="chartOptions"
-    :series="series"
-  ></apexchart> -->
-  <div class="content">
     <!-- 포트폴리오 없을 때 -->
     <div v-if="portfolio?.length === 0" class="portfolio-none">
       <img
@@ -52,30 +24,44 @@
 
     <!-- 포트폴리오 있을 때 -->
     <div v-else class="portfolio">
-      <router-link :to="{ name: 'portfolioEdit' }"
-        ><button class="btn btn-outline-success">
-          포트폴리오 관리하기
-        </button></router-link
-      ><br />
+      <div class="container">
+        <!-- 포트폴리오 관리하기 버튼 -->
+        <router-link :to="{ name: 'portfolioEdit' }"
+          ><button class="btn btn-outline-success">
+            포트폴리오 관리하기
+          </button></router-link
+        ><br />
 
-      <!-- 포트폴리오 뭉텅이로 볼 때 -->
-      <!-- {{ portfolio }} -->
-
-      <!-- 포트폴리오의 상품을 개별로 볼 때 -->
-
-      <div class="row justify-content-md-center">
-        <div v-if="savingAmount?.lenth != 0" class="col-4">
-          <vue3-chart-js v-bind="{ ...pieChartSaving }" />
-          <div class="card-body">
-            월 납입금 {{ filtered(savingTotalAmount) }}원
-            <br />
-            평균 이자율
-            {{
-              Math.round((savingTotalRate / savingAmount.length) * 1000) / 1000
-            }}
+        <!-- 포트폴리오 요약 -->
+        <!-- 예금과 적금의 비율 + 총 투자액 -->
+        <div id="Summary" class="row justify">
+          <div class="col-6">
+            <pie-chart
+              v-bind:series="summarySeries"
+              :chartOptionLabels="summaryChartOptionLabels"
+            ></pie-chart>
           </div>
-          <h2 class="d-flex justify-content-center">적금 상품 목록</h2>
-          <br />
+          <div class="col-6">
+            <h4>총 투자액</h4>
+            <h2>{{ filtered(depositTotalAmount + savingTotalAmount) }}원</h2>
+            <div class="d-flex justify-content-between">
+              <h6>예금</h6>
+              <div>{{ filtered(depositTotalAmount) }}원</div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h6>적금</h6>
+              <div>{{ filtered(savingTotalAmount) }}원</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 적금 saving -->
+        <div id="saving-view">
+          <div class="d-flex justify-content-between">
+            <h1>적금</h1>
+            <h2>{{ filtered(savingTotalAmount) }}원</h2>
+          </div>
+          <bar-chart v-bind:series="savingSeries"></bar-chart>
           <table>
             <thead>
               <tr>
@@ -86,30 +72,24 @@
               </tr>
             </thead>
             <br />
-            <tbody v-for="(save, index) in savingName" :key="index">
+            <tbody v-for="(saving, index) in savingSeries" :key="index">
               <td>
-                <img :src="savingPicture[index]" alt="" />
+                <img :src="saving.picture" alt="" />
               </td>
-              <td>{{ savingName[index] }}</td>
-              <td>{{ savingAmount[index] }}</td>
-              <td>{{ savingRate[index] }}%</td>
-              <td>{{ savingColors[index] }}</td>
+              <td>{{ saving.name }}</td>
+              <td>{{ saving.data[0] }}</td>
+              <td>{{ saving.rate }}%</td>
             </tbody>
           </table>
         </div>
-        <div v-if="depositAmount?.length != 0" class="col-4">
-          <vue3-chart-js v-bind="{ ...pieChartDeposit }" />
-          <div class="card-body">
-            총 금액 {{ filtered(depositTotalAmount) }}원
-            <br />
-            평균 이자율
-            {{
-              Math.round((depositTotalRate / depositAmount.length) * 1000) /
-              1000
-            }}
+
+        <!-- 예금 Deposit -->
+        <div id="deposit-view" class="">
+          <div class="d-flex justify-content-between">
+            <h1>예금</h1>
+            <di>{{ filtered(depositTotalAmount) }}원</di>
           </div>
-          <h2 class="d-flex justify-content-center">예금 상품 목록</h2>
-          <br />
+          <bar-chart v-bind:series="depositSeries"></bar-chart>
           <table>
             <thead>
               <tr>
@@ -120,14 +100,13 @@
               </tr>
             </thead>
             <br />
-            <tbody v-for="(deposit, index) in depositName" :key="index">
+            <tbody v-for="(deposit, index) in depositSeries" :key="index">
               <td>
-                <img :src="depositPicture[index]" alt="" />
+                <img :src="deposit.picture" alt="" />
               </td>
-              <td>{{ depositName[index] }}</td>
-              <td>{{ depositAmount[index] }}</td>
-              <td>{{ depositRate[index] }}%</td>
-              <td>{{ depositColors[index] }}</td>
+              <td>{{ deposit.name }}</td>
+              <td>{{ deposit.data[0] }}</td>
+              <td>{{ deposit.rate }}%</td>
             </tbody>
           </table>
         </div>
@@ -143,209 +122,52 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters } from "vuex";
-import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
-import dataLabels from "chartjs-plugin-datalabels";
 import PieChart from "@/components/PieChart.vue";
+import BarChart from "@/components/BarChart.vue";
 
-import { Chart } from "chart.js";
-
-import VueApexCharts from "vue3-apexcharts";
-
-Chart.register(dataLabels);
 // globally registered and available for all charts
 
 export default {
   name: "PortfolioView",
-  components: { Navbar, Vue3ChartJs, apexchart: VueApexCharts, PieChart },
+  components: { Navbar, PieChart, BarChart },
   data() {
-    const depositAmount = [];
-    const savingAmount = [];
-    const depositName = [];
-    const savingName = [];
-    const depositRate = [];
-    const savingRate = [];
-    const depositColors = [];
-    const savingColors = [];
-    const depositPicture = [];
-    const savingPicture = [];
+    const summarySeries = [];
+    const summaryChartOptionLabels = ["예금", "적금"];
+    const savingSeries = [];
+    const depositSeries = [];
     let savingTotalRate = 0;
     let depositTotalRate = 0;
     let savingTotalAmount = 0;
     let depositTotalAmount = 0;
 
-    const pieChartSaving = {
-      type: "pie",
-      height: 0.5,
-      width: 10,
-      data: {
-        labels: savingName,
-        datasets: [
-          {
-            backgroundColor: savingColors,
-            data: savingAmount,
-            hoverOffset: 10,
-          },
-        ],
-      },
-      options: {
-        layout: {
-          padding: 20,
-        },
-        //
-        plugins: {
-          datalabels: {
-            display: false,
-            // data:savingName,
-            borderRadius: 3,
-            font: {
-              size: 18,
-            },
-          },
-          legend: {
-            display: false,
-            position: "left",
-            responsive: true,
-            maintainAspectRatio: false,
-          },
-        },
-      },
-    };
-    const pieChartDeposit = {
-      type: "pie",
-      height: 10,
-      width: 10,
-      data: {
-        labels: depositName,
-        datasets: [
-          {
-            backgroundColor: depositColors,
-            data: depositAmount,
-            hoverOffset: 10,
-          },
-        ],
-      },
-      options: {
-        layout: {
-          padding: 20,
-        },
-        //
-        plugins: {
-          datalabels: {
-            display: false,
-            // data:savingName,
-            borderRadius: 3,
-            font: {
-              size: 18,
-            },
-          },
-          legend: {
-            display: false,
-            position: "right",
-            responsive: true,
-            maintainAspectRatio: false,
-          },
-        },
-      },
-    };
     const filtered = (val) => String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const summarySeries = [];
-    const summaryChartOptionLabels = ["적금", "예금"];
-    // const series = [
-    //   {
-    //     name: "Marine Sprite",
-    //     data: [44],
-    //   },
-    //   {
-    //     name: "Striking Calf",
-    //     data: [53],
-    //   },
-    //   {
-    //     name: "Tank Picture",
-    //     data: [12],
-    //   },
-    //   {
-    //     name: "Bucket Slope",
-    //     data: [9],
-    //   },
-    //   {
-    //     name: "Reborn Kid",
-    //     data: [25],
-    //   },
-    // ];
-    // const chartOptions = {
-    //   chart: {
-    //     type: "bar",
-    //     height: "auto",
-    //     stacked: true,
-    //     stackType: "100%",
-    //   },
-    //   theme: {
-    //     palette: "palette4", // upto palette10
-    //   },
-    //   plotOptions: {
-    //     bar: {
-    //       horizontal: true,
-    //     },
-    //   },
-    //   stroke: {
-    //     width: 1,
-    //     colors: ["#fff"],
-    //   },
-    //   title: {
-    //     text: "Fiction Books Sales",
-    //   },
-    //   xaxis: {
-    //     categories: [2008],
-    //     labels: {
-    //       formatter: function (val) {
-    //         return val + "K";
-    //       },
-    //     },
-    //   },
-    //   yaxis: {
-    //     title: {
-    //       text: undefined,
-    //     },
-    //   },
-    //   tooltip: {
-    //     y: {
-    //       formatter: function (val) {
-    //         return val + "K";
-    //       },
-    //     },
-    //   },
-    //   fill: {
-    //     opacity: 1,
-    //   },
-    //   legend: {
-    //     position: "bottom",
-    //     horizontalAlign: "left",
-    //     offsetX: 40,
-    //   },
-    // };
-
+    const computeDBProductRate = (item) => {
+      let rate = 0;
+      rate += item.option.base_rate;
+      item.conditions.forEach((element) => {
+        rate += element.special_rate;
+      });
+      rate = Math.round(rate * 1000) / 1000;
+      return rate;
+    };
+    const computeCustomRate = (item) => {
+      let rate = 0;
+      rate = item.base_rate + item.special_rate;
+      rate = Math.round(rate * 1000) / 1000;
+      return rate;
+    };
     return {
-      // lineChart,
-      pieChartDeposit,
-      pieChartSaving,
-      depositAmount,
-      savingAmount,
-      depositName,
-      savingName,
-      depositRate,
-      savingRate,
-      depositColors,
-      savingColors,
-      savingPicture,
-      depositPicture,
+      filtered,
+      computeDBProductRate,
+      computeCustomRate,
+      summarySeries,
+      summaryChartOptionLabels,
+      savingSeries,
+      depositSeries,
       depositTotalRate,
       savingTotalRate,
       savingTotalAmount,
       depositTotalAmount,
-      filtered,
-
-      summarySeries,
-      summaryChartOptionLabels,
     };
   },
   setup() {},
@@ -362,73 +184,68 @@ export default {
     this.fetchMyPortfolio();
 
     this.portfolio.forEach((item) => {
+      let amount = [item.amount];
+      let productName = item.product.name;
+      let picture = item.product.picture;
+      let rate = this.computeDBProductRate(item);
       if (item.product.deposit) {
         // 일할 계산 or 전체 계산?
         // 예금이면 이미 들어간 돈이고 이자가 붙는거니까 이자 일할 계산해서 붙여주기?
-        this.depositAmount.push(item.amount);
         this.depositTotalAmount += item.amount;
-        this.depositPicture.push(item.product.picture);
-        let rate = 0;
-        rate += item.option.base_rate;
-        item.conditions.forEach((element) => {
-          rate += element.special_rate;
-        });
-        rate = Math.round(rate * 1000) / 1000;
-        this.depositRate.push(rate);
-        this.depositName.push(item.product.name);
         this.depositTotalRate += rate;
       } else {
         // 적금은 한달에 들어가는 돈만 보여주는 걸로?
-        this.savingAmount.push(item.amount);
         this.savingTotalAmount += item.amount;
-        this.savingPicture.push(item.product.picture);
-        let rate = 0;
-        rate += item.option.base_rate;
-        item.conditions.forEach((element) => {
-          rate += element.special_rate;
-        });
-        rate = Math.round(rate * 1000) / 1000;
-        this.savingRate.push(rate);
-        this.savingName.push(item.product.name);
         this.savingTotalRate += rate;
+      }
+
+      if (item.product.deposit) {
+        this.depositSeries.push({
+          name: productName,
+          data: amount,
+          picture: picture,
+          rate: rate,
+        });
+      } else {
+        this.savingSeries.push({
+          name: productName,
+          data: amount,
+          picture: picture,
+          rate: rate,
+        });
       }
     });
 
     // 커스텀 상품
     this.customProducts.forEach((item) => {
+      let amount = [item.amount];
+      let productName = item.product_name;
+      let picture = "../assets/image/퀸트_로고.png";
+      let rate = this.computeCustomRate(item);
       if (item.deposit) {
-        this.depositAmount.push(item.amount);
         this.depositTotalAmount += item.amount;
-        let rate = 0;
-        rate = item.base_rate + item.special_rate;
-        rate = Math.round(rate * 1000) / 1000;
-        this.depositRate.push(rate);
-        this.depositName.push(item.product_name);
         this.depositTotalRate += rate;
-        this.depositPicture.push("../../assets/image/퀸트_로고.png");
       } else {
-        this.savingAmount.push(item.amount);
         this.savingTotalAmount += item.amount;
-        let rate = 0;
-        rate = item.base_rate + item.special_rate;
-        rate = Math.round(rate * 1000) / 1000;
-        this.savingRate.push(rate);
-        this.savingName.push(item.product_name);
         this.savingTotalRate += rate;
-        this.savingPicture.push("../../assets/image/퀸트_로고.png");
+      }
+
+      if (item.deposit) {
+        this.depositSeries.push({
+          name: productName,
+          data: amount,
+          picture: picture,
+          rate: rate,
+        });
+      } else {
+        this.savingSeries.push({
+          name: productName,
+          data: amount,
+          picture: picture,
+          rate: rate,
+        });
       }
     });
-    for (let i = 0; i < this.depositAmount.length; i++) {
-      this.depositColors.push(
-        "#" + Math.floor(Math.random() * 16777215).toString(16)
-      );
-    }
-
-    for (let i = 0; i < this.savingAmount.length; i++) {
-      this.savingColors.push(
-        "#" + Math.floor(Math.random() * 16777215).toString(16)
-      );
-    }
 
     this.summarySeries.push(this.depositTotalAmount);
     this.summarySeries.push(this.savingTotalAmount);

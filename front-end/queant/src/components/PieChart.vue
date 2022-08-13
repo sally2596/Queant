@@ -19,6 +19,16 @@ export default {
         width: 380,
         type: "pie",
       },
+      theme: {
+        palette: "palette4", // upto palette10
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+          },
+        },
+      },
       labels: this.chartOptionLabels,
       responsive: [
         {
