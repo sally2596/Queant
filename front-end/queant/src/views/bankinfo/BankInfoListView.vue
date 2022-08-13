@@ -52,6 +52,27 @@
       </div>
     </div>
   </section>
+
+  <h1 class="bank-title">기타 기관</h1>
+  <section class="section-floater">
+    <div id="featured_banks_3">
+      <div class="row">
+        <div class="col-lg-4 col-6 my-2" v-for="bank in banks" :key="bank.bank_id" v-show="bank.scode_id=='C003'" data-aos="fade-up">
+          <div class="card">
+            <div class="card-body" id="banks_card"  v-bind:style="{ background:'url('+bank.picture+')'}"
+             style="background-size: 30%; background-repeat :no-repeat; background-position:100% 100%;">
+              <h5 class="card-title">{{bank.short_name}}</h5>
+              <a :href="bank.homepage">홈페이지</a>
+              <p>전화번호 : {{bank.tel}}</p>
+              <router-link :to="{ name: 'bankInfoDetail', params: { bankId: bank.bank_id }}">
+              <button class="banks btn btn-outline-success btn-sm" style="font-size: 14px; height: 35px;">상품 보러가기</button>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   </section>
 </template>
 
@@ -80,4 +101,5 @@ export default {
 <style>
 @import '../../assets/css/home.css';
 @import '../../assets/css/bank.css';
+@import '../../assets/css/common.css';
 </style>

@@ -3,9 +3,10 @@
   <header id="title-div">
     <h1 class="title" id="title">'{{this.$route.params.text}}' 상품 검색 결과</h1>
   </header>
+  <section class="product_section">
   <div id="cart-item">
-    <table>
-      <thead>
+    <table class="border table table--block">
+      <thead class="border">
         <tr>
           <th>은행</th>
           <th>상품명</th>
@@ -13,8 +14,7 @@
           <th>최소 가입 기간(개월)</th>
         </tr>
       </thead>
-        <br>
-      <tbody v-for="product in tenProducts" :key="product.product_id">
+      <tbody class="border" v-for="product in tenProducts" :key="product.product_id">
         <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
         <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
         <td>{{product.base_rate}}</td>
@@ -22,6 +22,7 @@
       </tbody>
     </table>
   </div>
+  </section>
 
   <!-- 페이지네이션 -->
   <div

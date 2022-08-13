@@ -24,8 +24,10 @@ export default {
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
     CLEAR_CART: state => state.cart = [],
     PUSH_PRODUCT_TO_CART(state, payload) {
-      let product = payload.product
-      if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
+			let product = payload.product
+			if (state.cart.length===10) {
+				alert("장바구니에는 최대 10개의 상품만 담을 수 있습니다.");
+			} else if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
         alert("이미 장바구니에 담긴 상품입니다.")
       else {
         state.cart.push(payload)
@@ -33,14 +35,11 @@ export default {
       }
     },
     POP_PRODUCT_FROM_CART(state, product) {
-      for (let i = 0; i < state.cart.length; i++) {
-        if (state.cart[i].product.product_id === product.product_id) {
-          state.cart.splice(i, 1)
-          console.log(`${product.product_id}번 상품을 장바구니에서 제거했습니다.`)
-          break
-        }
+        let idOfProduct = product.product.product_id
+        let deleteproductIdx = state.cart.indexOf('idOfProduct')
+        state.cart.splice(deleteproductIdx, 1)
+        alert(`${product.name} 상품을 장바구니에서 제거했습니다.`)
       }
-    }
   },
   actions: {
     fetchKeywords({ commit }) {

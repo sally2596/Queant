@@ -3,41 +3,41 @@
   <header id="title-div">
     <h1 class="title" id="title">추천 결과</h1>
   </header>
-
-  <div id="cart-item">
-    <table>
-      <thead>
-        <tr>
-          <th>은행</th>
-          <th>상품명</th>
-          <th>기본 금리</th>
-          <th>최소 가입 기간(개월)</th>
-        </tr>
-      </thead>
-        <br>
-      <tbody v-for="product in tenProducts" :key="product.product_id">
-        <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
-        <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
-        <td>{{product.base_rate}}</td>
-        <td>{{product.term_min}}</td>
-        <button class="btn btn-outline-success btn-sm mx-3" id="show-modal" @click="openModal(product)">담기</button>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- 모달 -->
-  <Modal
-    v-if="showModal" @close="showModal=false"
-    :modalData="modalData">
-    <h3>모달 창 제목</h3>
-  </Modal>
-
+  <section class="product_section">
+    <div id="cart-item">
+      <table class="border">
+        <thead class="border">
+          <tr>
+            <th>은행</th>
+            <th>상품명</th>
+            <th>기본 금리</th>
+            <th>최소 가입 기간(개월)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody v-for="product in tenProducts" :key="product.product_id" class="border">
+          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
+          <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
+          <td>{{product.base_rate}}</td>
+          <td>{{product.term_min}}</td>
+          <td><button class="btn btn-outline-success mx-3" id="show-modal" @click="openModal(product)">상품 담기</button></td>
+        </tbody>
+      </table>
+    </div>
+  
+  </section>
   <!-- 페이지네이션 -->
   <div
     v-for="page in totalPage"
     :key="page">
     <button class="btn btn-sm" @click="changePage(page)">{{ page }}</button>
   </div>
+  <!-- 모달 -->
+  <Modal
+    v-if="showModal" @close="showModal=false"
+    :modalData="modalData">
+    <h3>모달 창 제목</h3>
+  </Modal>
 </template>
 
 <script>
