@@ -11,6 +11,9 @@ import java.util.UUID;
 public interface ReportProductRepository extends JpaRepository<ReportProduct, Integer> {
     List<ReportProduct> findAll();
 
+    @Query(value = "select * from report_product where is_updated=:bool", nativeQuery = true)
+    List<ReportProduct> findByUpdate(boolean bool);
+
     Optional<ReportProduct> findByReportProductId(int reportProductId);
 
     @Query(value = "select * from report_product where member_id=:memberId", nativeQuery = true)

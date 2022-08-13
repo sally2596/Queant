@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -128,7 +129,8 @@ public class ProductController {
     @PutMapping("/report/delete")
     public ResponseEntity<?> deleteReportProduct(@RequestBody int reportId) {
         try {
-            productService.reportStatusToUpdated(reportId);
+            String tmp = productService.reportStatusToUpdated(reportId);
+            log.info("result is : "+tmp);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,8 +143,8 @@ public class ProductController {
     })
     @Operation(summary = "사용자별 제보 목록", description = "자신이 작성한 제보 리스트를 받아옴")
     @GetMapping("/report/user")
-    public ResponseEntity<?> getReportProductById(@RequestBody String memberEmail) {
-        List<ReportProductDto> reportProductDtos = reportProductService.findById(memberEmail);
+    public ResponseEntity<?> getReportProductById(@RequestBody UUID uuid) {
+        List<ReportProductDto> reportProductDtos = reportProductService.findById(uuid);
         return new ResponseEntity<>(reportProductDtos, HttpStatus.OK);
     }
 

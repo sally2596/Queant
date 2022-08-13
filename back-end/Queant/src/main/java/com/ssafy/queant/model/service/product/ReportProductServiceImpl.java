@@ -11,10 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -32,7 +29,8 @@ public class ReportProductServiceImpl implements ReportProductService {
 
     @Override
     public List<ReportProductDto> findAll() {
-        List<ReportProduct> list = reportProductRepository.findAll();
+        //List<ReportProduct> list = reportProductRepository.findAll();
+        List<ReportProduct> list = reportProductRepository.findByUpdate(false);
         List<ReportProductDto> reportProductDtos = new ArrayList<>();
 
         if (list.size() > 0) {
@@ -44,12 +42,8 @@ public class ReportProductServiceImpl implements ReportProductService {
     }
 
     @Override
-    public List<ReportProductDto> findById(String memberEmail) {
-
-        Optional<Member> result = memberRepository.findByEmail(memberEmail);
-        Member member = result.get();
-
-        List<ReportProduct> list = reportProductRepository.findByMemberId(member.getMemberId());
+    public List<ReportProductDto> findById(UUID uuid) {
+        List<ReportProduct> list = reportProductRepository.findByMemberId(uuid);
         List<ReportProductDto> reportProductDtos = new ArrayList<>();
 
         if (list.size() > 0) {
