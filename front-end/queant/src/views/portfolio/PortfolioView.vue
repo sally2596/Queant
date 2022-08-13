@@ -29,6 +29,12 @@
         {{ product }}
         <hr>
       </div>
+
+      <div
+        v-for="customProduct in customProducts"
+        :key="customProduct">
+        {{ customProduct }}
+      </div>
     </div>
 
   </div>
@@ -42,7 +48,7 @@ export default {
   name: 'PortfolioView',
   components: { Navbar },
   computed: {
-    ...mapGetters(['portfolio'])
+    ...mapGetters(['portfolio', 'customProducts'])
   },
   methods: {
     ...mapActions(['fetchMyPortfolio'])
@@ -52,6 +58,7 @@ export default {
   },
   created() {
     this.fetchMyPortfolio()
+    // this.fetchCustomList()
   }
 }
 </script>

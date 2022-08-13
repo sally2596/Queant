@@ -17,7 +17,6 @@ import BankInfoDetailView from '@/views/bankinfo/BankInfoDetailView.vue'
 // portfolio
 import PortfolioView from '@/views/portfolio/PortfolioView.vue'
 import PortfolioEditView from '@/views/portfolio/PortfolioEditView.vue'
-import PortfolioAddView from '@/views/portfolio/PortfolioAddView.vue'
 
 // profile
 import ProfileView from '@/views/profile/ProfileView.vue'
@@ -94,12 +93,6 @@ const routes = [
     path: '/portfolio/edit',
     name: 'portfolioEdit',
     component: PortfolioEditView,
-    meta: { isLoggedIn: true }
-  },
-  {
-    path: '/portfolio/add',
-    name: 'portfolioAdd',
-    component: PortfolioAddView,
     meta: { isLoggedIn: true }
   },
   // product
