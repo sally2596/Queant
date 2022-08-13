@@ -63,13 +63,13 @@
       </tbody>
     </table>
 
-    <button @click="modal()">수정</button>
+    <button @click="openModal()">수정</button>
     <button @click="deleteCustomProduct(payload.product_id)">삭제</button>
 
     <!-- 모달 -->
     <CustomProductModal 
-      v-if="isModalViewed" 
-      @close-modal="isModalViewed=false"
+      v-if="showModal" 
+      @close="showModal=false"
       :customDto="payload">
     </CustomProductModal>
     <hr>
@@ -78,7 +78,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import CustomProductModal from '@/views/portfolio/CustomProductModal.vue'
+import CustomProductModal from '@/components/CustomProductModal.vue'
 
 export default {
   name: 'CustomProductItem',
@@ -112,8 +112,8 @@ export default {
       var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
       this.payload.end_date = year + "-" + month + "-" + day
     },
-    modal(){
-      this.isModalViewed = !this.isModalViewed
+    openModal(){
+      this.showModal = !this.showModal
     }
   },
   data() {
@@ -131,7 +131,7 @@ export default {
         start_date: this.customProduct.start_date,
         product_id: this.customProduct.product_id
       },
-      isModalViewed: false,   
+      showModal: false,   
     }
   },
   created() {

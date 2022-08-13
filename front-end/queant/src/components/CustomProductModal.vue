@@ -1,5 +1,86 @@
 <template>
-  <div class="modal33">
+  <transition on name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+      <div class="modal-container">
+
+      <div class="modal-header">
+      <slot name="header">
+        <label>상품명</label>
+        <input 
+          v-model="custom_product_dto.product_name"
+          type="text">
+      </slot>
+      </div>
+      <hr>
+
+      <div class="modal-body">
+        <slot name="body">
+        <label>납임금액</label>
+        <input
+          v-model="custom_product_dto.amount"
+          type="number"
+          required>
+        <p>{{ error.amount }}</p>
+
+        <label>기관명</label>
+        <input
+          v-model="custom_product_dto.institution_name"
+          type="text"
+          required>
+        
+        <label>* 예적금 분류</label>
+        <select v-model="custom_product_dto.deposit">
+          <option :value="0">선택</option>
+          <option :value='true'>예금</option>
+          <option :value='false'>적금</option>
+        </select>
+
+        <div v-if="!custom_product_dto.deposit">
+          <label>* 적립방식</label>
+          <select v-model="custom_product_dto.fixed_rsrv">
+            <option :value="0">선택</option>
+            <option :value='true'>정액적립</option>
+            <option :value='false'>자유적립</option>
+          </select>
+        </div>
+
+        <label>* 기본금리</label>
+        <input 
+          type="number" 
+          v-model="custom_product_dto.base_rate">
+        
+        <label>* 우대금리</label>
+        <input
+          type="number"
+          v-model="custom_product_dto.special_rate">
+        
+        <label>시작일</label>
+        <input
+          v-model="custom_product_dto.start_date"
+          type="date">        
+
+        <label for="enddate">종료일</label>
+        <input
+          v-model="custom_product_dto.end_date"
+          type="date">
+
+        </slot>
+      </div>
+
+      <div class="modal-footer">
+       <slot name="footer">
+        <button v-if="!this.customDto" @click="[addCustomProduct(custom_product_dto), $emit('close')]">등록</button>
+        <button v-else @click="[updateCustomProduct(custom_product_dto), $emit('close')]">수정</button>
+        <button class="modal-default-button" @click="$emit('close')">닫기</button>
+       </slot>
+      </div>
+     </div>
+    </div>
+   </div>
+  </transition>
+  <!-- 구분 -->
+  <!-- <div class="modal33">
     <div class="overlay33">
       <div class="modal-card33">
         <h2 v-if="this.customDto">사용자정의 상품 수정</h2>
@@ -63,7 +144,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -113,6 +194,10 @@ export default {
         product_name: "",
         special_rate: 0,
         start_date: "",
+      },
+      error: {
+        amount: '',
+        date: ''
       }
     }
   }
@@ -120,7 +205,7 @@ export default {
 </script>
 
 <style>
-.modal33, .overlay33 {
+/* .modal33, .overlay33 {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -129,7 +214,7 @@ export default {
 }
 
 .overlay33{
-  /* opacity: 0.8; */
+  opacity: 0.8;
   background-color: black;
 }
 
@@ -142,5 +227,6 @@ export default {
   background-color: white;
   min-height: 500px;
   z-index:10;
-}
+} */
+
 </style>

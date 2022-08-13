@@ -21,6 +21,8 @@
           <input
             v-model="payload.amount"
             type="number">
+          <p>{{ error.amount }}</p>
+
           <br> 
           이자유형 & 개월수
           <select v-model="payload.option_id">
@@ -53,21 +55,27 @@
           </div>
           <hr>
 
-          <label for="">예상 가입날짜</label>
+          <label>가입날짜</label>
           <input 
             v-model="payload.start_date"
             type="date">
 
-          <label for="">예상 만기날짜</label>
+          <label>만기날짜</label>
           <input 
             v-model="payload.end_date"
             type="date">
+          <p>{{ error.date }}</p>
        </slot>
       </div>
 
       <div class="modal-footer">
        <slot name="footer">
-        <button @click="[editPortfolio(payload), $emit('close')]">수정</button>
+        <div v-if="isCheckedForm">
+          <button @click="[editPortfolio(payload), $emit('close')]">수정</button>
+        </div>
+        <div v-else>
+          <button disabled>수정</button>
+        </div>
         <button class="modal-default-button" @click="$emit('close')">
          닫기
         </button>
@@ -91,7 +99,28 @@ export default {
     ...mapGetters(['product'])
   },
   methods: {
-    ...mapActions(['editPortfolio'])
+    ...mapActions(['editPortfolio']),
+    checkForm() {
+      if (this.payload.amount < 1)
+        this.error.amount = '납입금액을 확인해주세요.'
+      else this.error.amount = ''
+      
+      if (this.payload.start_date && this.payload.end_date && this.payload.start_date >= this.payload.end_date)
+        this.error.date = '날짜를 확인해주세요.'
+      else this.error.date = ''
+    
+      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date)
+        this.isCheckedForm = true
+      else this.isCheckedForm = false
+    }
+  },
+  watch: {
+    payload: {
+      deep: true,
+      handler() {
+        this.checkForm()
+      }
+    }
   },
   data() {
     return {
@@ -104,7 +133,12 @@ export default {
         portfolio_id: this.modalData.portfolio_id,
         portfolio_no: 0,
         product_id: this.modalData.product_id
-      }
+      },
+      error: {
+        amount: '',
+        date: ''
+      },
+      isCheckedForm: false
     }
   }
 }
