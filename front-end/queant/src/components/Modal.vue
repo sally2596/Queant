@@ -46,7 +46,7 @@
             v-for="condition in product.conditions"
             :key="condition">
             <label :for="condition.condition_id">
-              [설명] {{ condition.value }}<br>
+              [설명] {{ condition.value }} : {{ condition.condition_info }}<br>
               [추가금리] {{ condition.special_rate }}%
             </label>
             <input
