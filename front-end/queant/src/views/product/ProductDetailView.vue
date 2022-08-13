@@ -29,8 +29,6 @@
         <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product?.product)">
           담기
         </button>
-        <!-- <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product.product)">내 포트폴리오에 넣기</button>
-        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product.product)">장바구니에 넣기</button>	                 -->
       </div>
     </div>
     <!-- 모달 -->
