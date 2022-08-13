@@ -52,9 +52,9 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 <table>
     <tr>
-        <td><img src="./img/teammates/inyoung.jpg" width="100px"></td>
-        <td><img src="./img/teammates/jaeik.jpg" height="90px" width="70px" style="margin: 30px;"></td>
-        <td><img src="./img/teammates/jongeun.jpg" width="70px" style="margin-left:10px" height="90px"></td>
+        <td align="center"><img src="./img/teammates/inyoung.jpg" width="100px"></td>
+        <td align="center"><img src="./img/teammates/jaeik.jpg" height="90px" width="70px"></td>
+        <td align="center"><img src="./img/teammates/jongeun.jpg" width="70px" height="90px"></td>
     </tr>
     <tr>
         <td align="center" >팀장 류인영</td>
@@ -67,9 +67,9 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
         <td align="center">#Frontend #Axios</td>
     </tr>
     <tr>
-        <td><img src="./img/teammates/sunyoung.jpg" width="100px"></td>
-        <td><img src="./img/teammates/donghyun.jpg" height="100px" style="margin: 25px;"></td>
-        <td><img src="./img/teammates/sanghyup.jpg" height="100px"></td>
+        <td align="center"><img src="./img/teammates/sunyoung.jpg" width="100px"></td>
+        <td align="center"><img src="./img/teammates/donghyun.jpg" height="100px"></td>
+        <td align="center"><img src="./img/teammates/sanghyup.jpg" height="100px"></td>
     </tr>
     <tr>
         <td align="center">팀원 전선영</td>
