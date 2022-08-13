@@ -1,5 +1,5 @@
 const HOST = 'https://i7a201.p.ssafy.io/api/'
-// const HOST = 'http://localhost:8000/'
+// const HOST = 'http://localhost:8000/api/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
@@ -64,6 +64,8 @@ export default {
     portfolio: () => HOST + PORTFOLIO,
     posession: () => HOST + PORTFOLIO + 'posession',
     virtual: () => HOST + PORTFOLIO + 'virtual',
-    single: () => HOST + PORTFOLIO + 'single'
+    single: () => HOST + PORTFOLIO + 'single',
+    custom: () => HOST + PORTFOLIO + 'custom',
+    customlist: () => HOST + PORTFOLIO + 'customlist'
   }
 }

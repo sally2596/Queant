@@ -16,21 +16,21 @@
       
       <tbody>
         <td>
-          <input 
+          <input
             type="text"
-            v-model="bank.bank_name"
+            v-model="customProduct.institution_name"
             disabled>
         </td>
         <td>
           <input 
             type="text"
-            v-model="myProduct.product.name"
+            v-model="customProduct.product_name"
             disabled>
         </td>
         <td>
           <input 
             type="number"
-            v-model="myProduct.amount"
+            v-model="customProduct.amount"
             disabled>
         </td>
         <td>
@@ -52,7 +52,7 @@
             disabled>
         </td>
         <!-- <td>
-          {{ myProduct.conditions.length }}개 적용
+          우대사항
         </td> -->
         <td>
           <input 
@@ -63,97 +63,79 @@
       </tbody>
     </table>
 
-    <!-- <label>은행사진</label>
-    <input 
-      type="text"
-      v-model="myProduct.myProduct.picture"
-      disabled> -->
+    <button @click="modal()">수정</button>
+    <button @click="deleteCustomProduct(payload.product_id)">삭제</button>
 
-    <button @click="openModal(payload)">수정</button>
-    <button @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
-    
     <!-- 모달 -->
-    <portfolio-edit-modal
-      v-if="showModal" @close="showModal=false"
-      :modalData="modalData">
-      <h3>모달 창 제목</h3>
-    </portfolio-edit-modal>
+    <CustomProductModal 
+      v-if="isModalViewed" 
+      @close-modal="isModalViewed=false"
+      :customDto="payload">
+    </CustomProductModal>
     <hr>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import PortfolioEditModal from '@/components/PortfolioEditModal.vue'
+import { mapActions } from 'vuex'
+import CustomProductModal from '@/views/portfolio/CustomProductModal.vue'
 
 export default {
-  name: 'PortfolioEditItem',
-  components: { PortfolioEditModal },
+  name: 'CustomProductItem',
+  components: { CustomProductModal },
   props: {
-    myProduct: Object
+    customProduct: Object
   },
   computed: {
-    ...mapGetters(['product', 'bank']),
     appliedRate() {
-      let rate = this.myProduct.option.base_rate
-      for (const condition1 of this.product.conditions) {
-        for (const condition2 of this.myProduct.conditions) {
-          if (condition1.condition_id === condition2.condition_id) {
-            rate += condition1.special_rate
-          }
-        }
-      }
-      return rate.toFixed(2)
+      return (this.customProduct.base_rate + this.customProduct.special_rate).toFixed(2)
     },
     productType() {
-      if (this.myProduct.product.deposit === true)
+      if (this.customProduct.deposit === true)
         return '예금'
       else
         return '적금'
     }
   },
   methods: {
-    ...mapActions(['editPortfolio', 'deletePortfolio', 'fetchProduct', 'fetchBank']),
-    // 타임스탬프 포맷(15자리 숫자)을 정상적인 날짜로 변경
+    ...mapActions(['deleteCustomProduct']),
     changeTimeStamp() {
-      var date = new Date(this.myProduct.start_date)
+      var date = new Date(this.customProduct.start_date)
       var year = date.getFullYear().toString(); //년도 뒤에 두자리
       var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
       var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
       this.payload.start_date = year + "-" + month + "-" + day
 
-      var date = new Date(this.myProduct.end_date)
+      var date = new Date(this.customProduct.end_date)
       var year = date.getFullYear().toString(); //년도 뒤에 두자리
       var month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
       var day = ("0" + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
       this.payload.end_date = year + "-" + month + "-" + day
     },
-    openModal(payload) {
-      this.modalData = payload,
-      this.showModal = true
+    modal(){
+      this.isModalViewed = !this.isModalViewed
     }
   },
   data() {
     return {
       payload: {
-        amount: this.myProduct.amount,
-        conditions: this.myProduct.conditions,
-        condition_ids: this.myProduct.condition_ids,
-        start_date: null,
-        end_date: null,
-        option_id: this.myProduct.option_id,
-        portfolio_no: this.myProduct.portfolio_no,
-        product_id: this.myProduct.product_id,
-        portfolio_id: this.myProduct.portfolio_id,
-        product: this.myProduct.product
+        amount: this.customProduct.amount,
+        base_rate: this.customProduct.base_rate,
+        deposit: this.customProduct.deposit,
+        end_date: this.customProduct.end_date,
+        etc: this.customProduct.etc,
+        fixed_rsrv: this.customProduct.fixed_rsrv,
+        institution_name: this.customProduct.institution_name,
+        product_name: this.customProduct.product_name,
+        special_rate: this.customProduct.special_rate,
+        start_date: this.customProduct.start_date,
+        product_id: this.customProduct.product_id
       },
-      showModal: false,
-      modalData: null
+      isModalViewed: false,   
     }
   },
   created() {
     this.changeTimeStamp()
-    this.fetchBank(this.myProduct.product.bank_id)
   }
 }
 </script>

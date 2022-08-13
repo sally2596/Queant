@@ -50,6 +50,12 @@
         {{ product }}
         <hr />
       </div>
+
+      <div
+        v-for="customProduct in customProducts"
+        :key="customProduct">
+        {{ customProduct }}
+      </div>
     </div>
   </div>
 </template>
@@ -171,7 +177,7 @@ export default {
     
   },
   computed: {
-    ...mapGetters(["portfolio"]),
+    ...mapGetters(['portfolio', 'customProducts'])
   },
   methods: {
     ...mapActions(["fetchMyPortfolio"]),

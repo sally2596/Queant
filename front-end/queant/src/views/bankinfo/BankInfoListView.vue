@@ -18,10 +18,8 @@
               <h5 class="card-title">{{bank.short_name}}</h5>
               <a :href="bank.homepage">홈페이지</a>
               <p>전화번호 : {{bank.tel}}</p>
-              <router-link class="banks btn btn-outline-success btn-sm" 
-              :to="{ name: 'bankInfoDetail', params: { bankId: bank.bank_id }}"
-              style="height: 35px;">
-                <p style="font-size:14px;">상품 보러가기</p>
+              <router-link :to="{ name: 'bankInfoDetail', params: { bankId: bank.bank_id }}">
+              <button class="banks btn btn-outline-success btn-sm" style="font-size: 14px; height: 35px;">상품 보러가기</button>
               </router-link>
             </div>
           </div>
