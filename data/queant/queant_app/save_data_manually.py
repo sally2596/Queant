@@ -214,10 +214,11 @@ def save_into_db(conn, cur, datas, data_lists):
 def save_db_manually():
     conn, cur = connect_db()
     data_lists = make_data_list()
-    f = open("./prdt_datas/uri.txt")
+    f = open("./data/queant/queant_app/prdt_datas/uri.txt","r")
     pd = f.read()
+    f.close()
     product_data = eval(pd)
-    
+
     data_lists = save_into_db(conn, cur, product_data , data_lists)
     last_check_prdt(data_lists, conn, cur)
     conn.close()
