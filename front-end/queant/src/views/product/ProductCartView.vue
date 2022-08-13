@@ -63,7 +63,7 @@
           </div>
           <div v-else>
             <h5>{{cportfolio.cportfolio_cnt}}번 포트폴리오 상품</h5>
-            <div v-for="cproduct in cportfolio.products">
+            <div v-for="cproduct in cportfolio.products" :key="cproduct">
             <p>{{cproduct.product.name}}</p>
             </div>
           </div>
