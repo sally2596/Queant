@@ -41,10 +41,10 @@ export default {
   computed: {
     ...mapGetters(['products']),
     tenProducts() {
-      return this.products[1].slice(this.productIdx, this.productIdx + 10)
+      return this.products.slice(this.productIdx, this.productIdx + 10)
     },
     totalPage() {
-      let productsLength = this.products[1].length
+      let productsLength = this.products.length
       if (productsLength % 10)
         return ((productsLength - (productsLength % 10)) / 10) + 1
       else

@@ -82,7 +82,7 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PRODUCTS', [null, res.data])
+        commit('SET_PRODUCTS', res.data)
         router.push({ name: 'productSearchResult', params: { text: text }})
       })
       .catch(err => {

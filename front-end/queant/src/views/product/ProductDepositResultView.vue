@@ -20,21 +20,10 @@
         <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
         <td>{{product.base_rate}}</td>
         <td>{{product.term_min}}</td>
-        <button id="show-modal" @click="openModal(product)">장바구니에 넣기</button>
+        <button class="btn btn-outline-success btn-sm mx-3" id="show-modal" @click="openModal(product)">담기</button>
       </tbody>
     </table>
   </div>
-
-  <!-- <div
-    v-for="product in tenProducts"
-    :key="product">
-    <router-link
-      :to="{ name: 'productDetail', params: { productId: product.product_id } }">
-      {{ product }}
-    </router-link>
-    <button id="show-modal" @click="openModal(product)">장바구니에 넣기</button>
-    <hr>
-  </div> -->
 
   <!-- 모달 -->
   <Modal
