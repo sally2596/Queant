@@ -7,12 +7,10 @@ from pymysql import NULL
 import pymysql
 import re
 import sys
-sys.path.append("./prdt_datas")
-import prdt_datas as prdt_data
+from .prdt_datas import prdt_datas as prdt_data
 
 def connect_db():
-    conn = pymysql.connect(host="localhost", user='queant', password='queant1234', db = 'queant', charset='utf8mb4')
-    #conn = pymysql.connect(host="i7a201.p.ssafy.io", port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
+    conn = pymysql.connect(host='172.17.0.2', port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
     cur = conn.cursor()
     return conn, cur
 
