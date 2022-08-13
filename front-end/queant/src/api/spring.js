@@ -1,5 +1,5 @@
 const HOST = 'https://i7a201.p.ssafy.io/api/'
-// const HOST = 'http://localhost:8000/api/'
+// const HOST = 'http://localhost:8000/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
@@ -48,6 +48,7 @@ export default {
 		report: {
 			list: () => HOST + REPORT,
 			detail: (reportId) => HOST + REPORT + reportId,
+			regist: () => HOST + REPORT + 'regist',
 			delete: () => HOST + REPORT + 'delete',
 			user: () => HOST + REPORT + 'user'
 		}

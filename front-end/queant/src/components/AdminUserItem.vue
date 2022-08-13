@@ -54,9 +54,8 @@
           </td>
           <td class="col-1 text-center">
             <div>
-              {{ user.enabled }}
-              <button v-if="user.enabled" @click="editEnabled(user.email)">비활성화</button>
-              <button v-else @click="editEnabled(user.email)">활성화</button>
+              {{ memberStatus }}
+              <button @click="editEnabled(user.email)">전환</button>
             </div>
           </td>
         </tr>
@@ -74,6 +73,14 @@ export default {
   name: 'AdminUserItem',
   props: {
     user: Object
+  },
+  computed: {
+    memberStatus() {
+      if (this.user.enabled)
+        return '활성화'
+      else
+        return '비활성화'
+    }
   },
   data() {
     return {
