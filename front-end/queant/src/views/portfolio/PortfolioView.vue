@@ -61,6 +61,7 @@ import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 import dataLabels from "chartjs-plugin-datalabels";
 
 import { Chart } from "chart.js";
+
 Chart.register(dataLabels);
 // globally registered and available for all charts
 
@@ -76,6 +77,8 @@ export default {
     const savingRate = [];
     const depositColors = [];
     const savingColors = [];
+    let savingTotalRate = 0;
+    let depostiTotalRate = 0;
 
     const pieChartSaving = {
       type: "pie",
@@ -108,7 +111,7 @@ export default {
             },
           },
           legend: {
-            display: false,
+            display: true,
             position: "bottom",
 
             // 색깔별로 어떤 데이터가 보이는지
@@ -149,67 +152,7 @@ export default {
         ],
       },
     };
-    // const lineChart = {
-    //   type: "line",
-    //   // locally registered and available for this chart
-    //   plugins: [dataLabels],
-    //   data: {
-    //     labels: [
-    //       "January",
-    //       "February",
-    //       "March",
-    //       "April",
-    //       "May",
-    //       "June",
-    //       "July",
-    //     ],
-    //     datasets: [
-    //       {
-    //         label: "Caffine Consumption",
-    //         data: [65, 59, 80, 81, 56, 55, 40],
-    //         fill: false,
-    //         borderColor: "#41B883",
-    //         backgroundColor: "black",
-    //       },
-    //       {
-    //         label: "Productivity",
-    //         data: [70, 25, 110, 90, 5, 60, 30],
-    //         fill: false,
-    //         borderColor: "#00D8FF",
-    //         tension: 0.1,
-    //         backgroundColor: "blue",
-    //       },
-    //     ],
-    //   },
-    //   options: {
-    //     plugins: {
-    //       zoom: {
-    //         zoom: {
-    //           wheel: {
-    //             enabled: true,
-    //           },
-    //           pinch: {
-    //             enabled: true,
-    //           },
-    //           mode: "y",
-    //         },
-    //       },
-    //       datalabels: {
-    //         backgroundColor: function (context) {
-    //           return context.dataset.backgroundColor;
-    //         },
-    //         borderRadius: 4,
-    //         color: "white",
-    //         font: {
-    //           weight: "bold",
-    //         },
-    //         formatter: Math.round,
-    //         padding: 6,
-    //       },
-    //     },
-    //   },
-    // };
-
+   
     return {
       // lineChart,
       pieChartDeposit,
@@ -223,6 +166,9 @@ export default {
       depositColors,
       savingColors,
     };
+  },
+  setup() {
+    
   },
   computed: {
     ...mapGetters(["portfolio"]),
@@ -246,8 +192,10 @@ export default {
         item.conditions.forEach((element) => {
           rate += element.special_rate;
         });
+        rate = Math.round(rate * 1000) / 1000;
         this.depositRate.push(rate);
         this.depositName.push(item.product.name);
+        this.depostiTotalRate += rate;
       } else {
         // 적금은 한달에 들어가는 돈만 보여주는 걸로?
         this.savingAmount.push(item.amount);
@@ -257,6 +205,7 @@ export default {
         item.conditions.forEach((element) => {
           rate += element.special_rate;
         });
+        rate = Math.round(rate * 1000) / 1000;
         this.savingRate.push(rate);
         this.savingName.push(item.product.name);
       }
@@ -273,6 +222,7 @@ export default {
       );
     }
   },
+  
 };
 </script>
 
