@@ -277,7 +277,7 @@ def save_db_manually():
     save_into_db(conn, cur, product_data)
     conn.close()
     
-def save_db_manually_sondier():
+def save_db_manually_soldier():
     conn, cur = connect_db()
     f = open("/data/queant/queant_app/prdt_datas/soldier.txt","r")
     pd = f.read()
