@@ -61,23 +61,23 @@ public class PortfolioController {
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @ApiResponses({
-            @ApiResponse(code = 200, message="해당 회원의 사용자정의 상품 가져오기 성공"),
-            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
-    })
-    @ApiOperation(value="사용자 정의 상품 조회", notes="email 필수")
-    @PostMapping("/customlist")
-    public ResponseEntity<?> getCustomProduct(@RequestBody String email){
-        log.info("[Get CustomProductList]");
-
-        MemberDto memberDto = memberService.findMember(email);
-
-        if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        List<CustomProductDto> list = portfolioService.findCustomProductByMemberId(memberDto.getMemberId());
-
-        return new ResponseEntity<List<CustomProductDto>>(list,HttpStatus.OK);
-    }
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message="해당 회원의 사용자정의 상품 가져오기 성공"),
+//            @ApiResponse(code = 404, message="존재하는 회원이 아닙니다."),
+//    })
+//    @ApiOperation(value="사용자 정의 상품 조회", notes="email 필수")
+//    @PostMapping("/customlist")
+//    public ResponseEntity<?> getCustomProduct(@RequestBody String email){
+//        log.info("[Get CustomProductList]");
+//
+//        MemberDto memberDto = memberService.findMember(email);
+//
+//        if(memberDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//
+//        List<CustomProductDto> list = portfolioService.findCustomProductByMemberId(memberDto.getMemberId());
+//
+//        return new ResponseEntity<List<CustomProductDto>>(list,HttpStatus.OK);
+//    }
 
     @ApiResponses({
             @ApiResponse(code = 200, message="사용자 정의 상품 수정 성공"),
