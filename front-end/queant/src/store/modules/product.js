@@ -35,14 +35,11 @@ export default {
       }
     },
     POP_PRODUCT_FROM_CART(state, product) {
-      for (let i = 0; i < state.cart.length; i++) {
-        if (state.cart[i].product.product_id === product.product_id) {
-          state.cart.splice(i, 1)
-          console.log(`${product.product_id}번 상품을 장바구니에서 제거했습니다.`)
-          break
-        }
+        let idOfProduct = product.product.product_id
+        let deleteproductIdx = state.cart.indexOf('idOfProduct')
+        state.cart.splice(deleteproductIdx, 1)
+        alert(`${product.name} 상품을 장바구니에서 제거했습니다.`)
       }
-    }
   },
   actions: {
     fetchKeywords({ commit }) {
