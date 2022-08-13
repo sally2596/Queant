@@ -1,7 +1,7 @@
 package com.ssafy.queant.controller;
 
-import com.ssafy.queant.model.dto.product.ProductDetailDto;
-import com.ssafy.queant.model.dto.product.ReportProductDto;
+import com.ssafy.queant.model.dto.product.*;
+import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.service.product.ProductService;
 import com.ssafy.queant.model.service.product.ReportProductService;
 import io.swagger.annotations.ApiResponse;
@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -88,15 +89,31 @@ public class ProductController {
         }
     }
 
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "제보의 상품화가 성공했습니다."),
+//            @ApiResponse(code = 404, message = "등록하려는 제보가 없습니다.(제보 id 오류)"),
+//    })
+//    @Operation(summary = "제보받은 상품 등록", description = "admin이 제보받은 상품 등록 처리")
+//    @PostMapping("/report/{reportId}")
+//    public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId, @RequestBody ProductDetailDto productDetail) {
+//        try {
+//            productService.updateReportToProduct(reportId, productDetail);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "제보의 상품화가 성공했습니다."),
             @ApiResponse(code = 404, message = "등록하려는 제보가 없습니다.(제보 id 오류)"),
     })
     @Operation(summary = "제보받은 상품 등록", description = "admin이 제보받은 상품 등록 처리")
-    @PostMapping("/report/{reportId}")
-    public ResponseEntity<?> updateReportProduct(@PathVariable(value = "reportId") int reportId, @RequestBody ProductDetailDto productDetail) {
+    @PostMapping("/report/regist")
+    public ResponseEntity<?> test(@RequestBody UpdateDetailDto updateDetailDto) {
         try {
-            productService.updateReportToProduct(reportId, productDetail);
+            productService.updateReportToProduct(updateDetailDto);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +129,8 @@ public class ProductController {
     @PutMapping("/report/delete")
     public ResponseEntity<?> deleteReportProduct(@RequestBody int reportId) {
         try {
-            productService.deleteReport(reportId);
+            String tmp = productService.reportStatusToUpdated(reportId);
+            log.info("result is : "+tmp);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,8 +143,8 @@ public class ProductController {
     })
     @Operation(summary = "사용자별 제보 목록", description = "자신이 작성한 제보 리스트를 받아옴")
     @GetMapping("/report/user")
-    public ResponseEntity<?> getReportProductById(@RequestBody String memberEmail) {
-        List<ReportProductDto> reportProductDtos = reportProductService.findById(memberEmail);
+    public ResponseEntity<?> getReportProductById(@RequestBody UUID uuid) {
+        List<ReportProductDto> reportProductDtos = reportProductService.findById(uuid);
         return new ResponseEntity<>(reportProductDtos, HttpStatus.OK);
     }
 
