@@ -17,7 +17,6 @@ import BankInfoDetailView from '@/views/bankinfo/BankInfoDetailView.vue'
 // portfolio
 import PortfolioView from '@/views/portfolio/PortfolioView.vue'
 import PortfolioEditView from '@/views/portfolio/PortfolioEditView.vue'
-import PortfolioAddView from '@/views/portfolio/PortfolioAddView.vue'
 
 // profile
 import ProfileView from '@/views/profile/ProfileView.vue'
@@ -96,12 +95,6 @@ const routes = [
     component: PortfolioEditView,
     meta: { isLoggedIn: true }
   },
-  {
-    path: '/portfolio/add',
-    name: 'portfolioAdd',
-    component: PortfolioAddView,
-    meta: { isLoggedIn: true }
-  },
   // product
   {
     path: '/product',
@@ -134,14 +127,14 @@ const routes = [
     component: ProductComparisonView
   },
   {
-    path: '/product/:productId',
-    name: 'productDetail',
-    component: ProductDetailView
-  },
-  {
     path: '/product/search/:text',
     name: 'productSearchResult',
     component: ProductSearchResultView
+  },
+  {
+    path: '/product/:productId',
+    name: 'productDetail',
+    component: ProductDetailView
   },
   // contents
   {
@@ -156,14 +149,14 @@ const routes = [
     meta: { isAdmin: true }
   },
   {
-    path: '/content/:contentId',
-    name: 'contentDetail',
-    component: ContentDetailView
-  },
-  {
     path: '/content/edit/:contentId',
     name : 'contentEdit',
     component: ContentEditView,
+  },
+  {
+    path: '/content/:contentId',
+    name: 'contentDetail',
+    component: ContentDetailView
   },
   // profile
   {

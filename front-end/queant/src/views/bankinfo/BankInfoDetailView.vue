@@ -17,7 +17,7 @@
                 <router-link class="banks btn btn-outline-success btn-sm" 
                 :to="{ name: 'productDetail', params: { productId: product.product_id }}"
                 style="height: 35px;">
-                  <p style="font-size:14px;">상세 정보</p>
+                  <p style="font-size: 14px;">상세 정보</p>
                 </router-link>
             </div>
           </div>

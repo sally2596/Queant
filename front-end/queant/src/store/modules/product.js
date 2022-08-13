@@ -82,7 +82,7 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PRODUCTS', [null, res.data])
+        commit('SET_PRODUCTS', res.data)
         router.push({ name: 'productSearchResult', params: { text: text }})
       })
       .catch(err => {
@@ -108,7 +108,10 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PRODUCTS', [filters, res.data])
+        for (const product of res.data) {
+          product.amount = filters.amount?filters.amount:null
+        }
+        commit('SET_PRODUCTS', res.data)
         router.push({ name: 'productDepositResult' })
       })
       .catch(err => {
@@ -133,7 +136,10 @@ export default {
       })
       .then(res => {
         console.log(res)
-        commit('SET_PRODUCTS', [filters, res.data])
+        for (const product of res.data) {
+          product.amount = filters.amount?filters.amount:null
+        }
+        commit('SET_PRODUCTS', res.data)
         router.push({ name: 'productSavingResult' })
       })
       .catch(err => {

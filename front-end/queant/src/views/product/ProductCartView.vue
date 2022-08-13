@@ -57,13 +57,13 @@
     </div>
     <div v-else>
       <div class="container row">
-        <div class="col-3" v-for="cportfolio in comparisonportfolios">
+        <div class="col-3" v-for="cportfolio in comparisonportfolios" :key="cportfolio">
           <div v-if="cportfolio.products.length === 0">
             <div>아직 {{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품이 없습니다.</div>
           </div>
           <div v-else>
             <h5>{{cportfolio.cportfolio_cnt}}번 포트폴리오 상품</h5>
-            <div v-for="cproduct in cportfolio.products">
+            <div v-for="cproduct in cportfolio.products" :key="cproduct">
             <p>{{cproduct.product.name}}</p>
             </div>
           </div>
