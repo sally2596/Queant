@@ -28,11 +28,19 @@ export default {
   data(){
     return {
       isModalViewed: false,
+      testObject:{
+        product_id:3,
+        amount: 888,
+        base_rate: 2.3,
+        institution_name: "elice",
+        deposit: true,
+        product_name: "elice"
+      }
     }
   }
 }
 </script>
 
 <style>
-
+@import '@/assets/css/user.css';
 </style>
