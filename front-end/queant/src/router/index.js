@@ -120,7 +120,7 @@ const routes = [
     path: '/product/special',
     name: 'productSpecialPlus',
     component: ProductSpecialPlusView
-  },
+	},
   {
     path: '/product/comparison',
     name: 'productComparison',
