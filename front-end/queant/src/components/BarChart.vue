@@ -65,6 +65,9 @@ export default {
             return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
           },
         },
+        x: {
+          show: false,
+        },
       },
       fill: {
         opacity: 1,
