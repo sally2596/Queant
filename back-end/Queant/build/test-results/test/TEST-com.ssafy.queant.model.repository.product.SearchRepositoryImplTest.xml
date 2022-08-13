@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ssafy.queant.model.repository.product.SearchRepositoryImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-08-08T07:30:16" hostname="DESKTOP-KVCQHCD" time="0.217">
+  <properties/>
+  <testcase name="searchBank()" classname="com.ssafy.queant.model.repository.product.SearchRepositoryImplTest" time="0.217"/>
+  <system-out><![CDATA[16:30:11.558 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+16:30:11.565 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+16:30:11.589 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+16:30:11.597 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest], using SpringBootContextLoader
+16:30:11.600 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: class path resource [com/ssafy/queant/model/repository/product/SearchRepositoryImplTest-context.xml] does not exist
+16:30:11.600 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: class path resource [com/ssafy/queant/model/repository/product/SearchRepositoryImplTestContext.groovy] does not exist
+16:30:11.600 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+16:30:11.601 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: SearchRepositoryImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:30:11.631 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]
+16:30:11.687 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\ssafy\S07P11A201\back-end\Queant\build\classes\java\main\com\ssafy\queant\QueantApplication.class]
+16:30:11.688 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ssafy.queant.QueantApplication for test class com.ssafy.queant.model.repository.product.SearchRepositoryImplTest
+16:30:11.763 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: using defaults.
+16:30:11.763 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+16:30:11.779 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@6a55299e, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2f1de2d6, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@4eb386df, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@79517588, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3a0baae5, org.springframework.test.context.support.DirtiesContextTestExecutionListener@7ac0e420, org.springframework.test.context.transaction.TransactionalTestExecutionListener@289710d9, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5a18cd76, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@3da30852, org.springframework.test.context.event.EventPublishingTestExecutionListener@403f0a22, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@503ecb24, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4c51cf28, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6995bf68, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5143c662, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@77825085, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3568f9d2, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@71c27ee8]
+16:30:11.782 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@34a875b3 testClass = SearchRepositoryImplTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4748a0f9 testClass = SearchRepositoryImplTest, locations = '{}', classes = '{class com.ssafy.queant.QueantApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2ab4bc72, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5b7a7f33, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@4b8d604b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@d554c5f, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6b09fb41, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@35047d03], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2022-08-08 16:30:12.004  WARN 17444 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/SSAFY/.gradle/caches/modules-2/files-2.1/org.json/json/20190722/7bce7bacf0ab5e9f894d307a3de8b7f540064d5/json-20190722.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/SSAFY/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2022-08-08 16:30:12.014  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : Starting SearchRepositoryImplTest using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 17444 (started by SSAFY in C:\ssafy\S07P11A201\back-end\Queant)
+2022-08-08 16:30:12.014  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : The following 2 profiles are active: "mail", "API-KEY"
+2022-08-08 16:30:12.661  INFO 17444 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-08 16:30:12.739  INFO 17444 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73 ms. Found 12 JPA repository interfaces.
+2022-08-08 16:30:13.298  INFO 17444 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-08 16:30:13.343  INFO 17444 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-08 16:30:13.406  INFO 17444 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-08 16:30:13.440  INFO 17444 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-08-08 16:30:13.569  INFO 17444 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-08 16:30:13.662  INFO 17444 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB106Dialect
+2022-08-08 16:30:14.166  INFO 17444 --- [    Test worker] p6spy                                    : #1659943814166 | took 4ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE'
+select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE';
+2022-08-08 16:30:14.167  INFO 17444 --- [    Test worker] p6spy                                    : #1659943814167 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+SELECT 'hibernate_sequence' as sequence_name, minimum_value, maximum_value, start_value, increment, cache_size FROM hibernate_sequence 
+SELECT 'hibernate_sequence' as sequence_name, minimum_value, maximum_value, start_value, increment, cache_size FROM hibernate_sequence ;
+2022-08-08 16:30:14.193  INFO 17444 --- [    Test worker] p6spy                                    : #1659943814193 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select * from `queant`.`member` where 1=0
+select * from `queant`.`member` where 1=0;
+2022-08-08 16:30:14.195  INFO 17444 --- [    Test worker] p6spy                                    : #1659943814195 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select * from `queant`.`member` where 1=0
+select * from `queant`.`member` where 1=0;
+2022-08-08 16:30:14.196  INFO 17444 --- [    Test worker] p6spy                                    : #1659943814196 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+select * from `queant`.`product` where 1=0
+select * from `queant`.`product` where 1=0;
+2022-08-08 16:30:14.197  INFO 17444 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-08 16:30:14.203  INFO 17444 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-08 16:30:14.685  WARN 17444 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [m.roleSet.size]; use collection function syntax instead [size(m.roleSet)].
+2022-08-08 16:30:14.759  WARN 17444 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-08 16:30:15.769  INFO 17444 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2022-08-08 16:30:15.862  WARN 17444 --- [    Test worker] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-08-08 16:30:16.129  INFO 17444 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@489b7559, org.springframework.security.web.context.SecurityContextPersistenceFilter@426bf2f2, org.springframework.security.web.header.HeaderWriterFilter@21084a6d, org.springframework.web.filter.CorsFilter@4028aab2, org.springframework.security.web.authentication.logout.LogoutFilter@3986b9e9, com.ssafy.queant.security.JwtAuthenticationFilter@37aea657, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1f3dafd4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1c571162, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ca9d3b2, org.springframework.security.web.session.SessionManagementFilter@65b1693c, org.springframework.security.web.access.ExceptionTranslationFilter@548c5127, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2e51ede1]
+2022-08-08 16:30:16.482  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : Started SearchRepositoryImplTest in 4.674 seconds (JVM running for 5.619)
+Hibernate: 
+    select
+        distinct product0_.product_id as col_0_0_,
+        options1_.base_rate as col_1_0_,
+        product0_.product_id as product_1_10_,
+        product0_.age_max as age_max2_10_,
+        product0_.age_min as age_min3_10_,
+        product0_.bank_id as bank_id4_10_,
+        product0_.budget_max as budget_m5_10_,
+        product0_.budget_min as budget_m6_10_,
+        product0_.etc as etc7_10_,
+        product0_.is_deposit as is_depos8_10_,
+        product0_.is_enabled as is_enabl9_10_,
+        product0_.name as name10_10_,
+        product0_.product_code as product11_10_,
+        product0_.scode_id as scode_i12_10_,
+        product0_.term_max as term_ma13_10_,
+        product0_.term_min as term_mi14_10_ 
+    from
+        product product0_ 
+    inner join
+        options options1_ 
+            on (
+                product0_.product_id=options1_.product_id 
+                and options1_.save_term=?
+            ) 
+    where
+        product0_.is_deposit=? 
+        and coalesce(product0_.budget_min, ?)<=? 
+        and coalesce(product0_.budget_max, ?)>=? 
+    order by
+        options1_.base_rate desc
+2022-08-08 16:30:16.625  INFO 17444 --- [    Test worker] p6spy                                    : #1659943816625 | took 2ms | statement | connection 3| url jdbc:mariadb://localhost:3306/queant
+select distinct product0_.product_id as col_0_0_, options1_.base_rate as col_1_0_, product0_.product_id as product_1_10_, product0_.age_max as age_max2_10_, product0_.age_min as age_min3_10_, product0_.bank_id as bank_id4_10_, product0_.budget_max as budget_m5_10_, product0_.budget_min as budget_m6_10_, product0_.etc as etc7_10_, product0_.is_deposit as is_depos8_10_, product0_.is_enabled as is_enabl9_10_, product0_.name as name10_10_, product0_.product_code as product11_10_, product0_.scode_id as scode_i12_10_, product0_.term_max as term_ma13_10_, product0_.term_min as term_mi14_10_ from product product0_ inner join options options1_ on (product0_.product_id=options1_.product_id and options1_.save_term=?) where product0_.is_deposit=? and coalesce(product0_.budget_min, ?)<=? and coalesce(product0_.budget_max, ?)>=? order by options1_.base_rate desc
+select distinct product0_.product_id as col_0_0_, options1_.base_rate as col_1_0_, product0_.product_id as product_1_10_, product0_.age_max as age_max2_10_, product0_.age_min as age_min3_10_, product0_.bank_id as bank_id4_10_, product0_.budget_max as budget_m5_10_, product0_.budget_min as budget_m6_10_, product0_.etc as etc7_10_, product0_.is_deposit as is_depos8_10_, product0_.is_enabled as is_enabl9_10_, product0_.name as name10_10_, product0_.product_code as product11_10_, product0_.scode_id as scode_i12_10_, product0_.term_max as term_ma13_10_, product0_.term_min as term_mi14_10_ from product product0_ inner join options options1_ on (product0_.product_id=options1_.product_id and options1_.save_term=12) where product0_.is_deposit=false and coalesce(product0_.budget_min, -9223372036854775808)<=10000 and coalesce(product0_.budget_max, 9223372036854775807)>=10000 order by options1_.base_rate desc;
+2022-08-08 16:30:16.666  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : Page 1 of 6 containing com.querydsl.core.types.QTuple$TupleImpl instances
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=282, productCode=310005, bankId=13127, name=KB착한누리적금, scodeId=D001, isDeposit=false, ageMin=65, ageMax=null, budgetMin=10000, budgetMax=300000, termMin=12, termMax=12, etc=- 12개월 가입가능
+- 가입금액 : 1만원이상~30만원이하
+- 증빙서류제출후가입, isEnabled=true), 4.5]
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=109, productCode=310002, bankId=10388, name=e정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=* 중도해지이율 (입금액마다 경과기간별 차등 적용) 
+- 1개월미만 : 가입일의 보통예금 금리 
+- 6개월미만 : 약정이율X50% 
+- 9개월미만 : 약정이율X55% 
+- 12개월미만 : 약정이율X60% 
+- 12개월이상 : 약정이율X70%, isEnabled=true), 4.1]
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=141, productCode=311001, bankId=10430, name=e-모아 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=12, termMax=36, etc=- 1인당 가입한도 : 계약금액 월 1만원 이상, isEnabled=true), 4.0]
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=108, productCode=310001, bankId=10388, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=* 중도해지이율 (입금액마다 경과기간별 차등 적용) 
+- 1개월미만 : 가입일의 보통예금 금리 
+- 6개월미만 : 약정이율X50% 
+- 9개월미만 : 약정이율X55% 
+- 12개월미만 : 약정이율X60% 
+- 12개월이상 : 약정이율X70%, isEnabled=true), 4.0]
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=202, productCode=310008, bankId=10489, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=제한없음, isEnabled=true), 4.0]
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=138, productCode=310001, bankId=10430, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=12, termMax=36, etc=- 1인당 가입한도 : 계약금액 월 1만원 이상, isEnabled=true), 3.9]
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=239, productCode=312001, bankId=10551, name=톡톡 정기적금 (비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-스마트폰 전용, isEnabled=true), 3.8]
+2022-08-08 16:30:16.679  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=238, productCode=310001, bankId=10551, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 우대금리 중복적용 불가, isEnabled=true), 3.7]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=274, productCode=JJ05, bankId=12840, name=스마트정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=가입채널 제한 (모바일앱전용상품), isEnabled=true), 3.7]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=37, productCode=03010, bankId=10030, name=KDBdream 자유적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=이자율 적용방식 선택 가능
+1) 최초납입일 고정금리식
+2) 수시납입일 고정금리식, isEnabled=true), 3.61]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=235, productCode=311098, bankId=10537, name=스마트뱅킹 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 없음, isEnabled=true), 3.61]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=236, productCode=311099, bankId=10537, name=스마트뱅킹 정기적금(자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 없음, isEnabled=true), 3.61]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=231, productCode=310005, bankId=10537, name=인터넷정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 없음, isEnabled=true), 3.61]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=232, productCode=310006, bankId=10537, name=인터넷정기적금(자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 없음, isEnabled=true), 3.61]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=97, productCode=311002, bankId=10359, name=SB톡톡 키워드림 정기적금 (비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 3.6]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=76, productCode=31000, bankId=10346, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=-월 불입금 1만원 이상 
+-6개월 이상 ~ 60개월 까지 (월 단위 가능) 
+-만기시 이자지급, isEnabled=true), 3.6]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=169, productCode=310007, bankId=10463, name=비대면-정기적금, scodeId=D001, isDeposit=false, ageMin=19, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지이율]
+-1개월미만: 계약일의 보통예금 금리, 1개월이상 6개월미만: 약정이율의 50%, 6개월이상 12개월미만: 약정이율의 60%, 12개월이상: 약정이율의 70%, isEnabled=true), 3.6]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=78, productCode=31041, bankId=10346, name=OSB톡톡 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=-월 불입금 1만원 이상 
+-6개월 이상 ~ 60개월 까지 (월 단위 가능) 
+-만기시 이자지급, isEnabled=true), 3.6]
+2022-08-08 16:30:16.680  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=131, productCode=310010, bankId=10419, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=19, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-통장을 발급하지 않는 온라인 전용상품으로 영업점 해지시 우대금리 적용불가, isEnabled=true), 3.6]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=79, productCode=0803, bankId=10349, name=M-Dream Big 자유적금 (모바일), scodeId=D001, isDeposit=false, ageMin=19, ageMax=null, budgetMin=1000, budgetMax=2000000, termMin=12, termMax=12, etc=- 최소가입금액: 1,000원 이상 
+- 한도: 분기당 50만원(연 2백만원) * 분기 예) 1~3월, 4~6월, 7~9월, 10~12월, isEnabled=true), 3.6]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=90, productCode=2001, bankId=10356, name=푸른 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 중도해지금리 1개월 미만 : 0.20%, 6개월 미만 : 1.50%, 12개월 미만 : 2.05%, 12개월 이상 : 2.10%, isEnabled=true), 3.6]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=264, productCode=310013, bankId=11551, name=Hi!예가람 e정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=인터넷뱅킹, 스마트폰, isEnabled=true), 3.6]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=96, productCode=311001, bankId=10359, name=키워드림 e-정기적금 (인터넷뱅킹, 스마트뱅킹), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 3.6]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=230, productCode=310003, bankId=10537, name=정기적금(자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=평택지점, 광주지점 미운영 상품, isEnabled=true), 3.51]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=233, productCode=310030, bankId=10537, name=비대면 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 없음, isEnabled=true), 3.51]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=229, productCode=310001, bankId=10537, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=평택지점, 광주지점 미운영 상품, isEnabled=true), 3.51]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=183, productCode=31-0031, bankId=10471, name=페퍼스2030적금 (디지털페퍼앱), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=300000, termMin=12, termMax=12, etc=비대면 전용, 기본이율 3.5%+우대이율 최고 1.5%(우대이율: 당행 입출금계좌에서 페퍼룰루 2030적금으로 6회이상 자동이체 시, 1.0%, 마케팅 상품서비스 안내문자 전화동의시 0.5%)
+-가입자격: 1인1계좌 당행입출금계좌 보유고객
+-가입기간 12개월
+-가입금액: 1만원~30만원, isEnabled=true), 3.5]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=247, productCode=310005, bankId=10569, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=예금자보호법에 의해 원리금 기준 5,000만원까지 보호, isEnabled=true), 3.5]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=168, productCode=310005, bankId=10463, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지이율]
+-1개월미만: 계약일의 보통예금 금리, 1개월이상 6개월미만: 약정이율의 50%, 6개월이상 12개월미만: 약정이율의 60%, 12개월이상: 약정이율의 70%, isEnabled=true), 3.5]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=130, productCode=310009, bankId=10419, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-없음, isEnabled=true), 3.5]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=248, productCode=310006, bankId=10569, name=정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=예금자보호법에 의해 원리금 기준 5,000만원까지 보호, isEnabled=true), 3.5]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=95, productCode=310001, bankId=10359, name=키워드림 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 3.5]
+2022-08-08 16:30:16.681  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=121, productCode=KJ0004B, bankId=10391, name=꿈 찾아 정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=19, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=만기후 1개월까지는 계약당시 금리와 만기시점 해당금리를 비교하여 낮은 금리 적용 만기후 1개월 초과 이후로는 보통예금 금리 적용, isEnabled=true), 3.5]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=228, productCode=WR0001O, bankId=10534, name=smart-i 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=100000, termMin=12, termMax=12, etc=- 가입채널 제한(스마트폰 전용) 
+- 모바일앱 smart-i 설치 후 가입 
+- 가입기간 : 12개월 
+- 가입금액 : 월 1만원~10만원(정액적립식), isEnabled=true), 3.5]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=134, productCode=KH3102, bankId=10421, name=e-행복더드림정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 인터넷 및 모바일뱅킹 전용 상품 
+- 1인당 최고 월 100만원 불입 가능, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=157, productCode=310006, bankId=10453, name=아이사랑 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=중도해지 이율 
+-1개월 미만 : 0.25%(보통예금이율) 
+-1개월 이상 3개월 미만 : 약정이율*50% 
+-3개월이상 12개월미만 : 약정이율*55% 
+-12개월 이상 : 약정이율*60%, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=135, productCode=KH3103, bankId=10421, name=비대면-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=스마트폰으로 비대면어플 사용자만 신규가능, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=83, productCode=310010, bankId=10350, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=최소금액:1만원이상, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=120, productCode=KJ0001B, bankId=10391, name=꿈 찾아 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=만기후 1개월까지는 계약당시 금리와 만기시점 해당금리를 비교하여 낮은 금리 적용 만기후 1개월 초과 이후로는 보통예금 금리 적용, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=136, productCode=310001, bankId=10426, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=월불입액 1만원이상, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=137, productCode=311001, bankId=10426, name=e-보다정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=월불입액 1만원이상, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=132, productCode=KH3100, bankId=10421, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=85, productCode=310013, bankId=10350, name=b-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=최소금액:1만원이상, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=91, productCode=2002, bankId=10356, name=프리스타일적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=24, etc=*중도해지금리 
+-1개월 미만 : 0.20%, 3개월 미만 : 1.40%, 6개월 미만 : 1.65%, 12개월 미만 : 1.92%, 12개월 이상 : 1.95% 
+*1인 1계좌만 가능, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=133, productCode=KH3101, bankId=10421, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.4]
+2022-08-08 16:30:16.682  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=156, productCode=310005, bankId=10453, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=중도해지 이율 
+-1개월 미만 : 0.25%(보통예금이율) 
+-1개월 이상 3개월 미만 : 약정이율*50% 
+-3개월이상 12개월미만 : 약정이율*55% 
+-12개월 이상 : 약정이율*60%, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=182, productCode=31-0027, bankId=10471, name=정기적금 (인터넷,스마트,비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=최소가입금액: 1만원 이상, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=251, productCode=310013, bankId=10572, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=167, productCode=310009, bankId=10460, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=50000000, termMin=6, termMax=36, etc=보호금융상품 1인당 최고 5천만원, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=172, productCode=310011, bankId=10464, name=m-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=1만원이상 가입가능, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=173, productCode=310012, bankId=10464, name=SB톡톡-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=1만원이상 가입가능, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=6, productCode=WR0001L, bankId=10001, name=WON적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=스마트 뱅킹에서만 가입가능, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=26, productCode=10-01-30-031-0018-0000, bankId=10022, name=JB 다이렉트적금 (자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=10000000, termMin=12, termMax=36, etc=1. 초회불입금 1만원이상, 1인당 월별 최고 1천만원이내
+2. 만기직전 1개월간 적립합계는 이전기간 적립금액을 초과할 수 없음
+3. 인터넷뱅킹/스마트폰뱅킹 가입상품, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=158, productCode=310011, bankId=10453, name=톡톡정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=중도해지 이율 
+-1개월 미만 : 0.25%(보통예금이율) 
+-1개월 이상 3개월 미만 : 약정이율*50% 
+-3개월이상 12개월미만 : 약정이율*55% 
+-12개월 이상 : 약정이율*60%, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=184, productCode=31-0032, bankId=10471, name=페퍼스정기적금 (디지털페퍼앱), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=최소가입금액: 1만원 이상, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=181, productCode=31-0026, bankId=10471, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=최소가입금액: 1만원 이상, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=250, productCode=310010, bankId=10572, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=171, productCode=310010, bankId=10464, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=1만원이상 가입가능, isEnabled=true), 3.3]
+2022-08-08 16:30:16.683  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=59, productCode=10-059-1267-0001, bankId=13175, name=e-금리우대적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=5000000, termMin=12, termMax=36, etc=초입금 5만원 이상, 매회 1만원 이상(계좌별) 
+매월 5백만원 이내(1인당)에서 자유적립
+(단, 적립기간 3/4경과 후 적립할 수 있는 금액은 이전 적립금액의 1/2이내), isEnabled=true), 3.23]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=203, productCode=31-0004, bankId=10492, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=*방문가입  
+* 중도해지이율  
+- 1개월미만 : 계약일의 보통예금 이율  
+- 1개월이상 6개월미만 : 약정이율의 50%  
+- 6개월이상 12개월미만 : 약정이율의 55%  
+- 12개월이상 : 약정이율의 60%  
+* 단, 최저금리는 보통예금이율 이상 적용, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=151, productCode=31-0003, bankId=10448, name=정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=204, productCode=31-0005, bankId=10492, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=*방문가입  
+* 중도해지이율  
+- 1개월미만 : 계약일의 보통예금 이율  
+- 1개월이상 6개월미만 : 약정이율의 50%  
+- 6개월이상 12개월미만 : 약정이율의 55%  
+- 12개월이상 : 약정이율의 60%  
+* 단, 최저금리는 보통예금이율 이상 적용, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=82, productCode=3102, bankId=10349, name=M-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=제한없음, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=99, productCode=310028, bankId=10363, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-인터넷뱅킹, 스마트폰뱅킹 전용, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=205, productCode=31-0006, bankId=10492, name=m-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=*방문가입  
+* 중도해지이율  
+- 1개월미만 : 계약일의 보통예금 이율  
+- 1개월이상 6개월미만 : 약정이율의 50%  
+- 6개월이상 12개월미만 : 약정이율의 55%  
+- 12개월이상 : 약정이율의 60%  
+* 단, 최저금리는 보통예금이율 이상 적용, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=249, productCode=310009, bankId=10572, name=자유정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=170, productCode=310008, bankId=10464, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=1만원이상 가입가능, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=155, productCode=310001, bankId=10453, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=중도해지 이율 
+-1개월 미만 : 0.25%(보통예금이율) 
+-1개월 이상 3개월 미만 : 약정이율*50% 
+-3개월이상 12개월미만 : 약정이율*55% 
+-12개월 이상 : 약정이율*60%, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=150, productCode=31-0002, bankId=10448, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.2]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=39, productCode=03202, bankId=10030, name=KDB Hi 자유적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=해당없음, isEnabled=true), 3.19]
+2022-08-08 16:30:16.684  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=104, productCode=380001, bankId=10370, name=복리자유적금(사이다), scodeId=D001, isDeposit=false, ageMin=17, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=24, etc=없음, isEnabled=true), 3.15]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=81, productCode=3101, bankId=10349, name=E-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=제한없음, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=178, productCode=310035, bankId=10468, name=비대면 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=98, productCode=310027, bankId=10363, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=237, productCode=310006, bankId=10550, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=최소금액 1만원이상, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=15, productCode=01020400490002, bankId=10017, name=펫 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=500000, termMin=6, termMax=12, etc=1. 가입한도: 월 1만원 이상 50만원 이하 원단위
+2. 정기적립식, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=66, productCode=10140114300011, bankId=14807, name=Sh해양플라스틱Zero!적금 (정액적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌 
+- 월 가입한도 : 100만원, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=164, productCode=310006, bankId=10457, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=165, productCode=310007, bankId=10457, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=36, productCode=01211210113, bankId=10026, name=IBK D-day적금 (자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=200000, termMin=6, termMax=12, etc=1인당 3계좌 가입가능하며, 계좌당 월적립금액 20만원 이하로 제한, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=245, productCode=310001, bankId=10562, name=플러스정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=166, productCode=310009, bankId=10457, name=s-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.1]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=11, productCode=10527001001272000, bankId=10016, name=내가만든 보너스적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=200000, termMin=6, termMax=12, etc=1계좌당 가입한도 : 월20만원 (최저 1만원 이상), isEnabled=true), 3.05]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=35, productCode=01211210111, bankId=10026, name=W효도적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=1계좌당 100만원까지 납입 가능하며, 1인당 계좌 수는 제한 없음, isEnabled=true), 3.05]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=219, productCode=310010, bankId=10526, name=정기적금-인터넷, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=해당없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=32, productCode=21001116, bankId=10024, name=BNK더조은자유적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=3000000, termMin=6, termMax=24, etc=1. 계약기간은 6개월 이상 2년 이내 월단위로 한다.
+2. 초입금 1만원 이상 월별 300만원 이내에서 자유롭게 저축
+3. 최대 저축횟수는 999회 이내, isEnabled=true), 3.0]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=287, productCode=JTCSB310013, bankId=13308, name=JT쩜피플러스 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=500000, termMin=12, termMax=24, etc=- 1인당 가입한도 : 월 1만원~50만원 (1만원 단위로 가입 가능) 
+- 가입기간 : 12개월 또는 24개월만 가능 
+- 지점방문을 통한 상품가입만 가능 
+- 반려견과 함께 찍은사진 직원 제시 필수 - 본인 외 대리인 개설 불가, isEnabled=true), 3.0]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=92, productCode=310002, bankId=10358, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=제한없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.685  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=225, productCode=WR0001B, bankId=10534, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=가입한도 없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=113, productCode=310008, bankId=10388, name=아이사랑 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=7, budgetMin=null, budgetMax=null, termMin=12, termMax=24, etc=* 중도해지이율 (입금액마다 경과기간별 차등 적용) 
+- 1개월미만 : 가입일의 보통예금 금리 
+- 6개월미만 : 약정이율X50% 
+- 9개월미만 : 약정이율X55% 
+- 12개월미만 : 약정이율X60% 
+- 12개월이상 : 약정이율X70%, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=14, productCode=01020400490001, bankId=10017, name=펫 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=500000, termMin=6, termMax=12, etc=1. 가입한도: 월 1만원 이상 50만원 이하 원단위
+2. 자유적립식, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=93, productCode=310003, bankId=10358, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=제한없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=226, productCode=WR0001K, bankId=10534, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=가입채널 제한(인터넷, 모바일 전용), isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=94, productCode=310004, bankId=10358, name=스마트 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=제한없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=254, productCode=JH0001B, bankId=10575, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=제한없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=227, productCode=WR0001N, bankId=10534, name=e-로운 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=가입채널 제한(스마트폰 전용), isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=84, productCode=310011, bankId=10350, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=최소금액:1만원이상, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=110, productCode=310005, bankId=10388, name=퍼스트유 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=* 중도해지이율 (입금액마다 경과기간별 차등 적용) 
+- 1개월미만 : 가입일의 보통예금 금리 
+- 6개월미만 : 약정이율X50% 
+- 9개월미만 : 약정이율X55% 
+- 12개월미만 : 약정이율X60% 
+- 12개월이상 : 약정이율X70%, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=48, productCode=230-0118-07, bankId=11625, name=신한스마트적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=12, etc=1. 가입한도 : 
+월 100만원 이하
+2. 가입방법 : 
+스마트폰
+3. 1인 1계좌, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=149, productCode=31-0001, bankId=10448, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=217, productCode=310007, bankId=10526, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=해당없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=101, productCode=024311001, bankId=10366, name=정기적금(여수지점), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=111, productCode=310006, bankId=10388, name=직장인YES 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=* 중도해지이율 (입금액마다 경과기간별 차등 적용) 
+- 1개월미만 : 가입일의 보통예금 금리 
+- 6개월미만 : 약정이율X50% 
+- 9개월미만 : 약정이율X55%
+- 12개월미만 : 약정이율X60% 
+- 12개월이상 : 약정이율X70%, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=80, productCode=3100, bankId=10349, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=제한없음, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=218, productCode=310008, bankId=10526, name=장학적금자유식, scodeId=D001, isDeposit=false, ageMin=null, ageMax=18, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=창구에서만 가입가능, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=307, productCode=1130315008, bankId=13350, name=WELCOME 아이사랑 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=10, budgetMin=null, budgetMax=100000, termMin=12, termMax=36, etc=- 임산부일 경우 임산부 본인에 한함 
+※ 월 최대 불입액 : 10만원, isEnabled=true), 3.0]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=20, productCode=TD11330028000, bankId=10019, name=쏠쏠한MY디지털적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=1000000, termMin=12, termMax=24, etc=1. 가입기간 : 1년제, 2년제
+2. 가입금액 : 월 1만원 이상 1백만원 이하 (1인1계좌), isEnabled=true), 2.95]
+2022-08-08 16:30:16.686  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=57, productCode=10-059-1228-0004, bankId=13175, name=법사랑플러스적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=180000000, termMin=12, termMax=36, etc=초입금 5만원 이상 및 매회  1만원 이상, 매월 5백만원 이내(1인당), 총불입액 1억8천만원이내(1인당) 자유적립
+(단,계약기간 3/4 경과 후 적립할 수 있는 금액은 이전 적립누계액의 1/2이내), isEnabled=true), 2.93]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=58, productCode=10-059-1264-0001, bankId=13175, name=NH직장인월복리적금, scodeId=D001, isDeposit=false, ageMin=18, ageMax=null, budgetMin=10000, budgetMax=3000000, termMin=12, termMax=36, etc=초입금 및 매회 입금 1만원 이상 원 단위,  1인당 분기별 3백만원 이내 적립 가능
+(단,계약기간 3/4 경과 후 적립할 수 있는 금액은 이전 적립누계액의 1/2이내), isEnabled=true), 2.93]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=10, productCode=10527001000925000, bankId=10016, name=영플러스적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=29, budgetMin=10000, budgetMax=500000, termMin=12, termMax=12, etc=1계좌당 가입한도 : 월 50만원( 최저1만원 이상), isEnabled=true), 2.91]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=107, productCode=310009, bankId=10378, name=SB톡톡 정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=1. 최소납입금액 10,000원 이상, isEnabled=true), 2.9]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=69, productCode=10141114300011, bankId=14807, name=Sh해양플라스틱Zero!적금 (자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=200000, termMin=12, termMax=36, etc=- 1인 1계좌 
+- 월 가입한도 : 20만원, isEnabled=true), 2.9]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=194, productCode=310050, bankId=10477, name=e뱅킹정기적금(10만원), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=인터넷뱅킹, 스마트폰뱅킹 전용, isEnabled=true), 2.9]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=190, productCode=310044, bankId=10477, name=라이프플러스 정기적금(10만원), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=적금가입 후 캐롯손해보험 자동차보험 가입 필수, isEnabled=true), 2.9]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=106, productCode=310004, bankId=10378, name=스마트정기적금(인터넷), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=1. 최소납입금액 10,000원 이상, isEnabled=true), 2.9]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=62, productCode=01012000200000000003, bankId=14674, name=코드K 자유적금, scodeId=D001, isDeposit=false, ageMin=17, ageMax=null, budgetMin=10000, budgetMax=300000, termMin=6, termMax=36, etc=가입금액: 1만원 이상 30만원 이하
+가입기간: 6개월, 1년, 2년, 3년 
+(1인 최대 3계좌), isEnabled=true), 2.9]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=24, productCode=220002201, bankId=10020, name=더탐나는적금3, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=300000, termMin=12, termMax=36, etc=월 납입한도 30만원 이하, isEnabled=true), 2.9]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=177, productCode=310001, bankId=10468, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=45, productCode=010200100087, bankId=10927, name=KB마이핏적금, scodeId=D001, isDeposit=false, ageMin=18, ageMax=38, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=개인사업자 및 공동명의 가입 불가, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=87, productCode=MK310004, bankId=10354, name=e-행복정기적금 (인터넷), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=303, productCode=1130313561, bankId=13350, name=WELCOME 잔돈모아올림적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=12, termMax=12, etc=-타행 잔돈적립을 위한 연결계좌는 당행 오픈뱅킹에 등록된 타행 입출금 계좌 최대 3개 설정 가능합니다. - 1회차 납입금액은 제한이 없으나 2회차 이후 납입금액은 매월 초일부터 말일까지의 입금합계액이 가입한도의 10%를 초과할 수 없습니다.※ 월 최대 불입액 : 50만원., isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=70, productCode=10141114700011, bankId=14807, name=헤이(Hey)적금(자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=6, termMax=12, etc=*1인 1계좌
+*월 가입한도 : 50만원
+*스마트폰 전용, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=33, productCode=21001236, bankId=10024, name=주거래프리미엄적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=12, termMax=36, etc=1.1년제, 2년제, 3년제
+2. 적립금액은 매월 1만원이상, 최고금액은 제한없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=88, productCode=MK310017, bankId=10354, name=비대면정기적금 (비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=179, productCode=310052, bankId=10468, name=착한운전정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=153, productCode=NY310007, bankId=10449, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=중도해지 이율 : 1개월미만 : 계약일의 보통예금 금리, 1개월이상 6개월미만 : 약정이율의 50%, 6개월이상 12개월미만 : 약정이율의 55%. 12개월 이상 : 약정이율의 65%, isEnabled=true), 2.8]
+2022-08-08 16:30:16.687  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=174, productCode=310000, bankId=10467, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=262, productCode=310005, bankId=11551, name=직장인 Plus정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=영업점 전용상품, 직장인 고객, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=89, productCode=MK310022, bankId=10354, name=톡톡정기적금 (모바일), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=105, productCode=310001, bankId=10378, name=정기적금(월수), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=1. 최소납입금액 10,000원 이상, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=180, productCode=310601, bankId=10468, name=내가디자인하는적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=16, productCode=01020400510001, bankId=10017, name=저탄소 실천 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=10000000, termMin=6, termMax=36, etc=1. 가입한도: 월 1만원 이상 1천만원 이하 원단위 (월 1천만원 이하 불입 가능)
+2. 자유적립식, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=154, productCode=NY310009, bankId=10449, name=비대면-정기적금, scodeId=D001, isDeposit=false, ageMin=19, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=중도해지 이율 : 1개월미만 : 계약일의 보통예금 금리, 1개월이상 6개월미만 : 약정이율의 50%, 6개월이상 12개월미만 : 약정이율의 55%. 12개월 이상 : 약정이율의 65%, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=67, productCode=10140114700011, bankId=14807, name=헤이(Hey)적금(정액적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=6, termMax=12, etc=*1인 1계좌
+*월 가입한도 : 50만원
+*스마트폰 전용, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=175, productCode=311000, bankId=10467, name=e정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.688  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=176, productCode=311100, bankId=10467, name=SB톡톡 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.8]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=117, productCode=310003, bankId=10390, name=응답하라 2030 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 2.8]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=215, productCode=310003, bankId=10521, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.75]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=216, productCode=310004, bankId=10521, name=스타e_정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.75]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=273, productCode=JJ, bankId=12840, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.75]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=9, productCode=10521001001177000, bankId=10016, name=마이(my)적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=500000, termMin=12, termMax=36, etc=1계좌당 가입한도 : 월 50만원 (최저 1만원 이상), isEnabled=true), 2.71]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=86, productCode=MK310001, bankId=10354, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=112, productCode=310007, bankId=10388, name=m스마트 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=* 중도해지이율 (입금액마다 경과기간별 차등 적용) 
+- 1개월미만 : 가입일의 보통예금 금리 
+- 6개월미만 : 약정이율X50% 
+- 9개월미만 : 약정이율X55% 
+- 12개월미만 : 약정이율X60% 
+- 12개월이상 : 약정이율X70%, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=146, productCode=310007, bankId=10437, name=애플정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=24, etc=해당없음, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=103, productCode=310000, bankId=10370, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=298, productCode=1130312007, bankId=13350, name=WELCOME 첫거래우대 e정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=200000, termMin=12, termMax=12, etc=-본 상품은 최초 개설한 예·적금 가입일로부터 30일 이내 가입 가능합니다. (30일 경과시 가입 불가) 
+※ 월 최대 불입액 : 20만원, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=152, productCode=NY310006, bankId=10449, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=중도해지 이율 : 1개월미만 : 계약일의 보통예금 금리, 1개월이상 6개월미만 : 약정이율의 50%, 6개월이상 12개월미만 : 약정이율의 55%. 12개월 이상 : 약정이율의 65%, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=288, productCode=JTCSB310026, bankId=13308, name=비대면 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=261, productCode=310004, bankId=11551, name=2030 Start정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=영업점 전용상품, 만20~39세 고객(생일기준), isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=147, productCode=310009, bankId=10438, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지이율]
+- 2019년7월1일 이전 신규분
+*3개월이하: 0.2%
+*3~6개월이내: 0.5%
+*6개월초과: 1.0%
+- 2019년7월1일 이후 신규분
+*1개월미만: 계약일의 보통예금 이율
+*1개월~3개월미만: 약정이율의 50%
+*3개월~6개월미만: 약정이율의 55%
+*6개월~24개월미만: 약정이율의 60%
+*24개월이상: 약정이율의70%, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=71, productCode=10-01-30-355-0002, bankId=15130, name=카카오뱅크 자유적금, scodeId=D001, isDeposit=false, ageMin=17, ageMax=null, budgetMin=1000, budgetMax=3000000, termMin=6, termMax=36, etc=1. 가입방법 : 스마트폰
+2. 가입금액 : 1천원 이상(원단위)
+3. 가입기간 : 6개월 이상 ~ 36개월 이하(월, 일단위 지정 가능)
+4. 월 적립한도 : 1천원 이상 월 300만원 이하 원단위(단, 자동연장된 원리금은 월 적립한도에 포함되지 않음), isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=7, productCode=00266451, bankId=10002, name=퍼스트가계적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=해당없음, isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=61, productCode=52, bankId=13909, name=주거래하나 월복리적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=3000000, termMin=12, termMax=36, etc=1. 1인 1계좌만 가능
+(급여하나월복리적금,연금하나 월복리적금과 중복가입 불가)
+2. 가입금액 
+ - 최저1만원~300만원이하
+3. 적립한도
+ 분기당 1만원이상 300만원
+ (자유적립식), isEnabled=true), 2.7]
+2022-08-08 16:30:16.689  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=23, productCode=220002101, bankId=10020, name=jBANK 저금통적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=6, termMax=12, etc=월 납입한도 50만원 이하, isEnabled=true), 2.7]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=144, productCode=310005, bankId=10437, name=한마음정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 2.7]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=301, productCode=1130313504, bankId=13350, name=WELCOME 첫거래우대 m정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=200000, termMin=12, termMax=12, etc=-본 상품은 최초 개설한 예·적금 가입일로부터 30일 이내 가입 가능합니다. (30일 경과시 가입 불가) 
+※ 월 최대 불입액 : 20만원, isEnabled=true), 2.7]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=17, productCode=01020400530001, bankId=10017, name=내맘대로  적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=1000, budgetMax=null, termMin=6, termMax=36, etc=1. 가입금액 :
+   1천원 이상
+2. 가입기간 : 
+6개월 이상 60개월 이하(일단위), isEnabled=true), 2.7]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=145, productCode=310006, bankId=10437, name=꿈나무정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=-, isEnabled=true), 2.7]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=18, productCode=TD11330021000, bankId=10019, name=스마트모아Dream정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=10000000, termMin=6, termMax=36, etc=1. 가입기간 : 6개월이상 3년제
+2. 가입금액 : 월 1만원 이상 1천만원 이하 (1인1계좌), isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=102, productCode=024312001, bankId=10366, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=118, productCode=310004, bankId=10390, name=씨앗 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=64, productCode=10140110400011, bankId=14807, name=Sh평생주거래우대적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌 
+- 월 가입한도 : 100만원, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=220, productCode=310001, bankId=10527, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=200, productCode=310034, bankId=10488, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=*중도해지 시 예치기간에 따라 차등 적용 
+■1개월미만: 연0.3% (보통예금이율) 
+■1개월이상 3개월미만: 약정이율 x 50% 
+■3개월이상 6개월미만: 55% 
+■6개월이상 12개월미만: 60% 
+■12개월이상: 70% 
+단, 2019.07.01. 이후 가입분 부터적용. 이전가입분은 3개월미만 연0.5%,6개월미만 연1.0%, 6개월이상 연1.5%, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=221, productCode=310011, bankId=10528, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=예금자보호한도외 기타사항 없음, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=310, productCode=310030, bankId=13351, name=OK e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=-, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=100, productCode=024310001, bankId=10366, name=정기적금(서울본점), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.6]
+2022-08-08 16:30:16.690  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=244, productCode=C614004, bankId=10560, name=비대면정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.6]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=75, productCode=HK00003, bankId=10345, name=직장인우대적금, scodeId=D001, isDeposit=false, ageMin=19, ageMax=null, budgetMin=10000, budgetMax=null, termMin=12, termMax=36, etc=-불입금액 1만원 이상 
+-1인 1계좌, isEnabled=true), 2.6]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=63, productCode=01012000210000000000, bankId=14674, name=주거래우대 자유적금, scodeId=D001, isDeposit=false, ageMin=17, ageMax=null, budgetMin=1000, budgetMax=3000000, termMin=6, termMax=36, etc=가입금액: 1천원 이상 300만원 이하
+가입기간: 6개월 ~ 36개월
+(1인 최대 3계좌), isEnabled=true), 2.6]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=286, productCode=JTCSB310010, bankId=13308, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.6]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=214, productCode=310011, bankId=10510, name=E-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지이율]
+1. 2019년 7월 1일 이전 신규
+- 12개월 미만 : 해지일의 보통예금 이율
+- 12개월 이상 : 1.0%
+2. 2019년 7월 1일 신규분 부터
+- 1개월 미만 : 보통예금이율
+- 1~3개월 미만 : 계약일의 계약기간별 약정이율의 50%
+- 3~12개월 미만 : 60%
+- 12개월 이상 : 70%, isEnabled=true), 2.55]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=208, productCode=310011, bankId=10509, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=280, productCode=310003, bankId=13127, name=KB착한e-plus정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=1000000, termMin=12, termMax=36, etc=- 12~36개월 가입가능 - 가입금액 : 1만원이상~100만원이하 - KB착한정기적금과 납입한도 합산 적용, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=260, productCode=310001, bankId=11551, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=영업점 전용상품, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=25, productCode=230000202, bankId=10020, name=사이버우대매일부금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc="해당 없음", isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=199, productCode=310024, bankId=10488, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=*중도해지 시 예치기간에 따라 차등 적용 
+■1개월미만: 연0.3% (보통예금이율) 
+■1개월이상 3개월미만: 약정이율 x 50% 
+■3개월이상 6개월미만: 55% 
+■6개월이상 12개월미만: 60% 
+■12개월이상: 70% 
+단, 2019.07.01. 이후 가입분 부터적용. 이전가입분은 3개월미만 연0.5%,6개월미만 연1.0%, 6개월이상 연1.5%, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=309, productCode=310001, bankId=13351, name=OK 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=-, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=271, productCode=31501, bankId=12711, name=비대면정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=-가입금액: 월불입금 1만원 이상 -가입기간: 6개월이상 36개월 이하, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=77, productCode=31001, bankId=10346, name=OSB톡톡 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=- 월 불입금 1만원 이상
+- 6개월 이상 ~ 60개월 까지 (월 단위 가능)
+- 만기시 이자지급, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=119, productCode=311002, bankId=10390, name=정기적금 (비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 2.5]
+2022-08-08 16:30:16.691  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=210, productCode=310016, bankId=10509, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=125, productCode=310005, bankId=10416, name=E-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=195, productCode=310001, bankId=10478, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=267, productCode=310008, bankId=12120, name=정기적금(인터넷-모바일), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=272, productCode=31534, bankId=12711, name=NH FIC 올바른지구 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=300000, termMin=12, termMax=12, etc=-가입금액: 월불입금 1만원 ~ 30만원 -가입기간: 12개월 -1인 1계좌 한정, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=243, productCode=C614002, bankId=10560, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=148, productCode=310008, bankId=10439, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=21, productCode=220000701, bankId=10020, name=행복을 가꾸는통장, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=1. 1인 1계좌
+2. 가입금액 : 월불입 100만원이하, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=211, productCode=310017, bankId=10509, name=SB톡톡-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=201, productCode=310040, bankId=10488, name=우리E음정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=200000, termMin=12, termMax=12, etc=가입자격: 1인 1계좌, 가입기간: 12개월, 가입금액: 1만원~20만원 777좌 특판 진행, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=126, productCode=310006, bankId=10416, name=S-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=196, productCode=310003, bankId=10478, name=정기적금(인터넷,모바일,비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=263, productCode=310012, bankId=11551, name=예가람 멤버십 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=영업점 전용상품, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=255, productCode=JH0001C, bankId=10575, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=제한없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=212, productCode=310001, bankId=10510, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지이율]
+1. 2019년 7월 1일 이전 신규
+- 12개월 미만 : 해지일의 보통예금 이율
+- 12개월 이상 : 1.0%
+2. 2019년 7월 1일 신규분 부터
+- 1개월 미만 : 보통예금이율
+- 1~3개월 미만 : 계약일의 계약기간별 약정이율의 50%
+- 3~12개월 미만 : 60%
+- 12개월 이상 : 70%, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=127, productCode=310012, bankId=10416, name=비대면 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.692  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=197, productCode=401003, bankId=10485, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.5]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=213, productCode=310010, bankId=10510, name=비대면 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지이율]
+1. 2019년 7월 1일 이전 신규
+- 12개월 미만 : 해지일의 보통예금 이율
+- 12개월 이상 : 1.0%
+2. 2019년 7월 1일 신규분 부터
+- 1개월 미만 : 보통예금이율
+- 1~3개월 미만 : 계약일의 계약기간별 약정이율의 50%
+- 3~12개월 미만 : 60%
+- 12개월 이상 : 70%, isEnabled=true), 2.5]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=123, productCode=DH004, bankId=10404, name=정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=270, productCode=31001, bankId=12711, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=-가입금액: 월불입금 1만원 이상 -가입기간: 6개월이상 36개월 이하, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=129, productCode=310004, bankId=10418, name=정기적금(월수)(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=40, productCode=010200100068, bankId=10927, name=KB국민ONE적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=1인 1계좌, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=124, productCode=310001, bankId=10416, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=46, productCode=010200100092, bankId=10927, name=KB반려행복적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=KB스타뱅킹 전용상품, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=65, productCode=10140111600061 10141111600051, bankId=14807, name=Sh보고싶다!명태야적금Ⅱ(개인), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌 
+- 월 가입한도 : 100만원, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=253, productCode=310005, bankId=10574, name=정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=6, termMax=36, etc=1인당 가입한도:월불입액100만원, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=278, productCode=310001, bankId=13127, name=KB착한정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=1000000, termMin=12, termMax=36, etc=- 12~36개월 가입가능
+- 가입금액 : 1만원이상~100만원이하
+- KB착한e-plus정기적금과 납입한도 합산 적용, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=160, productCode=310009, bankId=10456, name=e-plus 정기적금 (인터넷뱅킹,스마트뱅킹), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=인터넷 가입, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=116, productCode=310001, bankId=10390, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=-, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=284, productCode=310002, bankId=13166, name=1Q 비대면정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=24, etc=- 최저가입금액 : 1만원이상 
+- 중도해지금리 
+- 1개월 미만 : 보통예금 금리 
+- 1개월 이상 : 약정금리 x (경과월수 / 계약월수)x차등율 (최저금리 : 약정금리 x 50%) 
+- 1개월 이상~12개월 미만(차등율 : 60%) 
+- 12개월 이상~24개월 미만(차등율 : 70%) 
+- 24개월 이상(차등율 : 80%), isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=122, productCode=DH003, bankId=10404, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.4]
+2022-08-08 16:30:16.693  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=50, productCode=230-0119-85, bankId=11625, name=신한 알.쏠 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=3000000, termMin=12, termMax=36, etc=1. 가입한도: 
+월300만원 이하
+2. 1인 1계좌, isEnabled=true), 2.4]
+2022-08-08 16:30:16.694  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=161, productCode=310010, bankId=10456, name=SB톡톡정기적금 (비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=비대면, isEnabled=true), 2.4]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=193, productCode=310047, bankId=10477, name=라이프플러스 정기적금(40만원), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=적금가입 후 캐롯손해보험 자동차보험 가입 필수, isEnabled=true), 2.35]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=42, productCode=010200100072, bankId=10927, name=KB 1코노미 스마트적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=KB스타뱅킹 전용상품, isEnabled=true), 2.35]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=55, productCode=10-047-1365-0001, bankId=13175, name=NH1934월복리적금, scodeId=D001, isDeposit=false, ageMin=19, ageMax=34, budgetMin=10000, budgetMax=500000, termMin=6, termMax=24, etc=초입금 및 매회 1만원 이상, 월 50만원 이내 자유적립
+
+급여이체 실적과 개인사업자 계좌 실적 우대금리는 중복 적용 불가
+
+ * 급여입금실적 인정기준
+  - 가입기간 12개월 이하 : 3개월 이상 급여이체
+  - 가입기간 24개월 이하 : 12개월 이상 급여이체, isEnabled=true), 2.35]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=191, productCode=310045, bankId=10477, name=라이프플러스 정기적금(20만원), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=적금가입 후 캐롯손해보험 자동차보험 가입 필수, isEnabled=true), 2.35]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=3, productCode=WR0001B, bankId=10001, name=시니어플러스우리적금 (증여우대형), scodeId=D001, isDeposit=false, ageMin=50, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=- 우대 중 1,2,3,4번은 거래실적 인정기간동안 실적충족시 우대적용
+-금리 12개월 회전형 상품(계약기간: 1년~5년, 연단위), isEnabled=true), 2.35]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=56, productCode=10-047-1381-0001, bankId=13175, name=NH내가Green초록세상적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=500000, termMin=12, termMax=36, etc=초입금5만원 이상 및 매회 1만원 이상, 매월50만원이내
+(단, 만기일 전 3개월 이내에는 이전 적립금 합계액을 초과하여 입금불가)
+
+※자세한 사항은 상품설명서 참조, isEnabled=true), 2.35]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=192, productCode=310046, bankId=10477, name=라이프플러스 정기적금(30만원), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=적금가입 후 캐롯손해보험 자동차보험 가입 필수, isEnabled=true), 2.35]
+2022-08-08 16:30:16.695  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=128, productCode=310003, bankId=10418, name=정기적금(월수), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=198, productCode=401005, bankId=10485, name=E-플러스 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=188, productCode=310037, bankId=10477, name=한화가족사랑정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=209, productCode=310012, bankId=10509, name=꿈나무장학적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=276, productCode=310041, bankId=12889, name=참기특한 정기적금(비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=293, productCode=31110, bankId=13313, name=smart-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=- 이자지급방식 : 만기일시지급
+- 해지방법 : 인터넷/스마트폰뱅킹에 접속하여 해약, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=142, productCode=310000, bankId=10437, name=한마음정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=해당없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=277, productCode=BNK1002, bankId=13002, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=143, productCode=310003, bankId=10437, name=꿈나무정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=해당없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=159, productCode=310008, bankId=10456, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=283, productCode=310001, bankId=13166, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=- 최저가입금액 : 1만원이상 
+- 중도해지금리 
+- 1개월 미만 : 보통예금 금리 
+- 1개월 이상 : 약정금리 x (경과월수 / 계약월수)x차등율 (최저금리 : 약정금리 x 50%) 
+- 1개월 이상~12개월 미만(차등율 : 60%)
+- 12개월 이상~24개월 미만(차등율 : 70%) 
+- 24개월 이상(차등율 : 80%), isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=222, productCode=31, bankId=10533, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지 이율(실 예치 기간 기준)]
+- 10개월 이상 : 1.5%
+- 6개월~10개월 미만 : 1.3%
+- 3개월~6개월 미만 : 1.1%
+- 1개월~3개월 미만 : 0.9%
+- 1개월 미만 : 0.5%, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=290, productCode=31010, bankId=13313, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=- 이자지급방식 : 만기일시지급
+- 해지방법 : 인터넷/스마트폰뱅킹에 접속하여 해약, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=223, productCode=310005, bankId=10533, name=정기적금 (인터넷뱅킹,스마트뱅킹,비대면), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=[중도해지 이율(실 예치 기간 기준)]
+- 10개월 이상 : 1.5%
+- 6개월~10개월 미만 : 1.3%
+- 3개월~6개월 미만 : 1.1%
+- 1개월~3개월 미만 : 0.9%
+- 1개월 미만 : 0.5%, isEnabled=true), 2.3]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=41, productCode=010200100070, bankId=10927, name=KB내맘대로적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=인터넷뱅킹/KB스타뱅킹 전용상품, isEnabled=true), 2.25]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=34, productCode=01211210110, bankId=10026, name=IBK썸통장 (자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=300000, termMin=12, termMax=12, etc=1인당 1계좌 가입가능하며, 계좌당 월적립금액 30만원 이하로 제한, isEnabled=true), 2.25]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=115, productCode=31-1, bankId=10389, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.25]
+2022-08-08 16:30:16.696  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=43, productCode=010200100083, bankId=10927, name=KB Young Youth 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=18, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=만19세미만 고객 가입가능, isEnabled=true), 2.25]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=275, productCode=310001, bankId=12889, name=참기특한 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=265, productCode=310010, bankId=11767, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=현금IC카드 발급 불가 상품, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=252, productCode=310004, bankId=10574, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=제한없음, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=52, productCode=230-0119-87, bankId=11625, name=아름다운 용기 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=12, termMax=12, etc=1. 가입한도: 
+월50만원이하
+2. 1인 1계좌, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=114, productCode=31, bankId=10389, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=없음, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=289, productCode=31000, bankId=13313, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=- 이자지급방식 : 만기일시지급
+- 해지방법 : 영업점 내방 또는 인터넷/스마트폰뱅킹에 접속하여 해약, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=185, productCode=GP310001, bankId=10473, name=뱅뱅뱅 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=206, productCode=02010, bankId=10508, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=- 중도해지 이율 1개월 미만 : 연0.1%
+- 1개월 이상~ 12개월 미만 : 약정이율의 50%
+- 12개월 이상 ~ 24개월 미만 : 약정이율의 55%, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=74, productCode=HK00002, bankId=10345, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=6, termMax=36, etc=-불입금액 1만원 이상, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=186, productCode=GP310015, bankId=10473, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=207, productCode=02070, bankId=10508, name=크크크 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=24, etc=[중도해지이율]
+- 1개월 미만 : 연0.1%
+- 1개월 이상 ~ 12개월 미만 : 약정이율의 50%
+- 12개월 이상 ~ 24개월 미만 : 약정이율의 55%, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=68, productCode=10141109800021, bankId=14807, name=Sh월복리자유적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌
+- 월 가입한도 : 100만원, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=4, productCode=WR0001C, bankId=10001, name=첫급여 우리적금, scodeId=D001, isDeposit=false, ageMin=18, ageMax=35, budgetMin=null, budgetMax=null, termMin=12, termMax=12, etc=해당없음, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=187, productCode=GP310017, bankId=10473, name=비대면 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 2.2]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=281, productCode=310004, bankId=13127, name=KB일반e-plus정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=12, termMax=36, etc=- 12~36개월 가입가능
+- 가입금액 : 1만원이상, isEnabled=true), 2.1]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=53, productCode=230-0120-01, bankId=11625, name=신한 S드림(DREAM) 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=1. 우대이율은 12개월이상 만기해지계좌에 한함, isEnabled=true), 2.1]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=19, productCode=TD11330023000, bankId=10019, name=KJB주거래적금Ⅱ, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=10000000, termMin=12, termMax=36, etc=1. 가입기간 : 1년이상 3년제
+2. 가입금액 : 월1만원 이상 1천만원 이하 (1인1계좌), isEnabled=true), 2.05]
+2022-08-08 16:30:16.697  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=302, productCode=1130313506, bankId=13350, name=웰뱅 든든적금, scodeId=D001, isDeposit=false, ageMin=19, ageMax=null, budgetMin=null, budgetMax=300000, termMin=12, termMax=12, etc=※ 신용평점별 우대금리 적용을 위해 적금 가입 시 개인(신용)정보 조회 동의가 필요하며, 미동의 시 신용평점별 우대금리 적용이 불가합니다. ※ 적금 가입 시점 NICE평가정보를 통해 조회된 신용평점을 기준으로 우대이율이 확정됩니다. ※ 월 최대 불입액 : 30만원, isEnabled=true), 2.0]
+2022-08-08 16:30:16.699  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=279, productCode=310002, bankId=13127, name=KB일반정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=null, termMin=12, termMax=36, etc=- 12~36개월 가입가능
+- 가입금액 : 1만원이상, isEnabled=true), 2.0]
+2022-08-08 16:30:16.699  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=297, productCode=1130312006, bankId=13350, name=WELCOME 체크플러스2 e정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=12, termMax=24, etc=- 1인당 가입한도 : 월 50만원
+- 인터넷뱅킹 전용상품, isEnabled=true), 1.9]
+2022-08-08 16:30:16.699  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=300, productCode=1130313503, bankId=13350, name=WELCOME 체크플러스2 m정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=12, termMax=24, etc=- 1인당 가입한도 : 월 50만원
+- 스마트(모바일) 뱅킹 전용상품, isEnabled=true), 1.9]
+2022-08-08 16:30:16.699  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=5, productCode=WR0001F, bankId=10001, name=우리SUPER주거래적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=-거래실적인정기간:신규일이 포함된 달로부터 만기일이 속한 달의 전전달까지
+-우대조건 필수 충족기간 : 1년: 6개월 이상 / 2년: 12개월 이상 / 3년 : 18개월 이상, isEnabled=true), 1.85]
+2022-08-08 16:30:16.699  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=44, productCode=010200100084, bankId=10927, name=KB맑은하늘적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=해당사항 없음, isEnabled=true), 1.85]
+2022-08-08 16:30:16.699  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=224, productCode=38, bankId=10533, name=자유 적립예금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.8]
+2022-08-08 16:30:16.699  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=27, productCode=10-01-30-031-0030-0000, bankId=10022, name=JB주거래적금 (단리형), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=10000, budgetMax=2000000, termMin=12, termMax=36, etc=1. 1년이상 5년이내 연단위
+2. 초회불입금 1만원이상 월 2백만원이내, isEnabled=true), 1.8]
+2022-08-08 16:30:16.700  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=28, productCode=10-01-30-031-0032-0000, bankId=10022, name=JB마이플랜적금 (자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=1000, budgetMax=1000000, termMin=6, termMax=24, etc=초회 불입금 1천원 이상
+월 최고 적립한도 1백만원 이내
+(1인 1계좌), isEnabled=true), 1.8]
+2022-08-08 16:30:16.700  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=306, productCode=1130315006, bankId=13350, name=WELCOME 체크플러스2 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=500000, termMin=12, termMax=24, etc=- 1인당 가입한도 : 월 50만원, isEnabled=true), 1.8]
+2022-08-08 16:30:16.700  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=162, productCode=310011, bankId=10456, name=기업 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.7]
+2022-08-08 16:30:16.700  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=38, productCode=03100, bankId=10030, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=해당없음, isEnabled=true), 1.7]
+2022-08-08 16:30:16.701  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=266, productCode=310001, bankId=12120, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.7]
+2022-08-08 16:30:16.701  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=163, productCode=310012, bankId=10456, name=e-plus 기업정기적금 (인터넷뱅킹,스마트뱅킹), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=인터넷 가입, isEnabled=true), 1.7]
+2022-08-08 16:30:16.701  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=299, productCode=1130313002, bankId=13350, name=m정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=스마트(모바일)뱅킹 전용상품, isEnabled=true), 1.7]
+2022-08-08 16:30:16.701  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=268, productCode=310013, bankId=12120, name=정기적금(자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.7]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=296, productCode=1130312001, bankId=13350, name=e-정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=인터넷뱅킹 전용상품, isEnabled=true), 1.7]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=29, productCode=10-01-30-031-0035-0000, bankId=10022, name=JB PLUS YOUNG 적금, scodeId=D001, isDeposit=false, ageMin=18, ageMax=34, budgetMin=1000, budgetMax=200000, termMin=12, termMax=12, etc=계약기간 1년
+월별 적립한도 1천원 이상 최고 20만원 이하 (1인 1계좌), isEnabled=true), 1.7]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=259, productCode=311002, bankId=10576, name=자유적립식적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.7]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=269, productCode=310015, bankId=12120, name=정기적금(자유적립식-인터넷뱅킹), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.7]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=51, productCode=230-0119-86, bankId=11625, name=신한 안녕, 반가워 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=1000, budgetMax=500000, termMin=12, termMax=12, etc=1. 가입한도: 
+1천원이상 
+월50만원 이하
+2. 1인 1계좌, isEnabled=true), 1.6]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=292, productCode=31040, bankId=13313, name=e-자유적립적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=- 이자지급방식 : 만기일시지급
+- 해지방법 : 인터넷/스마트폰뱅킹에 접속하여 해약, isEnabled=true), 1.6]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=241, productCode=310003, bankId=10556, name=비대면정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.6]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=242, productCode=310008, bankId=10556, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=없음, isEnabled=true), 1.6]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=294, productCode=31140, bankId=13313, name=smart-자유적립적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=- 이자지급방식 : 만기일시지급
+- 해지방법 : 인터넷/스마트폰뱅킹에 접속하여 해약, isEnabled=true), 1.6]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=47, productCode=230-0109-67, bankId=11625, name=신한 마이홈 적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=200000, termMin=12, termMax=12, etc=1. 가입한도: 
+월20만원이하
+2. 1인 1계좌
+3. 청약통장 가입일자가 상이하거나, 청약종합저축 가입 전 이 적금의 가입은 불가, isEnabled=true), 1.6]
+2022-08-08 16:30:16.702  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=305, productCode=1130315004, bankId=13350, name=WELCOME 디딤돌적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=300000, termMin=12, termMax=12, etc=[중도해지금리]
+- 일반중도해지 : 1.6%
+- 특별중도해지 : 4.8%
+※ 월 최대 불입액 : 30만원, isEnabled=true), 1.6]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=295, productCode=1130311001, bankId=13350, name=일반정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=영업점 전용상품, isEnabled=true), 1.6]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=189, productCode=310039, bankId=10477, name=e뱅킹정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=인터넷뱅킹, 스마트폰뱅킹 전용, isEnabled=true), 1.55]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=304, productCode=1130313562, bankId=13350, name=웰뱅 잔돈자동적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=200000, termMin=12, termMax=12, etc=-타행 잔돈적립을 위한 연결계좌는 당행 오픈뱅킹에 등록된 타행 입출금 계좌 최대 3개 설정 가능합니다. - 1회차 납입금액은 제한이 없으나 2회차 이후 납입금액은 매월 초일부터 말일까지의 입금합계액이 가입한도의 10%를 초과할 수 없습니다.※ 월 최대 불입액 : 20만원., isEnabled=true), 1.5]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=291, productCode=31030, bankId=13313, name=자유적립적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=12, termMax=36, etc=- 이자지급방식 : 만기일시지급
+- 해지방법 : 영업점 내방 또는 인터넷/스마트폰뱅킹에 접속하여 해약, isEnabled=true), 1.5]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=246, productCode=310001, bankId=10568, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=50000000, termMin=6, termMax=36, etc=예금자보호법에 따라 예금보험공사가 보호하되, 원금과 소정의 이자를 합하여 1인당 "최고 5천만원"이며 , 5천만원을 초과하는 나머지 금액은 보호하지 않습니다., isEnabled=true), 1.2]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=240, productCode=310003, bankId=10553, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=50000000, termMin=6, termMax=36, etc=예금자보호법에 따라 예금보험공사가 보호하되, 보호한도는 원금과 소정의 이자를 합하여 1인당 최고 5천만원까지 보호됩니다., isEnabled=true), 1.2]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=308, productCode=1130315009, bankId=13350, name=웰뱅하자 정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=200000, termMin=12, termMax=12, etc=1인당 가입한도 월 20만원 (1인 1계좌), isEnabled=true), 1.0]
+2022-08-08 16:30:16.703  INFO 17444 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : 290
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

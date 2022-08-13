@@ -20,4 +20,10 @@ public class AppConfig {
                 .setSkipNullEnabled(true);
         return modelMapper;
     }
+
+//
+//    @Bean
+//    public SessionFactory sessionFactory(@Qualifier("entityManagerFactory") EntityManagerFactory emf) {
+//        return emf.unwrap(SessionFactory.class);
+//    }
 }

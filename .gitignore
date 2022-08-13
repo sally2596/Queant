@@ -10,3 +10,7 @@ back-end/Queant/src/main/resources/.DS_Store
 back-end/Queant/src/main/resources/static/.DS_Store
 
 back-end/Queant/src/main/resources/application-API-KEY.properties
+
+back-end/Queant/build/.DS_Store
+
+back-end/Queant/build/libs/.DS_Store

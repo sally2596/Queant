@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'junit:junit:4.13.1'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
@@ -61,6 +62,14 @@ dependencies {
     //test를 위한 프론트 템플릿 -> 추후 삭제
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    // 로그에 남는 쿼리문 (?,?) 안에 채워서 보여줌, 배포시 삭제
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+
+    //Jsoup (크롤링)
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
+
+    //aws
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {

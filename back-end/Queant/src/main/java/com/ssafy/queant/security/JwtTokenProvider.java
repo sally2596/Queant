@@ -28,8 +28,8 @@ public class JwtTokenProvider {
     private final UserDetailsService userDetailsService;
     private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    private long tokenValidMilisecond = 1000L * 60 * 60; //1시간만 토큰 유효
-    private long refreshTokenValidMilisecond = 1000L * 60 * 60 * 24 * 3; //3일만 토큰 유효
+    private long tokenValidMilisecond = 1000L*60;//1000L * 60 * 60; //1시간만 토큰 유효
+    private long refreshTokenValidMilisecond = 1000L*60*5;//1000L * 60 * 60 * 24 * 3; //3일만 토큰 유효
 
     public String createToken(String userPk){
         Claims claims = Jwts.claims().setSubject(userPk);
@@ -63,7 +63,7 @@ public class JwtTokenProvider {
         String info = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
         LOGGER.info("[getUserEmail] 토큰 기반 회원 구별 정보 추출, info : {}", info);
