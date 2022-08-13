@@ -4,17 +4,20 @@ import axios from 'axios'
 
 export default {
   state: {
-    portfolio: {},
+    portfolio: [],
+    customProducts: [],
     portfolios: [],
     comparisonportfolios: []
     },
   getters: {
     portfolio: state => state.portfolio,
+    customProducts: state => state.customProducts,
     portfolios: state => state.portfolios,
     comparisonportfolios: state => state.comparisonportfolios
   },
   mutations: {
     SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
+    SET_CUSTOM_PRODUCTS: (state, customProducts) => state.customProducts = customProducts,
 
     PUSH_PRODUCT_TO_PORTFOLIO(state, value) {
       let portfolioNo = value.portfolioNo
@@ -91,29 +94,63 @@ export default {
     }
   },
   actions: {
-    addCustomProduct({ getters, commit }) {
+    deleteCustomProduct({ dispatch }, product_id) {
+      console.log(product_id)
+      axios({
+        url: spring.portfolio.custom(),
+        method: 'delete',
+        data: {
+          product_id: product_id
+        }
+      })
+      .then(res => {
+        console.log(res)
+        dispatch('fetchMyPortfolio')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    updateCustomProduct({ dispatch }, payload) {
+      payload.fixed_rsrv = false
+      axios({
+        url: spring.portfolio.custom(),
+        method: 'put',
+        data: payload
+      })
+      .then(res => {
+        console.log(res)
+        alert('사용자정의 상품 수정 완료')
+        dispatch('fetchMyPortfolio')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    addCustomProduct({ dispatch, getters }, payload) {
+      console.log(payload)
       axios({
         url: spring.portfolio.custom(),
         method: 'post',
         data: {
           member_id: getters.userInfo.member_id,
           custom_product_dto: {
-            amount: 1,
-            base_rate: 1.1,
-            depost: true,
-            end_date: '2020-01-01',
-            etc: '',
-            fixed_rsrv: true,
-            institution_name: '',
-            product_id: 1,
-            product_name: '',
-            special_rate: 1.1,
-            start_date: '2019-01-01'
+            amount: payload.amount,
+            base_rate: payload.base_rate,
+            deposit: payload.deposit,
+            end_date: payload.end_date,
+            etc: payload.etc,
+            fixed_rsrv: payload.fixed_rsrv,
+            institution_name: payload.institution_name,
+            product_name: payload.product_name,
+            special_rate: payload.special_rate,
+            start_date: payload.start_date
           }
         }
       })
       .then(res => {
         console.log(res)
+        dispatch('fetchMyPortfolio')
       })
       .catch(err => {
         console.log(err)
@@ -172,6 +209,7 @@ export default {
       .then(res => {
         console.log(res)
         commit('SET_PORTFOLIO', res.data.portfolio_list)
+        commit('SET_CUSTOM_PRODUCTS', res.data.custom_product_list)
         // 포트폴리오 수정일때 동기
         if (window.location.pathname === '/portfolio/edit')
           location.reload()

@@ -65,6 +65,7 @@ export default {
     posession: () => HOST + PORTFOLIO + 'posession',
     virtual: () => HOST + PORTFOLIO + 'virtual',
     single: () => HOST + PORTFOLIO + 'single',
-    custom: () => HOST + PORTFOLIO + 'custom'
+    custom: () => HOST + PORTFOLIO + 'custom',
+    customlist: () => HOST + PORTFOLIO + 'customlist'
   }
 }
