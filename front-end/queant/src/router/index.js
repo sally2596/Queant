@@ -152,6 +152,7 @@ const routes = [
     path: '/content/edit/:contentId',
     name : 'contentEdit',
     component: ContentEditView,
+    meta: { isAdmin: true }
   },
   {
     path: '/content/:contentId',
@@ -196,12 +197,14 @@ const routes = [
   {
     path: '/admin/content',
     name: 'adminContent',
-    component: AdminContentView
+    component: AdminContentView,
+    meta: { isAdmin: true }
   },
   {
     path: '/admin/special',
     name: 'adminSpecial',
-    component: AdminSpecialView
+    component: AdminSpecialView,
+    meta: { isAdmin: true }
   },
 ]
 

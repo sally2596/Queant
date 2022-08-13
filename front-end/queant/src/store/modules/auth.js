@@ -293,10 +293,6 @@ export default {
     // 회원탈퇴 & 로그아웃
     // 1. 회원탈퇴 요청 (계정 비활성화)
     unregister({ dispatch, getters }, email) {
-      // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
-      if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
-        dispatch('updateAccessToken')
-
       axios({
         url: spring.member.status(),
         method: 'put',
