@@ -91,6 +91,34 @@ export default {
     }
   },
   actions: {
+    addCustomProduct({ getters, commit }) {
+      axios({
+        url: spring.portfolio.custom(),
+        method: 'post',
+        data: {
+          member_id: getters.userInfo.member_id,
+          custom_product_dto: {
+            amount: 1,
+            base_rate: 1.1,
+            depost: true,
+            end_date: '2020-01-01',
+            etc: '',
+            fixed_rsrv: true,
+            institution_name: '',
+            product_id: 1,
+            product_name: '',
+            special_rate: 1.1,
+            start_date: '2019-01-01'
+          }
+        }
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
     deletePortfolio({ dispatch }, portfolio_id) {
       console.log(portfolio_id)
       axios({
