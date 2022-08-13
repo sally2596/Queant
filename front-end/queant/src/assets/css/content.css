@@ -1,0 +1,14 @@
+#contents-create-section {
+    max-width: 1080px;
+}
+
+#content-title {
+    width: 60rem;
+}
+
+.ck.ck-editor {
+    max-width: 1080px;
+}
+.ck-editor__editable {
+    min-height: 300px;
+}

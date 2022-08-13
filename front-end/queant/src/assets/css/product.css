@@ -1,0 +1,172 @@
+
+@font-face {
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+
+.product_section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title-div {
+    background-color: white !important;
+}
+#product_select_article {
+    background-color: #ffffff;
+    margin-top: 2rem; margin-left: 1rem;
+    max-height: 2140px;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+}
+
+.search_filter{
+    max-width: 992px;
+    background-color: white;
+    margin-top: 2rem; margin-left: 1rem; margin-bottom: 1rem;
+    box-shadow: 1px 5px 10px rgb(0 0 0 / 10%);
+    margin: auto;
+    margin-top: 50px;
+}
+
+
+#deposit-result-view {
+  margin-top: 20px; margin-bottom: 20px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+#saving-result-view {
+  margin-top: 20px; margin-bottom: 20px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+.btn {
+    text-decoration: none;
+    margin: 3px;
+    border-color: black;
+}
+
+.deposit {
+  margin-top: 5px;
+}
+
+#banks_container {
+  flex-wrap: wrap;
+  display: flex;
+  justify-self: start;
+}
+
+.product_section label {
+  font-size: 12px;
+}
+/* 가져온 것 */
+
+/* 필터정보 */
+
+.filter_button_wrap {
+  width: 100%;
+}
+
+.filter_button_wrap button {
+  width: 50%;
+}
+.filter_button{
+	background-color: #04AA6D;
+	border: 1px solid green;
+	color: white;
+	padding: 10px 24px;
+	cursor: pointer;
+	float: left;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+} 
+.filter_button_wrap:after {
+    content: "";
+    clear: both;
+    display: table;
+}  	
+.filter_button_wrap button:not(:last-child) {
+    border-right: none;
+}
+.filter_button:hover {
+  background-color: #3e8e41;
+}
+.filter_active{
+	background-color: #045d3c;
+}
+
+/* cart */
+
+.cart-none {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.to_product {
+  max-width: 80px;
+}
+
+.cart-none img {
+  width: 350px; height: 300px;
+}
+
+#cart-item {
+  width: 60%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+table::after {
+  width: 60%;
+  border-top: 1px solid #bcbcbc;
+}
+
+thead {
+  text-align: center;
+  font-weight: bold;
+}
+
+th {
+  border-right: 1px lightsteelblue;
+}
+
+tbody {
+  text-align: center;
+  font-size: 12px;
+}
+
+td {
+  padding: 15px 0px;
+  font-size: 1rem;
+}
+
+td img {
+  width: 100px;
+}
+
+tbody::after {
+  width: 60%;
+  border-bottom: 1px solid lightgrey;
+}
+
+/* detail */
+
+.product-detail-box {
+  display: flex; justify-content: center;
+}
+
+.product-detail {
+  width: 1080px;
+  border-radius: 5px;
+  box-shadow: 0 5px 26px 0 rgba(68, 88, 144, 0.14);
+}
+.prd-btn-area {
+  position:absolute 100% 100%;
+}

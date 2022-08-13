@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSansKR-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SuseongDotum';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/SuseongDotum.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LeferiPoint-WhiteObliqueA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.nav_header {
+  top : 0;
+}
+
+.nav_header .font-bold {
+  font-family: SuseongDotum;
+  font-size: 3rem;
+}
+
+.nav_header .font-description {
+  font-family: LeferiPoint-WhiteObliqueA;
+  font-size: 1.15rem;
+}
+
+.nav_header .text-large {
+  font-size: 1.6rem;
+
+}
+.nav_header .text-medium {
+  font-size: 1.2rem !important;
+}
+
+.nav_header .text-small {
+  font-size: 0.9rem !important;
+}
+
+.nav_header #nav_header {
+  font-family: IBMPlexSansKR-Regular, InfinitySans-RegularA1, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #000000 !important;
+}
+
+.nav_header .nav {
+  padding: 1.2rem !important;
+  background-color: white !important;
+  z-index: 1;
+}
+
+.nav_header .nav a {
+  font-size: 1.2rem !important;
+  color: #000000; 
+  text-decoration: none !important;
+}
+
+.nav_header.nav a:hover {
+  color: #000000 !important;
+}
+
+.nav_header {
+  background-color: white;
+}
+.nav_header.nav a.router-link-exact-active {
+  color: #000000 !important;                     
+}
+
+.nav_header .navbar-text,
+.nav_header .navbar-text a,
+.nav_header .nav-link {
+  color: #000000;
+  padding: 0;
+}
+
+.nav_header.navbar-toggler {
+  color: #000000 !important;
+  border: none;
+}
+
+.navbar-toggler {
+  margin-right: 10px;
+}
+
+.navbar p {
+  font-size: 25px;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.nav_header.dropdown-menu[data-bs-popper] {
+  right: 1;
+}
+
+.dropdown-menu {
+  text-align: center;
+  width:30px;
+}
+
+.nav_header a { 
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav_header a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.logo {
+  max-height: 200px;
+  max-width: 200px;
+  margin-right: 1rem;
+  margin-left: 2rem
+}
+
+.nav_header.account {
+  flex-direction: column;
+}
+
+.content {
+  padding: 8px;
+}
+
+#navbar ul {
+  align-items: center;
+}
+
+/* 모바일 화면 */
+@media (max-width: 991px) {
+  /* 검색 화면 안 보이게 */
+  #searching_place {
+    display: none;
+  }
+  /* 토글 열었을 때 왼쪽 정렬되게 */
+  #navbar ul {
+    align-items: flex-start;
+  }
+}
+#searching_place {
+  margin-right: 20px;
+}
+
+.right_content {
+  margin-right: 20px;
+}
+
+.searching {
+  margin-left: 3px;
+  width: 28px;
+  background-color: transparent;
+}
+
+/* #navbar > ul > div > li > a:hover {
+  color: green;
+} */

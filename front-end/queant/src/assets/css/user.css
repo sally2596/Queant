@@ -1,0 +1,222 @@
+/* common form */
+
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  background-size: cover;
+}
+
+.int-area {
+  width: 300px; position: relative;
+  margin-top: 10px;
+}
+.int-area:first-child {margin-top: 0;}
+.int-area input {
+  width: 100%;
+  padding: 20px 10px 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 18px; color: #000;
+  outline: none;
+}
+
+.int-area label {
+  position: absolute; left: 10px; top: 20px;
+  font-size: 18px; color: #999;
+  transition: top .5s ease;
+}
+
+.int-area button {
+  position: absolute; left: 220px; top: 15px;
+  font-size: 18px; color: #999;
+  width: 75px;
+  height: 30px;
+  background: #04AA6D;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  border-radius: 25px;
+}
+
+.int-area input:focus + label,
+.int-area input:valid + label,
+.int-area input:read-only + label {
+  top: 0;
+  font-size: 13px; color: #04AA6D;
+}
+
+.btn-area {margin-top: 30px;}
+.btn-area button {
+  width: 60%; height: 40px;
+  background: #04AA6D;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+}
+
+.btn-edit {margin-top: 30px;}
+.btn-edit button {
+  width: 40%; height: 40px;
+  background: #04AA6D;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+}
+
+.caption {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.caption a {
+  font-size: 15px; color: #999;
+  text-decoration: none;
+}
+.choose-area {
+  width: 300px; position: relative;
+  padding:18px;
+  border-bottom: 1px solid #000;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+#profile-name {
+  
+  width: 18%;
+  background-color: transparent;
+  border: none;
+}
+
+#profile-email {
+  
+  width: 52%;
+  background-color: transparent;
+  border: none;
+}
+
+#profile-birthdate {
+  width: 40%;
+  background-color: transparent;
+  border: none;
+}
+#Female-select {
+  width: 7%;
+  margin-right: 5px;
+  background-color: transparent;
+  border: none;
+}
+#Male-select {
+  width: 7%;
+  margin-right: 5px;
+  background-color: transparent;
+  border: none;
+}
+.choose-area p {
+  font-size: 18px; color: #999;
+  margin-right: 10px; margin-bottom: 0;
+}
+.choose-area label {
+  position: absolute; left: 14px; top: 17px;
+  font-size: 18px; color: #999;
+}
+.date-area {  
+  width: 300px; position: relative;
+  margin-top: 20px;
+  border-bottom: 1px solid #000;
+  display: flex;
+  justify-content: flex-end;
+}
+.date-area input {
+  width: 40%;
+  margin-right: 5px; margin-bottom: 10px;
+  background-color: transparent;
+  font-size: 18px; color: #999; 
+}
+.date-area label {
+  position: absolute; left: 10px; top: 5px;
+  font-size: 18px; color: #999;
+}
+.auth-area {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: auto;
+  
+}
+.auth-area button{
+  width : 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 0;
+  background-color: transparent;
+}
+
+.auth-area img{
+  padding-right: 10;
+  width : 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+
+.error-text {
+  margin-top: 2px;
+  text-align: center;
+  font-size: 15px; color: red;
+  text-decoration: none;
+}
+
+/* login forms */
+
+.login-form {position: relative; z-index: 2;}
+.login-form h1 {
+  font-size: 22px; color: #000;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.login-form p {
+  margin-top: 30px;
+  color: #999;
+}
+
+/* register-form */
+
+.register-form {position: relative; z-index: 2;}
+.register-form h1 {
+  font-size: 32px; color: #000;
+  text-align: center;
+}
+
+.register-form p {
+  margin-top: 10px;
+  color: #000;
+}
+
+.register-comeback {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-comeback a {
+  font-size: 15px; color: #999;
+  text-decoration: none;
+}
+
+#verified {
+  width: 75px;
+  height: 30px;
+  background: #00b345;
+  color: #000;
+  font-size: 12px;
+  border: none;
+  border-radius: 25px;
+}
