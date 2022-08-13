@@ -35,25 +35,77 @@
 
       <!-- 포트폴리오의 상품을 개별로 볼 때 -->
 
-      <div v-if="savingAmount?.lenth!=0" class="w-25 h-25">
-        <vue3-chart-js v-bind="{ ...pieChartSaving }" />
-        
-        <div v-for="(saving,index) in savingName" :key="index">
-        {{ saving }}{{savingAmount[index]}}
-        <hr />
-      </div>
-      </div>
-      <div v-if="depositAmount?.length != 0" class="w-25 h-25">
-        <vue3-chart-js v-bind="{ ...pieChartDeposit }" />
-      </div>
-      <div v-for="product in portfolio" :key="product">
-        {{ product }}
-        <hr />
+      <div class="row justify-content-md-center">
+        <div v-if="savingAmount?.lenth != 0" class="col-4">
+          <vue3-chart-js v-bind="{ ...pieChartSaving }" />
+          <div class="card-body">
+            월 납입금 {{ filtered(savingTotalAmount) }}원
+            <br />
+            평균 이자율
+            {{
+              Math.round((savingTotalRate / savingAmount.length) * 1000) / 1000
+            }}
+          </div>
+          <h2 class="d-flex justify-content-center">적금 상품 목록</h2>
+          <br />
+          <table>
+            <thead>
+              <tr>
+                <th>은행</th>
+                <th>상품명</th>
+                <th>금액</th>
+                <th>적용 금리</th>
+              </tr>
+            </thead>
+            <br />
+            <tbody v-for="(save, index) in savingName" :key="index">
+              <td>
+                <img :src="savingPicture[index]" alt="" />
+              </td>
+              <td>{{ savingName[index] }}</td>
+              <td>{{ savingAmount[index] }}</td>
+              <td>{{ savingRate[index] }}%</td>
+              <td>{{ savingColors[index] }}</td>
+            </tbody>
+          </table>
+        </div>
+        <div v-if="depositAmount?.length != 0" class="col-4">
+          <vue3-chart-js v-bind="{ ...pieChartDeposit }" />
+          <div class="card-body">
+            총 금액 {{ filtered(depositTotalAmount) }}원
+            <br />
+            평균 이자율
+            {{
+              Math.round((depositTotalRate / depositAmount.length) * 1000) /
+              1000
+            }}
+          </div>
+          <h2 class="d-flex justify-content-center">예금 상품 목록</h2>
+          <br />
+          <table>
+            <thead>
+              <tr>
+                <th>은행</th>
+                <th>상품명</th>
+                <th>금액</th>
+                <th>적용 금리</th>
+              </tr>
+            </thead>
+            <br />
+            <tbody v-for="(deposit, index) in depositName" :key="index">
+              <td>
+                <img :src="depositPicture[index]" alt="" />
+              </td>
+              <td>{{ depositName[index] }}</td>
+              <td>{{ depositAmount[index] }}</td>
+              <td>{{ depositRate[index] }}%</td>
+              <td>{{ depositColors[index] }}</td>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div
-        v-for="customProduct in customProducts"
-        :key="customProduct">
+      <div v-for="customProduct in customProducts" :key="customProduct">
         {{ customProduct }}
       </div>
     </div>
@@ -83,8 +135,12 @@ export default {
     const savingRate = [];
     const depositColors = [];
     const savingColors = [];
+    const depositPicture = [];
+    const savingPicture = [];
     let savingTotalRate = 0;
-    let depostiTotalRate = 0;
+    let depositTotalRate = 0;
+    let savingTotalAmount = 0;
+    let depositTotalAmount = 0;
 
     const pieChartSaving = {
       type: "pie",
@@ -102,41 +158,21 @@ export default {
       },
       options: {
         layout: {
-          padding: 20
+          padding: 20,
         },
         //
         plugins: {
           datalabels: {
             display: false,
             // data:savingName,
-            align: "bottom",
-            backgroundColor: "#ccc",
             borderRadius: 3,
             font: {
               size: 18,
             },
           },
           legend: {
-            display: true,
-            position: "bottom",
-
-            // 색깔별로 어떤 데이터가 보이는지
-            // labels: {
-            //   // This more specific font property overrides the global property
-            //   boxWidth: 8,
-            //   padding: 10,
-            //   usePointStyle: true,
-            //   pointStyle: "circle",
-            //   font: {
-            //     size: 20,
-            //   },
-            // },
-            // tooltip: {
-            //   boxWidth: 15,
-            //   bodyFont: {
-            //     size: 50,
-            //   },
-            // },
+            display: false,
+            position: "left",
             responsive: true,
             maintainAspectRatio: false,
           },
@@ -157,8 +193,31 @@ export default {
           },
         ],
       },
+      options: {
+        layout: {
+          padding: 20,
+        },
+        //
+        plugins: {
+          datalabels: {
+            display: false,
+            // data:savingName,
+            borderRadius: 3,
+            font: {
+              size: 18,
+            },
+          },
+          legend: {
+            display: false,
+            position: "right",
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        },
+      },
     };
-   
+    const filtered = (val) => String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
     return {
       // lineChart,
       pieChartDeposit,
@@ -171,13 +230,18 @@ export default {
       savingRate,
       depositColors,
       savingColors,
+      savingPicture,
+      depositPicture,
+      depositTotalRate,
+      savingTotalRate,
+      savingTotalAmount,
+      depositTotalAmount,
+      filtered,
     };
   },
-  setup() {
-    
-  },
+  setup() {},
   computed: {
-    ...mapGetters(['portfolio', 'customProducts'])
+    ...mapGetters(["portfolio", "customProducts"]),
   },
   methods: {
     ...mapActions(["fetchMyPortfolio"]),
@@ -193,6 +257,8 @@ export default {
         // 일할 계산 or 전체 계산?
         // 예금이면 이미 들어간 돈이고 이자가 붙는거니까 이자 일할 계산해서 붙여주기?
         this.depositAmount.push(item.amount);
+        this.depositTotalAmount += item.amount;
+        this.depositPicture.push(item.product.picture);
         let rate = 0;
         rate += item.option.base_rate;
         item.conditions.forEach((element) => {
@@ -201,11 +267,12 @@ export default {
         rate = Math.round(rate * 1000) / 1000;
         this.depositRate.push(rate);
         this.depositName.push(item.product.name);
-        this.depostiTotalRate += rate;
+        this.depositTotalRate += rate;
       } else {
         // 적금은 한달에 들어가는 돈만 보여주는 걸로?
         this.savingAmount.push(item.amount);
-
+        this.savingTotalAmount += item.amount;
+        this.savingPicture.push(item.product.picture);
         let rate = 0;
         rate += item.option.base_rate;
         item.conditions.forEach((element) => {
@@ -214,6 +281,32 @@ export default {
         rate = Math.round(rate * 1000) / 1000;
         this.savingRate.push(rate);
         this.savingName.push(item.product.name);
+        this.savingTotalRate += rate;
+      }
+    });
+
+    // 커스텀 상품
+    this.customProducts.forEach((item) => {
+      if (item.deposit) {
+        this.depositAmount.push(item.amount);
+        this.depositTotalAmount += item.amount;
+        let rate = 0;
+        rate = item.base_rate + item.special_rate;
+        rate = Math.round(rate * 1000) / 1000;
+        this.depositRate.push(rate);
+        this.depositName.push(item.product_name);
+        this.depositTotalRate += rate;
+        this.depositPicture.push("../../assets/image/퀸트_로고.png");
+      } else {
+        this.savingAmount.push(item.amount);
+        this.savingTotalAmount += item.amount;
+        let rate = 0;
+        rate = item.base_rate + item.special_rate;
+        rate = Math.round(rate * 1000) / 1000;
+        this.savingRate.push(rate);
+        this.savingName.push(item.product_name);
+        this.savingTotalRate += rate;
+        this.savingPicture.push("../../assets/image/퀸트_로고.png");
       }
     });
     for (let i = 0; i < this.depositAmount.length; i++) {
@@ -228,7 +321,6 @@ export default {
       );
     }
   },
-  
 };
 </script>
 
