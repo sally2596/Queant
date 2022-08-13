@@ -81,31 +81,27 @@ export default {
         console.log(err)
       })
 		},
-		deleteReport({}, reportId) {
-      console.log(content);
-      axios({
-        url: spring.contents.delete(),
-				method: 'put',
-				data: {
-					report_id : reportId
-        },
-      })
+		deleteReport({ }, data) {
+			axios.put(
+        spring.product.report.delete(),
+				JSON.stringify(data), {
+					headers: { 'Content-Type': 'application/json' }
+				}
+      )
       .then(res => {
 				console.log(res)
-        router.push({ name: 'contents' })
       })
       .catch(err => {
         console.log(err)
       })
 		},
-		getUserReports({ commit }, memberEmail) {
-      axios({
-        url: spring.product.report.user(),
-				method: 'get',
-				data: {
-					member_email : memberEmail
-        },
-      })
+		getUserReports({ commit }, data) {
+			axios.get(
+        spring.product.report.user(),
+				JSON.stringify(data), {
+					headers: { 'Content-Type': 'application/json' }
+				}
+      )
       .then(res => {
         console.log(res)
         commit('SET_USER_REPORTS', res.data)

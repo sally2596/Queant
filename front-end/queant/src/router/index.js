@@ -42,6 +42,7 @@ import ProductDepositResultView from '@/views/product/ProductDepositResultView.v
 import ProductSavingResultView from '@/views/product/ProductSavingResultView.vue'
 import ProductSearchResultView from '@/views/product/ProductSearchResultView.vue'
 import ProductDetailView from '@/views/product/ProductDetailView.vue'
+import ProductSpecialMyView from '@/views/product/ProductSpecialMyView.vue'
 
 // content
 import ContentListView from '@/views/content/ContentListView.vue'
@@ -127,6 +128,11 @@ const routes = [
     path: '/product/special',
     name: 'productSpecialPlus',
     component: ProductSpecialPlusView
+	},
+	{
+    path: '/product/mylist',
+    name: 'productSpecialMy',
+    component: ProductSpecialMyView
   },
   {
     path: '/product/comparison',

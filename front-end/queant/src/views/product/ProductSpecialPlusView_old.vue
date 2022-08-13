@@ -3,15 +3,15 @@
     <header id="title-div">
       <h1 class="title" id="title">특판 상품 제보</h1>
     </header>
-    <section>
+    <section class="product_section">
       <div>
-        <form>
+        <form @submit="checkForm()">
           <br>
           은행이름 <input type="text" v-model="product.bankName"><br>
           상품명 <input type="text" v-model="product.productName"><br>
           관련링크 <input type="text" v-model="product.referenceData"><br>
           <!-- 예금/적금 <input type="text" v-model="product.is_deposit"><br> -->
-          <button type="button" class="btn btn-sm btn-outline-secondary" @click="regist()">제보하기</button>
+          <input type="submit" class="btn btn-sm btn-outline-secondary" value="제보하기">
 	      </form>
       </div>
     </section>
@@ -69,11 +69,24 @@ export default {
   },
   methods: {
     ...mapActions(['registReport']),
-    regist() {
-      this.product.memberEmail = this.userInfo.email;
-      this.registReport(this.product);	
-			this.$router.go();		
-    }
+		checkForm() {
+      if (this.product.bankName && this.product.productName && this.product.referenceData) {
+				this.product.memberEmail = this.userInfo.email;
+				this.registReport(this.product);	
+				alert("제보가 성공적으로 완료되었습니다!")
+				this.$router.go();	
+      } else {
+				if (!this.product.bankName) {
+        alert('은행 이름을 입력해주세요.');
+				}
+				else if (!this.product.productName) {
+					alert('상품 이름을 입력해주세요.');
+				}
+				else if (!this.product.referenceData) {
+					alert('관련 링크를 입력해주세요.');
+      	}
+			}
+    },
   }
 }
 </script>
