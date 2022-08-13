@@ -61,12 +61,14 @@ export default {
         }
     },
 
-    POP_PRODUCT_FROM_CPORTFOLIO(state, Idxs) {
-      let portfolioIdx = Idxs[0]
-      let productIdx = Idxs[1]
+    POP_PRODUCT_FROM_CPORTFOLIO(state, value) {
+      let portfolioNo = value[0]
+      let FindProduct = value[1]
+      let cportfolios = state.comparisonportfolios
+      let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
 
-      state.comparisonportfolios[portfolioIdx].product.splice(productIdx, 1)
-      console.log(`${portfolioIdx+1}번 포트폴리오의 ${productIdx+1}번 상품을 삭제했습니다.`)
+      cportfolios[portfolioNo-1].products.splice(item, 1)
+      console.log(`${portfolioNo}번 포트폴리오의 ${FindProduct.product.name} 상품을 삭제했습니다.`)
     },
 
     POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolioIdx) {
