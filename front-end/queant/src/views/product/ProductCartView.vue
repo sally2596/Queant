@@ -36,7 +36,7 @@
           <td>{{productInCart.product.base_rate}}</td>
           <td>{{productInCart.product.term_min}}</td>
           <button class="btn btn-outline-second btn-sm" @click="addProductInCart(productInCart)">선택 상품 내 포트폴리오에 넣기</button>
-          <div v-for="cportfolio in comparisonportfolios" :key="cportfolio.cportfolio_cnt">
+          <div v-for="cportfolio in comparisonPortfolio" :key="cportfolio.cportfolio_cnt">
             <button class="btn btn-outline-second btn-sm" @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart])">{{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품 추가</button>
           </div>
           <button class="btn btn-outline-second btn-sm" @click="popProductInCart(productInCart)">선택 상품 삭제</button>
@@ -46,31 +46,33 @@
     </div>
   </section>
   <section class="product_section">
-    <div v-if="comparisonportfolios.length === 0" class="cart-none">
+    <div v-if="comparisonPortfolio.length === 0" class="cart-none">
       <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width: 30%; height: 30%;">
       
       <br><br>
       <h5>가상 포트폴리오가 없습니다.</h5>
       <br><br>
       
-      <button class="btn btn-outline-success" @click="addcomparisonportfolio(userInfo)">가상 포트폴리오 추가하기</button> 
+      <button class="btn btn-outline-success" @click="addComparisonPortfolio()">가상 포트폴리오 추가하기</button> 
     </div>
     <div v-else>
       <div class="container row">
-        <div class="col-3" v-for="cportfolio in comparisonportfolios" :key="cportfolio">
+        <div class="col-3" v-for="cportfolio in comparisonPortfolio" :key="cportfolio">
           <div v-if="cportfolio.products.length === 0">
             <div>아직 {{cportfolio.cportfolio_cnt}}번 포트폴리오에 상품이 없습니다.</div>
           </div>
           <div v-else>
             <h5>{{cportfolio.cportfolio_cnt}}번 포트폴리오 상품</h5>
+            {{ cportfolio }}
+            <button @click="deleteCportfolio(cportfolio.cportfolio_cnt)">삭제</button>
             <div v-for="cproduct in cportfolio.products" :key="cproduct">
-            <p>{{cproduct.product.name}}</p>
+              <p>{{cproduct.product.name}}</p>
             </div>
           </div>
         </div>
       </div>
       
-    <button class="btn btn-outline-success" @click="addcomparisonportfolio(userInfo)">포트폴리오 추가하기</button> 
+    <button class="btn btn-outline-success" @click="addComparisonPortfolio()">포트폴리오 추가하기</button>
     <button class="btn btn-outline-success" @click="clearcomparisonportfolio()">포트폴리오 전체 삭제</button>
     <button class="btn btn-outline-success" @click="saveToDb()">최종 저장</button>
     </div>
@@ -85,15 +87,18 @@ import draggable from 'vuedraggable'
 
 export default {
   name: 'ProductCartView',
-  components : { Navbar, Modal, draggable},
+  components : { Navbar, Modal, draggable },
   computed: {
-    ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonportfolios'])
+    ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonPortfolio'])
   },
   methods: {
     ...mapActions(['fetchProduct', 'saveToDb']),
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
+    },
+    deleteCportfolio(cportfolio_cnt) {
+      this.POP_CPORTFOLIO(cportfolio_cnt)
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
@@ -106,8 +111,8 @@ export default {
       this.showModal = true,
       this.fetchProduct(value[1].product_id)
     },
-    addcomparisonportfolio(value) {
-      this.PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(value)
+    addComparisonPortfolio() {
+      this.ADD_COMPARISON_PORTFOLIO()
     },
     clearcomparisonportfolio() {
       this.CLEAR_CPORTFOLIOS()

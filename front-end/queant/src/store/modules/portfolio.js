@@ -7,7 +7,7 @@ export default {
     portfolio: [],
     customProducts: [],
     portfolios: [],
-    comparisonportfolios: [],
+    comparisonPortfolio: [],
     newlyAddedPortfolio: [],
 
     },
@@ -15,7 +15,7 @@ export default {
     portfolio: state => state.portfolio,
     customProducts: state => state.customProducts,
     portfolios: state => state.portfolios,
-    comparisonportfolios: state => state.comparisonportfolios
+    comparisonPortfolio: state => state.comparisonPortfolio
   },
   mutations: {
     SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
@@ -33,45 +33,51 @@ export default {
       }
     },
 
-    PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(state, value) {
-      let member_id = value.member_id
-      if (state.comparisonportfolios.length === 0) {
+    POP_CPORTFOLIO(state, cportfolio_cnt) {
+      let portfolioNo = cportfolio_cnt
+      // 삭제된 포트폴리오의 이후 포트폴리오의 cnt를 1씩 차감
+      for (var i=portfolioNo; i <= state.comparisonPortfolio.length-1; i++) {
+        state.comparisonPortfolio[i].cportfolio_cnt -= 1
+        console.log(state.comparisonPortfolio[i])
+      }
+      state.comparisonPortfolio.splice(portfolioNo-1, 1)
+    },
+    ADD_COMPARISON_PORTFOLIO(state) {
+      if (state.comparisonPortfolio.length === 0) {
         state.newlyAddedPortfolio.push(1);
-        state.comparisonportfolios.push({
-          "member_id" : member_id,
-          "cportfolio_cnt" : 1,
-          "products" : []
+        state.comparisonPortfolio.push({
+          cportfolio_cnt: 1,
+          products: []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if (state.comparisonportfolios.length <= 4) {
-        state.newlyAddedPortfolio.push(state.comparisonportfolios.length+1)
-        state.comparisonportfolios.push({
-          "member_id" : member_id,
-          "cportfolio_cnt" : (state.comparisonportfolios.length) +1,
-          "products" : []
+      } else if (state.comparisonPortfolio.length <= 4) {
+        state.newlyAddedPortfolio.push(state.comparisonPortfolio.length+1)
+        state.comparisonPortfolio.push({
+          cportfolio_cnt: (state.comparisonPortfolio.length) +1,
+          products: []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if ( state.comparisonportfolios.length > 4) {
+      } else if (state.comparisonPortfolio.length > 4) {
         alert('더 이상 가상 포트폴리오를 만들 수 없습니다.')
       }
     },
 
     PUSH_PRODUCT_TO_CPORTFOLIO(state, value) {
-        let portfolioNo = value[0]
-        let product = value[1]
-        let cportfolios = state.comparisonportfolios
-        if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product.product_id === product.product.product_id)) {
-          alert('이미 포트폴리오에 있는 상품입니다.')
-        } else {
-          state.comparisonportfolios[portfolioNo-1].products.push(product)
-        console.log(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
-        }
+      let portfolioNo = value[0]
+      let product = value[1]
+      let cportfolios = state.comparisonPortfolio
+      if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product.product_id === product.product.product_id)) {
+        alert('이미 포트폴리오에 있는 상품입니다.')
+      } else {
+        state.comparisonPortfolio[portfolioNo-1].products.push(product)
+      console.log(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
+      }
     },
 
     POP_PRODUCT_FROM_CPORTFOLIO(state, value) {
       let portfolioNo = value[0]
       let FindProduct = value[1]
-      let cportfolios = state.comparisonportfolios
+      let cportfolios = state.comparisonPortfolio
       let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
 
       cportfolios[portfolioNo-1].products.splice(item, 1)
@@ -79,12 +85,12 @@ export default {
     },
 
     POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolioIdx) {
-      state.comparisonportfolios.splice(cportfolioIdx-1, 1)
+      state.comparisonPortfolio.splice(cportfolioIdx-1, 1)
       console.log(`${cportfolioIdx}번 포트폴리오를 삭제했습니다.`)
     },
 
     CLEAR_CPORTFOLIOS(state) {
-      state.comparisonportfolios = []
+      state.comparisonPortfolio = []
     },
 
     POP_PORTFOLIO_FROM_PORTFOLIOS(state, portfolioIdx) {
@@ -255,11 +261,11 @@ export default {
     },
     saveToDb({ getters, state }) {
       console.log(state.newlyAddedPortfolio);
-      for (var i = 1; i <= state.comparisonportfolios.length; i++){
+      for (var i = 1; i <= state.comparisonPortfolio.length; i++){
         if (state.newlyAddedPortfolio.includes(i)) {
-          console.log(state.comparisonportfolios[i-1])
+          console.log(state.comparisonPortfolio[i-1])
           var tempPortfolioList = [];
-          for (const port of state.comparisonportfolios[i - 1].products) {
+          for (const port of state.comparisonPortfolio[i - 1].products) {
             console.log(port.option_id)
             var temp = {
               portfolio_no:i,
@@ -289,8 +295,8 @@ export default {
           })
         } else {
           var tempPortfolioList = [];
-          console.log(state.comparisonportfolios[i-1])
-          for (const port of state.comparisonportfolios[i - 1].products) {
+          console.log(state.comparisonPortfolio[i-1])
+          for (const port of state.comparisonPortfolio[i - 1].products) {
             console.log(port.option_id)
             var temp = {
               portfolio_no:i,
