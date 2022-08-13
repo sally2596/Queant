@@ -29,7 +29,7 @@
       <!-- 값에 따라 보여지는 화면 추후 설정 -->
       <p v-if="authError === 404">이메일을 다시 확인해주세요.</p>
       <p v-else-if="authError === 409">비밀번호가 일치하지 않습니다.</p>
-      <p v-else-if="authError === 423">비활성화된 계정입니다.</p>
+      <p v-else-if="authError === 423">비활성화 계정입니다.</p>
 
       <div class="btn-area">
         <button :disabled="!isCheckedForm" type="submit">LOGIN</button>

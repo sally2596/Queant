@@ -22,6 +22,7 @@
             v-model="payload.amount"
             type="number"
             required>
+          <p>{{ error.amount }}</p>
 
           <br>
           이자유형 & 개월수
@@ -67,14 +68,20 @@
             v-model="payload.end_date"
             type="date"
             required>
+          {{ error.date }}
        </slot>
       </div>
 
       <div class="modal-footer">
        <slot name="footer">
-
-        <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
-        <button @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
+        <div v-if="isCheckedForm">
+          <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
+          <button @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
+        </div>
+        <div v-else>
+          <button disabled>내 포트폴리오</button>
+          <button disabled>장바구니</button>
+        </div>
         <button class="modal-default-button" @click="$emit('close')">닫기</button>
        </slot>
       </div>
@@ -101,6 +108,27 @@ export default {
     pushProductToCart(payload) {
       this.PUSH_PRODUCT_TO_CART(payload)
     },
+    checkForm() {
+      if (this.payload.amount < 1)
+        this.error.amount = '납입금액을 확인해주세요.'
+      else this.error.amount = ''
+      
+      if (this.payload.start_date && this.payload.end_date && this.payload.start_date >= this.payload.end_date)
+        this.error.date = '날짜를 확인해주세요.'
+      else this.error.date = ''
+    
+      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date)
+        this.isCheckedForm = true
+      else this.isCheckedForm = false
+    }
+  },
+  watch: {
+    payload: {
+      deep: true,
+      handler() {
+        this.checkForm()
+      }
+    }
   },
   data() {
     return {
@@ -111,7 +139,12 @@ export default {
         end_date: null,
         option_id: this.modalData.selected_option_id?this.modalData.selected_option_id:'선택',
         product: this.modalData
-      }
+      },
+      error: {
+        amount: '',
+        date: ''
+      },
+      isCheckedForm: false
     }
   }
 }

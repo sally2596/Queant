@@ -67,8 +67,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import spring from '@/api/spring'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
