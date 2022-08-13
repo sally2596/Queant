@@ -63,8 +63,6 @@
                 <hr>
                 <li style="margin:8px"><router-link :to="{ name : 'portfolio' }">내 포트폴리오 보기</router-link></li>
                 <hr>
-								<li style="margin:8px"><router-link :to="{ name : 'productSpecialMy' }">내 상품제보 보기</router-link></li>
-                <hr>
                 <li style="margin:8px; cursor: pointer" @click="logout">로그아웃</li>
               </ul>
           </li>
