@@ -1,5 +1,4 @@
-#우리은행 코드 10001
-uri_data = [
+[
     {"bank": "우리은행", "name": "WON 예금", "age_min": None, "age_max": None, "term_min": 1, "term_max": 36,
      "budget_min": 1000000, "budget_max": None, "etc": None, "is_deposit": 1,
      "join": ["인터넷","스마트폰","전화"],

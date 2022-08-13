@@ -6,9 +6,6 @@ import xml.etree.ElementTree as ET
 from pymysql import NULL
 import pymysql
 import re
-import sys
-sys.path.append("./prdt_datas")
-import prdt_datas as prdt_data
 
 def connect_db():
     conn = pymysql.connect(host='172.17.0.2', port = 3306, user='queant', password='A201Queant', db = 'queant', charset='utf8mb4')
@@ -217,6 +214,10 @@ def save_into_db(conn, cur, datas, data_lists):
 def save_db_manually():
     conn, cur = connect_db()
     data_lists = make_data_list()
-    data_lists = save_into_db(conn, cur, prdt_data.uri_data , data_lists)
+    f = open("./prdt_datas/uri.txt")
+    pd = f.read()
+    product_data = eval(pd)
+    
+    data_lists = save_into_db(conn, cur, product_data , data_lists)
     last_check_prdt(data_lists, conn, cur)
     conn.close()
