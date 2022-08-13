@@ -72,6 +72,7 @@
       
     <button class="btn btn-outline-success" @click="addcomparisonportfolio(userInfo)">포트폴리오 추가하기</button> 
     <button class="btn btn-outline-success" @click="clearcomparisonportfolio()">포트폴리오 전체 삭제</button>
+    <button class="btn btn-outline-success" @click="saveToDb()">최종 저장</button>
     </div>
   </section>
 </template>
@@ -89,7 +90,7 @@ export default {
     ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonportfolios'])
   },
   methods: {
-    ...mapActions(['fetchProduct']),
+    ...mapActions(['fetchProduct', 'saveToDb']),
     ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
@@ -113,13 +114,13 @@ export default {
     },
     pushProductToCportfolio(value) {
       this.PUSH_PRODUCT_TO_CPORTFOLIO(value)
-    }
+    }, 
   },
   data() {
     return {
       showModal: false,
       productIdx: '',
-      modalData: null
+      modalData: null,
     }
   },
   beforeCreate: function() {

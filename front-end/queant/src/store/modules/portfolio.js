@@ -7,7 +7,8 @@ export default {
     portfolio: [],
     customProducts: [],
     portfolios: [],
-    comparisonportfolios: []
+    comparisonportfolios: [],
+    newlyAddedPortfolio:[],
     },
   getters: {
     portfolio: state => state.portfolio,
@@ -34,13 +35,15 @@ export default {
     PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(state, value) {
       let member_id = value.member_id
       if (state.comparisonportfolios.length === 0) {
+        state.newlyAddedPortfolio.push(1);
         state.comparisonportfolios.push({
           "member_id" : member_id,
           "cportfolio_cnt" : 1,
           "products" : []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if (state.comparisonportfolios.length < 4){
+      } else if (state.comparisonportfolios.length < 4) {
+        state.newlyAddedPortfolio.push(state.comparisonportfolios.length+1)
         state.comparisonportfolios.push({
           "member_id" : member_id,
           "cportfolio_cnt" : (state.comparisonportfolios.length) +1,
@@ -248,6 +251,57 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+    saveToDb({ getters, state }) {
+      for (var i = 1; i <= 5; i++){
+        if (state.newlyAddedPortfolio.includes(i)) {
+          var tempPortfolioList = [];
+          for (const port of state.comparisonportfolios[i].products) {
+            var temp = {
+              portfolio_no:i,
+              product_id:port.product.product_id,
+              amount:port.amount,
+              condition_ids: port.condition_ids,
+              option_id:port.selected_option_id,
+              start_date: port.start_date,
+              end_date: port.end_date
+            }
+            tempPortfolioList.push(temp)
+          }
+          axios({
+            url: spring.portfolio,
+            method: 'post',
+            data: {
+              member_id: getters.userInfo.member_id,
+              portfolio_dto_list:tempPortfolioList
+            }
+          })
+        } else {
+          var tempPortfolioList = [];
+          for (const port of state.comparisonportfolios[i].products) {
+            var temp = {
+              portfolio_no:i,
+              product_id:port.product.product_id,
+              amount:port.amount,
+              condition_ids: port.condition_ids,
+              option_id:port.selected_option_id,
+              start_date: port.start_date,
+              end_date: port.end_date
+            }
+            tempPortfolioList.push(temp)
+          }
+          axios({
+            url: spring.portfolio,
+            method: 'put',
+            data: {
+              member_id: getters.userInfo.member_id,
+              portfolio_no: i,
+              portfolio_dto_list: tempPortfolioList
+            }
+          })
+        }
+      }
+      
     }
   }
 };
