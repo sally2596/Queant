@@ -5,8 +5,8 @@
   </header>
   <section class="product-detail-box">     
     <div class="product-detail" v-bind:style="{ background:'url('+product?.product.picture+')'}"
-             style="background-size: 300px;; background-repeat :no-repeat; background-position:90% 50%;">
-      <div class="prd-info m-5">
+             style="background-size: 300px; background-repeat :no-repeat; background-position:90% 50%;">
+      <div class="prd-info m-3">
         <dl>
           <dd class="subject">
               <div>
@@ -23,14 +23,10 @@
               </ul>
           </dd>
         </dl>
-      </div>
-      
-      <div class="prd-btn-area m-5 d-flex justify-content-center">
+        <br><br>
         <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product?.product)">
-          담기
+          장바구니에 담기
         </button>
-        <!-- <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product.product)">내 포트폴리오에 넣기</button>
-        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product.product)">장바구니에 넣기</button>	                 -->
       </div>
     </div>
     <!-- 모달 -->

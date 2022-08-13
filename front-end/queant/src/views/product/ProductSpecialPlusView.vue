@@ -17,30 +17,6 @@ export default {
   beforeCreate: function() {
     document.body.className = 'home_body'
   },
-    beforeCreate: function() {
-        document.body.className = 'home_body';
-    },
-    methods: {
-    deposit_OnOff: function() {
-      if (this.filter_deposit==false) {
-      this.filter_deposit = !this.filter_deposit}
-      if (this.filter_savings==true) {
-      this.filter_savings = !this.filter_savings}
-    },
-    saving_OnOff: function() {
-      if (this.filter_deposit==true) {
-      this.filter_deposit = !this.filter_deposit}
-      if (this.filter_savings==false) {
-      this.filter_savings = !this.filter_savings}
-    },
-    general_radio_Onoff: function() {
-      if (조건) {
-        변수명.classList.add('클래스 명');
-      } else {
-        변수명.classList.remove('클래스 명');
-      }
-    },
-  },
   data() {
     return {
       filter_savings:false,

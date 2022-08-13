@@ -6,7 +6,7 @@ export default {
   state: {
     portfolio: [],
     customProducts: [],
-    portfolios: [],
+    portfolios: [{ "cportfolio_cnt": 1, "products": [] }, { "cportfolio_cnt": 2, "products": [] }, { "cportfolio_cnt": 3, "products": [] }, { "cportfolio_cnt": 4, "products": [] }],
     comparisonportfolios: []
     },
   getters: {
@@ -24,10 +24,10 @@ export default {
 
       if (portfolioNo > state.portfolios.length) {
         state.portfolios.push([value])
-        console.log('새로운 포트폴리오에 상품이 담겼습니다.')
+        console.log('내 포트폴리오에 상품이 담겼습니다.')
       } else {
         state.portfolios[portfolioNo-1].push(value)
-        console.log('기존 포트폴리오에 상품을 추가했습니다.')
+        console.log('내 포트폴리오에 상품을 추가했습니다.')
       }
     },
 
@@ -60,7 +60,7 @@ export default {
           alert('이미 포트폴리오에 있는 상품입니다.')
         } else {
           state.comparisonportfolios[portfolioNo-1].products.push(product)
-        console.log(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
+        alert(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
         }
     },
 
@@ -69,15 +69,17 @@ export default {
       let FindProduct = value[1]
       let cportfolios = state.comparisonportfolios
       let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
-
       cportfolios[portfolioNo-1].products.splice(item, 1)
-      console.log(`${portfolioNo}번 포트폴리오의 ${FindProduct.product.name} 상품을 삭제했습니다.`)
+      alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.product.name} 상품을 삭제했습니다.`)
     },
 
-    POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolioIdx) {
-      state.comparisonportfolios.splice(cportfolioIdx-1, 1)
-      console.log(`${cportfolioIdx}번 포트폴리오를 삭제했습니다.`)
-    },
+    // POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolio) {
+    //   let cportfolios = state.comparisonportfolios
+    //   let cportfolioIdx = cportfolios.indexOf(cportfolio)
+      
+    //   alert(`${cportfolio.cportfolio_cnt}번 포트폴리오를 삭제했습니다.`)
+    //   state.comparisonportfolios.splice(cportfolioIdx, 1)
+    // },
 
     CLEAR_CPORTFOLIOS(state) {
       state.comparisonportfolios = []

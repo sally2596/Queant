@@ -46,4 +46,13 @@
 .banks img {
   height: 70px; width: 200px;
 }
-  
+
+#featured_banks_3 {
+  width: 1080px;
+  justify-items: center;
+  display: flex;
+}
+
+#featured_banks_3 .row {
+  width: 100%
+}
