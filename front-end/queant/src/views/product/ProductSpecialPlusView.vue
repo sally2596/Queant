@@ -6,11 +6,18 @@
     <section class="product_section">
       <div>
         <form @submit="checkForm()">
-          <br>
-          은행이름 <input type="text" v-model="product.bankName"><br>
-          상품명 <input type="text" v-model="product.productName"><br>
-          관련링크 <input type="text" v-model="product.referenceData"><br>
-          <!-- 예금/적금 <input type="text" v-model="product.is_deposit"><br> -->
+					<div class="int-area">
+						<input type="text" v-model="product.bankName" id="bank">
+						<label class="form-label" for="bank" autocomplete="off">은행명</label>
+					</div>
+					<div class="int-area">
+						<input type="text" v-model="product.productName" id="prd">
+						<label class="form-label" for="prd" autocomplete="off">상품명</label>
+					</div>
+					<div class="int-area">
+						<input type="text" v-model="product.referenceData" id="ref">
+						<label class="form-label" for="ref" autocomplete="off">관련 링크</label>
+					</div>
           <input type="submit" class="btn btn-sm btn-outline-secondary" value="제보하기">
 	      </form>
       </div>
