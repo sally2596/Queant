@@ -5,6 +5,34 @@
   </header>
 
   <div class="content">
+    <div id="Summary" class="container row justify">
+      <div class="col-6">
+        <pie-chart
+          v-bind:series="summarySeries"
+          :chartOptionLabels="summaryChartOptionLabels"
+        ></pie-chart>
+      </div>
+      <div class="col-6">
+        <h4>총 투자액</h4>
+        <h2>{{ filtered(depositTotalAmount + savingTotalAmount) }}원</h2>
+        <div class="d-flex justify-content-between">
+          <h6>예금</h6>
+          <div>{{ filtered(depositTotalAmount) }}원</div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div>적금 총액</div>
+          <div>{{ filtered(savingTotalAmount) }}원</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <apexchart
+    type="bar"
+    height="200"
+    :options="chartOptions"
+    :series="series"
+  ></apexchart> -->
+  <div class="content">
     <!-- 포트폴리오 없을 때 -->
     <div v-if="portfolio?.length === 0" class="portfolio-none">
       <img
@@ -117,15 +145,18 @@ import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters } from "vuex";
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 import dataLabels from "chartjs-plugin-datalabels";
+import PieChart from "@/components/PieChart.vue";
 
 import { Chart } from "chart.js";
+
+import VueApexCharts from "vue3-apexcharts";
 
 Chart.register(dataLabels);
 // globally registered and available for all charts
 
 export default {
   name: "PortfolioView",
-  components: { Navbar, Vue3ChartJs },
+  components: { Navbar, Vue3ChartJs, apexchart: VueApexCharts, PieChart },
   data() {
     const depositAmount = [];
     const savingAmount = [];
@@ -217,6 +248,81 @@ export default {
       },
     };
     const filtered = (val) => String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const summarySeries = [];
+    const summaryChartOptionLabels = ["적금", "예금"];
+    // const series = [
+    //   {
+    //     name: "Marine Sprite",
+    //     data: [44],
+    //   },
+    //   {
+    //     name: "Striking Calf",
+    //     data: [53],
+    //   },
+    //   {
+    //     name: "Tank Picture",
+    //     data: [12],
+    //   },
+    //   {
+    //     name: "Bucket Slope",
+    //     data: [9],
+    //   },
+    //   {
+    //     name: "Reborn Kid",
+    //     data: [25],
+    //   },
+    // ];
+    // const chartOptions = {
+    //   chart: {
+    //     type: "bar",
+    //     height: "auto",
+    //     stacked: true,
+    //     stackType: "100%",
+    //   },
+    //   theme: {
+    //     palette: "palette4", // upto palette10
+    //   },
+    //   plotOptions: {
+    //     bar: {
+    //       horizontal: true,
+    //     },
+    //   },
+    //   stroke: {
+    //     width: 1,
+    //     colors: ["#fff"],
+    //   },
+    //   title: {
+    //     text: "Fiction Books Sales",
+    //   },
+    //   xaxis: {
+    //     categories: [2008],
+    //     labels: {
+    //       formatter: function (val) {
+    //         return val + "K";
+    //       },
+    //     },
+    //   },
+    //   yaxis: {
+    //     title: {
+    //       text: undefined,
+    //     },
+    //   },
+    //   tooltip: {
+    //     y: {
+    //       formatter: function (val) {
+    //         return val + "K";
+    //       },
+    //     },
+    //   },
+    //   fill: {
+    //     opacity: 1,
+    //   },
+    //   legend: {
+    //     position: "bottom",
+    //     horizontalAlign: "left",
+    //     offsetX: 40,
+    //   },
+    // };
 
     return {
       // lineChart,
@@ -237,6 +343,9 @@ export default {
       savingTotalAmount,
       depositTotalAmount,
       filtered,
+
+      summarySeries,
+      summaryChartOptionLabels,
     };
   },
   setup() {},
@@ -320,6 +429,9 @@ export default {
         "#" + Math.floor(Math.random() * 16777215).toString(16)
       );
     }
+
+    this.summarySeries.push(this.depositTotalAmount);
+    this.summarySeries.push(this.savingTotalAmount);
   },
 };
 </script>
