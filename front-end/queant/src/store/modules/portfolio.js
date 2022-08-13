@@ -8,7 +8,8 @@ export default {
     customProducts: [],
     portfolios: [],
     comparisonportfolios: [],
-    newlyAddedPortfolio:[],
+    newlyAddedPortfolio: [],
+
     },
   getters: {
     portfolio: state => state.portfolio,
@@ -253,21 +254,25 @@ export default {
       })
     },
     saveToDb({ getters, state }) {
-      for (var i = 1; i <= 5; i++){
+      console.log(state.newlyAddedPortfolio);
+      for (var i = 1; i <= state.comparisonportfolios.length; i++){
         if (state.newlyAddedPortfolio.includes(i)) {
+          console.log(state.comparisonportfolios[i-1])
           var tempPortfolioList = [];
-          for (const port of state.comparisonportfolios[i-1].products) {
+          for (const port of state.comparisonportfolios[i - 1].products) {
+            console.log(port.option_id)
             var temp = {
               portfolio_no:i,
               product_id:port.product.product_id,
               amount:port.amount,
               condition_ids: port.condition_ids,
-              option_id:port.selected_option_id,
+              option_id:port.option_id,
               start_date: port.start_date,
               end_date: port.end_date
             }
             tempPortfolioList.push(temp)
           }
+          console.log(tempPortfolioList)
           axios({
             url: spring.portfolio.portfolio(),
             method: 'post',
@@ -275,21 +280,30 @@ export default {
               member_id: getters.userInfo.member_id,
               portfolio_dto_list:tempPortfolioList
             }
+          }).then(res => {
+            console.log(res)
+            console.log(i+'번 포트폴리오가 DB에 저장되었습니다.')
+          })
+          .catch(err => {
+            console.log(err)
           })
         } else {
           var tempPortfolioList = [];
-          for (const port of state.comparisonportfolios[i-1].products) {
+          console.log(state.comparisonportfolios[i-1])
+          for (const port of state.comparisonportfolios[i - 1].products) {
+            console.log(port.option_id)
             var temp = {
               portfolio_no:i,
               product_id:port.product.product_id,
               amount:port.amount,
               condition_ids: port.condition_ids,
-              option_id:port.selected_option_id,
+              option_id: port.option_id,
               start_date: port.start_date,
               end_date: port.end_date
             }
             tempPortfolioList.push(temp)
           }
+          console.log(tempPortfolioList)
           axios({
             url: spring.portfolio.portfolio(),
             method: 'put',
@@ -298,6 +312,12 @@ export default {
               portfolio_no: i,
               portfolio_dto_list: tempPortfolioList
             }
+          }).then(res => {
+            console.log(res)
+            console.log(i+'번 포트폴리오가 DB에 업데이트 되었습니다.')
+          })
+          .catch(err => {
+            console.log(err)
           })
         }
       }
