@@ -214,7 +214,7 @@ def save_into_db(conn, cur, datas, data_lists):
 def save_db_manually():
     conn, cur = connect_db()
     data_lists = make_data_list()
-    f = open("./data/queant/queant_app/prdt_datas/uri.txt","r")
+    f = open("/data/queant/queant_app/prdt_datas/uri.txt","r")
     pd = f.read()
     f.close()
     product_data = eval(pd)
