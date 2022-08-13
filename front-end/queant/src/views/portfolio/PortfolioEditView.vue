@@ -2,7 +2,7 @@
   <Navbar/>
   <div>
     <h1>PortfolioEditView</h1>
-    <h1>PortfolioEditView</h1>
+    <h1>내 포트폴리오 관리하기</h1>
 
     <input 
       type="text"
@@ -15,7 +15,7 @@
       v-if="showModal" 
       @close="showModal=false">
     </CustomProductModal>
-    <button @click="openModal()">사용자 정의 상품 추가</button>
+    <button class="btn btn-outline-success btn-sm mx-3" @click="openModal()">사용자 정의 상품 추가</button>
 
     <h3>퀸트에서 등록한 상품목록</h3>
     <portfolio-edit-item
@@ -24,7 +24,7 @@
       :myProduct="product">
     </portfolio-edit-item>
     
-    <h3>사용자 정의 상품목록</h3>
+    <h3>내가 직접 입력한 상품들</h3>
     <custom-product-item
       v-for="customProduct in customProducts"
       :key="customProduct.product_id"

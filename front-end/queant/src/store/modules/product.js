@@ -24,6 +24,7 @@ export default {
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
     CLEAR_CART: state => state.cart = [],
     PUSH_PRODUCT_TO_CART(state, payload) {
+      console.log(payload)
       let product = payload.product
       if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
         alert("이미 장바구니에 담긴 상품입니다.")

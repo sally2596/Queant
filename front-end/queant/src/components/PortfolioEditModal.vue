@@ -7,7 +7,7 @@
       <div class="modal-header">
        <slot name="header">
         <label>상품명</label>
-        <input 
+        <input
           v-model="modalData.product.name"
           type="text"
           disabled>
@@ -17,8 +17,9 @@
 
       <div class="modal-body">
        <slot name="body">
-          <label for="">납임금액</label>
+          <label for="">납임금액(원)</label>
           <input
+            style="width: 145px;"
             v-model="payload.amount"
             type="number">
           <p>{{ error.amount }}</p>
@@ -55,12 +56,12 @@
           </div>
           <hr>
 
-          <label>가입날짜</label>
+          <label>가입일</label>
           <input 
             v-model="payload.start_date"
             type="date">
-
-          <label>만기날짜</label>
+          <br>
+          <label>만기일</label>
           <input 
             v-model="payload.end_date"
             type="date">
@@ -71,12 +72,12 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-          <button @click="[editPortfolio(payload), $emit('close')]">수정</button>
+          <button class="btn btn-outline-success btn-sm mx-3" @click="[editPortfolio(payload), $emit('close')]">수정</button>
         </div>
         <div v-else>
-          <button disabled>수정</button>
+          <button class="btn btn-outline-success btn-sm mx-3" disabled>수정</button>
         </div>
-        <button class="modal-default-button" @click="$emit('close')">
+        <button class="btn btn-outline-danger btn-sm mx-3" @click="$emit('close')">
          닫기
         </button>
        </slot>

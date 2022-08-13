@@ -29,10 +29,11 @@
         </td>
         <td>
           <input 
-            type="number"
-            v-model="customProduct.amount"
+            type="text"
+            v-model="amount"
             disabled>
         </td>
+        
         <td>
           <input 
             type="date"
@@ -56,15 +57,15 @@
         </td> -->
         <td>
           <input 
-            type="number"
+            type="text"
             v-model="appliedRate"
             disabled>
         </td>
       </tbody>
     </table>
 
-    <button @click="openModal()">수정</button>
-    <button @click="deleteCustomProduct(payload.product_id)">삭제</button>
+    <button class="btn btn-outline-success btn-sm mx-3" @click="openModal()">수정</button>
+    <button class="btn btn-outline-danger btn-sm mx-3" @click="deleteCustomProduct(payload.product_id)">삭제</button>
 
     <!-- 모달 -->
     <CustomProductModal 
@@ -88,15 +89,18 @@ export default {
   },
   computed: {
     appliedRate() {
-      return (this.customProduct.base_rate + this.customProduct.special_rate).toFixed(2)
+      return `${(this.customProduct.base_rate + this.customProduct.special_rate).toFixed(2)}%`
     },
     productType() {
       if (this.customProduct.deposit === true)
         return '예금'
       else
         return '적금'
+    },
+    amount() {
+      return `${String(this.customProduct.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원`
     }
-  },
+   },
   methods: {
     ...mapActions(['deleteCustomProduct']),
     changeTimeStamp() {
