@@ -42,7 +42,7 @@ export default {
           "products" : []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if (state.comparisonportfolios.length < 4) {
+      } else if (state.comparisonportfolios.length <= 4) {
         state.newlyAddedPortfolio.push(state.comparisonportfolios.length+1)
         state.comparisonportfolios.push({
           "member_id" : member_id,
@@ -50,7 +50,7 @@ export default {
           "products" : []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if ( state.comparisonportfolios.length >= 4) {
+      } else if ( state.comparisonportfolios.length > 4) {
         alert('더 이상 가상 포트폴리오를 만들 수 없습니다.')
       }
     },
@@ -256,7 +256,7 @@ export default {
       for (var i = 1; i <= 5; i++){
         if (state.newlyAddedPortfolio.includes(i)) {
           var tempPortfolioList = [];
-          for (const port of state.comparisonportfolios[i].products) {
+          for (const port of state.comparisonportfolios[i-1].products) {
             var temp = {
               portfolio_no:i,
               product_id:port.product.product_id,
@@ -269,7 +269,7 @@ export default {
             tempPortfolioList.push(temp)
           }
           axios({
-            url: spring.portfolio,
+            url: spring.portfolio.portfolio(),
             method: 'post',
             data: {
               member_id: getters.userInfo.member_id,
@@ -278,7 +278,7 @@ export default {
           })
         } else {
           var tempPortfolioList = [];
-          for (const port of state.comparisonportfolios[i].products) {
+          for (const port of state.comparisonportfolios[i-1].products) {
             var temp = {
               portfolio_no:i,
               product_id:port.product.product_id,
@@ -291,7 +291,7 @@ export default {
             tempPortfolioList.push(temp)
           }
           axios({
-            url: spring.portfolio,
+            url: spring.portfolio.portfolio(),
             method: 'put',
             data: {
               member_id: getters.userInfo.member_id,
