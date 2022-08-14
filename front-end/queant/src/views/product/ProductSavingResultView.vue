@@ -18,7 +18,7 @@
         <tbody v-for="product in tenProducts" :key="product.product_id" class="border">
           <tr scope="row">
             <td class="col-1 text-center"><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
-            <td class="col-5 text-center"><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
+            <td class="col-5 text-center"><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
             <td class="col-2 text-center">{{product.base_rate}}%</td>
             <td class="col-2 text-center">{{product.term_min}}개월</td>
             <td class="col-2 text-center"><button class="btn btn-outline-success" id="show-modal" @click="openModal(product)">상품 담기</button></td>

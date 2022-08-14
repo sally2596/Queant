@@ -223,7 +223,6 @@ export default {
       })
     },
     pushProductToPortfolio({ dispatch, getters }, payload) {
-      console.log(payload)
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
