@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
     private final JoinwayRepository joinwayRepository;
     private final ConditionsRepository conditionsRepository;
     private final OptionsRepository optionsRepository;
+    private final TraitSetRepository traitSetRepository;
     private final ModelMapper modelMapper;
     private final ConditionsService conditionsService;
     private final OptionsService optionsService;
@@ -138,8 +139,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String deleteReport(int reportProductId) {
-        //실제로 삭제하는 것이 아닌 isUpdated를 true로
+    public String reportStatusToUpdated(int reportProductId) {
+        //report를 실제로 삭제하는 것이 아닌 isUpdated를 true로
         Optional<ReportProduct> result =
                 reportProductRepository.findByReportProductId(reportProductId);
 
@@ -154,22 +155,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateReportToProduct(int reportProductId, ProductDetailDto productDetail) {
+    //public void updateReportToProduct(int reportProductId, ProductDetailDto productDetail) {
+    public void updateReportToProduct(UpdateDetailDto updateDetailDto) {
 
-        String bankName = deleteReport(reportProductId);
-
-        ProductDto productDto = productDetail.getProduct();
-        List<OptionsDto> options = productDetail.getOptions();
-        List<ConditionsDto> conditions = productDetail.getConditions();
-        List<JoinwayDto> joinway = productDetail.getJoinway();
+        UpdateProductDto product = updateDetailDto.getProduct();
+        String bankName = reportStatusToUpdated(product.getReportId());
 
         //은행 이름을 통한 ID 설정 및 product 테이블에 추가
-        productDto.setBankId(bankRepository.searchBankID(bankName));
-        Product product = modelMapper.map(productDto, Product.class);
-        productRepository.save(product);
+        int BankID = bankRepository.searchBankID(bankName);
+        Product prd = modelMapper.map(product, Product.class);
+        prd.setBankId(BankID);
+        productRepository.save(prd);
 
         //product 테이블 추가 후 product_id를 각각 가져와야한다.
         int productID = productRepository.lastInsertId();
+
+        List<OptionsDto> options = updateDetailDto.getOptions();
+        List<TraitSetDto> traits = updateDetailDto.getTraitSet();
+        List<ConditionsDto> conditions = updateDetailDto.getConditions();
+        List<JoinwayDto> joinway = updateDetailDto.getJoinway();
+
+        //traits 테이블에 추가
+        for (TraitSetDto t : traits) {
+            t.setProductId(productID);
+            TraitSet tr = modelMapper.map(t, TraitSet.class);
+            traitSetRepository.save(tr);
+        }
 
         //options 테이블에 추가
         for (OptionsDto o : options) {
@@ -192,6 +203,4 @@ public class ProductServiceImpl implements ProductService {
             joinwayRepository.save(join);
         }
     }
-
-
 }

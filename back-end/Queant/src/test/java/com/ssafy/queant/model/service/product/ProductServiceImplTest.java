@@ -119,7 +119,7 @@ class ProductServiceImplTest {
         test.setConditions(conditions);
         test.setJoinway(joins);
 
-        productService.updateReportToProduct(2, test);
+        //productService.updateReportToProduct(2, test);
 
     }
 
