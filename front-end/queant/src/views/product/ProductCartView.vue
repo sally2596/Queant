@@ -82,6 +82,11 @@
           </div>
         </div>
       </div>
+      
+    <button class="btn btn-outline-success" @click="addComparisonPortfolio()">포트폴리오 추가하기</button>
+    <button class="btn btn-outline-success" @click="clearcomparisonportfolio()">포트폴리오 전체 삭제</button>
+    <button class="btn btn-outline-success" @click="saveToDb()">최종 저장</button>
+    <button class="btn btn-outline-success" @click="getFromDb()">DB 불러오기</button>
     </div>
   </section>
 </template>
@@ -99,8 +104,8 @@ export default {
     ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonPortfolio'])
   },
   methods: {
-    ...mapActions(['fetchProduct', 'saveToDb']),
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO']),
+    ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO', 'UPDATE_CPORTFOLIO_FROM_DB']),
     clearCart() {
       this.CLEAR_CART()
     },
