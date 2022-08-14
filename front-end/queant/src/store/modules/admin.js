@@ -35,6 +35,7 @@ export default {
       })
       .then(res => {
         console.log(`${payload.page} 페이지`)
+        console.log(res.data)
         commit('SET_USERS', res.data.member_dto_list)
         commit('SET_TOTAL_PAGE', res.data.total_page)
       })

@@ -158,6 +158,7 @@ export default {
   created() {
     this.changeTimeStamp()
     this.fetchBank(this.myProduct.product.bank_id)
+    this.fetchProduct(this.myProduct.product_id)
   }
 }
 </script>
