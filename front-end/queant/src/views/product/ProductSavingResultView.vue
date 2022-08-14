@@ -1,42 +1,81 @@
 <template>
   <Navbar/>
-  <!-- 사용자가 검색한 조건 -->
-  <!-- <h3>사용자가 검색한 조건</h3>
-  <filters-form
-    :filters="filters"
-    :totalPage="products?.total_page">
-  </filters-form>
-  <hr> -->
-
-  <!-- 검색 결과 나온 상품들 -->
-  <h3>검색 결과 나온 상품들</h3>
+  <header id="title-div">
+    <h1 class="title" id="title">추천 결과</h1>
+  </header>
+  <section class="product_section">
+    <div id="cart-item">
+      <table class="border">
+        <thead class="border">
+          <tr>
+            <th>은행</th>
+            <th>상품명</th>
+            <th>기본 금리</th>
+            <th>최소 가입 기간(개월)</th>
+          </tr>
+        </thead>
+          <br>
+        <tbody v-for="product in tenProducts" :key="product.product_id" class="border">
+          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
+          <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
+          <td>{{product.base_rate}}</td>
+          <td>{{product.term_min}}</td>
+          <button class="btn btn-outline-success btn-sm mx-3" id="show-modal" @click="openModal(product)">담기</button>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!-- 페이지네이션 -->
   <div
-    v-for="product in products.product_dto_list"
-    :key="product">
-     <router-link
-      :to="{ name: 'productDetail', params: { productId: product.product_id } }">
-      {{ product }}
-    </router-link>
-    <button @click="pushProductToCart(product)">장바구니에 넣기</button>
-    <hr>
+    v-for="page in totalPage"
+    :key="page">
+    <button class="btn btn-sm" @click="changePage(page)">{{ page }}</button>
   </div>
+  <!-- 모달 -->
+  <Modal
+    v-if="showModal" @close="showModal=false"
+    :modalData="modalData">
+    <h3>모달 창 제목</h3>
+  </Modal>
 </template>
 
 <script>
-import {  mapGetters, mapMutations } from 'vuex'
-import FiltersForm from '@/components/FiltersForm.vue'
+import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
   name: 'ProductSavingResultView',
-  components: { FiltersForm, Navbar },
+  components: { Navbar, Modal },
   computed: {
-    ...mapGetters(['products', 'filters'])
+    ...mapGetters(['products']),
+    tenProducts() {
+      return this.products.slice(this.productIdx, this.productIdx + 10)
+    },
+    totalPage() {
+      let productsLength = this.products.length
+      if (productsLength % 10)
+        return ((productsLength - (productsLength % 10)) / 10) + 1
+      else
+        return (productsLength - (productsLength % 10)) / 10
+    }
   },
   methods: {
-    ...mapMutations(['PUSH_PRODUCT_TO_CART']),
-    pushProductToCart(product) {
-      this.PUSH_PRODUCT_TO_CART(product)
+    ...mapActions(['fetchProduct']),
+    openModal(product) {
+      this.modalData = product,
+      this.showModal = true,
+      this.fetchProduct(product.product_id)
+    },
+    changePage(page) {
+      this.productIdx = (page - 1) * 10 
+    }
+  },
+  data() {
+    return {
+      showModal: false,
+      modalData: null,
+      productIdx: 0
     }
   }
 }

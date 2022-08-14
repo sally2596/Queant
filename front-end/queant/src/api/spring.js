@@ -1,5 +1,5 @@
-// const HOST = 'http://i7a201.p.ssafy.io:8000/'
-const HOST = 'http://localhost:8000/'
+const HOST = 'https://i7a201.p.ssafy.io/api/'
+// const HOST = 'http://localhost:8000/'
 
 const MEMBER = 'member/'
 const SOCIAL = 'social/'
@@ -8,6 +8,7 @@ const SEARCH = 'search/'
 const PRODUCT = 'product/'
 const CONTENTS = 'contents/'
 const PORTFOLIO = 'portfolio/'
+const REPORT = PRODUCT + 'report/'
 
 export default {
   member: {
@@ -38,12 +39,19 @@ export default {
   search: {
     search: () => HOST + SEARCH ,
     keyword: () => HOST + SEARCH + 'keyword',
-    deposit: (page) => HOST + SEARCH + 'deposit/' + 'single/' + page,
-    saving: (page) => HOST + SEARCH + 'saving/' + 'single/' + page,
+    deposit: () => HOST + SEARCH + 'deposit/' + 'single',
+    saving: () => HOST + SEARCH + 'saving/' + 'single',
     savings: () => HOST + SEARCH + 'saving/' + 'set'
   },
   product: {
-    detail: (productId) => HOST + PRODUCT + productId
+		detail: (productId) => HOST + PRODUCT + productId,
+		report: {
+			list: () => HOST + REPORT,
+			detail: (reportId) => HOST + REPORT + reportId,
+			regist: () => HOST + REPORT + 'regist',
+			delete: () => HOST + REPORT + 'delete',
+			user: () => HOST + REPORT + 'user'
+		}
   },
   contents: {
     newslist: () => HOST,
@@ -55,6 +63,10 @@ export default {
   },
   portfolio: {
     portfolio: () => HOST + PORTFOLIO,
-    posession: () => HOST + PORTFOLIO + 'posession'
+    posession: () => HOST + PORTFOLIO + 'posession',
+    virtual: () => HOST + PORTFOLIO + 'virtual',
+    single: () => HOST + PORTFOLIO + 'single',
+    custom: () => HOST + PORTFOLIO + 'custom',
+    customlist: () => HOST + PORTFOLIO + 'customlist'
   }
 }

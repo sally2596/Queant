@@ -17,7 +17,6 @@ import BankInfoDetailView from '@/views/bankinfo/BankInfoDetailView.vue'
 // portfolio
 import PortfolioView from '@/views/portfolio/PortfolioView.vue'
 import PortfolioEditView from '@/views/portfolio/PortfolioEditView.vue'
-import PortfolioAddView from '@/views/portfolio/PortfolioAddView.vue'
 
 // profile
 import ProfileView from '@/views/profile/ProfileView.vue'
@@ -37,7 +36,7 @@ import AdminSpecialView from '@/views/admin/AdminSpecialView.vue'
 import ProductRecommendationView from '@/views/product/ProductRecommendationView.vue'
 import ProductCartView from '@/views/product/ProductCartView.vue'
 import ProductSpecialPlusView from '@/views/product/ProductSpecialPlusView.vue'
-import ComparisonView from '@/views/product/ComparisonView.vue'
+import ProductComparisonView from '@/views/product/ProductComparisonView.vue'
 import ProductDepositResultView from '@/views/product/ProductDepositResultView.vue'
 import ProductSavingResultView from '@/views/product/ProductSavingResultView.vue'
 import ProductSearchResultView from '@/views/product/ProductSearchResultView.vue'
@@ -96,12 +95,6 @@ const routes = [
     component: PortfolioEditView,
     meta: { isLoggedIn: true }
   },
-  {
-    path: '/portfolio/add',
-    name: 'portfolioAdd',
-    component: PortfolioAddView,
-    meta: { isLoggedIn: true }
-  },
   // product
   {
     path: '/product',
@@ -127,21 +120,21 @@ const routes = [
     path: '/product/special',
     name: 'productSpecialPlus',
     component: ProductSpecialPlusView
-  },
+	},
   {
     path: '/product/comparison',
     name: 'productComparison',
-    component: ComparisonView
-  },
-  {
-    path: '/product/:productId',
-    name: 'productDetail',
-    component: ProductDetailView
+    component: ProductComparisonView
   },
   {
     path: '/product/search/:text',
     name: 'productSearchResult',
     component: ProductSearchResultView
+  },
+  {
+    path: '/product/:productId',
+    name: 'productDetail',
+    component: ProductDetailView
   },
   // contents
   {
@@ -156,14 +149,15 @@ const routes = [
     meta: { isAdmin: true }
   },
   {
-    path: '/content/:contentId',
-    name: 'contentDetail',
-    component: ContentDetailView
-  },
-  {
     path: '/content/edit/:contentId',
     name : 'contentEdit',
     component: ContentEditView,
+    meta: { isAdmin: true }
+  },
+  {
+    path: '/content/:contentId',
+    name: 'contentDetail',
+    component: ContentDetailView
   },
   // profile
   {
@@ -203,12 +197,14 @@ const routes = [
   {
     path: '/admin/content',
     name: 'adminContent',
-    component: AdminContentView
+    component: AdminContentView,
+    meta: { isAdmin: true }
   },
   {
     path: '/admin/special',
     name: 'adminSpecial',
-    component: AdminSpecialView
+    component: AdminSpecialView,
+    meta: { isAdmin: true }
   },
 ]
 

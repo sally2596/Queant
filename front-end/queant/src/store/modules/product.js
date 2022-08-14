@@ -5,41 +5,41 @@ import axios from 'axios'
 export default {
   state: {
     products: [],
+    searchProducts: [],
     product: {},
     keywords: [],
-    filters: [],
     cart: []
   },
   getters: {
     products: state => state.products,
+    searchProducts: state => state.searchProducts,
     product: state => state.product,
     keywords: state => state.keywords,
-    filters: state => state.filters,
     cart: state => state.cart
   },
   mutations: {
     SET_PRODUCTS: (state, products) => state.products = products,
+    SET_SEARCH_PRODUCTS: (state, products) => state.searchProducts = products,
     SET_PRODUCT: (state, product) => state.product = product,
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
-    SET_FILTERS: (state, filters) => state.filters = filters,
     CLEAR_CART: state => state.cart = [],
-    PUSH_PRODUCT_TO_CART(state, product) {
-      if (state.cart.find(productInCart => productInCart.product_id === product.product_id))
-        console.log("장바구니에 이미 담긴 상품입니다.")
+    PUSH_PRODUCT_TO_CART(state, payload) {
+			let product = payload.product
+			if (state.cart.length===10) {
+				alert("장바구니에는 최대 10개의 상품만 담을 수 있습니다.");
+			} else if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
+        alert("이미 장바구니에 담긴 상품입니다.")
       else {
-        state.cart.push(product)
-        console.log("장바구니에 담겼습니다.")
+        state.cart.push(payload)
+        console.log(`${product.product_id}번 상품을 장바구니에 추가했습니다.`)
       }
     },
-    POP_PRODUCT_IN_CART(state, product) {
-      for (let i = 0; i < state.cart.length; i++) {
-        if (state.cart[i].product_id === product.product_id) {
-          state.cart.splice(i, 1)
-          console.log("상품을 장바구니에서 제거했습니다.")
-          break
-        }
+    POP_PRODUCT_FROM_CART(state, product) {
+        let idOfProduct = product.product.product_id
+        let deleteproductIdx = state.cart.indexOf('idOfProduct')
+        state.cart.splice(deleteproductIdx, 1)
+        alert(`${product.name} 상품을 장바구니에서 제거했습니다.`)
       }
-    }
   },
   actions: {
     fetchKeywords({ commit }) {
@@ -92,7 +92,7 @@ export default {
     },
     fetchProductsByDepositFilters({ commit }, filters) {
       axios({
-        url: spring.search.deposit(filters.page),
+        url: spring.search.deposit(),
         method: 'post',
         data: {
           amount: filters.amount?filters.amount:null,
@@ -107,17 +107,24 @@ export default {
       })
       .then(res => {
         console.log(res)
+        for (const product of res.data) {
+          product.amount = filters.amount?filters.amount:null
+        }
         commit('SET_PRODUCTS', res.data)
-        commit('SET_FILTERS', filters)
         router.push({ name: 'productDepositResult' })
       })
       .catch(err => {
         console.log(err)
+        if (err.response.status === 500) {
+          alert('필수 입력사항(*)을 확인해주세요.')
+        } else if (err.response.status === 404) {
+          alert('해당 조건의 상품이 존재하지 않습니다. 다른 조건으로 검색해주세요.')
+        }
       })
     },
     fetchProductsBySavingFilters({ commit }, filters) {
       axios({
-        url: spring.search.saving(filters.page),
+        url: spring.search.saving(),
         method: 'post',
         data: {
           amount: filters.amount?filters.amount:null,
@@ -133,36 +140,21 @@ export default {
       })
       .then(res => {
         console.log(res)
+        for (const product of res.data) {
+          product.amount = filters.amount?filters.amount:null
+        }
         commit('SET_PRODUCTS', res.data)
-        commit('SET_FILTERS', filters)
         router.push({ name: 'productSavingResult' })
       })
       .catch(err => {
         console.log(err)
+        if (err.response.status === 500) {
+          alert('필수 입력사항(*)을 확인해주세요.')
+        }
+        else if (err.response.status === 404) {
+          alert('해당 조건의 상품이 존재하지 않습니다. 다른 조건으로 검색해주세요.')
+        }
       })
-    },
-    // fetchProductsBySavingSetFilters({ commit }, filters) {
-    //   axios({
-    //     url: spring.search.savings(),
-    //     method: 'post',
-    //     data: {
-    //       amount: filters.amount,
-    //       period: filters.period,
-    //       isSimpleInterest: filters.isSimpleInterest,
-    //       bank: filters.bank,
-    //       joinway: filters.joinway,
-    //       conditions: filters.conditions,
-    //       bankType: filters.bankType,
-    //       traitSet: filters.traitSet,
-    //       isFixed: filters.isFixed
-    //     }
-    //   })
-    //   .then(res => {
-    //     console.log(res)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    // }
+    }
   }
 }

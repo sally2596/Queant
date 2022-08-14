@@ -48,9 +48,9 @@
     
     <br>
     <div>
-      <button class="btn btn-sm btn-outline-success" @click="editUserInfo(credentials)">정보 변경하기</button>
+      <button class="btn btn-sm btn-outline-success" @click="confirmEditUserInfo()">정보 변경하기</button>
       <router-link to="/passwordEditByProfile" class="btn btn-sm btn-outline-success">비밀번호 변경</router-link>
-      <button class="btn btn-sm btn-outline-danger" @click="unregister(userInfo.email)">회원탈퇴</button>
+      <button class="btn btn-sm btn-outline-danger" @click="confirmUnregister()">회원탈퇴</button>
     </div>
   </div>
 </template>
@@ -76,6 +76,20 @@ export default {
   },
   methods: {
     ...mapActions(['editUserInfo', 'unregister']),
+    confirmUnregister() {
+      if (confirm('정말 QueÆnt를 떠나시겠어요?') == true) {
+        this.unregister(this.userInfo.email)
+      } else {
+        return
+      }
+    },
+    confirmEditUserInfo() {
+      if (confirm('입력하신 정보로 변경하시겠어요?') == true) {
+        this.editUserInfo(this.credentials)
+      } else {
+        return
+      }
+    }
   },
   beforeCreate: function() {
     document.body.className = 'profile_edit_body'
