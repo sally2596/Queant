@@ -6,14 +6,16 @@ export default {
   state: {
     portfolio: [],
     customProducts: [],
-    portfolios: [{ "cportfolio_cnt": 1, "products": [] }, { "cportfolio_cnt": 2, "products": [] }, { "cportfolio_cnt": 3, "products": [] }, { "cportfolio_cnt": 4, "products": [] }],
-    comparisonportfolios: []
+    portfolios: [],
+    comparisonPortfolio: [],
+    newlyAddedPortfolio: [],
+    deletedPortfolio:[]
     },
   getters: {
     portfolio: state => state.portfolio,
     customProducts: state => state.customProducts,
     portfolios: state => state.portfolios,
-    comparisonportfolios: state => state.comparisonportfolios
+    comparisonPortfolio: state => state.comparisonPortfolio
   },
   mutations: {
     SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
@@ -31,58 +33,64 @@ export default {
       }
     },
 
-    PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(state, value) {
-      let member_id = value.member_id
-      if (state.comparisonportfolios.length === 0) {
-        state.comparisonportfolios.push({
-          "member_id" : member_id,
-          "cportfolio_cnt" : 1,
-          "products" : []
+    POP_CPORTFOLIO(state, cportfolio_cnt) {
+      state.deletedPortfolio.push(cportfolio_cnt)
+      let portfolioNo = cportfolio_cnt
+      // 삭제된 포트폴리오의 이후 포트폴리오의 cnt를 1씩 차감
+      for (var i=portfolioNo; i <= state.comparisonPortfolio.length-1; i++) {
+        state.comparisonPortfolio[i].cportfolio_cnt -= 1
+        console.log(state.comparisonPortfolio[i])
+      }
+      state.comparisonPortfolio.splice(portfolioNo-1, 1)
+    },
+    ADD_COMPARISON_PORTFOLIO(state) {
+      if (state.comparisonPortfolio.length === 0) {
+        state.newlyAddedPortfolio.push(1);
+        state.comparisonPortfolio.push({
+          cportfolio_cnt: 1,
+          products: []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if (state.comparisonportfolios.length < 4){
-        state.comparisonportfolios.push({
-          "member_id" : member_id,
-          "cportfolio_cnt" : (state.comparisonportfolios.length) +1,
-          "products" : []
+      } else if (state.comparisonPortfolio.length <= 4) {
+        state.newlyAddedPortfolio.push(state.comparisonPortfolio.length+1)
+        state.comparisonPortfolio.push({
+          cportfolio_cnt: (state.comparisonPortfolio.length) +1,
+          products: []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if ( state.comparisonportfolios.length >= 4) {
+      } else if (state.comparisonPortfolio.length > 4) {
         alert('더 이상 가상 포트폴리오를 만들 수 없습니다.')
       }
     },
 
     PUSH_PRODUCT_TO_CPORTFOLIO(state, value) {
-        let portfolioNo = value[0]
-        let product = value[1]
-        let cportfolios = state.comparisonportfolios
-        if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product.product_id === product.product.product_id)) {
-          alert('이미 포트폴리오에 있는 상품입니다.')
-        } else {
-          state.comparisonportfolios[portfolioNo-1].products.push(product)
-        alert(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
-        }
+      let portfolioNo = value[0]
+      let product = value[1]
+      let cportfolios = state.comparisonPortfolio
+      if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product.product_id === product.product.product_id)) {
+        alert('이미 포트폴리오에 있는 상품입니다.')
+      } else {
+        state.comparisonPortfolio[portfolioNo-1].products.push(product)
+      console.log(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
+      }
     },
 
     POP_PRODUCT_FROM_CPORTFOLIO(state, value) {
       let portfolioNo = value[0]
       let FindProduct = value[1]
-      let cportfolios = state.comparisonportfolios
+      let cportfolios = state.comparisonPortfolio
       let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
       cportfolios[portfolioNo-1].products.splice(item, 1)
       alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.product.name} 상품을 삭제했습니다.`)
     },
 
-    // POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolio) {
-    //   let cportfolios = state.comparisonportfolios
-    //   let cportfolioIdx = cportfolios.indexOf(cportfolio)
-      
-    //   alert(`${cportfolio.cportfolio_cnt}번 포트폴리오를 삭제했습니다.`)
-    //   state.comparisonportfolios.splice(cportfolioIdx, 1)
-    // },
+    POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolioIdx) {
+      state.comparisonPortfolio.splice(cportfolioIdx-1, 1)
+      console.log(`${cportfolioIdx}번 포트폴리오를 삭제했습니다.`)
+    },
 
     CLEAR_CPORTFOLIOS(state) {
-      state.comparisonportfolios = []
+      state.comparisonPortfolio = []
     },
 
     POP_PORTFOLIO_FROM_PORTFOLIOS(state, portfolioIdx) {
@@ -250,6 +258,94 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+    saveToDb({ getters, state }) {
+      //삭제된 포트폴리오 DB에서 제거하기
+      for (const port_no of state.deletedPortfolio) {
+        axios({
+          url: spring.portfolio.portfolio(),
+          method: 'delete',
+          data: {
+            member_id: getters.userInfo.member_id,
+            portfolio_no:port_no
+          }
+        }).then(res => {
+          console.log(res)
+          console.log(port_no+'번 포트폴리오가 DB에서 제거되었습니다.')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+
+      //현재 남아있는 포트폴리오 수정 및 삽입
+      for (var i = 1; i <= state.comparisonPortfolio.length; i++){
+        if (state.newlyAddedPortfolio.includes(i)) {
+          console.log(state.comparisonPortfolio[i-1])
+          var tempPortfolioList = [];
+          for (const port of state.comparisonPortfolio[i - 1].products) {
+            console.log(port.option_id)
+            var temp = {
+              portfolio_no:i,
+              product_id:port.product.product_id,
+              amount:port.amount,
+              condition_ids: port.condition_ids,
+              option_id:port.option_id,
+              start_date: port.start_date,
+              end_date: port.end_date
+            }
+            tempPortfolioList.push(temp)
+          }
+          console.log(tempPortfolioList)
+          axios({
+            url: spring.portfolio.portfolio(),
+            method: 'post',
+            data: {
+              member_id: getters.userInfo.member_id,
+              portfolio_dto_list:tempPortfolioList
+            }
+          }).then(res => {
+            console.log(res)
+            console.log(i+'번 포트폴리오가 DB에 저장되었습니다.')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        } else {
+          var tempPortfolioList = [];
+          console.log(state.comparisonPortfolio[i-1])
+          for (const port of state.comparisonPortfolio[i - 1].products) {
+            console.log(port.option_id)
+            var temp = {
+              portfolio_no:i,
+              product_id:port.product.product_id,
+              amount:port.amount,
+              condition_ids: port.condition_ids,
+              option_id: port.option_id,
+              start_date: port.start_date,
+              end_date: port.end_date
+            }
+            tempPortfolioList.push(temp)
+          }
+          console.log(tempPortfolioList)
+          axios({
+            url: spring.portfolio.portfolio(),
+            method: 'put',
+            data: {
+              member_id: getters.userInfo.member_id,
+              portfolio_no: i,
+              portfolio_dto_list: tempPortfolioList
+            }
+          }).then(res => {
+            console.log(res)
+            console.log(i+'번 포트폴리오가 DB에 업데이트 되었습니다.')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+      }
+      
     }
   }
 };

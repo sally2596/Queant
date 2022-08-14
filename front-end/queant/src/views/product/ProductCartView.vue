@@ -95,15 +95,18 @@ import draggable from 'vuedraggable'
 
 export default {
   name: 'ProductCartView',
-  components : { Navbar, Modal, draggable},
+  components : { Navbar, Modal, draggable },
   computed: {
-    ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonportfolios'])
+    ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonPortfolio'])
   },
   methods: {
-    ...mapActions(['fetchProduct']),
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO']),
+    ...mapActions(['fetchProduct', 'saveToDb']),
+    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
+    },
+    deleteCportfolio(cportfolio_cnt) {
+      this.POP_CPORTFOLIO(cportfolio_cnt)
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
@@ -116,21 +119,21 @@ export default {
       this.showModal = true,
       this.fetchProduct(value[1].product_id)
     },
-    addcomparisonportfolio(value) {
-      this.PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(value)
+    addComparisonPortfolio() {
+      this.ADD_COMPARISON_PORTFOLIO()
     },
     clearcomparisonportfolio() {
       this.CLEAR_CPORTFOLIOS()
     },
     pushProductToCportfolio(value) {
       this.PUSH_PRODUCT_TO_CPORTFOLIO(value)
-    }
+    }, 
   },
   data() {
     return {
       showModal: false,
       productIdx: '',
-      modalData: null
+      modalData: null,
     }
   },
   beforeCreate: function() {
