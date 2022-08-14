@@ -61,6 +61,7 @@
             <h1>적금</h1>
             <h2>{{ filtered(savingTotalAmount) }}원</h2>
           </div>
+          <!-- <time-line-chart v-bind:series="savingTerm"></time-line-chart> -->
           <bar-chart v-bind:series="savingSeries"></bar-chart>
           <table>
             <thead>
@@ -87,8 +88,9 @@
         <div id="deposit-view" class="">
           <div class="d-flex justify-content-between">
             <h1>예금</h1>
-            <di>{{ filtered(depositTotalAmount) }}원</di>
+            <h2>{{ filtered(depositTotalAmount) }}원</h2>
           </div>
+          <!-- <time-line-chart v-bind:series="depositTerm"></time-line-chart> -->
           <bar-chart v-bind:series="depositSeries"></bar-chart>
           <table>
             <thead>
@@ -112,6 +114,10 @@
         </div>
       </div>
 
+      <!-- <line-chart v-bind:series="testSeries"></line-chart> -->
+      <div v-for="product in portfolio" :key="product">
+        {{ product }}
+      </div>
       <div v-for="customProduct in customProducts" :key="customProduct">
         {{ customProduct }}
       </div>
@@ -124,12 +130,13 @@ import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters } from "vuex";
 import PieChart from "@/components/PieChart.vue";
 import BarChart from "@/components/BarChart.vue";
-
+import TimeLineChart from "@/components/TimeLineChart.vue";
+import LineChart from "@/components/LineChart.vue";
 // globally registered and available for all charts
 
 export default {
   name: "PortfolioView",
-  components: { Navbar, PieChart, BarChart },
+  components: { Navbar, PieChart, BarChart, TimeLineChart, LineChart },
   data() {
     const summarySeries = [];
     const summaryChartOptionLabels = ["예금", "적금"];
@@ -156,6 +163,13 @@ export default {
       rate = Math.round(rate * 1000) / 1000;
       return rate;
     };
+    const savingTerm = [];
+    const depositTerm = [];
+    const testSeries = [
+      {
+        name: "XYZ MOTORS",
+      },
+    ];
     return {
       filtered,
       computeDBProductRate,
@@ -168,6 +182,10 @@ export default {
       savingTotalRate,
       savingTotalAmount,
       depositTotalAmount,
+
+      savingTerm,
+      depositTerm,
+      testSeries,
     };
   },
   setup() {},
@@ -188,6 +206,15 @@ export default {
       let productName = item.product.name;
       let picture = item.product.picture;
       let rate = this.computeDBProductRate(item);
+
+      const startDate = new Date(item.start_date);
+      const endDate = new Date(item.end_date);
+      let data = [];
+
+      data.push({
+        x: "saving",
+        y: [item.start_date, item.end_date],
+      });
       if (item.product.deposit) {
         // 일할 계산 or 전체 계산?
         // 예금이면 이미 들어간 돈이고 이자가 붙는거니까 이자 일할 계산해서 붙여주기?
@@ -205,14 +232,22 @@ export default {
           data: amount,
           picture: picture,
           rate: rate,
+          startDate: startDate,
+          endDate: endDate,
         });
+
+        this.depositTerm.push({ name: productName, data: data });
       } else {
         this.savingSeries.push({
           name: productName,
           data: amount,
           picture: picture,
           rate: rate,
+          startDate: startDate,
+          endDate: endDate,
         });
+
+        this.savingTerm.push({ name: productName, data: data });
       }
     });
 
@@ -222,6 +257,15 @@ export default {
       let productName = item.product_name;
       let picture = "../assets/image/퀸트_로고.png";
       let rate = this.computeCustomRate(item);
+      const startDate = new Date(item.start_date);
+      const endDate = new Date(item.end_date);
+
+      let data = [];
+      data.push({
+        x: "saving",
+        y: [item.start_date, item.end_date],
+      });
+
       if (item.deposit) {
         this.depositTotalAmount += item.amount;
         this.depositTotalRate += rate;
@@ -236,14 +280,21 @@ export default {
           data: amount,
           picture: picture,
           rate: rate,
+          startDate: startDate,
+          endDate: endDate,
         });
+
+        this.depositTerm.push({ name: productName, data: data });
       } else {
         this.savingSeries.push({
           name: productName,
           data: amount,
           picture: picture,
           rate: rate,
+          startDate: startDate,
+          endDate: endDate,
         });
+        this.savingTerm.push({ name: productName, data: data });
       }
     });
 
