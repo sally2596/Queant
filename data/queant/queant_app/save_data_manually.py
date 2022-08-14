@@ -362,7 +362,7 @@ def save_into_db_house(conn, cur, datas):
 
 def save_db_manually():
     conn, cur = connect_db()
-    f = open("/data/queant/queant_app/prdt_datas/kdb.txt","r")
+    f = open("/data/queant/queant_app/prdt_datas/kb.txt","r")
     pd = f.read()
     f.close()
     product_data = eval(pd)
