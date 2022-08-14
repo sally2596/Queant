@@ -17,11 +17,11 @@
       <tbody>
         <tr scope="row">
           <td class="col-1 text-center">{{ user.name }}</td>
-          <td class="col-1 text-center">{{ user.email }}</td>
+          <td class="col-3 text-center">{{ user.email }}</td>
           <td class="col-1 text-center">{{ user.gender }}</td>
-          <td class="col-1 text-center">{{ user.birthdate }}</td>
+          <td class="col-2 text-center">{{ user.birthdate }}</td>
           <td class="col-1 text-center">{{ social }}</td>
-          <td>
+          <td class="col-3 text-center">
             <div>
               <label :for="`role-user-${user.email}`">ROLE_USER</label>
               <input
@@ -49,12 +49,12 @@
                 value='ROLE_ADMIN'
                 :id="`role-admin-${user.email}`">
             </div>
-            <button @click="editRoleSet(credentials)">수정</button>
+            <button class="btn btn-outline-success btn-sm mx-3" @click="editRoleSet(credentials)">수정</button>
           </td>
           <td class="col-1 text-center">
             <div>
               {{ memberStatus }}
-              <button @click="editEnabled(user.email)">전환</button>
+              <button class="btn btn-outline-success btn-sm mx-3" @click="editEnabled(user.email)">전환</button>
             </div>
           </td>
         </tr>

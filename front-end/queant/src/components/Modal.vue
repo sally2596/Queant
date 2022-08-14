@@ -22,9 +22,14 @@
             v-model="payload.amount"
             type="number"
             required>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
           <p>{{ error.amount }}</p>
 
-          <br>
           이자유형 & 개월수
           <select v-model="payload.option_id">
             <option selected disabled>선택</option>
@@ -117,9 +122,15 @@ export default {
         this.error.date = '날짜를 확인해주세요.'
       else this.error.date = ''
     
-      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date)
+      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id!=='선택')
         this.isCheckedForm = true
       else this.isCheckedForm = false
+    },
+    changeAmount(money) {
+      if (this.payload.amount + money >= 0)
+        this.payload.amount += money
+      else
+        alert('납입금액을 확인해주세요.')
     }
   },
   watch: {
@@ -133,7 +144,7 @@ export default {
   data() {
     return {
       payload: {
-        amount: this.modalData.amount,
+        amount: this.modalData.amount?this.modalData.amount:0,
         condition_ids: [],
         start_date: null,
         end_date: null,
