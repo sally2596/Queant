@@ -18,6 +18,7 @@
 						<input type="text" v-model="product.referenceData" id="ref">
 						<label class="form-label" for="ref" autocomplete="off">관련 링크</label>
 					</div>
+          <br><br>
           <input type="submit" class="btn btn-sm btn-outline-secondary" value="제보하기">
 	      </form>
       </div>
@@ -49,13 +50,6 @@ export default {
       this.filter_deposit = !this.filter_deposit}
       if (this.filter_savings==false) {
       this.filter_savings = !this.filter_savings}
-    },
-    general_radio_Onoff: function() {
-      if (조건) {
-        변수명.classList.add('클래스 명');
-      } else {
-        변수명.classList.remove('클래스 명');
-      }
     },
   },
   computed: {

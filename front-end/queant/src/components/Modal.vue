@@ -32,7 +32,7 @@
 
           이자유형 & 개월수
           <select v-model="payload.option_id">
-            <option selected disabled>선택</option>
+            <option disabled>선택</option>
             <option 
               v-for="option in product.options"
               :key="option"
@@ -122,7 +122,7 @@ export default {
         this.error.date = '날짜를 확인해주세요.'
       else this.error.date = ''
     
-      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id!=='선택')
+      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id !== '선택')
         this.isCheckedForm = true
       else this.isCheckedForm = false
     },
