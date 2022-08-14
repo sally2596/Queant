@@ -103,7 +103,7 @@
         </HomeComponents>
 
       </div>
-    </section>End Features Section
+    </section>
   </main><!-- End #main -->
 </template>
 
