@@ -4,7 +4,7 @@
     <h1 class="title" id="title">상품 비교하기</h1>
   </header>
   <section class="product-detail-box">
-    <!-- <div v-if="comparisonportfolios.length === 0" class="cart-none">
+    <div v-if="comparisonportfolios.length === 0" class="cart-none">
       <img src="../../assets/image/물음표개미_none.png" alt="없음">
       
       <br><br>
@@ -12,7 +12,7 @@
       <br><br>
       
       <button class="btn btn-outline-success" @click="addcomparisonportfolio(userInfo)">가상 포트폴리오 추가하기</button> 
-    </div> -->
+    </div>
 
     <div>
 
@@ -69,15 +69,15 @@ export default {
     ...mapGetters(['userInfo', 'comparisonportfolios'])
   },
   methods: {
-    ...mapMutations(['POP_CPORTFOLIO_FROM_CPORTFOLIOS', 'POP_PRODUCT_FROM_CPORTFOLIO', 'PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS']),
+    ...mapMutations(['POP_PRODUCT_FROM_CART', 'ADD_COMPARISON_PORTFOLIO', 'POP_CPORTFOLIO', 'POP_PRODUCT_FROM_CPORTFOLIO']),
     popCPortfolioFromCPortfolios(portfolioIdx) {
-      this.POP_CPORTFOLIO_FROM_CPORTFOLIOS(portfolioIdx)
+      this.POP_CPORTFOLIO(portfolioIdx)
     },
     popProductFromCPortfolio(value) {
       this.POP_PRODUCT_FROM_CPORTFOLIO(value)
     },
-    addcomparisonportfolio(value) {
-      this.PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(value)
+    addcomparisonportfolio() {
+      this.ADD_COMPARISON_PORTFOLIO()
     },
   },
   beforeCreate: function() {

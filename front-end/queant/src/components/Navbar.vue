@@ -27,6 +27,8 @@
                 <li style="margin:8px"><router-link :to="{ name : 'productCart' }">상품 저장소</router-link></li>
                 <hr>
                 <li style="margin:8px"><router-link :to="{ name : 'productComparison' }">상품 비교하기</router-link></li>
+                <hr>
+                <li style="margin:8px"><router-link :to="{ name : 'productSpecialPlus' }">상품 제보하기</router-link></li>
               </ul>
             </li>
           </div>
