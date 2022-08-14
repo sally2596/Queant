@@ -31,11 +31,13 @@
   <!-- 페이지네이션 -->
   <div class="d-flex justify-content-center">
     <div
-      v-for="page in totalPage"
+      v-for="page in displayPages"
       :key="page">
       <button class="btn btn-sm" @click="changePage(page)">{{ page }}</button>
     </div>
+    <button class="btn btn-sm" @click="changePageIdx()"> 다음 </button>
   </div>
+
   <!-- 모달 -->
   <Modal
     v-if="showModal" @close="showModal=false"
@@ -57,12 +59,8 @@ export default {
     tenProducts() {
       return this.products.slice(this.productIdx, this.productIdx + 10)
     },
-    totalPage() {
-      let productsLength = this.products.length
-      if (productsLength % 10)
-        return ((productsLength - (productsLength % 10)) / 10) + 1
-      else
-        return (productsLength - (productsLength % 10)) / 10
+    displayPages() {
+      return this.totalPage.slice(this.pageIdx, this.pageIdx + 10)
     }
   },
   methods: {
@@ -74,14 +72,36 @@ export default {
     },
     changePage(page) {
       this.productIdx = (page - 1) * 10
+    },
+    countDisplayPages() {
+      let productsLength = this.products.length
+      if (productsLength % 10) {
+        for (var i=1; i <= ((productsLength - (productsLength % 10)) / 10) + 1; i++) {
+          this.totalPage.push(i)
+        }
+      } else {
+        for (var i=1; i <= (productsLength - (productsLength % 10)) / 10; i++) {
+          this.totalPage.push(i)
+        }
+      }
+    },
+    changePageIdx() {
+      if (this.pageIdx += 10 <= this.totalPage.length)
+        this.pageIdx += 10
+      else alert('하하')
     }
   },
   data() {
     return {
       showModal: false,
       modalData: null,
-      productIdx: 0
+      productIdx: 0,
+      pageIdx: 0,
+      totalPage: []
     }
+  },
+  created() {
+    this.countDisplayPages()
   }
 }
 </script>
