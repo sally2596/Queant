@@ -17,14 +17,19 @@
 
       <div class="modal-body">
        <slot name="body">
-          <label for="">납임금액</label>
+          <label for="">납임금액(원)</label>
           <input
             v-model="payload.amount"
             type="number"
             required>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
           <p>{{ error.amount }}</p>
 
-          <br>
           이자유형 & 개월수
           <select v-model="payload.option_id">
             <option disabled>선택</option>
@@ -46,7 +51,7 @@
             v-for="condition in product.conditions"
             :key="condition">
             <label :for="condition.condition_id">
-              [설명] {{ condition.value }}<br>
+              [설명] {{ condition.value }} : {{ condition.condition_info }}<br>
               [추가금리] {{ condition.special_rate }}%
             </label>
             <input
@@ -57,13 +62,13 @@
           </div>
           <hr>
 
-          <label>예상 가입날짜</label>
+          <label>예상 가입일</label>
           <input 
             v-model="payload.start_date"
             type="date"
             required>
 
-          <label>예상 만기날짜</label>
+          <label>예상 만기일</label>
           <input 
             v-model="payload.end_date"
             type="date"
@@ -75,14 +80,14 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-          <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
-          <button @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
+          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
+          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
         <div v-else>
-          <button disabled>내 포트폴리오</button>
-          <button disabled>장바구니</button>
+          <button class="btn btn-outline-success btn-sm mx-3" disabled>내 포트폴리오</button>
+          <button class="btn btn-outline-success btn-sm mx-3" disabled>장바구니</button>
         </div>
-        <button class="modal-default-button" @click="$emit('close')">닫기</button>
+        <button class="btn btn-outline-danger btn-sm mx-3" @click="$emit('close')">닫기</button>
        </slot>
       </div>
      </div>
@@ -120,6 +125,12 @@ export default {
       if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id !== '선택')
         this.isCheckedForm = true
       else this.isCheckedForm = false
+    },
+    changeAmount(money) {
+      if (this.payload.amount + money >= 0)
+        this.payload.amount += money
+      else
+        alert('납입금액을 확인해주세요.')
     }
   },
   watch: {
@@ -133,7 +144,7 @@ export default {
   data() {
     return {
       payload: {
-        amount: this.modalData.amount,
+        amount: this.modalData.amount?this.modalData.amount:0,
         condition_ids: [],
         start_date: null,
         end_date: null,

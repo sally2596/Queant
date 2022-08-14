@@ -130,6 +130,11 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        if (err.response.status === 500) {
+          alert('필수 입력사항(*)을 확인해주세요.')
+        } else if (err.response.status === 404) {
+          alert('해당 조건의 상품이 존재하지 않습니다. 다른 조건으로 검색해주세요.')
+        }
       })
     },
     fetchProductsBySavingFilters({ commit }, filters) {
@@ -158,6 +163,12 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        if (err.response.status === 500) {
+          alert('필수 입력사항(*)을 확인해주세요.')
+        }
+        else if (err.response.status === 404) {
+          alert('해당 조건의 상품이 존재하지 않습니다. 다른 조건으로 검색해주세요.')
+        }
       })
     }
   }

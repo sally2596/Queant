@@ -25,7 +25,7 @@
         </dl>
         <br><br>
         <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product?.product)">
-          장바구니에 담기
+          상품 담기
         </button>
       </div>
     </div>

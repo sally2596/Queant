@@ -63,8 +63,7 @@ export default {
         memberEmail : '',
         bankName : '',
         productName : '',
-        referenceData : '',
-        //isDeposit : '',
+        referenceData : ''
       },
     }
   },
@@ -74,8 +73,7 @@ export default {
       if (this.product.bankName && this.product.productName && this.product.referenceData) {
 				this.product.memberEmail = this.userInfo.email;
 				this.registReport(this.product);	
-				alert("제보가 성공적으로 완료되었습니다!")
-				this.$router.go();	
+				alert("제보가 성공적으로 완료되었습니다!")	
       } else {
 				if (!this.product.bankName) {
         alert('은행 이름을 입력해주세요.');
