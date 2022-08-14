@@ -1,0 +1,29 @@
+sc_data = [
+    {"bank": "한국스탠다드차타드은행", "name": "SC제일 친환경비움예금", "age_min": None, "age_max": None, "term_min": 12, "term_max": 12,
+     "budget_min": 1000000, "budget_max": 500000000, "etc": None, "is_deposit": 1,
+     "join": ["인터넷","스마트폰","영업점"],
+     "option": [(3.28, 3.28, 12, 0, None)],
+     "conditions": []
+    },
+    {"bank": "한국스탠다드차타드은행", "name": "두드림적금", "age_min": None, "age_max": None, "term_min": 6, "term_max": 60,
+     "budget_min": 10000, "budget_max": 1000000, "etc": None, "is_deposit": 0,
+     "join": ["인터넷","영업점"],
+     "option": [(2.25, 3.15, 6, 1, 0),(2.45, 3.35, 12, 1, 0),(2.55, 3.45, 24, 1, 0),(2.65, 3.55, 36, 1, 0)],
+     "conditions": [(["급여"], 0.4, "급여이체 고객"),
+                    (["기타"], 0.1, "이 예금의 가입일 기준 자동이체 (지로,KFTC, FBS) 등록건수 각 0.1 최대 0.2"),
+                    (["기타"], 0.1, "이 예금의 가입일 기준 직전월 인터넷뱅킹 이체 건수 3건 이상"),
+                    (["카드"], 0.2, "이 예금의 가입일 기준 직전월 체크(신용)카드 누적사용(청구) 금액 30만원 이상")]
+    },
+    {"bank": "한국스탠다드차타드은행", "name": "퍼스트정기예금(회전식)", "age_min": None, "age_max": None, "term_min": 6, "term_max": 60,
+     "budget_min": 1000000, "budget_max": None, "etc": None, "is_deposit": 1,
+     "join": ["영업점"],
+     "option": [(1.65, 1.65, 6, 1, None),(1.75, 1.75, 3, 1, None),(1.85,1.85, 6, 1, None)],
+     "conditions": []
+    },
+    {"bank": "한국스탠다드차타드은행", "name": "퍼스트정기예금", "age_min": None, "age_max": None, "term_min": 1, "term_max": 60,
+     "budget_min": 1000000, "budget_max": None, "etc": None, "is_deposit": 1,
+     "join": ["영업점"],
+     "option": [(1.65, 1.65, 6, 1, None),(1.75, 1.75, 3, 1, None),(1.85,1.85, 6, 1, None)],
+     "conditions": []
+    }
+]
