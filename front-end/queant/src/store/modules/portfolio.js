@@ -20,7 +20,9 @@ export default {
   mutations: {
     SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
     SET_CUSTOM_PRODUCTS: (state, customProducts) => state.customProducts = customProducts,
-
+    UPDATE_CPORTFOLIO_FROM_DB(state, value) {
+      state.comparisonPortfolio = value;
+    },
     PUSH_PRODUCT_TO_PORTFOLIO(state, value) {
       let portfolioNo = value.portfolioNo
 
@@ -347,6 +349,29 @@ export default {
         }
       }
       
+    },
+    getFromDb({ getters, commit}) {
+      commit('CLEAR_CPORTFOLIOS');
+
+      axios({
+        url: spring.portfolio.virtual(),
+        method: 'post',
+        data: {
+          member_id: getters.userInfo.member_id
+        }
+      })
+      .then(res => {
+        console.log(res.data)
+        const dbPortfolio = res.data;
+
+        commit('UPDATE_CPORTFOLIO_FROM_DB', dbPortfolio);
+
+        
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 };
