@@ -161,6 +161,9 @@
       </div> -->
     </div>
   </div>
+  <div>
+    {{calculateDeposit("2022-01-01","2022-12-31", 1000000, 0.12, false)}}
+  </div>
 </template>
 
 <script>
@@ -276,6 +279,80 @@ export default {
   },
   methods: {
     ...mapActions(["fetchMyPortfolio"]),
+    calculateDeposit(start_date, end_date, amount, rate, simple ){
+      let result = [];
+
+      let start      = start_date.split('-');
+      let end        = end_date.split('-');
+      let startYear  = parseInt(start[0]);
+      let endYear    = parseInt(end[0]);
+      let dates      = [];
+      let amounts    = [];
+
+      for(var i = startYear; i <= endYear; i++) {
+        var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
+        var startMon = i === startYear ? parseInt(start[1])-1 : 0;
+        for(var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j+1) {
+          var month = j+1;
+          var displayMonth = month < 10 ? '0'+month : month;
+          dates.push(Date.parse([i, displayMonth, '01'].join('-')));
+        }
+      }
+      
+      //원금
+      let original = {}
+      original.name = '원금';
+      let data = [];
+      for(var i=0; i<dates.length; i++){
+        let tempdata = [];
+        tempdata.push(dates[i]);
+        tempdata.push(amount);
+        data.push(tempdata);
+      }
+      original.data = data;
+      result.push(original)
+
+      let interest = {}
+      interest.name = '이번 달 이자'
+      interest.data = [];
+
+      let interestCumulative = {}
+      interestCumulative.name = '누적 이자'
+      interestCumulative.data = [];
+
+      //첫번째 달 이자 없음
+      interest.data.push([dates[0], 0]);
+      interestCumulative.data.push([dates[0],0]);
+
+      if(simple){ //단리
+        console.log('단리')
+        let calcMoney = (rate/12)*amount;
+        let cumulMoney = 0;
+
+        for(var i=1; i<dates.length; i++){
+          interest.data.push([dates[i], Math.ceil(calcMoney)]);
+          interestCumulative.data.push([dates[i],Math.ceil(cumulMoney)]);
+          cumulMoney += calcMoney;
+        }
+      }else{//복리
+        var calcRate = (rate/12)+1;
+        let cumulMoney = 0;
+        for(var i=1; i<dates.length; i++){
+          let calcMoney = (rate/12)*amount
+          interest.data.push([dates[i], Math.ceil(calcMoney)]);
+          interestCumulative.data.push([dates[i],Math.ceil(cumulMoney)]);
+
+          cumulMoney += calcMoney;
+          amount *= calcRate;
+          console.log(amount)
+        }
+      }
+
+      result.push(interest);
+      result.push(interestCumulative)
+
+      return result;
+    }
   },
   beforeCreate: function () {
     document.body.className = "home_body";
