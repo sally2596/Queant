@@ -8,7 +8,7 @@ export default {
     customProducts: [],
     portfolios: [{ "cportfolio_cnt": 1, "products": [] }, { "cportfolio_cnt": 2, "products": [] }, { "cportfolio_cnt": 3, "products": [] }, { "cportfolio_cnt": 4, "products": [] }],
     comparisonportfolios: []
-    },
+  },
   getters: {
     portfolio: state => state.portfolio,
     customProducts: state => state.customProducts,
