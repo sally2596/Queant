@@ -69,8 +69,8 @@
       v-model="myProduct.myProduct.picture"
       disabled> -->
 
-    <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(payload)">수정</button>
-    <button class="btn btn-outline-danger btn-sm mx-3" @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
+    <button class="btn btn-outline-success btn-sm mx-2" @click="openModal(payload)">수정</button>
+    <button class="btn btn-outline-danger btn-sm mx-2" @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
     
     <!-- 모달 -->
     <portfolio-edit-modal
@@ -96,14 +96,9 @@ export default {
     ...mapGetters(['product', 'bank']),
     appliedRate() {
       let rate = this.myProduct.option.base_rate
-      for (const condition1 of this.product.conditions) {
-        for (const condition2 of this.myProduct.conditions) {
-          if (condition1.condition_id === condition2.condition_id) {
-            rate += condition1.special_rate
-          }
-        }
+      for (const condition of this.myProduct.conditions) {
+        rate += condition.special_rate
       }
-      
       return `${rate.toFixed(2)}%`
     },
     productType() {

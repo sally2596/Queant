@@ -64,8 +64,8 @@
       </tbody>
     </table>
 
-    <button class="btn btn-outline-success btn-sm mx-3" @click="openModal()">수정</button>
-    <button class="btn btn-outline-danger btn-sm mx-3" @click="deleteCustomProduct(payload.product_id)">삭제</button>
+    <button class="btn btn-outline-success btn-sm mx-2" @click="openModal()">수정</button>
+    <button class="btn btn-outline-danger btn-sm mx-2" @click="deleteCustomProduct(payload.product_id)">삭제</button>
 
     <!-- 모달 -->
     <CustomProductModal 
