@@ -1,4 +1,4 @@
-sc_data = [
+[
     {"bank": "한국스탠다드차타드은행", "name": "SC제일 친환경비움예금", "age_min": None, "age_max": None, "term_min": 12, "term_max": 12,
      "budget_min": 1000000, "budget_max": 500000000, "etc": None, "is_deposit": 1,
      "join": ["인터넷","스마트폰","영업점"],
