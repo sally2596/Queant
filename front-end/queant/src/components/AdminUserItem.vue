@@ -49,12 +49,12 @@
                 value='ROLE_ADMIN'
                 :id="`role-admin-${user.email}`">
             </div>
-            <button @click="editRoleSet(credentials)">수정</button>
+            <button class="btn btn-outline-success btn-sm mx-3" @click="editRoleSet(credentials)">수정</button>
           </td>
           <td class="col-1 text-center">
             <div>
               {{ memberStatus }}
-              <button @click="editEnabled(user.email)">전환</button>
+              <button class="btn btn-outline-success btn-sm mx-3" @click="editEnabled(user.email)">전환</button>
             </div>
           </td>
         </tr>

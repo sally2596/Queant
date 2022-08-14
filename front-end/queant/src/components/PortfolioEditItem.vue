@@ -69,8 +69,8 @@
       v-model="myProduct.myProduct.picture"
       disabled> -->
 
-    <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(payload)">수정</button>
-    <button class="btn btn-outline-danger btn-sm mx-3" @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
+    <button class="btn btn-outline-success btn-sm mx-2" @click="openModal(payload)">수정</button>
+    <button class="btn btn-outline-danger btn-sm mx-2" @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
     
     <!-- 모달 -->
     <portfolio-edit-modal
@@ -79,7 +79,6 @@
       <h3>모달 창 제목</h3>
     </portfolio-edit-modal>
     <hr>
-    {{ myProduct }}
   </div>
 </template>
 

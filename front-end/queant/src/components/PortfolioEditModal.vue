@@ -22,9 +22,14 @@
             style="width: 145px;"
             v-model="payload.amount"
             type="number">
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
+          <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
+          <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
           <p>{{ error.amount }}</p>
 
-          <br> 
           이자유형 & 개월수
           <select v-model="payload.option_id">
             <option selected disabled>선택</option>
@@ -72,12 +77,12 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-          <button class="btn btn-outline-success btn-sm mx-3" @click="[editPortfolio(payload), $emit('close')]">수정</button>
+          <button class="btn btn-outline-success btn-sm mx-2" @click="[editPortfolio(payload), $emit('close')]">수정</button>
         </div>
         <div v-else>
-          <button class="btn btn-outline-success btn-sm mx-3" disabled>수정</button>
+          <button class="btn btn-outline-success btn-sm mx-2" disabled>수정</button>
         </div>
-        <button class="btn btn-outline-danger btn-sm mx-3" @click="$emit('close')">
+        <button class="btn btn-outline-danger btn-sm mx-2" @click="$emit('close')">
          닫기
         </button>
        </slot>
@@ -113,6 +118,12 @@ export default {
       if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date)
         this.isCheckedForm = true
       else this.isCheckedForm = false
+    },
+    changeAmount(money) {
+      if (this.payload.amount + money >= 0)
+        this.payload.amount += money
+      else
+        alert('납입금액을 확인해주세요.')
     }
   },
   watch: {
