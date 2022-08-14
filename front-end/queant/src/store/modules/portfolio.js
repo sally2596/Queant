@@ -9,7 +9,7 @@ export default {
     portfolios: [],
     comparisonPortfolio: [],
     newlyAddedPortfolio: [],
-
+    deletedPortfolio:[]
     },
   getters: {
     portfolio: state => state.portfolio,
@@ -34,6 +34,7 @@ export default {
     },
 
     POP_CPORTFOLIO(state, cportfolio_cnt) {
+      state.deletedPortfolio.push(cportfolio_cnt)
       let portfolioNo = cportfolio_cnt
       // 삭제된 포트폴리오의 이후 포트폴리오의 cnt를 1씩 차감
       for (var i=portfolioNo; i <= state.comparisonPortfolio.length-1; i++) {
@@ -260,7 +261,25 @@ export default {
       })
     },
     saveToDb({ getters, state }) {
-      console.log(state.newlyAddedPortfolio);
+      //삭제된 포트폴리오 DB에서 제거하기
+      for (const port_no of state.deletedPortfolio) {
+        axios({
+          url: spring.portfolio.portfolio(),
+          method: 'delete',
+          data: {
+            member_id: getters.userInfo.member_id,
+            portfolio_no:port_no
+          }
+        }).then(res => {
+          console.log(res)
+          console.log(port_no+'번 포트폴리오가 DB에서 제거되었습니다.')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+
+      //현재 남아있는 포트폴리오 수정 및 삽입
       for (var i = 1; i <= state.comparisonPortfolio.length; i++){
         if (state.newlyAddedPortfolio.includes(i)) {
           console.log(state.comparisonPortfolio[i-1])
