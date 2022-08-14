@@ -62,7 +62,7 @@
       <button class="btn btn-outline-primary btn-sm" @click="addcomparisonportfolio(userInfo)">가상 포트폴리오 추가하기</button>
       <br><br>
     </div>
-    <div v-else id="cart-item">
+    <div v-else id="cart-iPUSH_PRODUCT_TO_PORTFOLIOtem">
       <div id="cportfolio_container" class="d-flex">
         <div class="border m-2 col-3-lg col-6" v-for="cportfolio in comparisonportfolios" :key="cportfolio" style="height:30vh; width: 25%;">
           <div v-if="cportfolio.products.length === 0">
