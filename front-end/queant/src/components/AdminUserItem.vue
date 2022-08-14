@@ -17,11 +17,11 @@
       <tbody>
         <tr scope="row">
           <td class="col-1 text-center">{{ user.name }}</td>
-          <td class="col-1 text-center">{{ user.email }}</td>
+          <td class="col-3 text-center">{{ user.email }}</td>
           <td class="col-1 text-center">{{ user.gender }}</td>
-          <td class="col-1 text-center">{{ user.birthdate }}</td>
+          <td class="col-2 text-center">{{ user.birthdate }}</td>
           <td class="col-1 text-center">{{ social }}</td>
-          <td>
+          <td class="col-3 text-center">
             <div>
               <label :for="`role-user-${user.email}`">ROLE_USER</label>
               <input

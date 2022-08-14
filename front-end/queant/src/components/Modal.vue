@@ -117,7 +117,7 @@ export default {
         this.error.date = '날짜를 확인해주세요.'
       else this.error.date = ''
     
-      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date)
+      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id!=='선택')
         this.isCheckedForm = true
       else this.isCheckedForm = false
     }
