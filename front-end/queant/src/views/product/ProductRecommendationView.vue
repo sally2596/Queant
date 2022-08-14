@@ -7,15 +7,15 @@
   <section class="product_section">
     <div class="search_filter">
       <div class="filter_button_wrap">
-        <button @click="deposit_OnOff" :class="{'active' : filter_deposit==true}" class="filter_button" id="filter_button_a">예금</button>
-        <button @click="saving_OnOff" :class="{'active' : filter_savings==true}" class="filter_button" id="filter_button_b">적금</button>
+        <button @click="deposit_OnOff" :class="{'filter_active' : filter_deposit==true}" class="filter_button" id="filter_button_a">예금</button>
+        <button @click="saving_OnOff" :class="{'filter_active' : filter_savings==true}" class="filter_button" id="filter_button_b">적금</button>
       </div>
 
       <!-- 예금 -->
       <div v-if="filter_deposit" class="container row" id="filter_deposit">
 
-        <div class="col-lg-2 m-3 select">
-          <h6>기관</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>기관</strong></h6>
           <div id="banks_container">
             <div
               v-for="bankType in keywords.bank_type"
@@ -58,11 +58,13 @@
             required
             v-model="filtersForDeposit.amount"
             type="number"
+            class="p-1"
+            id="deposit-money"
             name="deposit-money">
         </div>
 
-        <div class="col-lg-5 m-3">
-          <h6>가입 방법</h6>
+        <div class="col-lg-5 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>가입 방법</strong></h6>
           <div id="banks_container">
             <div
               v-for="joinway in keywords.joinway"
@@ -83,8 +85,8 @@
           </div>
         </div>
 
-        <div class="col-lg-3 m-3">
-          <h6>이자 유형</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>이자 유형</strong></h6>
           <input 
             v-model="filtersForDeposit.isSimpleInterest"
             type="radio"
@@ -111,8 +113,8 @@
           </label>
         </div>
 
-        <div class="col-lg-3 m-3">
-          <h6>특수 조건</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>특수 조건</strong></h6>
           <div id="banks_container">
             <div
             v-for="traitSet in keywords.trait_set"
@@ -133,20 +135,26 @@
           </div>
         </div>
 
-        <div class="col-lg-12 m-3">
-          <h6>희망 은행</h6>
+        <div class="col-lg-12 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>희망 기관
+              <i class="fa-solid fa-circle-info">
+                <span class="tooltiptext">선택하지 않으면 모두 검색됩니다.</span>
+              </i>
+            </strong>
+          </h6>
+          
           <div id="banks_container">
             <div 
               v-for="bank in keywords.bank"
               :key="bank.bank_id" v-show="bank.scode_id === filtersForDeposit.bankType[0] || bank.scode_id === filtersForDeposit.bankType[1]">
               <div>
-                <input 
+                <input
                   v-model="filtersForDeposit.bank"
                   type="checkbox" 
                   class="btn-check"
                   :id="`deposit-${bank.bank_id}`" 
                   :value="bank.bank_id"
-                  autocomplete="off">
+                  autocomplete="on">
                 <label 
                   class="btn btn-outline-success" 
                   :for="`deposit-${bank.bank_id}`">
@@ -157,8 +165,8 @@
           </div>
         </div>
         
-        <div class="col-lg-12 m-3">
-          <h6>우대 조건</h6>
+        <div class="col-lg-12 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>우대 조건</strong></h6>
           <div id="banks_container">
           <div
             v-for="condition in keywords.conditions"
@@ -187,8 +195,8 @@
       <!-- 적금 -->
       <div v-if="filter_savings" class="container row" id="filter_savings">
 
-        <div class="col-lg-2 m-3">
-          <h6>기관</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>기관</strong></h6>
           <div id="banks_container">
             <div
               v-for="bankType in keywords.bank_type"
@@ -229,11 +237,12 @@
           <h6>* 희망 월 적립금(원)</h6>
           <input
             v-model="filtersForSaving.amount"
+            class="p-1"
             type="number">
         </div>
         
-        <div class="col-lg-5 m-3">
-          <h6>가입 방법</h6>
+        <div class="col-lg-5 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>가입 방법</strong></h6>
           <div id="banks_container">
             <div 
               v-for="joinway in keywords.joinway"
@@ -254,8 +263,8 @@
           </div>
         </div>
 
-        <div class="col-lg-3 m-3">
-          <h6>이자 유형</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>이자 유형</strong></h6>
           <input 
             v-model="filtersForSaving.isSimpleInterest"
             type="radio"
@@ -282,8 +291,8 @@
           </label>
         </div>
 
-        <div class="col-lg-3 m-3">
-          <h6>특수 조건</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>특수 조건</strong></h6>
           <div id="banks_container">
             <div 
               v-for="traitSet in keywords.trait_set"
@@ -304,8 +313,37 @@
           </div>
         </div>
 
-        <div class="col-lg-3 m-3">
-          <h6>적립 유형</h6>
+        <div class="col-lg-8 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>희망 기관</strong> <i class="fa-solid fa-circle-info">
+                <span class="tooltiptext">선택하지 않으면 모두 검색됩니다.</span>
+              </i>
+          </h6>
+          <div id="banks_container">
+            <div 
+              v-for="bank in keywords.bank"
+              :key="bank.bank_id" v-show="bank.scode_id === filtersForSaving.bankType[0] || bank.scode_id === filtersForSaving.bankType[1]">
+              <div>
+                <input 
+                  v-model="filtersForSaving.bank"
+                  type="checkbox" 
+                  class="btn-check"
+                  :id="`saving-${bank.bank_id}`" 
+                  :value="bank.bank_id"
+                  autocomplete="off">
+                <label 
+                  class="btn btn-outline-success" 
+                  :for="`saving-${bank.bank_id}`">
+                  {{ bank.short_name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>적립 유형</strong></h6>
           <input 
             v-model="filtersForSaving.isFixed"
             value="true"
@@ -332,32 +370,8 @@
           </label>
         </div>
 
-        <div class="col-lg-12 m-3">
-          <h6>희망 은행</h6>
-          <div id="banks_container">
-            <div 
-              v-for="bank in keywords.bank"
-              :key="bank.bank_id" v-show="bank.scode_id === filtersForSaving.bankType[0] || bank.scode_id === filtersForSaving.bankType[1]">
-              <div>
-                <input 
-                  v-model="filtersForSaving.bank"
-                  type="checkbox" 
-                  class="btn-check"
-                  :id="`saving-${bank.bank_id}`" 
-                  :value="bank.bank_id"
-                  autocomplete="off">
-                <label 
-                  class="btn btn-outline-success" 
-                  :for="`saving-${bank.bank_id}`">
-                  {{ bank.short_name }}
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-12 m-3">
-          <h6>우대 조건</h6>
+        <div class="col-lg-12 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>우대 조건</strong></h6>
           <div id="banks_container">
               <div
                 v-for="condition in keywords.conditions"
@@ -398,7 +412,7 @@ export default {
     document.body.className = 'menu_body'
   },
   computed: {
-    ...mapGetters(['keywords', 'banks'])
+    ...mapGetters(['keywords', 'banks']),
   },
   methods: {
     ...mapActions(['fetchKeywords', 'fetchProductsByDepositFilters', 'fetchProductsBySavingFilters']),
@@ -414,13 +428,28 @@ export default {
       if (this.filter_savings==false) {
       this.filter_savings = !this.filter_savings}
     },
-    general_radio_Onoff: function() {
-      if (조건) {
-        변수명.classList.add('클래스 명');
-      } else {
-        변수명.classList.remove('클래스 명');
-      }
-    }
+    comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    },
+
+    uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    } ,
+    
+    inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    },
+    
+    inputOnlyNumberFormat(obj) {
+        obj.value = onlynumber(uncomma(obj.value));
+    },
+    
+    onlynumber(str) {
+	    str = String(str);
+	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
+	},
   },
   data() {
     return {
@@ -446,7 +475,8 @@ export default {
         isFixed: null
       },
       filter_savings: false,
-      filter_deposit: true
+      filter_deposit: true,
+      isSavingSingle: null,
     }
   },
   created() {
