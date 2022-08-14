@@ -61,27 +61,45 @@
             <h1>적금</h1>
             <h2>{{ filtered(savingTotalAmount) }}원</h2>
           </div>
+          <div class="d-flex justify-content-between">
+            <h6>만기된 상품</h6>
+            <h6>{{ filtered(savingTotalAmount) }}원</h6>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h6>진행중 상품</h6>
+            <h6>{{ filtered(savingTotalAmount) }}원</h6>
+          </div>
           <!-- <time-line-chart v-bind:series="savingTerm"></time-line-chart> -->
-          <bar-chart v-bind:series="savingSeries"></bar-chart>
-          <table>
-            <thead>
-              <tr>
-                <th>은행</th>
-                <th>상품명</th>
-                <th>금액</th>
-                <th>적용 금리</th>
-              </tr>
-            </thead>
-            <br />
-            <tbody v-for="(saving, index) in savingSeries" :key="index">
-              <td>
-                <img :src="saving.picture" alt="" />
-              </td>
-              <td>{{ saving.name }}</td>
-              <td>{{ saving.data[0] }}</td>
-              <td>{{ saving.rate }}%</td>
-            </tbody>
-          </table>
+          <!-- <bar-chart v-bind:series="savingSeries"></bar-chart> -->
+          <div class="d-flex justify-content-between">
+            <column-chart
+              v-bind:series="testSeries"
+              class="col-6"
+            ></column-chart>
+            <table class="col-6">
+              <thead>
+                <tr>
+                  <th>은행</th>
+                  <th>상품명</th>
+                  <th>금액</th>
+                  <th>금리</th>
+                  <th>차트</th>
+                </tr>
+              </thead>
+              <br />
+              <tbody v-for="(saving, index) in savingSeries" :key="index">
+                <td>
+                  <img :src="saving.picture" alt="" style="width: 40px" />
+                </td>
+                <td>{{ saving.name }}</td>
+                <td>{{ saving.data[0] }}</td>
+                <td>{{ saving.rate }}%</td>
+                <td>
+                  <button class="btn btn-outline-success">보기</button>
+                </td>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <!-- 예금 Deposit -->
@@ -90,37 +108,57 @@
             <h1>예금</h1>
             <h2>{{ filtered(depositTotalAmount) }}원</h2>
           </div>
-          <!-- <time-line-chart v-bind:series="depositTerm"></time-line-chart> -->
-          <bar-chart v-bind:series="depositSeries"></bar-chart>
-          <table>
-            <thead>
-              <tr>
-                <th>은행</th>
-                <th>상품명</th>
-                <th>금액</th>
-                <th>적용 금리</th>
-              </tr>
-            </thead>
-            <br />
-            <tbody v-for="(deposit, index) in depositSeries" :key="index">
-              <td>
-                <img :src="deposit.picture" alt="" />
-              </td>
-              <td>{{ deposit.name }}</td>
-              <td>{{ deposit.data[0] }}</td>
-              <td>{{ deposit.rate }}%</td>
-            </tbody>
-          </table>
+          <div class="d-flex justify-content-between">
+            <h6>만기된 상품</h6>
+            <h6>{{ filtered(depositTotalAmount) }}원</h6>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h6>진행중 상품</h6>
+            <h6>{{ filtered(depositTotalAmount) }}원</h6>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <column-chart
+              v-bind:series="testSeries"
+              class="col-6"
+            ></column-chart>
+            <!-- <time-line-chart v-bind:series="depositTerm"></time-line-chart> -->
+            <!-- <bar-chart v-bind:series="depositSeries" class="col-6"></bar-chart> -->
+            <table class="col-6">
+              <thead>
+                <tr>
+                  <th>은행</th>
+                  <th>상품명</th>
+                  <th>금액</th>
+                  <th>금리</th>
+                  <th>차트</th>
+                </tr>
+              </thead>
+              <br />
+              <tbody v-for="(deposit, index) in depositSeries" :key="index">
+                <td>
+                  <img :src="deposit.picture" alt="" />
+                </td>
+                <td>{{ deposit.name }}</td>
+                <td>{{ deposit.data[0] }}</td>
+                <td>{{ deposit.rate }}%</td>
+                <td>
+                  <button class="btn btn-outline-success">보기</button>
+                </td>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- <line-chart v-bind:series="testSeries"></line-chart> -->
-      <div v-for="product in portfolio" :key="product">
+
+      <!-- <div v-for="product in portfolio" :key="product">
         {{ product }}
       </div>
       <div v-for="customProduct in customProducts" :key="customProduct">
         {{ customProduct }}
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -132,11 +170,20 @@ import PieChart from "@/components/PieChart.vue";
 import BarChart from "@/components/BarChart.vue";
 import TimeLineChart from "@/components/TimeLineChart.vue";
 import LineChart from "@/components/LineChart.vue";
+import ColumnChart from "@/components/ColumnChart.vue";
+
 // globally registered and available for all charts
 
 export default {
   name: "PortfolioView",
-  components: { Navbar, PieChart, BarChart, TimeLineChart, LineChart },
+  components: {
+    Navbar,
+    PieChart,
+    BarChart,
+    TimeLineChart,
+    LineChart,
+    ColumnChart,
+  },
   data() {
     const summarySeries = [];
     const summaryChartOptionLabels = ["예금", "적금"];
@@ -167,7 +214,42 @@ export default {
     const depositTerm = [];
     const testSeries = [
       {
-        name: "XYZ MOTORS",
+        name: "월 불입금",
+        data: [
+          [1484418600000, 200],
+          [1484418600000 + 86400000, 2500],
+          [1484418600000 + 86400000 + 86400000, 2000],
+          [1484418600000 + 86400000 + 86400000 + 86400000, 2000],
+          [1484418600000 + 86400000 + 86400000 + 86400000 + 86400000, 2000],
+          [
+            1484418600000 +
+              86400000 +
+              86400000 +
+              86400000 +
+              86400000 +
+              86400000,
+            2000,
+          ],
+        ],
+      },
+      {
+        name: "이번달에 붙은 이자",
+        data: [
+          [1484418600000, 40],
+          [1484418600000 + 86400000, 500],
+          [1484418600000 + 86400000 + 86400000, 600],
+          [1484418600000 + 86400000 + 86400000 + 86400000, 700],
+          [1484418600000 + 86400000 + 86400000 + 86400000 + 86400000, 800],
+          [
+            1484418600000 +
+              86400000 +
+              86400000 +
+              86400000 +
+              86400000 +
+              86400000,
+            900,
+          ],
+        ],
       },
     ];
     return {
