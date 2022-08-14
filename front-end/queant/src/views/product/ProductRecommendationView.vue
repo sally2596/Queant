@@ -37,8 +37,8 @@
         </div>
 
         <!-- 필수 -->
-        <div class="col-lg-5 p-4 m-2 border-bottom">
-          <h6 class="mb-3"><strong>예치 기간 (필수)</strong></h6>
+        <div class="col-lg-3 m-3">
+          <h6>* 예치 기간</h6>
           <input v-model="filtersForDeposit.period" :value="6" type="radio" class="btn-check" id="deposit-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
           <input v-model="filtersForDeposit.period" :value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
@@ -52,8 +52,8 @@
         </div>
 
         <!-- 필수 -->
-        <div class="col-lg-3 p-4 m-2 border-bottom int-area" style="width:auto;">
-          <h6 class="mb-3"><strong>예치금(원) (필수)</strong></h6>
+        <div class="col-lg-2 m-3">
+          <h6>* 예치금(원)</h6>
           <input
             required
             v-model="filtersForDeposit.amount"
@@ -218,8 +218,8 @@
         </div>
         
         <!-- 필수 입력 -->
-        <div class="col-lg-5 p-4 m-2 border-bottom">
-          <h6 class="mb-3"><strong>적립 기간(필수)</strong></h6>
+        <div class="col-lg-3 m-3 select">
+          <h6>* 적립 기간</h6>
           <input v-model="filtersForSaving.period" value="6" type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
           <input v-model="filtersForSaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
@@ -233,8 +233,8 @@
         </div>
 
         <!-- 필수 입력 -->
-        <div class="col-lg-3 p-4 m-2 border-bottom int-area" style="width:auto;">
-          <h6 class="mb-3"><strong>월 적립금(필수)</strong></h6>
+        <div class="col-lg-2 m-3">
+          <h6>* 희망 월 적립금(원)</h6>
           <input
             v-model="filtersForSaving.amount"
             class="p-1"

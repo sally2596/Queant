@@ -20,7 +20,7 @@
           <td class="col-1 text-center">{{ user.email }}</td>
           <td class="col-1 text-center">{{ user.gender }}</td>
           <td class="col-1 text-center">{{ user.birthdate }}</td>
-          <td class="col-1 text-center">{{ user.social }}</td>
+          <td class="col-1 text-center">{{ social }}</td>
           <td class="col-1 text-center">
             <div>
               <label :for="`role-user-${user.email}`">ROLE_USER</label>
@@ -80,6 +80,12 @@ export default {
         return '활성화'
       else
         return '비활성화'
+    },
+    social() {
+      if (this.user.social === 'None')
+        return 'QueÆnt'
+      else
+        return this.user.social
     }
   },
   data() {

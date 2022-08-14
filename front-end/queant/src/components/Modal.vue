@@ -17,7 +17,7 @@
 
       <div class="modal-body">
        <slot name="body">
-          <label for="">납임금액</label>
+          <label for="">납임금액(원)</label>
           <input
             v-model="payload.amount"
             type="number"
@@ -46,7 +46,7 @@
             v-for="condition in product.conditions"
             :key="condition">
             <label :for="condition.condition_id">
-              [설명] {{ condition.value }}<br>
+              [설명] {{ condition.value }} : {{ condition.condition_info }}<br>
               [추가금리] {{ condition.special_rate }}%
             </label>
             <input
@@ -57,13 +57,13 @@
           </div>
           <hr>
 
-          <label>예상 가입날짜</label>
+          <label>예상 가입일</label>
           <input 
             v-model="payload.start_date"
             type="date"
             required>
 
-          <label>예상 만기날짜</label>
+          <label>예상 만기일</label>
           <input 
             v-model="payload.end_date"
             type="date"
@@ -75,14 +75,14 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-          <button @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
-          <button @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
+          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
+          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
         <div v-else>
-          <button disabled>내 포트폴리오</button>
-          <button disabled>장바구니</button>
+          <button class="btn btn-outline-success btn-sm mx-3" disabled>내 포트폴리오</button>
+          <button class="btn btn-outline-success btn-sm mx-3" disabled>장바구니</button>
         </div>
-        <button class="modal-default-button" @click="$emit('close')">닫기</button>
+        <button class="btn btn-outline-danger btn-sm mx-3" @click="$emit('close')">닫기</button>
        </slot>
       </div>
      </div>
