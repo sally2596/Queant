@@ -73,6 +73,13 @@ public class SearchRepositoryImpl implements SearchRepository {
                     ));
         }
 
+        if(conditions.size()>0){
+            builder.and(
+                    product.productId.in(
+                            JPAExpressions.select(qConditions.productId).from(qConditions).where(qConditions.scodeId.in(conditions))
+                    ));
+        }
+
         if (traitSet.size() > 0) {
             builder.and(
                     product.productId.in(
