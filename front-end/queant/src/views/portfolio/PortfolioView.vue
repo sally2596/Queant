@@ -300,86 +300,6 @@ export default {
       this.nowDepositChart = this.depositChart[index];
       this.nowDepositCategory = this.depositCategory[index];
     },
-    calculateDeposit(start_date, end_date, amount, rate, simple) {
-      let result = [];
-
-      let start = start_date.split("-");
-      let end = end_date.split("-");
-      let startYear = parseInt(start[0]);
-      let endYear = parseInt(end[0]);
-      let dates = [];
-      let amounts = [];
-
-      for (var i = startYear; i <= endYear; i++) {
-        var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
-        var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
-        for (
-          var j = startMon;
-          j <= endMonth;
-          j = j > 12 ? j % 12 || 11 : j + 1
-        ) {
-          var month = j + 1;
-          var displayMonth = month < 10 ? "0" + month : month;
-          dates.push(Date.parse([i, displayMonth, "01"].join("-")));
-        }
-      }
-
-      //원금
-      let original = {};
-      original.name = "원금";
-      let data = [];
-      for (var i = 0; i < dates.length; i++) {
-        let tempdata = [];
-        tempdata.push(dates[i]);
-        tempdata.push(amount);
-        data.push(tempdata);
-      }
-      original.data = data;
-      result.push(original);
-
-      let interest = {};
-      interest.name = "이번 달 이자";
-      interest.data = [];
-
-      let interestCumulative = {};
-      interestCumulative.name = "누적 이자";
-      interestCumulative.data = [];
-
-      //첫번째 달 이자 없음
-      interest.data.push([dates[0], 0]);
-      interestCumulative.data.push([dates[0], 0]);
-
-      if (simple) {
-        //단리
-        console.log("단리");
-        let calcMoney = (rate / 12) * amount;
-        let cumulMoney = 0;
-
-        for (var i = 1; i < dates.length; i++) {
-          interest.data.push([dates[i], Math.ceil(calcMoney)]);
-          interestCumulative.data.push([dates[i], Math.ceil(cumulMoney)]);
-          cumulMoney += calcMoney;
-        }
-      } else {
-        //복리
-        var calcRate = rate / 12 + 1;
-        let cumulMoney = 0;
-        for (var i = 1; i < dates.length; i++) {
-          let calcMoney = (rate / 12) * amount;
-          interest.data.push([dates[i], Math.ceil(calcMoney)]);
-          interestCumulative.data.push([dates[i], Math.ceil(cumulMoney)]);
-
-          cumulMoney += calcMoney;
-          amount *= calcRate;
-          console.log(amount);
-        }
-      }
-
-      result.push(interest);
-      result.push(interestCumulative);
-
-      return result;
-    },
     TestcalculateDeposit(start_date, end_date, amount, rate, simple) {
       let result = [];
 
@@ -457,95 +377,99 @@ export default {
 
       return { dates, result };
     },
-		temp() {
-			for(let i=0; i<this.portfolio.length; i++) {
-			let name = this.portfolio[i].product.name;
-			let term = this.portfolio[i].option.save_term;
-			let amount = this.portfolio[i].amount;
-			//단복리
-			let type = this.portfolio[i].option.rate_type;
-			//예적금
-			let dep = this.portfolio[i].product.deposit;
+    temp() {
+      for (let i = 0; i < this.portfolio.length; i++) {
+        let name = this.portfolio[i].product.name;
+        let term = this.portfolio[i].option.save_term;
+        let amount = this.portfolio[i].amount;
+        //단복리
+        let type = this.portfolio[i].option.rate_type;
+        //예적금
+        let dep = this.portfolio[i].product.deposit;
 
-			let start = this.portfolio[i].start_date.split('-');
-			let year = parseInt(start[0]);
-			let month = parseInt(start[1]);
+        let start = this.portfolio[i].start_date.split("-");
+        let year = parseInt(start[0]);
+        let month = parseInt(start[1]);
 
-			let rate = this.portfolio[i].option.base_rate;
+        let rate = this.portfolio[i].option.base_rate;
 
-			if(this.portfolio[i].conditions) {
-				for(let j=0; j<this.portfolio[i].conditions.length; j++) {
-					rate += this.portfolio[i].conditions[j].special_rate;
-				}
-			}
+        if (this.portfolio[i].conditions) {
+          for (let j = 0; j < this.portfolio[i].conditions.length; j++) {
+            rate += this.portfolio[i].conditions[j].special_rate;
+          }
+        }
 
-			const result = [
-				{
-					name: "원금",
-					data: []
-				},
-				{
-					name: "이번달 이자",
-					data: []
-				},
-				{
-					name: "누적 이자",
-					data: []
-				}
-			]
+        const result = [
+          {
+            name: "원금",
+            data: [],
+          },
+          {
+            name: "이번달 이자",
+            data: [],
+          },
+          {
+            name: "누적 이자",
+            data: [],
+          },
+        ];
 
-			let sum = 0;
+        let sum = 0;
 
-			if(type) {
-				console.log("적금복리계산")
-				for(let i=0; i<term; i++) {
-					if (month==13) {
-						year++;
-						month=1;
-					}
-					let date = new Date(year,month,1);
-					const msTime = date.getTime();
-					let moneyOrigin = amount*(i+1);
-					result[0].data.push([msTime,moneyOrigin]);
-					const moneyInterest = Math.ceil(amount*((1+rate*0.01/term)**(term-i))-amount);
-					result[1].data.push([msTime,moneyInterest]);
-					sum += moneyInterest;
-					result[2].data.push([msTime,sum]);
-					//sum += amount*((1+(rate*0.01/term))**(term-i));
+        if (type) {
+          console.log("적금복리계산");
+          for (let i = 0; i < term; i++) {
+            if (month == 13) {
+              year++;
+              month = 1;
+            }
+            let date = new Date(year, month, 1);
+            const msTime = date.getTime();
+            let moneyOrigin = amount * (i + 1);
+            result[0].data.push([msTime, moneyOrigin]);
+            const moneyInterest = Math.ceil(
+              amount * (1 + (rate * 0.01) / term) ** (term - i) - amount
+            );
+            result[1].data.push([msTime, moneyInterest]);
+            sum += moneyInterest;
+            result[2].data.push([msTime, sum]);
+            //sum += amount*((1+(rate*0.01/term))**(term-i));
 
-					month++;
-				}
-			} else {
-			console.log("적금단리계산")
-				for(let i=0; i<term; i++) {
-					if (month==13) {
-						year++;
-						month=1;
-					}
-					let date = new Date(year,month,1);
-					const msTime = date.getTime();
-					let moneyOrigin = amount*(i+1);
-					result[0].data.push([msTime,moneyOrigin]);
-					const moneyInterest = Math.ceil(amount*rate*0.01*(term-i)/term);
-					result[1].data.push([msTime,moneyInterest]);
-					sum += moneyInterest;
-					result[2].data.push([msTime,sum]);
+            month++;
+          }
+        } else {
+          console.log("적금단리계산");
+          for (let i = 0; i < term; i++) {
+            if (month == 13) {
+              year++;
+              month = 1;
+            }
+            let date = new Date(year, month, 1);
+            const msTime = date.getTime();
+            let moneyOrigin = amount * (i + 1);
+            result[0].data.push([msTime, moneyOrigin]);
+            const moneyInterest = Math.ceil(
+              (amount * rate * 0.01 * (term - i)) / term
+            );
+            result[1].data.push([msTime, moneyInterest]);
+            sum += moneyInterest;
+            result[2].data.push([msTime, sum]);
 
-					month++;
-				}
-			}		
-			this.savingProduct.push({
-				name:name,
-				term:term,
-				rate:rate,
-				type:type,
-				dep:dep,
-				amount:amount,
-				data: result
-			});
-		}
-		console.log(this.savingProduct);	
-		}
+            month++;
+          }
+        }
+        this.savingProduct.push({
+          name: name,
+          term: term,
+          rate: rate,
+          type: type,
+          dep: dep,
+          amount: amount,
+          data: result,
+        });
+      }
+      console.log(this.savingProduct);
+    },
   },
   beforeCreate: function () {
     document.body.className = "home_body";
