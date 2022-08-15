@@ -44,7 +44,6 @@
           </select>
           <hr>
 					<div>우대사항</div>
-					{{ product.options[0] }}
 					<div></div>
 					<br>
 					<table class="table table-hover">
@@ -127,10 +126,6 @@ export default {
   methods: {
     ...mapActions(['pushProductToPortfolio']),
     ...mapMutations(['PUSH_PRODUCT_TO_CART']),
-    SelectOption(item){
-      console.log("쨔란");
-      console.log(item);
-    },
     pushProductToCart(payload) {
       this.PUSH_PRODUCT_TO_CART(payload)
     },
