@@ -24,9 +24,7 @@
           </dd>
         </dl>
         <br><br>
-        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product?.product)">
-          상품 담기
-        </button>
+        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product?.product)"><i class="fa-solid fa-cart-arrow-down"></i></button>
       </div>
     </div>
     <!-- 모달 -->

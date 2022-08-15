@@ -17,6 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 0px;
 }
 
 #title-div {
@@ -118,10 +119,6 @@
   max-width: 80px;
 }
 
-.cart-none img {
-  width: 350px; height: 300px;
-}
-
 #cart-item {
   width: 60%;
 }
@@ -134,7 +131,7 @@
 }
 
 .product-detail {
-  max-width: 100%;
+  width: 100%;
   border-radius: 5px;
 }
 .prd-btn-area {
@@ -183,6 +180,7 @@ td img {
   font-size: 15px;
   width:100%;
   border-collapse: collapse;
+	vertical-align:middle;
 }
 
 .table th {

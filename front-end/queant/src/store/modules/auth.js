@@ -165,7 +165,7 @@ export default {
       localStorage.setItem('accessToken', accessToken)
       // 액세스 토큰 만료시간 구하기
       const now = new Date().getTime()
-      commit('SET_ACCESS_TOKEN_EXPIRY_TIME', now + 60000)
+      commit('SET_ACCESS_TOKEN_EXPIRY_TIME', now + 1800000)
     },
     saveRefreshToken({ commit }, refreshToken) {
       console.log('리프레쉬 토큰을 저장합니다.')
@@ -173,7 +173,7 @@ export default {
       localStorage.setItem('refreshToken', refreshToken)
       // 리프레쉬 토큰 만료시간 구하기
       const now = new Date().getTime()
-      commit('SET_REFRESH_TOKEN_EXPIRY_TIME', now + 300000)
+      commit('SET_REFRESH_TOKEN_EXPIRY_TIME', now + 3600000)
     },
     // 2 액세스토큰 재발급
     updateAccessToken({ dispatch, commit, state }) {
@@ -225,6 +225,7 @@ export default {
     },
     // 2. 회원정보 수정 요청
     editUserInfo({ dispatch, getters }, credentials) {
+      console.log(typeof(credentials.birthdate))
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')

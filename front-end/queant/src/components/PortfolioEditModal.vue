@@ -3,40 +3,37 @@
    <div class="modal-mask">
     <div class="modal-wrapper">
      <div class="modal-container">
-      
-      <div class="modal-header">
+			<div class="modal-header">
        <slot name="header">
-        <label>상품명</label>
-        <input
-          v-model="modalData.product.name"
-          type="text"
-          disabled>
+        <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.product.name }}</h4>
        </slot>
       </div>
       <hr>
-
       <div class="modal-body">
        <slot name="body">
-          <label for="">납임금액(원)</label>
+          <label>납임금액(원)</label>
           <input
-            style="width: 145px;"
             v-model="payload.amount"
-            type="number">
+            type="number"
+						class="box"
+            required>
+					<br><br>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
+					<br>
           <p>{{ error.amount }}</p>
-
           이자유형 & 개월수
-          <select v-model="payload.option_id">
+          <select class="box" v-model="payload.option_id">
             <option selected disabled>선택</option>
             <option 
               v-for="option in product.options"
               :key="option"
-              :value="option.option_id">
+              :value="option.option_id"
+              required>
               <p v-if="option.rate_type">복리</p>
               <p v-else>단리</p>
               {{ option.save_term }}개월
@@ -44,36 +41,53 @@
             </option>
           </select>
           <hr>
-          
-          우대사항
-          <div
-            v-for="condition in product.conditions"
-            :key="condition">
-            <label :for="condition.condition_id">
-              [설명] {{ condition.value }}<br>
-              [추가금리] {{ condition.special_rate }}%
-            </label>
-            <input
-              v-model="payload.condition_ids"
-              type="checkbox"
-              :value="condition.condition_id"
-              :id="condition.condition_id">
-          </div>
-          <hr>
-
-          <label>가입일</label>
-          <input 
-            v-model="payload.start_date"
-            type="date">
-          <br>
-          <label>만기일</label>
-          <input 
-            v-model="payload.end_date"
-            type="date">
-          <p>{{ error.date }}</p>
+					<div>우대사항</div>
+					<div></div>
+					<br>
+					<table class="table table-hover">
+						<thead>
+							<tr class="text-center">
+								<th scope="col">설명</th>
+								<th scope="col">추가금리</th>
+								<th scope="col">선택</th>
+							</tr>
+						</thead>
+						<tbody v-for="condition in product.conditions" v-bind:key="condition">
+							<tr scope="row">
+								<td class="col-8 text-center">{{ condition.condition_info || condition.value }}</td>
+								<td class="col-4 text-center">{{ condition.special_rate }}%</td>
+								<td class="col-1 text-center">
+									<input
+										v-model="payload.condition_ids"
+										type="checkbox"
+										class="box"
+										:value="condition.condition_id"
+										:id="condition.condition_id">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<div>
+						예상 가입일
+						<input 
+							v-model="payload.start_date"
+							type="date"
+							class="box"
+							required>
+					</div>
+					<br>
+					<div>
+						예상 만기일
+						<input 
+							v-model="payload.end_date"
+							type="date"
+							class="box"
+							required>
+					</div>
+          {{ error.date }}
        </slot>
-      </div>
-
+			</div>
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
@@ -105,7 +119,7 @@ export default {
     ...mapGetters(['product'])
   },
   methods: {
-    ...mapActions(['editPortfolio']),
+    ...mapActions(['editPortfolio', 'fetchProduct']),
     checkForm() {
       if (this.payload.amount < 1)
         this.error.amount = '납입금액을 확인해주세요.'
@@ -144,7 +158,8 @@ export default {
         option_id: this.modalData.option_id,
         portfolio_id: this.modalData.portfolio_id,
         portfolio_no: 0,
-        product_id: this.modalData.product_id
+        product_id: this.modalData.product_id,
+        conditions: this.modalData.conditions
       },
       error: {
         amount: '',
@@ -152,6 +167,9 @@ export default {
       },
       isCheckedForm: false
     }
+  },
+  created() {
+    this.fetchProduct(this.modalData.product_id)
   }
 }
 </script>

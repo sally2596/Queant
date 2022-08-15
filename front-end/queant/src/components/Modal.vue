@@ -6,33 +6,31 @@
 
       <div class="modal-header">
        <slot name="header">
-        <label>상품명</label>
-        <input 
-          v-model="modalData.name"
-          type="text"
-          disabled>
+        <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.name }}</h4>
        </slot>
       </div>
       <hr>
 
       <div class="modal-body">
        <slot name="body">
-          <label for="">납임금액(원)</label>
+          <label>납임금액(원)</label>
           <input
             v-model="payload.amount"
             type="number"
+						class="box"
             required>
+					<br><br>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
+					<br>
           <p>{{ error.amount }}</p>
-
           이자유형 & 개월수
-          <select v-model="payload.option_id">
-            <option selected disabled>선택</option>
+          <select class="box" v-model="payload.option_id">
+            <option disabled>선택</option>
             <option 
               v-for="option in product.options"
               :key="option"
@@ -45,34 +43,50 @@
             </option>
           </select>
           <hr>
-      
-          우대사항
-          <div
-            v-for="condition in product.conditions"
-            :key="condition">
-            <label :for="condition.condition_id">
-              [설명] {{ condition.value }} : {{ condition.condition_info }}<br>
-              [추가금리] {{ condition.special_rate }}%
-            </label>
-            <input
-              v-model="payload.condition_ids"
-              type="checkbox"
-              :value="condition.condition_id"
-              :id="condition.condition_id">
-          </div>
-          <hr>
-
-          <label>예상 가입일</label>
-          <input 
-            v-model="payload.start_date"
-            type="date"
-            required>
-
-          <label>예상 만기일</label>
-          <input 
-            v-model="payload.end_date"
-            type="date"
-            required>
+					<div>우대사항</div>
+					<div></div>
+					<br>
+					<table class="table table-hover">
+						<thead>
+							<tr class="text-center">
+								<th scope="col">설명</th>
+								<th scope="col">추가금리</th>
+								<th scope="col">선택</th>
+							</tr>
+						</thead>
+						<tbody v-for="condition in product.conditions" v-bind:key="condition">
+							<tr scope="row">
+								<td class="col-8 text-center">{{ condition.condition_info || condition.value }}</td>
+								<td class="col-4 text-center">{{ condition.special_rate }}%</td>
+								<td class="col-1 text-center">
+									<input
+										v-model="payload.condition_ids"
+										type="checkbox"
+										class="box"
+										:value="condition.condition_id"
+										:id="condition.condition_id">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<div>
+						예상 가입일
+						<input 
+							v-model="payload.start_date"
+							type="date"
+							class="box"
+							required>
+					</div>
+					<br>
+					<div>
+						예상 만기일
+						<input 
+							v-model="payload.end_date"
+							type="date"
+							class="box"
+							required>
+					</div>
           {{ error.date }}
        </slot>
       </div>
@@ -80,6 +94,7 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
+        <!-- 버튼함수에 pushProductToPortfolio(payload) 이거 넣어야댐 -->
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
@@ -111,6 +126,14 @@ export default {
     ...mapActions(['pushProductToPortfolio']),
     ...mapMutations(['PUSH_PRODUCT_TO_CART']),
     pushProductToCart(payload) {
+      // 적용한 우대사항 추가 금리 추가
+      // for (let productCondition of this.product.conditions) {
+      //   for (let selectedConditionId of payload.condition_ids) {
+      //     if (productCondition.condition_id === selectedConditionId) {
+      //       payload.applied_rate += productCondition.special_rate
+      //     }
+      //   }
+      // }
       this.PUSH_PRODUCT_TO_CART(payload)
     },
     checkForm() {
@@ -122,7 +145,7 @@ export default {
         this.error.date = '날짜를 확인해주세요.'
       else this.error.date = ''
     
-      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id!=='선택')
+      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id !== '선택')
         this.isCheckedForm = true
       else this.isCheckedForm = false
     },
@@ -131,14 +154,34 @@ export default {
         this.payload.amount += money
       else
         alert('납입금액을 확인해주세요.')
+    },
+    // 선택한 이자유형 & 개월수에 따라 payload.applied_rate 변경
+    changeBaseRate(option_id) {
+      for (let option of this.product.options) {
+        if (option.option_id === option_id) {
+          this.payload.applied_rate = option.base_rate
+          this.payload.applied_period = option.save_term
+        }
+      }
     }
   },
   watch: {
     payload: {
       deep: true,
-      handler() {
+      handler(v) {
         this.checkForm()
+        this.changeBaseRate(v.option_id)
       }
+			// dateCheck(data) {
+			// 	let date = data.split('-');
+
+			// 	let year = parseInt(date[0])
+			// 	let month = parseInt(date[1]);
+			// 	let day = parseInt(date[2]);
+			// 	let term = this.product.options[this.payload.option_id].save_term;
+				
+
+			// }
     }
   },
   data() {
@@ -149,7 +192,9 @@ export default {
         start_date: null,
         end_date: null,
         option_id: this.modalData.selected_option_id?this.modalData.selected_option_id:'선택',
-        product: this.modalData
+        product: this.modalData,
+        applied_rate: null,
+        applied_period: null
       },
       error: {
         amount: '',
@@ -157,6 +202,14 @@ export default {
       },
       isCheckedForm: false
     }
+  },
+  created() {
+    for (let option of this.product.options) {
+        if (option.option_id === this.modalData.selected_option_id) {
+          this.payload.applied_rate = option.base_rate
+          this.payload.applied_period = option.save_term
+        }
+      }
   }
 }
 </script>
@@ -183,7 +236,8 @@ export default {
 
 
 .modal-container {
-  width: 300px;
+  width: 500px;
+  height: 600px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -191,6 +245,7 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  overflow: scroll;
 }
 
 
@@ -235,4 +290,11 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.box {
+	float: right;
+	width: 160px;
+	text-align:right;
+}
+
 </style>
