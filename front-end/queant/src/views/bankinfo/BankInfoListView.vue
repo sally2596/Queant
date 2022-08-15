@@ -1,13 +1,15 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">은행 정보</h1>
+    <!-- <h1 class="title" id="title">은행 정보</h1> -->
   </header>
   
   <!-- 은행 목록 -->
     <!-- 제 1금융 목록 -->
   <section>
-  <h1>은행</h1>
+
+  <h1 class="bank-title">은행</h1>
+  <br>
   <section class="section-floater">
     <div id="featured_banks">
       <div class="row">
@@ -27,10 +29,14 @@
       </div>
     </div>
   </section>
-    <br><br><br><br><br><br><br>
+    <br><br><br>
+    <!-- <br><br><br><br> -->
     <!-- 제 2금융 목록 -->
   
-  <h1>저축은행</h1>
+
+  <h1 class="bank-title">저축은행</h1>
+  <br>
+
   <section class="section-floater">
     <div id="featured_banks">
       <div class="row">

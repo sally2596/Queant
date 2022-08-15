@@ -4,7 +4,7 @@
     <h1 class="title" id="title">상품 비교하기</h1>
   </header>
   <section class="product-detail-box">
-    <div v-if="comparisonPortfolio.length === 0" class="cart-none">
+    <div v-if="comparisonPortfolio.length === 0" class="cart-none" style="margin-left: 10%">
       <img src="../../assets/image/물음표개미_none.png" alt="없음">
       
       <br><br>

@@ -3,6 +3,7 @@
     <header id="title-div">
       <h1 class="title" id="title">특판 상품 제보</h1>
     </header>
+  
     <section class="product_section">
       <div>
         <form @submit="checkForm()">
