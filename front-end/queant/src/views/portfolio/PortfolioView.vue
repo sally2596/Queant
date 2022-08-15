@@ -23,7 +23,7 @@
     </div>
 
     <!-- 포트폴리오 있을 때 -->
-    <div v-else class="portfolio">
+    <div v-else class="w-75">
       <div class="container">
         <!-- 포트폴리오 관리하기 버튼 -->
         <router-link :to="{ name: 'portfolioEdit' }"
@@ -42,8 +42,11 @@
             ></pie-chart>
           </div>
           <div class="col-6">
-            <h4>총 투자액</h4>
-            <h2>{{ filtered(depositTotalAmount + savingTotalAmount) }}원</h2>
+            <div class="d-flex justify-content-between">
+              <h4>현재까지 모은 금액</h4>
+              <h2>{{ filtered(depositTotalAmount + savingTotalAmount) }}원</h2>
+            </div>
+
             <div class="d-flex justify-content-between">
               <h6>예금</h6>
               <div>{{ filtered(depositTotalAmount) }}원</div>
@@ -69,8 +72,6 @@
             <h6>진행중 상품</h6>
             <h6>{{ filtered(savingTotalAmount) }}원</h6>
           </div>
-          <!-- <time-line-chart v-bind:series="savingTerm"></time-line-chart> -->
-          <!-- <bar-chart v-bind:series="savingSeries"></bar-chart> -->
           <div class="d-flex justify-content-between">
             <table class="col-6">
               <thead>
@@ -118,8 +119,6 @@
           </div>
 
           <div class="d-flex justify-content-between">
-            <!-- <time-line-chart v-bind:series="depositTerm"></time-line-chart> -->
-            <!-- <bar-chart v-bind:series="depositSeries" class="col-6"></bar-chart> -->
             <table class="col-6">
               <thead>
                 <tr>
@@ -156,19 +155,7 @@
           </div>
         </div>
       </div>
-
-      <!-- <line-chart v-bind:series="testSeries"></line-chart> -->
-
-      <div v-for="product in portfolio" :key="product">
-        {{ product }}
-      </div>
-      <div v-for="customProduct in customProducts" :key="customProduct">
-        {{ customProduct }}
-      </div>
     </div>
-  </div>
-  <div>
-    {{ depositCategory }}
   </div>
 </template>
 
@@ -308,7 +295,6 @@ export default {
       let startYear = parseInt(start[0]);
       let endYear = parseInt(end[0]);
       let dates = [];
-      let amounts = [];
 
       for (var i = startYear; i <= endYear; i++) {
         var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
@@ -521,6 +507,7 @@ export default {
           rate / 100,
           item.option.rate_type
         );
+        console.log(result);
         this.depositChart.push(result.result);
         this.depositCategory.push(result.dates);
       } else {
