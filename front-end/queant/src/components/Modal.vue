@@ -43,37 +43,6 @@
             </option>
           </select>
           <hr>
-<<<<<<< HEAD
-      
-          우대사항
-          <div
-            v-for="condition in product.conditions"
-            :key="condition">
-            <label :for="condition.condition_id">
-              [설명] {{ condition.condition_info || condition.value }}<br>
-              [추가금리] {{ condition.special_rate }}%
-            </label>
-            <input
-              v-model="payload.condition_ids"
-              type="checkbox"
-              :value="condition.condition_id"
-              :id="condition.condition_id">
-          </div>
-          <hr>
-
-          <label>예상 가입일</label>
-          <input 
-            v-model="payload.start_date"
-            type="date"
-            required>
-
-          <label>예상 만기일</label>
-          {{ payload.option_id[1] }}
-          <input 
-            v-model="payload.end_date"
-            type="date"
-            required>
-=======
 					<div>우대사항</div>
 					<div></div>
 					<br>
