@@ -3,9 +3,6 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
-  {{cart}}
-  <br><br>
-  {{comparisonPortfolio}}
   <!-- 장바구니 섹션 -->
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
