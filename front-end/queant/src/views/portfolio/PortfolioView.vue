@@ -175,9 +175,6 @@
 import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters } from "vuex";
 import PieChart from "@/components/PieChart.vue";
-import BarChart from "@/components/BarChart.vue";
-import TimeLineChart from "@/components/TimeLineChart.vue";
-import LineChart from "@/components/LineChart.vue";
 import ColumnChart from "@/components/ColumnChart.vue";
 
 // globally registered and available for all charts
@@ -187,9 +184,6 @@ export default {
   components: {
     Navbar,
     PieChart,
-    BarChart,
-    TimeLineChart,
-    LineChart,
     ColumnChart,
   },
   data() {
