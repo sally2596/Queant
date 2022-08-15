@@ -73,7 +73,7 @@
     <div v-else>
       
       <div class="product-detail d-flex flex-wrap justify-content-center">
-        <div class="m-2 p-4 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" id="cportfolio">
+        <div class="m-2 p-4 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" id="cportfolio" :key="cportfolio">
           <div class="border p-2" style="background-color: #92ce95; font-family: 'jua';">
             <h5 class="text-center m-0"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
           </div>
@@ -82,7 +82,7 @@
             <div>아직 상품이 없습니다.</div>
             <br><br><br><br>
           </div>
-          <div v-else v-for="cproduct in cportfolio.products" class="d-flex" style="font-size: 15px;">
+          <div v-else v-for="cproduct in cportfolio.products" class="d-flex" style="font-size: 15px;" :key="cproduct">
                 {{cproduct.name}}
           </div>
           <button class="btn btn-danger" type="button" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>

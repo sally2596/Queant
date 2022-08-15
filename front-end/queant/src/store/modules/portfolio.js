@@ -275,7 +275,13 @@ export default {
       .then(res => {
         console.log(res)
         console.log('내 포트폴리오에 상품이 등록됐습니다.')
-        dispatch('fetchMyPortfolio')
+				dispatch('fetchMyPortfolio')
+				if (confirm('내 포트폴리오에 상품이 등록됐습니다. 내 포트폴리오로 이동하시겠습니까?') === true) {
+          router.push({ name: 'portfolio' })
+        } else {
+          return
+        }
+
       })
       .catch(err => {
         console.log(err)
