@@ -17,7 +17,7 @@
 
 
     <div class="container">
-      <h2 style="font-family: NanumSquareRound;" class="text-center my-5">퀸트에서 등록한 상품들</h2>
+      <h2 style="font-family: jua;" class="text-center my-5">Queant 등록 상품</h2>
       <table class="rwd-table">
         <tbody>
           <tr>
@@ -70,7 +70,7 @@
     </div>
 
     <div class="container my-5">
-    <h2 style="font-family: NanumSquareRound;" class="text-center my-5">직접 추가한 상품들</h2>
+    <h2 style="font-family: jua;" class="text-center my-5">사용자 정의 상품</h2>
       <table class="rwd-table">
         <tbody>
           <tr>
