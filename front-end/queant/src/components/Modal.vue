@@ -84,12 +84,10 @@
 						예상 만기일
 						<input 
 							v-model="payload.end_date"
-							type="text"
+							type="date"
 							class="box"
-							required
-							disabled>
+							required>
 					</div>
->>>>>>> cf1237250c5817d87e25efe75e377d6b8d43a179
           {{ error.date }}
        </slot>
       </div>
