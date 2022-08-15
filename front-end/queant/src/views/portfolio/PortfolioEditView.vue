@@ -6,118 +6,106 @@
 
     <input 
       type="text"
-      placeholder="Queant에서 상품찾기"
+      placeholder="QueÆnt에서 상품찾기"
       v-model="text"
       @keyup.enter="fetchProductsByText(text)">
     <button class="searching" @click="fetchProductsByText(text)"><i class="fa-solid fa-magnifying-glass"></i></button>
 
-    <button class="btn btn-outline-success btn-sm mx-3" @click="openCustomProductModal()">사용자 정의 상품 추가</button>
+    <button class="btn btn-outline-success btn-sm mx-3" @click="openCustomProductModal()">직접 입력해서 추가하기</button>
 
-    <h3>퀸트에서 등록한 상품목록</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>기관</th>
-          <th>이름</th>
-          <th>납입금액</th>
-          <th>가입일</th>
-          <th>만기일</th>
-          <th>예금/적금</th>
-          <th>적용금리</th>
-        </tr>
-      </thead>
-      <tbody
-        v-for="myProduct in portfolio"
-        :key="myProduct">
-        <td>
-          <img :src="myProduct.product.picture" :alt="myProduct.product.name">
-        </td>
-        <td>
-          {{ myProduct.product.name }}
-        </td>
-        <td>
-          {{ myProduct.amount }}원
-        </td>
-        <td>
-          {{ myProduct.start_date }}
-        </td>
-        <td>
-          {{ myProduct.end_date }}
-        </td>
-        <td>
-          {{ myProduct.product.deposit }}
-        </td>
-        <td>
-          {{ myProduct.option.base_rate }}%
-        </td>
-      <button class="btn btn-outline-success btn-sm mx-2" @click="openMyProductModal(myProduct)">수정</button>
-      <button class="btn btn-outline-danger btn-sm mx-2" @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
-      </tbody>
-    </table>
+    <div class="container">
+    <h1>퀸트에서 등록한 상품들</h1>
+      <table class="rwd-table">
+        <tbody>
+          <tr>
+            <th class="text-center">기관</th>
+            <th class="text-center">상품명</th>
+            <th class="text-center">납입금액</th>
+            <th class="text-center">가입기간</th>
+            <th class="text-center">유형</th>
+            <th class="text-center">적용금리</th>
+            <th class="text-center">관리</th>
+          </tr>
+          <tr
+            v-for="myProduct in portfolio"
+            :key="myProduct">
+            <td class="d-flex" data-th="Supplier Code">
+              <div
+                v-for="char in myProduct.product.picture.slice(53)"
+                :key=char>
+                <p v-if="char !== '.' && char !== 'p' && char !== 'n' && char !== 'g'">{{ char }}</p>
+              </div>
+            </td>
+            <td data-th="Supplier Name">
+              <p class="text-center">{{ myProduct.product.name }}</p>
+            </td>
+            <td data-th="Invoice Number">
+              {{ String(myProduct.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}원
+            </td>
+            <td data-th="Invoice Date">
+              {{ myProduct.start_date }} ~ {{ myProduct.end_date }}
+            </td>
+            <td data-th="Due Date">
+              <p v-if="myProduct.product.deposit">예금</p>
+              <p v-else>적금</p>
+            </td>
+            <td data-th="Net Amount">
+              {{ myProduct.option.high_base_rate }}%
+            </td>
+            <td>
+              <button class="btn btn-outline-success btn-sm mx-1" @click="openMyProductModal(myProduct)">수정</button>
+              <button class="btn btn-outline-danger btn-sm mx-1" @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <h3>퀸트에서 등록한 상품</h3> -->
+    </div>
 
-    <h3>내가 직접 입력한 상품들</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>기관</th>
-          <th>이름</th>
-          <th>납입금액</th>
-          <th>가입일</th>
-          <th>만기일</th>
-          <th>예금/적금</th>
-          <th>적용금리</th>
-        </tr>
-      </thead><br>
-      
-      <tbody
-        v-for="customProduct in customProducts"
-        :key="customProduct">
-        <td>
-          <input
-            type="text"
-            v-model="customProduct.institution_name"
-            disabled>
-        </td>
-        <td>
-          <input 
-            type="text"
-            v-model="customProduct.product_name"
-            disabled>
-        </td>
-        <td>
-          <input 
-            type="text"
-            v-model="customProduct.amount"
-            disabled>
-        </td>
-        <td>
-          <input 
-            type="date"
-            v-model="customProduct.start_date"
-            disabled>
-        </td>
-        <td>
-          <input 
-            type="date"
-            v-model="customProduct.end_date"
-            disabled>
-        </td>
-        <td>
-          <input 
-            type="text"
-            v-model="customProduct.deposit"
-            disabled>
-        </td>
-        <td>
-          <input 
-            type="text"
-            v-model="customProduct.base_rate"
-            disabled>
-        </td>
-        <button class="btn btn-outline-success btn-sm mx-2" @click="openCustomProductEditModal(customProduct)">수정</button>
-        <button class="btn btn-outline-danger btn-sm mx-2" @click="deleteCustomProduct(customProduct.product_id)">삭제</button>
-      </tbody>
-    </table>
+    <div class="container my-5">
+    <h1>내가 직접 입력한 상품들</h1>
+      <table class="rwd-table">
+        <tbody>
+          <tr>
+            <th class="text-center">기관</th>
+            <th class="text-center">상품명</th>
+            <th class="text-center">납입금액</th>
+            <th class="text-center">가입기간</th>
+            <th class="text-center">유형</th>
+            <th class="text-center">적용금리</th>
+            <th class="text-center">관리</th>
+          </tr>
+          <tr
+            v-for="customProduct in customProducts"
+            :key="customProduct">
+            <td data-th="Supplier Code">
+              <p>{{ customProduct.institution_name }}</p>
+            </td>
+            <td data-th="Supplier Name">
+              <p class="text-center">{{ customProduct.product_name }}</p>
+            </td>
+            <td data-th="Invoice Number">
+              {{ String(customProduct.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}원
+            </td>
+            <td data-th="Invoice Date">
+              {{ customProduct.start_date }} ~ {{ customProduct.end_date }}
+            </td>
+            <td data-th="Due Date">
+              <p v-if="customProduct.deposit">예금</p>
+              <p v-else>적금</p>
+            </td>
+            <td data-th="Net Amount">
+              {{ customProduct.base_rate }}%
+            </td>
+            <td>
+              <button class="btn btn-outline-success btn-sm mx-1" @click="openCustomProductEditModal(customProduct)">수정</button>
+              <button class="btn btn-outline-danger btn-sm mx-1" @click="deleteCustomProduct(customProduct.product_id)">삭제</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <h3>퀸트에서 등록한 상품</h3> -->
+    </div>
 
     <!-- 사용자 정의 상품 추가 모달 -->
     <CustomProductModal 
@@ -184,5 +172,180 @@ export default {
 </script>
 
 <style>
+@import '@/assets/css/home.css';
+@import '@/assets/css/product.css';
 
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:600,700';
+
+* {font-family: 'Open Sans', sans-serif;}
+
+.rwd-table {
+  margin: auto;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+  border-top: none;
+  background: #3cb371;
+  color: #fff;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
+}
+
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #bfbfbf;
+}
+
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
+  }
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
+
+
+/* THE END OF THE IMPORTANT STUFF */
+
+/* Basic Styling */
+/* body { */
+/* background: #4B79A1;
+background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
+background: linear-gradient(to left, #4B79A1 , #283E51);         */
+/* } */
+h1 {
+  text-align: center;
+  font-size: 2.4em;
+  /* color: #f2f2f2; */
+}
+/* .container { */
+  /* display: block; */
+  /* text-align: center; */
+/* } */
+h3 {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  font-size: 1.5em;
+  /* color: #cecece; */
+}
+h3:before {
+  content: "\25C0";
+  position: absolute;
+  left: -50px;
+  -webkit-animation: leftRight 2s linear infinite;
+  animation: leftRight 2s linear infinite;
+}
+h3:after {
+  content: "\25b6";
+  position: absolute;
+  right: -50px;
+  -webkit-animation: leftRight 2s linear infinite reverse;
+  animation: leftRight 2s linear infinite reverse;
+}
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
+}
+
+/*
+    Don't look at this last part. It's unnecessary. I was just playing with pixel gradients... Don't judge.
+*/
+/*
+@media screen and (max-width: 601px) {
+  .rwd-table tr {
+    background-image: -webkit-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -moz-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -o-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -ms-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+  }
+  .rwd-table tr:nth-child(odd) {
+    background-image: -webkit-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -moz-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -o-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -ms-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+  }
+}*/
 </style>
