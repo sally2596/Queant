@@ -8,7 +8,6 @@
     <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(3)">기타 금융권</h1>
   </header>
   
-  
   <!-- 제 1금융 목록 -->
   <section v-if="showBanks===1" class="section-floater">
     <div id="featured_banks">
