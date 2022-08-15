@@ -16,7 +16,7 @@ export default {
   data() {
     const chartOptions = {
       chart: {
-        type: "area",
+        type: "line",
         stacked: false,
         height: 350,
         zoom: {
@@ -38,15 +38,8 @@ export default {
         text: "Stock Price Movement",
         align: "left",
       },
-      fill: {
-        type: "gradient",
-        gradient: {
-          shadeIntensity: 1,
-          inverseColors: false,
-          opacityFrom: 0.5,
-          opacityTo: 0,
-          stops: [0, 90, 100],
-        },
+      stroke: {
+        curve: "stepline",
       },
       yaxis: {
         labels: {
