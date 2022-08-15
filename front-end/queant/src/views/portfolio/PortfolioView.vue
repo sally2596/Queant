@@ -92,12 +92,18 @@
                 <td>{{ saving.data[0] }}</td>
                 <td>{{ saving.rate }}%</td>
                 <td>
-                  <button class="btn btn-outline-success">보기</button>
+                  <button
+                    class="btn btn-outline-success"
+                    @click="changeSavingData(index)"
+                  >
+                    보기
+                  </button>
                 </td>
               </tbody>
             </table>
             <column-chart
-              v-bind:series="testSeries"
+              v-bind:series="nowSavingChart"
+              v-bind:category="nowSavingCategory"
               class="col-6"
             ></column-chart>
           </div>
@@ -154,6 +160,12 @@
             ></column-chart>
           </div>
         </div>
+      </div>
+      <div v-for="p in depositChart" :key="p">
+        {{ p }}
+      </div>
+      <div v-for="p in savingChart" :key="p">
+        {{ p }}
       </div>
     </div>
   </div>
@@ -253,6 +265,10 @@ export default {
     const depositCategory = [];
     const nowDepositChart = [];
     const nowDepositCategory = [];
+    const savingChart = [];
+    const savingCategory = [];
+    const nowSavingChart = [];
+    const nowSavingCategory = [];
     return {
       filtered,
       computeDBProductRate,
@@ -273,6 +289,10 @@ export default {
       depositCategory,
       nowDepositChart,
       nowDepositCategory,
+      savingChart,
+      savingCategory,
+      nowSavingChart,
+      nowSavingCategory,
       //testing
       testSeries,
     };
@@ -286,6 +306,10 @@ export default {
     changeDepositData(index) {
       this.nowDepositChart = this.depositChart[index];
       this.nowDepositCategory = this.depositCategory[index];
+    },
+    changeSavingData(index) {
+      this.nowSavingChart = this.savingChart[index];
+      this.nowSavingCategory = this.savingCategory[index];
     },
     calculateDeposit(start_date, end_date, amount, rate, simple, term) {
       let result = [];
@@ -364,30 +388,30 @@ export default {
       return { dates, result };
     },
 
-    calculateSaving(start_date, end_date, amount, rate, simple, term) {
+    calculateSaving(start_date, amount, rate, simple, term) {
       let result = [];
 
       let start = start_date.split("-");
-      //let end = end_date.split("-");
       let year = parseInt(start[0]);
-			let month = parseInt(start[1]);
+      let month = parseInt(start[1]);
       let dates = [];
 
-      for (let i=0; i <= term; i++) {
-        if (month==13) {
-					year++;
-					month=1;
-				}
-				dates.push([year, month].join("-"));
+      for (let i = 0; i <= term; i++) {
+        if (month == 13) {
+          year += 1;
+          month = 1;
+        }
+        dates.push([year, month].join("-"));
+        month += 1;
       }
 
       //원금
       let original = {};
       original.name = "원금";
       let data = [];
-      for (var i = 0; i <= term; i++) {
+      for (var i = 0; i < term; i++) {
         data.push(amount * (i + 1));
-        if (i === term) data.push(amount * i);
+        if (i === term - 1) data.push(amount * (i - 1));
       }
       original.data = data;
       result.push(original);
@@ -498,6 +522,18 @@ export default {
         });
 
         this.savingTerm.push({ name: productName, data: data });
+
+        let result = this.calculateSaving(
+          item.start_date,
+          item.amount,
+          rate,
+          item.option.rate_type,
+          item.option.save_term
+        );
+        console.log("**여기보세요**");
+        console.log(result);
+        this.savingChart.push(result.result);
+        this.savingCategory.push(result.dates);
       }
     });
 
