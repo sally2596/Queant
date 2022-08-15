@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +41,8 @@ public class MemberDto implements UserDetails {
     @Schema(description = "성별(Female/Male)")
     private Gender gender;
     @Schema(description = "생일")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul" )
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd")
     private Date birthdate;
     @ApiModelProperty(hidden = true)
     private int portfolioCnt;
