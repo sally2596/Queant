@@ -22,33 +22,35 @@
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
         <thead>
-          <tr>
+          <tr class="text-center">
             <th>은행</th>
             <th>상품명</th>
             <th>금리</th>
-            <th>기간(개월)</th>
-            <th>비교 포트폴리오에 추가</th>
-            <th>내 포트폴리오에 추가</th>
-            <th>상품 삭제하기</th>
+            <th>기간</th>
+            <th>비교 포트폴리오</th>
+            <th>내 포트폴리오</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
-          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
-          <td><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
-          <td>{{productInCart.product.base_rate}}%</td>
-          <td>{{productInCart.product.term_min}}</td>
-          <td class="flex-wrap">
-            <p v-if="comparisonportfolios.length === 0">포트폴리오가 없습니다.</p>
-            <button v-for="cportfolio in comparisonportfolios"
-             :key="cportfolio.cportfolio_cnt"
-             class="btn btn-outline-primary btn-sm p-1"
-             style="height: 2rem; font-size: 0.8rem;"
-             @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart])">
-              {{cportfolio.cportfolio_cnt}}번 <i class="fa-solid fa-circle-plus"></i>
-            </button>
-          </td>
-          <td><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="addProductInCart(productInCart)"><i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
-          <td><button class="btn btn-outline-danger btn-sm p-1" style="height: 2rem;" @click="popProductFromCart(productInCart)"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
+          <tr scope="row">
+            <td class="col-1 text-center"><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
+            <td class="col-5 text-center"><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
+            <td class="col-1 text-center">{{productInCart.product.base_rate}}%</td>
+            <td class="col-1 text-center">{{productInCart.product.term_min}}개월</td>
+            <td class="col-3 text-center flex-wrap">
+              <p v-if="comparisonportfolios.length === 0">포트폴리오가 없습니다.</p>
+              <button v-for="cportfolio in comparisonportfolios"
+               :key="cportfolio.cportfolio_cnt"
+               class="btn btn-outline-primary btn-sm p-1"
+               style="height: 2rem; font-size: 0.8rem;"
+               @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart])">
+                {{cportfolio.cportfolio_cnt}}번 <i class="fa-solid fa-circle-plus"></i>
+              </button>
+            </td>
+            <td class="col-2 text-center"><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="pushProductToPortfolio(productInCart)">My <i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
+            <td class="col-2 text-center"><button class="btn btn-outline-danger btn-sm p-1" style="height: 2rem;" @click="popProductFromCart(productInCart)"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -100,16 +102,13 @@ export default {
     ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonportfolios'])
   },
   methods: {
-    ...mapActions(['fetchProduct']),
+    ...mapActions(['fetchProduct', 'pushProductToPortfolio']),
     ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO']),
     clearCart() {
       this.CLEAR_CART()
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
-    },
-    pushProductToPortfolio(value) {
-      this.PUSH_PRODUCT_TO_PORTFOLIO(value)
     },
     openModal(value) {
       this.modalData = value,
