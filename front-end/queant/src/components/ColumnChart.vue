@@ -63,12 +63,24 @@ export default {
         tooltip: {
           intersect: false,
           shared: true,
-          x: {
-            format: "yyyy년 MM월",
-          },
           y: {
             formatter: function (val) {
               return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+            },
+          },
+          x: {
+            formatter: function (val) {
+              let date = new Date(val);
+              let year = date.getFullYear();
+              let month = date.getMonth();
+              let day = date.getDate();
+              if (day == 31 || day == 30) month += 1;
+              if (month == 12) {
+                year += 1;
+                month = 0;
+              }
+              month += 1;
+              return year + "/" + month;
             },
           },
         },
