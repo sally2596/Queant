@@ -287,7 +287,7 @@ export default {
       this.nowDepositChart = this.depositChart[index];
       this.nowDepositCategory = this.depositCategory[index];
     },
-    calculateDeposit(start_date, end_date, amount, rate, simple) {
+    calculateDeposit(start_date, end_date, amount, rate, simple, term) {
       let result = [];
 
       let start = start_date.split("-");
@@ -365,14 +365,13 @@ export default {
     },
 
     calculateSaving(start_date, end_date, amount, rate, simple, term) {
-			let result = [];
+      let result = [];
 
       let start = start_date.split("-");
       let end = end_date.split("-");
       let startYear = parseInt(start[0]);
       let endYear = parseInt(end[0]);
       let dates = [];
-      let amounts = [];
 
       for (var i = startYear; i <= endYear; i++) {
         var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
@@ -393,8 +392,8 @@ export default {
       original.name = "원금";
       let data = [];
       for (var i = 0; i <= term; i++) {
-        data.push(amount*(i+1));
-				if (i===term) data.push(amount*(i));
+        data.push(amount * (i + 1));
+        if (i === term) data.push(amount * i);
       }
       original.data = data;
       result.push(original);
@@ -417,19 +416,20 @@ export default {
         let cumulMoney = 0;
 
         for (var i = 0; i < term; i++) {
-					let calcMoney = (amount * rate * 0.01 * (term - i)) / term;
+          let calcMoney = (amount * rate * 0.01 * (term - i)) / term;
           interest.data.push(Math.ceil(calcMoney));
-					cumulMoney += calcMoney;
+          cumulMoney += calcMoney;
           interestCumulative.data.push(Math.ceil(cumulMoney));
         }
       } else {
         //복리
-				console.log("적금복리");
+        console.log("적금복리");
         let cumulMoney = 0;
         for (var i = 0; i < term; i++) {
-					let calcMoney = amount * (1 + (rate * 0.01) / term) ** (term - i) - amount;
+          let calcMoney =
+            amount * (1 + (rate * 0.01) / term) ** (term - i) - amount;
           interest.data.push(Math.ceil(calcMoney));
-					cumulMoney += calcMoney;
+          cumulMoney += calcMoney;
           interestCumulative.data.push(Math.ceil(cumulMoney));
         }
       }
