@@ -543,3 +543,15 @@ section {
 .features p:last-child {
   margin-bottom: 0;
 }
+
+/* portfolio */
+
+#portfolio-deposit-table-tr:hover {
+  background-color: #b0f6b3;
+  cursor: pointer;
+}
+
+#portfolio-saving-table-tr:hover {
+  background-color: #b0f6b3;
+  cursor: pointer;
+}
