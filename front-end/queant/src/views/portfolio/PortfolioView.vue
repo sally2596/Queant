@@ -98,7 +98,6 @@
                   <th>금리</th>
                 </tr>
               </thead>
-              <br />
               <tbody v-for="(saving, index) in savingSeries" :key="index">
                 <tr @click="changeSavingData(index)">
                   <td>
@@ -143,7 +142,6 @@
                   <th>금리</th>
                 </tr>
               </thead>
-              <br />
               <tbody v-for="(deposit, index) in depositSeries" :key="index">
                 <tr @click="changeDepositData(index)">
                   <td>
