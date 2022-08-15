@@ -6,10 +6,7 @@ import com.querydsl.core.types.dsl.MathExpressions;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.queant.model.entity.product.QConditions;
-import com.ssafy.queant.model.entity.product.QJoinway;
-import com.ssafy.queant.model.entity.product.QOptions;
-import com.ssafy.queant.model.entity.product.QTraitSet;
+import com.ssafy.queant.model.entity.product.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -28,11 +25,13 @@ public class SearchRepositoryImpl implements SearchRepository {
 
     @Override
     public List<Tuple> searchSingle(Long amount, boolean isDeposit, Boolean isSimpleInterest, Boolean isFixed,
-                                    Integer period, List<Integer> banks, List<String> joinway, List<String> conditions, List<String> traitSet) {
+                                    Integer period, List<Integer> banks, List<String> bankType, List<String> joinway,
+                                    List<String> conditions, List<String> traitSet) {
         QJoinway qJoinway = QJoinway.joinway;
         QConditions qConditions = QConditions.conditions;
         QTraitSet qTraitSet = QTraitSet.traitSet;
         QOptions qOptions = QOptions.options;
+        QBank qBank = QBank.bank;
 
         BooleanBuilder builder = new BooleanBuilder();
 
@@ -53,20 +52,18 @@ public class SearchRepositoryImpl implements SearchRepository {
             builder.and(qOptions.rsrvType.eq(isFixed));
         }
 
-//        if (isSimpleInterest != null) {// 단리 복리 설정값이 들어옴
-//            builder.and(product.productId.in(
-//                    JPAExpressions.select(qOptions.productId).from(qOptions).where(qOptions.rateType.eq(isSimpleInterest))
-//            ));
-//        }
-//
-//        if (isFixed != null) {// 자유적립 정액적립
-//            builder.and(product.productId.in(
-//                    JPAExpressions.select(qOptions.productId).from(qOptions).where(qOptions.rsrvType.eq(isFixed))
-//            ));
-//        }
 
-        if (banks.size() > 0) {
-            builder.and(product.bankId.in(banks));
+        if (bankType.size() > 0) {
+            if (banks.size() > 0) {
+                builder.and(product.bankId.in(
+                        JPAExpressions.select(qBank.bankId).from(qBank).where(qBank.scodeId.in(bankType),
+                                qBank.bankId.in(banks))
+                ));
+            } else {
+                builder.and(product.bankId.in(
+                        JPAExpressions.select(qBank.bankId).from(qBank).where(qBank.scodeId.in(bankType))
+                ));
+            }
         }
 
         if (joinway.size() > 0) {
@@ -75,13 +72,6 @@ public class SearchRepositoryImpl implements SearchRepository {
                             JPAExpressions.select(qJoinway.productId).from(qJoinway).where(qJoinway.scodeId.in(joinway))
                     ));
         }
-
-//        if (conditions.size() > 0) {
-//            builder.and(
-//                    product.productId.in(
-//                            JPAExpressions.select(qConditions.productId).from(qConditions).where(qConditions.scodeId.in(conditions))
-//                    ));
-//        }
 
         if (traitSet.size() > 0) {
             builder.and(
