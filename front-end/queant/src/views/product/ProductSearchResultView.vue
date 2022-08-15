@@ -26,9 +26,11 @@
           <td class="text-center" data-th="Invoice Date">
             {{ product.term_min }}개월
           </td>
-          <td class="text-center" data-th="Due Date">
-            <p v-if="product.deposit">예금</p>
-            <p v-else>적금</p>
+          <td class="text-center" data-th="Due Date" v-if="product.deposit">
+            예금
+					</td>
+          <td class="text-center" data-th="Due Date" v-if="!product.deposit">
+						적금
           </td>
         </tr>
       </tbody>

@@ -53,9 +53,11 @@
             <td class="text-center" data-th="Invoice Date">
               {{ myProduct.start_date }} ~ {{ myProduct.end_date }}
             </td>
-            <td class="text-center" data-th="Due Date">
-              <p v-if="myProduct.product.deposit">예금</p>
-              <p v-else>적금</p>
+            <td class="text-center" data-th="Due Date" v-if="myProduct.product.deposit">
+              예금
+						</td>
+						<td class="text-center" data-th="Due Date" v-if="!myProduct.product.deposit">
+              적금
             </td>
             <td class="text-center" data-th="Net Amount">
               {{ myProduct.option.high_base_rate }}%
