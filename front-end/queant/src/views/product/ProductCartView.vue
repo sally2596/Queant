@@ -38,8 +38,8 @@
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
           <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
           <td><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
-          <td>{{productInCart.product.base_rate}}%</td>
-          <td>{{productInCart.product.term_min}}</td>
+          <td>{{productInCart.applied_rate}}%</td>
+          <td>{{productInCart.applied_period}}</td>
           <td class="flex-wrap">
             <button v-for="cportfolio in comparisonPortfolio"
              :key="cportfolio.cportfolio_cnt"
@@ -49,14 +49,14 @@
               {{cportfolio.cportfolio_cnt}}번 <i class="fa-solid fa-circle-plus"></i>
             </button>
           </td>
-          <td><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="addProductInCart(productInCart)"><i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
+          <td><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="pushProductToPortfolio(productInCart)"><i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
           <td><button class="btn btn-outline-danger btn-sm p-1" style="height: 2rem;" @click="popProductFromCart(productInCart)"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 가상 포트폴리오 섹션 -->
+<!-- 가상 포트폴리오 섹션 -->
 <section class="product-detail-box">
     
     <div v-if="comparisonPortfolio.length === 0" class="cart-none">
@@ -102,7 +102,7 @@ export default {
     ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products']),
   },
   methods: {
-    ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb']),
+    ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb', 'pushProductToPortfolio']),
     ...mapMutations(['POP_PRODUCT_FROM_CPORTFOLIO', 'CLEAR_CPORTFOLIO_DB', 'CLEAR_CART',
     'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO',
     'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO', 'UPDATE_CPORTFOLIO_FROM_DB']),

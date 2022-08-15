@@ -24,7 +24,6 @@ export default {
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
     CLEAR_CART: state => state.cart = [],
     PUSH_PRODUCT_TO_CART(state, payload) {
-      console.log(payload)
 			let product = payload.product
 			if (state.cart.length===10) {
 				alert('장바구니에는 최대 10개의 상품만 담을 수 있습니다.');
