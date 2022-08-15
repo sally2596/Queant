@@ -203,7 +203,6 @@ export default {
     let depositTotalAmount = 0;
 
     //
-
     const depositChart = [];
     const depositCategory = [];
     const nowDepositChart = [];
@@ -213,9 +212,6 @@ export default {
     const nowSavingChart = [];
     const nowSavingCategory = [];
     return {
-      filtered,
-      computeDBProductRate,
-      computeCustomRate,
       summarySeries,
       summaryChartOptionLabels,
       savingSeries,
@@ -241,6 +237,24 @@ export default {
   },
   methods: {
     ...mapActions(["fetchMyPortfolio"]),
+    sumDBProductRate(item) {
+      let rate = 0;
+      rate += item.option.base_rate;
+      item.conditions.forEach((element) => {
+        rate += element.special_rate;
+      });
+      rate = Math.round(rate * 1000) / 1000;
+      return rate;
+    },
+    sumCustomProductRate(item) {
+      let rate = 0;
+      rate = item.base_rate + item.special_rate;
+      rate = Math.round(rate * 1000) / 1000;
+      return rate;
+    },
+    filtered(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
     changeDepositData(index) {
       this.nowDepositChart = this.depositChart[index];
       this.nowDepositCategory = this.depositCategory[index];
@@ -406,7 +420,7 @@ export default {
       let amount = [item.amount];
       let productName = item.product.name;
       let picture = item.product.picture;
-      let rate = this.computeDBProductRate(item);
+      let rate = this.sumDBProductRate(item);
 
       const startDate = new Date(item.start_date);
       const endDate = new Date(item.end_date);
@@ -473,7 +487,7 @@ export default {
       let amount = [item.amount];
       let productName = item.product_name;
       let picture = "../assets/image/퀸트_로고.png";
-      let rate = this.computeCustomRate(item);
+      let rate = this.sumCustomProductRate(item);
       const startDate = new Date(item.start_date);
       const endDate = new Date(item.end_date);
 
