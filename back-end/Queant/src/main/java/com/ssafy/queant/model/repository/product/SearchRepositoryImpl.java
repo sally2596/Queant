@@ -78,6 +78,10 @@ public class SearchRepositoryImpl implements SearchRepository {
                     product.productId.in(
                             JPAExpressions.select(qTraitSet.productId).from(qTraitSet).where(qTraitSet.scodeId.in(traitSet))
                     ));
+        }else {
+            builder.and(product.productId.notIn(
+                    JPAExpressions.select(qTraitSet.productId).from(qTraitSet))
+            );
         }
 
         List<Tuple> results;
