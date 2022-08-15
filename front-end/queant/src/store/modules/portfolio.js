@@ -254,7 +254,6 @@ export default {
       })
     },
     pushProductToPortfolio({ dispatch, getters }, payload) {
-      console.log(payload)
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
@@ -275,7 +274,7 @@ export default {
       })
       .then(res => {
         console.log(res)
-        console.log('포트폴리오에 상품이 등록됐습니다.')
+        console.log('내 포트폴리오에 상품이 등록됐습니다.')
         dispatch('fetchMyPortfolio')
       })
       .catch(err => {

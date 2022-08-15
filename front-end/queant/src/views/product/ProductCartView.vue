@@ -25,14 +25,14 @@
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
         <thead>
-          <tr>
+          <tr class="text-center">
             <th>은행</th>
             <th>상품명</th>
             <th>금리</th>
-            <th>기간(개월)</th>
-            <th>비교 포트폴리오에 추가</th>
-            <th>내 포트폴리오에 추가</th>
-            <th>상품 삭제하기</th>
+            <th>기간</th>
+            <th>비교 포트폴리오</th>
+            <th>내 포트폴리오</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
@@ -120,9 +120,6 @@ export default {
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
-    },
-    pushProductToPortfolio(value) {
-      this.PUSH_PRODUCT_TO_PORTFOLIO(value)
     },
     openModal(value) {
       this.modalData = value,

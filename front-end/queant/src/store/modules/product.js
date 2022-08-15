@@ -26,12 +26,17 @@ export default {
     PUSH_PRODUCT_TO_CART(state, payload) {
 			let product = payload.product
 			if (state.cart.length===10) {
-				alert("장바구니에는 최대 10개의 상품만 담을 수 있습니다.");
+				alert('장바구니에는 최대 10개의 상품만 담을 수 있습니다.');
 			} else if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
-        alert("이미 장바구니에 담긴 상품입니다.")
+        alert('이미 장바구니에 담긴 상품입니다.')
       else {
         state.cart.push(payload)
         console.log(`${product.product_id}번 상품을 장바구니에 추가했습니다.`)
+        if (confirm('장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?') === true) {
+          router.push({ name: 'productCart' })
+        } else {
+          return
+        }
       }
     },
     POP_PRODUCT_FROM_CART(state, product) {
