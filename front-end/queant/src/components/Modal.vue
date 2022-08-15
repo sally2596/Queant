@@ -9,6 +9,14 @@
         <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.name }}</h4>
        </slot>
       </div>
+      <p class="h1 m-0"><b-icon-x-circle type="button" style="
+        position:fixed; 
+        height: 5em; 
+        margin-left:400px; 
+        margin-top: -130px;
+        z-index: 1000;
+      " @click="$emit('close')"/>
+			</p>
       <hr>
 
       <div class="modal-body">
@@ -102,7 +110,6 @@
           <button class="btn btn-outline-success btn-sm mx-3" disabled>내 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" disabled>장바구니</button>
         </div>
-        <button class="btn btn-outline-danger btn-sm mx-3" @click="$emit('close')">닫기</button>
        </slot>
       </div>
      </div>
@@ -113,11 +120,14 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-
+import { BIconXCircle } from 'bootstrap-icons-vue';
 export default {
   name: 'Modal',
   props: {
     modalData: Object
+  },
+  components: {
+		BIconXCircle
   },
   computed: {
     ...mapGetters(['portfolios', 'product'])
@@ -238,7 +248,7 @@ export default {
 
 
 .modal-container {
-  width: 500px;
+  width: 510px;
   height: 600px;
   margin: 0px auto;
   padding: 20px 30px;
