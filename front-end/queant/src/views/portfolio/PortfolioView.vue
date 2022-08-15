@@ -334,30 +334,36 @@ export default {
       return { dates, result };
     },
 
-    calculateSaving(start_date, amount, rate, simple, term) {
+    calculateSaving(start_date, end_date, amount, rate, simple, term) {
       let result = [];
 
       let start = start_date.split("-");
-      let year = parseInt(start[0]);
-      let month = parseInt(start[1]);
+      let end = end_date.split("-");
+      let startYear = parseInt(start[0]);
+      let endYear = parseInt(end[0]);
       let dates = [];
 
-      for (let i = 0; i <= term; i++) {
-        if (month == 13) {
-          year += 1;
-          month = 1;
+      for (var i = startYear; i <= endYear; i++) {
+        var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
+        var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
+        for (
+          var j = startMon;
+          j <= endMonth;
+          j = j > 12 ? j % 12 || 11 : j + 1
+        ) {
+          var month = j + 1;
+          var displayMonth = month < 10 ? "0" + month : month;
+          dates.push([i, displayMonth].join("-"));
         }
-        dates.push([year, month].join("-"));
-        month += 1;
       }
 
       //원금
       let original = {};
       original.name = "원금";
       let data = [];
-      for (var i = 0; i < term; i++) {
+      for (var i = 0; i <= term; i++) {
         data.push(amount * (i + 1));
-        if (i === term - 1) data.push(amount * (i - 1));
+        if (i === term) data.push(amount * i);
       }
       original.data = data;
       result.push(original);
@@ -403,6 +409,84 @@ export default {
 
       return { dates, result };
     },
+
+		calculate(start_date, amount, rate, simple, term, deposit) {
+      let result = [];
+
+      let start = start_date.split("-");
+      let year = parseInt(start[0]);
+      let month = parseInt(start[1]);
+      let dates = [];
+
+      for (let i = 0; i <= term; i++) {
+        if (month == 13) {
+          year += 1;
+          month = 1;
+        }
+        dates.push([year, month].join("-"));
+        month += 1;
+      }
+
+      //원금
+      let original = {};
+      original.name = "원금";
+      let data = [];
+
+			if (deposit)
+				for (var i = 0; i <= term; i++) {
+					data.push(amount);
+				}
+			else {
+				for (var i = 0; i <= term; i++) {
+					if (i === term) data.push(amount * i);
+					else data.push(amount * (i + 1));
+				}
+			}
+
+      original.data = data;
+      result.push(original);
+
+      let interest = {};
+      interest.name = "이번 달 이자";
+      interest.data = [];
+
+      let interestCumulative = {};
+      interestCumulative.name = "누적 이자";
+      interestCumulative.data = [];
+
+      //첫번째 달 이자 없음
+      interest.data.push(0);
+      interestCumulative.data.push(0);
+
+			let cumulMoney = 0;
+
+			//예금 복리에서만 사용
+			var calcRate = rate / 12 + 1;
+
+			for (var i = 0; i < term; i++) {
+				let calcMoney = 0.0;
+
+				if (deposit) { //예금
+					if (!simple) calcMoney = (rate / 12) * amount; //단리
+					else calcMoney = (rate / 12) * amount; //복리
+				} else { //적금
+					if (!simple) calcMoney = (amount * rate * 0.01 * (term - i)) / term; //단리
+					else calcMoney =
+							amount * (1 + (rate * 0.01) / term) ** (term - i) - amount; //복리
+				}
+
+				interest.data.push(Math.ceil(calcMoney));
+				cumulMoney += calcMoney;
+				interestCumulative.data.push(Math.ceil(cumulMoney));
+
+				//복리일 경우 amount 보정
+				if(deposit && simple) amount *= calcRate;
+			}
+
+      result.push(interest);
+      result.push(interestCumulative);
+
+      return { dates, result };
   },
   beforeCreate: function () {
     document.body.className = "home_body";
