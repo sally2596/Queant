@@ -216,6 +216,89 @@ export default {
   computed: {
     ...mapGetters(["portfolio", "customProducts"]),
   },
+  watch: {
+    portfolio: function () {
+      this.portfolio.forEach((item) => {
+        let productName = item.product.name;
+        let picture = item.product.picture;
+        let rate = this.sumDBProductRate(item);
+        let result = this.calculate(
+          item.start_date,
+          item.amount,
+          rate / 100,
+          item.option.rate_type,
+          item.option.save_term,
+          item.product.deposit
+        );
+        if (item.product.deposit) {
+          this.depositSeries.push({
+            name: productName,
+            picture: picture,
+            rate: rate,
+          });
+          this.depositTotalAmount += item.amount;
+          this.depositTotalRate += rate;
+          this.depositChart.push(result.result);
+          this.depositCategory.push(result.dates);
+        } else {
+          this.savingSeries.push({
+            name: productName,
+            picture: picture,
+            rate: rate,
+          });
+          this.savingTotalAmount += item.amount;
+          this.savingTotalRate += rate;
+          this.savingChart.push(result.result);
+          this.savingCategory.push(result.dates);
+        }
+      });
+
+      // 커스텀 상품
+      this.customProducts.forEach((item) => {
+        let productName = item.product_name;
+        let picture = "../assets/image/퀸트_로고.png";
+        let rate = this.sumCustomProductRate(item);
+        let startDate = new Date(item.start_date);
+        let endDate = new Date(item.end_date);
+        let term =
+          (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+          endDate.getMonth() -
+          startDate.getMonth();
+        let result = this.calculate(
+          item.start_date,
+          item.amount,
+          rate / 100,
+          item.fixed_rsrv,
+          term,
+          item.deposit
+        );
+        if (item.deposit) {
+          this.depositSeries.push({
+            name: productName,
+            picture: picture,
+            rate: rate,
+          });
+          this.depositTotalAmount += item.amount;
+          this.depositTotalRate += rate;
+          this.depositChart.push(result.result);
+          this.depositCategory.push(result.dates);
+        } else {
+          this.savingSeries.push({
+            name: productName,
+            picture: picture,
+            rate: rate,
+          });
+          this.savingTotalAmount += item.amount;
+          this.savingTotalRate += rate;
+          this.savingChart.push(result.result);
+          this.savingCategory.push(result.dates);
+        }
+      });
+
+      this.summarySeries.push(this.depositTotalAmount);
+      this.summarySeries.push(this.savingTotalAmount);
+    },
+  },
   methods: {
     ...mapActions(["fetchMyPortfolio"]),
     sumDBProductRate(item) {
@@ -329,86 +412,6 @@ export default {
   },
   created() {
     this.fetchMyPortfolio();
-
-    this.portfolio.forEach((item) => {
-      let productName = item.product.name;
-      let picture = item.product.picture;
-      let rate = this.sumDBProductRate(item);
-      let result = this.calculate(
-        item.start_date,
-        item.amount,
-        rate / 100,
-        item.option.rate_type,
-        item.option.save_term,
-        item.product.deposit
-      );
-      if (item.product.deposit) {
-        this.depositSeries.push({
-          name: productName,
-          picture: picture,
-          rate: rate,
-        });
-        this.depositTotalAmount += item.amount;
-        this.depositTotalRate += rate;
-        this.depositChart.push(result.result);
-        this.depositCategory.push(result.dates);
-      } else {
-        this.savingSeries.push({
-          name: productName,
-          picture: picture,
-          rate: rate,
-        });
-        this.savingTotalAmount += item.amount;
-        this.savingTotalRate += rate;
-        this.savingChart.push(result.result);
-        this.savingCategory.push(result.dates);
-      }
-    });
-
-    // 커스텀 상품
-    this.customProducts.forEach((item) => {
-      let productName = item.product_name;
-      let picture = "../assets/image/퀸트_로고.png";
-      let rate = this.sumCustomProductRate(item);
-      let startDate = new Date(item.start_date);
-      let endDate = new Date(item.end_date);
-      let term =
-        (endDate.getFullYear() - startDate.getFullYear()) * 12 +
-        endDate.getMonth() -
-        startDate.getMonth();
-      let result = this.calculate(
-        item.start_date,
-        item.amount,
-        rate / 100,
-        item.fixed_rsrv,
-        term,
-        item.deposit
-      );
-      if (item.deposit) {
-        this.depositSeries.push({
-          name: productName,
-          picture: picture,
-          rate: rate,
-        });
-        this.depositTotalAmount += item.amount;
-        this.depositTotalRate += rate;
-        this.depositChart.push(result.result);
-        this.depositCategory.push(result.dates);
-      } else {
-        this.savingSeries.push({
-          name: productName,
-          picture: picture,
-          rate: rate,
-        });
-        this.savingTotalAmount += item.amount;
-        this.savingTotalRate += rate;
-        this.savingChart.push(result.result);
-        this.savingCategory.push(result.dates);
-      }
-    });
-
-    this.summarySeries.push(this.depositTotalAmount);
-    this.summarySeries.push(this.savingTotalAmount);
   },
 };
 </script>
