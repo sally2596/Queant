@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { functionTypeAnnotation } from "@babel/types";
 import VueApexCharts from "vue3-apexcharts";
 export default {
   name: "ColumnChart",
