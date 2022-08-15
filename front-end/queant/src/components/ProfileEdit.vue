@@ -89,7 +89,7 @@ export default {
       } else {
         return
       }
-    }
+    },
   },
   beforeCreate: function() {
     document.body.className = 'profile_edit_body'

@@ -254,6 +254,17 @@ export default {
       })
     },
     pushProductToPortfolio({ dispatch, getters }, payload) {
+      if (!getters.portfolio) {
+        dispatch('fetchMyPortfolio')
+      }
+
+      for (const port of getters.portfolio) {
+        if (port.product.product_id == payload.product.product_id) {
+          alert('이미 내 포트폴리오에 포함되어있는 상품입니다.')
+          return;
+        }
+      }
+
       axios({
         url: spring.portfolio.portfolio(),
         method: 'post',
