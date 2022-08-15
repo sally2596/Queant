@@ -58,7 +58,9 @@
               <p v-else>적금</p>
             </td>
             <td class="text-center" data-th="Net Amount">
-              {{ myProduct.option.high_base_rate }}%
+              <applied-rate
+                :productForRate="myProduct">
+              </applied-rate>
             </td>
             <td>
               <button class="btn btn-outline-success btn-sm mx-1" @click="openMyProductModal(myProduct)">수정</button>
@@ -143,11 +145,11 @@ import PortfolioEditItem from '@/components/PortfolioEditItem.vue'
 import CustomProductModal from '@/components/CustomProductModal.vue'
 import CustomProductItem from '@/components/CustomProductItem.vue'
 import PortfolioEditModal from '@/components/PortfolioEditModal.vue'
-
+import AppliedRate from '@/components/AppliedRate.vue'
 
 export default {
   name: 'PortfolioEditView',
-  components: { Navbar, PortfolioEditItem, CustomProductModal, CustomProductItem, PortfolioEditModal },
+  components: { Navbar, PortfolioEditItem, CustomProductModal, CustomProductItem, PortfolioEditModal, AppliedRate },
   computed: {
     ...mapGetters(['portfolio', 'customProducts'])
   },

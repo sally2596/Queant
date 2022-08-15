@@ -91,13 +91,12 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import Modal from '@/components/Modal.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import draggable from 'vuedraggable'
 
 export default {
   name: 'ProductCartView',
-  components : { Navbar, Modal, draggable },
+  components : { Navbar, draggable },
   computed: {
     ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products']),
   },
@@ -122,11 +121,6 @@ export default {
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
     },
-    openModal(value) {
-      this.modalData = value,
-      this.showModal = true,
-      this.fetchProduct(value[1].product_id)
-    },
     addComparisonPortfolio() {
       this.ADD_COMPARISON_PORTFOLIO()
     },
@@ -140,13 +134,6 @@ export default {
   mounted() {
     this.clearDB()
     this.getFromDb()
-  },
-  data() {
-    return {
-      showModal: false,
-      productIdx: '',
-      modalData: null,
-    }
   },
   beforeCreate: function() {
     document.body.className = 'home_body'
