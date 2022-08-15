@@ -184,6 +184,7 @@ td img {
   font-size: 15px;
   width:100%;
   border-collapse: collapse;
+	vertical-align:middle;
 }
 
 .table th {
