@@ -76,7 +76,6 @@
 							v-model="payload.start_date"
 							type="date"
 							class="box"
-							@click="dateCheck(payload.start_date)"
 							required>
 					</div>
 					<br>

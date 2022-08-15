@@ -6,72 +6,79 @@
 
       <div class="modal-header">
       <slot name="header">
-        <label>* 상품명</label>
-        <input
-          style="width: 170px;"
-          v-model="payload.product_name"
-          type="text">
+        <h4 style="font-family: 'jua'; margin-top: 1rem;">상품 정보</h4>
       </slot>
       </div>
       <hr>
 
       <div class="modal-body">
         <slot name="body">
+				<label>* 상품명</label>
+				<input
+					class="box"
+					v-model="payload.product_name"
+					type="text">
+				<hr>
         <label>* 납임금액(원)</label>
-        <input
-          style="width: 130px;"
-          v-model="payload.amount"
-          type="number"
-          required>
-        <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
-        <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
-        <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
-        <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
-        <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
-        <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
+				<input
+					v-model="payload.amount"
+					type="number"
+					class="box"
+					required>
+				<br><br>
+				<button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
+				<button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
+				<button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
+				<button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
+				<button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
+				<button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
+				<br>
         <p>{{ error.amount }}</p>
-
-        <label>기관명</label>
+				<hr>
+        <label class="label">기관명</label>
         <input
+					class="box"
           v-model="payload.institution_name"
           type="text"
           required>
-        
-        <label>* 예적금 분류</label>
-        <select v-model="payload.deposit">
+        <br>
+        <label class="label">* 예적금 분류</label>
+        <select class="box" v-model="payload.deposit">
           <option :value="0">선택</option>
           <option :value='true'>예금</option>
           <option :value='false'>적금</option>
         </select><br>
 
         <div v-if="!payload.deposit">
-          <label>* 적립방식</label>
-          <select v-model="payload.fixed_rsrv">
+          <label class="label">* 적립방식</label>
+          <select class="box" v-model="payload.fixed_rsrv">
             <option :value="0">선택</option>
             <option :value='true'>정액적립</option>
             <option :value='false'>자유적립</option>
           </select>
         </div>
 
-        <label>* 기본금리(%)</label>
+        <label class="label">* 기본금리(%)</label>
         <input
-          style="width: 80px;"
+          class="box"
           type="number" 
           v-model="payload.base_rate">
-        
-        <label>우대금리(%)</label>
+				<br>
+        <label class="label">우대금리(%)</label>
         <input
-          style="width: 80px;"
+          class="box"
           type="number"
           v-model="payload.special_rate">
         <br>
-        <label>* 가입일</label>
+        <label class="label">* 가입일</label>
         <input
+					class="box"
           v-model="payload.start_date"
           type="date">        
         <br>
-        <label for="enddate">* 만기일</label>
+        <label class="label" for="enddate">* 만기일</label>
         <input
+					class="box"
           v-model="payload.end_date"
           type="date">
         <p>{{ error.date }}</p>
@@ -188,6 +195,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.box {
+	float: right;
+	width: 160px;
+	text-align:right;
+}
 
+.label {
+	line-height:30px;
+}
 </style>
