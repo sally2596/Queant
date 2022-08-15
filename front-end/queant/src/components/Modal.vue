@@ -69,6 +69,7 @@
             required>
 
           <label>예상 만기일</label>
+          {{ payload.option_id[1] }}
           <input 
             v-model="payload.end_date"
             type="date"
