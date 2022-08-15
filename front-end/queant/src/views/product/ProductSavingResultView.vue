@@ -1,10 +1,10 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">추천 결과</h1>
+    <h1 class="title" id="title">적금 상품 추천 결과</h1>
   </header>
   <section class="product_section">
-    <div id="product-detail-box">
+    <div id="cart-item">
       <table class="border">
         <thead class="border">
           <tr class="text-center">

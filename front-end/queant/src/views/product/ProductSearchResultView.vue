@@ -12,8 +12,8 @@
             <th>상품명</th>
             <th>기본 금리</th>
             <th>최소 가입 기간</th>
-         </tr>
-       </thead>
+          </tr>
+        </thead>
         <tbody v-for="product in tenProducts" :key="product.product_id" class="border">
           <tr scope="row">
             <td class="col-1 text-center"><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>

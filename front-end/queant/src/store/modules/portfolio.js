@@ -75,14 +75,14 @@ export default {
       let product = value[1]
       let cportfolios = state.comparisonPortfolio
       let pushproduct = {
-        portfolio_no: portfolioNo,
-        product_id: product.product.product_id,
         amount: product.amount,
         condition_ids: product.condition_ids,
+        end_date: product.end_date,
+        portfolio_no: portfolioNo,
+        product: product.product,
+        product_id: product.product.product_id,
         option_id: product.option_id,
         start_date: product.start_date,
-        end_date: product.end_date,
-        name: product.product.name
       }
       if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product_id === product.product.product_id)) {
         alert(`${product.product.name}은 이미 포트폴리오에 있는 상품입니다.`)
@@ -91,15 +91,15 @@ export default {
         alert(`${portfolioNo}번 포트폴리오에 ${pushproduct.name}상품이 담겼습니다.`)
       }
     },
-      // 상품 삭제
-      POP_PRODUCT_FROM_CPORTFOLIO(state, value) {
-      let portfolioNo = value[0]
-      let FindProduct = value[1]
-      let cportfolios = state.comparisonPortfolio
-      let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
-      
-      alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.name} 상품을 삭제했습니다.`)
-      cportfolios[portfolioNo-1].products.splice(item, 1)
+    // 상품 삭제
+    POP_PRODUCT_FROM_CPORTFOLIO(state, value) {
+    let portfolioNo = value[0]
+    let FindProduct = value[1]
+    let cportfolios = state.comparisonPortfolio
+    let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
+    
+    alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.name} 상품을 삭제했습니다.`)
+    cportfolios[portfolioNo-1].products.splice(item, 1)
     },
 
     POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolioIdx) {
@@ -137,6 +137,7 @@ export default {
       console.log(`${portfolioIdx+1}번 포트폴리오의 ${productIdx+1}번 상품을 삭제했습니다.`)
     },
   },
+
   actions: {
     // Custom Product
     deleteCustomProduct({ dispatch }, product_id) {
@@ -304,7 +305,7 @@ export default {
     // Comparison Portfolio
 
     // 가상 포트폴리오 DB 저장 및 가져오기
-    saveToDb({ dispatch, state, getters }) {
+    saveToDb({ dispatch, commit, state, getters }) {
       //삭제된 포트폴리오 DB에서 제거하기
       // 삭제된 포트폴리오가 있다면 요청 보내기
       if (state.deletedPortfolio.length != 0) {
@@ -333,18 +334,20 @@ export default {
       if (state.newlyAddedPortfolio.includes(i+1)) {
           // 만약 비어있는 포트폴리오가 있다면 새로 저장할 수 없음.
           if (state.comparisonPortfolio[i].cportfolio_cnt === (i+1) && state.comparisonPortfolio[i].products.length === 0) {
-            alert(`비어 있는 포트폴리오를 저장할 수 없습니다. ${i+1}번 포트폴리오는 비어 있어 저장하지 못했습니다.`)
+            commit('POP_CPORTFOLIO', i+1)
+            alert(`비어 있는 ${i+1}번 포트폴리오를 삭제했습니다.`)
           } else if (state.comparisonPortfolio[i].cportfolio_cnt === (i+1) && state.comparisonPortfolio[i].length != 0) {
           let tempPortfolioList = [];
           for (let port of state.comparisonPortfolio[i].products) {
             let temp = {
-              portfolio_no:i+1,
-              product_id:port.product_id,
-              amount:port.amount,
+              amount: port.amount,
               condition_ids: port.condition_ids,
-              option_id:port.option_id,
+              end_date: port.end_date,
+              portfolio_no: port.portfolio_No,
+              product: port.product,
+              product_id: port.product_id,
+              option_id: port.option_id,
               start_date: port.start_date,
-              end_date: port.end_date
             }
             tempPortfolioList.push(temp)
           }
@@ -360,7 +363,7 @@ export default {
             }
           }).then(res => {
             console.log(res)
-            console.log(`${i+1}번 포트폴리오가 DB에 새롭게 저장되었습니다.`)
+            alert(`${i+1}번 포트폴리오가 DB에 새롭게 저장되었습니다.`)
           })
           .catch(err => {
             console.log(err)
@@ -393,13 +396,14 @@ export default {
         for (let port of state.comparisonPortfolio[i].products) {
           console.log(port.option_id)
           let temp = {
-            portfolio_no:i+1,
-            product_id:port.product_id,
-            amount:port.amount,
+            amount: port.amount,
             condition_ids: port.condition_ids,
+            end_date: port.end_date,
+            portfolio_no: port.portfolio_No,
+            product: port.product,
+            product_id: port.product_id,
             option_id: port.option_id,
             start_date: port.start_date,
-            end_date: port.end_date
           }
           tempPortfolioList.push(temp)
         }
@@ -414,14 +418,13 @@ export default {
           }
         }).then(res => {
           console.log(res)
-          console.log(`${i+1}번 포트폴리오를 DB에서 수정했습니다.`)
+          alert(`${i+1}번 포트폴리오를 DB에서 수정했습니다.`)
         })
         .catch(err => {
           console.log(err)
         })}
       }
     }
-      
     },
     getFromDb({ commit, dispatch, state, getters, actions }) {
       // Clear DB를 실행(추가, 삭제 초기화)

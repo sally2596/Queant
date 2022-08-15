@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">추천 결과</h1>
+    <h1 class="title" id="title">예금 상품 추천 결과</h1>
   </header>
   <section class="product_section">
     <div id="cart-item">
@@ -12,7 +12,6 @@
             <th>상품명</th>
             <th>기본 금리</th>
             <th>최소 가입 기간</th>
-            <th></th>
           </tr>
         </thead>
         <tbody v-for="product in tenProducts" :key="product.product_id" class="border">
