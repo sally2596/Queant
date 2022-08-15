@@ -3,56 +3,61 @@
 	<div class="modal-mask">
 		<div class="modal-wrapper">
 		<div class="modal-container">
-			<div class="modal-header">
-				<h1 style="font-family: 'jua'; margin-top: 1rem;">제보 상품 등록</h1>
+			<div class="modal-header" >
+				<h1 style="font-family: 'jua'; margin: 1rem;">제보 상품 등록</h1>
 			</div>
+				<p class="h1 m-0"><b-icon-x-circle type="button" style="position:fixed; height: 5em; margin-left:400px; margin-top: -150px;" @click="$emit('close-modal')"/>
+				</p>
 
 			
 			<div class="modal-body">
 				<form>
-					<p style="font-weight:bold">*표시는 필수 입력사항입니다.</p>
+					<p style="font-weight:bold; padding-left:10px;">* 표시는 필수 입력사항입니다.</p>
 					<div>
 						<h3 style="font-family: 'jua'; margin-top: 1rem;">상품 상세 정보</h3>
 						<br>
-						<label>* 상품등록경로 </label>
-						<select v-model="product.scode_id">
-							<option v-for="opt in D_code" v-bind:value="opt.value" v-bind:key="opt">
-								{{ opt.text }}
-							</option>
-						</select><br>
+						<div class="choose-area" style="width:350px">
+							<label>* 상품등록경로 </label>
+							<select v-model="product.scode_id">
+								<option v-for="opt in D_code" v-bind:value="opt.value" v-bind:key="opt">
+									{{ opt.text }}
+								</option>
+							</select><br>
+						</div>
 
-						<label>* 예적금</label>
-						<input v-model="product.deposit" :value="false" type="radio" class="btn-check" id="deposit-false" autocomplete="off">
-
-						<label class="btn btn-outline-success" for="deposit-false">예금</label>
-						<input v-model="product.deposit" :value="true" type="radio" class="btn-check" id="deposit-true" autocomplete="off">
-
-						<label class="btn btn-outline-success" for="deposit-true">적금</label><br>
-						<div class="int-area">
+						<div class="btn-area" style="width:350px; border-bottom: 1px solid #000;">
+							<label style="font-size: 18px; color: #999; margin:0 130px 25px 10px;">* 예적금</label>
+							<input v-model="product.deposit" :value="false" type="radio" class="btn-check" id="deposit-false" autocomplete="off">
+							<label class="btn btn-outline-success" for="deposit-false">예금</label>
+							<input v-model="product.deposit" :value="true" type="radio" class="btn-check" id="deposit-true" autocomplete="off">
+							<label class="btn btn-outline-success" for="deposit-true">적금</label><br>
+						</div>
+						
+						<div class="int-area" style="width:350px">
 							<input type="number" v-model="product.age_min" id="ageMin">
 							<label class="form-label" for="ageMin" autocomplete="off">최소 연령</label>
 						</div>
-						<div class="int-area">
+						<div class="int-area" style="width:350px">
 							<input type="number" v-model="product.age_max" id="ageMax">
 							<label class="form-label" for="ageMax" autocomplete="off">최대 연령</label>
 						</div>
-						<div class="int-area">
+						<div class="int-area" style="width:350px">
 							<input type="number" v-model="product.budget_min" id="budMin">
 							<label class="form-label" for="budMin" autocomplete="off">최소 예산</label>
 						</div>
-						<div class="int-area">
+						<div class="int-area" style="width:350px">
 							<input type="number" v-model="product.budget_max" id="budMax">
 							<label class="form-label" for="budMax" autocomplete="off">최대 예산</label>
 						</div>
-						<div class="int-area">
+						<div class="int-area" style="width:350px">
 							<input type="number" v-model="product.term_min" id="termMin">
 							<label class="form-label" for="termMin" autocomplete="off">최소 기간</label>
 						</div>
-						<div class="int-area">
+						<div class="int-area" style="width:350px">
 							<input type="number" v-model="product.term_max" id="termMax">
 							<label class="form-label" for="termMax" autocomplete="off">최대 기간</label>
 						</div>
-						<div class="int-area">
+						<div class="int-area" style="width:350px">
 							<input type="text" v-model="product.etc" id="etc">
 							<label class="form-label" for="etc" autocomplete="off">기타</label>
 						</div>
@@ -63,34 +68,42 @@
 						</h3>
 						<br>
 						<div v-for="(trait, index) in traits" v-bind:key="trait">
-							<div style="font-weight:bold">특징 정보 입력</div>
-							<br>
-							* 특징 <select v-model="trait.scode_id"><option v-for="opt in E_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
+							<div class="choose-area" style="width:350px">
+								<label>* 특징 </label>
+								<select v-model="trait.scode_id"><option v-for="opt in E_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
+							</div>
 							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeTraitForm(index)">특징 삭제</button>
 							<br><br>
 						</div>
 					</div>
-					<br>
+
 					<div>
 						<h3 style="font-family: 'jua'; margin-top: 1rem;">옵션  <button type="button" class="btn btn-sm btn-outline-secondary" @click="addOptionForm()">옵션 추가</button></h3>
 						<br>
 						<div v-for="(option, index) in options" v-bind:key="option">
-							<div style="font-weight:bold">옵션 정보 입력</div>
-							<br>
-							<div class="int-area">
+							<div class="int-area" style="width:350px">
 								<input type="text" v-model="option.base_rate" id="base">
 								<label class="form-label" for="base" autocomplete="off">* 기본금리</label>
 							</div>
-							<div class="int-area">
+							<div class="int-area" style="width:350px">
 								<input type="text" v-model="option.high_base_rate" id="hbase">
 								<label class="form-label" for="hbase" autocomplete="off">최고금리</label>
 							</div>
-							<div class="int-area">
+							<div class="int-area" style="width:350px">
 								<input type="text" v-model="option.save_term" id="term">
 								<label class="form-label" for="term" autocomplete="off">* 저축기간</label>
 							</div>
-							* 금리유형<select v-model="option.rate_type"><option v-for="opt in rate" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
-							적립방식<select v-model="option.rsrv_type"><option v-for="opt in rsrv" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
+							<div class="choose-area" style="width:350px">
+								<label>* 금리유형</label>
+								<select v-model="option.rate_type">
+									<option v-for="opt in rate" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
+								</select>
+							</div>
+
+							<div class="choose-area" style="width:350px">
+								<label>적립방식</label>
+								<select v-model="option.rsrv_type"><option v-for="opt in rsrv" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
+							</div>
 							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeOptionForm(index)">옵션 삭제</button>
 							<br><br>
 						</div>
@@ -100,14 +113,17 @@
 						<h3 style="font-family: 'jua'; margin-top: 1rem;">우대조건  <button type="button" class="btn btn-sm btn-outline-secondary" @click="addConditionForm()">우대조건 추가</button></h3>
 						<br>
 						<div v-for="(condition, index) in conditions" v-bind:key="condition">
-							<div style="font-weight:bold">우대조건 정보 입력</div>
-							<br>
-							* 우대사항 <select v-model="condition.scode_id"><option v-for="opt in B_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
-							<div class="int-area">
+							<div class="choose-area" style="width:350px">
+								<label>* 우대사항</label> 
+								<select v-model="condition.scode_id">
+									<option v-for="opt in B_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
+								</select><br>
+							</div>
+							<div class="int-area" style="width:350px">
 								<input type="text" v-model="condition.special_rate" id="special">
 								<label class="form-label" for="special" autocomplete="off">* 우대금리</label>
 							</div>
-							<div class="int-area">
+							<div class="int-area" style="width:350px">
 								<input type="text" v-model="condition.condition_info" id="info">
 								<label class="form-label" for="info" autocomplete="off">세부내용</label>
 							</div>
@@ -120,17 +136,22 @@
 						<h3 style="font-family: 'jua'; margin-top: 1rem;">가입방법  <button type="button" class="btn btn-sm btn-outline-secondary" @click="addJoinForm()">가입방법 추가</button></h3>
 						<br>
 						<div v-for="(joinway, index) in joinways" v-bind:key="joinway">
-							<div style="font-weight:bold">가입방법 정보 입력</div>
+							<div class="choose-area" style="width:350px">
+								<label class="form-label">*가입방법</label> 
+								<select v-model="joinway.scode_id">
+									<option v-for="opt in A_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
+								</select>
+							</div>
 							<br>
-							*가입방법 <select v-model="joinway.scode_id"><option v-for="opt in A_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
 							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeJoinForm(index)">가입방법 삭제</button>
 							<br><br>
 						</div>
 					</div>
 				</form>
 				<form>
-					<input type="button" class="btn btn-sm btn-outline-secondary" @click="$emit('close-modal')" value="창 닫기">
-					<input type="submit" class="btn btn-sm btn-outline-secondary" @click="registProduct(report.report_product_id)" value="정보 전송">
+					<div class="btn-area">
+						<button type="submit" @click="registProduct(report.report_product_id)"> 등록</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -141,9 +162,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
+import { BIconXCircle } from 'bootstrap-icons-vue';
 export default {
 	name: 'ReportProductView',
+	components: {
+		BIconXCircle
+  	},
 	data() {
     return {
 			A_code : [
