@@ -3,11 +3,11 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
+  <!-- 장바구니 섹션 -->
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
     <div v-if="cart.length === 0" class="cart-none">
       <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width: 30%; height: 30%;">
-      
       <br><br>
       <h3><strong>담긴 상품이 없습니다.</strong></h3>
       <br>
@@ -17,8 +17,11 @@
     <!-- 장바구니에 상품이 담겨 있을 때 -->
     <div v-else id="cart-item">
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
-      <!-- <button class="btn btn-outline-primary btn-sm" @click="addcomparisonportfolio(userInfo)">가상 포트폴리오 추가하기</button> -->
-      <!-- <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()" v-if="comparisonportfolios.length != 0">포트폴리오 전체 삭제</button> -->
+      <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
+      <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()">포트폴리오 전체 삭제</button>
+      <button class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="getFromDb()">DB 불러오기</button>
+      
+      <button  class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="saveToDb()">최종 저장</button>
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
         <thead>
@@ -33,60 +36,61 @@
           </tr>
         </thead>
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
-          <tr scope="row">
-            <td class="col-1 text-center"><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
-            <td class="col-5 text-center"><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
-            <td class="col-1 text-center">{{productInCart.product.base_rate}}%</td>
-            <td class="col-1 text-center">{{productInCart.product.term_min}}개월</td>
-            <td class="col-3 text-center flex-wrap">
-              <p v-if="comparisonportfolios.length === 0">포트폴리오가 없습니다.</p>
-              <button v-for="cportfolio in comparisonportfolios"
-               :key="cportfolio.cportfolio_cnt"
-               class="btn btn-outline-primary btn-sm p-1"
-               style="height: 2rem; font-size: 0.8rem;"
-               @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart])">
-                {{cportfolio.cportfolio_cnt}}번 <i class="fa-solid fa-circle-plus"></i>
-              </button>
-            </td>
-            <td class="col-2 text-center"><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="pushProductToPortfolio(productInCart)">My <i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
-            <td class="col-2 text-center"><button class="btn btn-outline-danger btn-sm p-1" style="height: 2rem;" @click="popProductFromCart(productInCart)"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
-          </tr>
+          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
+          <td><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
+          <td>{{productInCart.product.base_rate}}%</td>
+          <td>{{productInCart.product.term_min}}</td>
+          <td class="flex-wrap">
+            <button v-for="cportfolio in comparisonPortfolio"
+             :key="cportfolio.cportfolio_cnt"
+             class="btn btn-outline-primary btn-sm p-1"
+             style="height: 2rem; font-size: 0.8rem;"
+             @click="pushProductToCportfolio([cportfolio.cportfolio_cnt, productInCart])">
+              {{cportfolio.cportfolio_cnt}}번 <i class="fa-solid fa-circle-plus"></i>
+            </button>
+          </td>
+          <td><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="addProductInCart(productInCart)"><i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
+          <td><button class="btn btn-outline-danger btn-sm p-1" style="height: 2rem;" @click="popProductFromCart(productInCart)"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
         </tbody>
       </table>
     </div>
   </section>
-  <!-- <section class="product_section">
-    <div v-if="comparisonportfolios.length === 0" class="cart-none">
-      <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width: 30%; height: 30%;">
+
+  <!-- 가상 포트폴리오 섹션 -->
+<section class="product-detail-box">
+  
+    <div v-if="comparisonPortfolio.length === 0" class="cart-none">
+      <img src="../../assets/image/물음표개미_none.png" alt="없음">
       
       <br><br>
       <h5>가상 포트폴리오가 없습니다.</h5>
-      <button class="btn btn-outline-primary btn-sm" @click="addcomparisonportfolio(userInfo)">가상 포트폴리오 추가하기</button>
       <br><br>
+      
+      <button class="btn btn-outline-success" @click="addComparisonPortfolio()">가상 포트폴리오 추가하기</button>
+      <button class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="getFromDb()">DB 불러오기</button>
     </div>
-    <div v-else id="cart-iPUSH_PRODUCT_TO_PORTFOLIOtem">
-      <div id="cportfolio_container" class="d-flex">
-        <div class="border m-2 col-3-lg col-6" v-for="cportfolio in comparisonportfolios" :key="cportfolio" style="height:30vh; width: 25%;">
+
+    <div v-else>
+      
+      <div class="product-detail d-flex flex-wrap justify-content-center">
+        <div class="m-2 p-4 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" id="cportfolio" :key="cportfolio">
+          <div class="border p-2" style="background-color: #92ce95; font-family: 'jua';">
+            <h5 class="text-center m-0"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
+          </div>
+          <br>
           <div v-if="cportfolio.products.length === 0">
-            <div class="border">
-              <h5 class="text-center"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
-            </div>
             <div>아직 상품이 없습니다.</div>
+            <br><br><br><br>
           </div>
-          <div v-else>
-            <div class="border" style="background-color: #92ce95;">
-              <h5 class="text-center"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
-            </div>
-            <div v-for="cproduct in cportfolio.products" :key="cproduct.product.product_id">
-              <ul>
-                <li style="font-size: 1rem"><router-link :to="{ name: 'productDetail' , params: { productId: cproduct.product.product_id }}">{{cproduct.product.name}}</router-link></li>
-             </ul>
-            </div>
+          <div v-else v-for="cproduct in cportfolio.products" class="d-flex" style="font-size: 15px;" :key="cproduct">
+                {{cproduct.name}}
           </div>
+          <button class="btn btn-danger" type="button" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>
         </div>
+        
       </div>
     </div>
-  </section> -->
+  </section>
 </template>
 
 <script>
@@ -97,15 +101,22 @@ import draggable from 'vuedraggable'
 
 export default {
   name: 'ProductCartView',
-  components : { Navbar, Modal, draggable},
+  components : { Navbar, Modal, draggable },
   computed: {
-    ...mapGetters(['userInfo', 'cart', 'portfolios', 'comparisonportfolios'])
+    ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products']),
   },
   methods: {
-    ...mapActions(['fetchProduct', 'pushProductToPortfolio']),
-    ...mapMutations(['CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO']),
+    ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb']),
+    ...mapMutations(['CLEAR_CPORTFOLIO_DB', 'CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO', 'UPDATE_CPORTFOLIO_FROM_DB']),
+    
+    clearDB() {
+      this.CLEAR_CPORTFOLIO_DB()
+    },
     clearCart() {
       this.CLEAR_CART()
+    },
+    deleteCportfolio(cportfolio_cnt) {
+      this.POP_CPORTFOLIO(cportfolio_cnt)
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
@@ -115,21 +126,24 @@ export default {
       this.showModal = true,
       this.fetchProduct(value[1].product_id)
     },
-    addcomparisonportfolio(value) {
-      this.PUSH_CPORTFOLIO_TO_COMPARISONPORTFOLIOS(value)
+    addComparisonPortfolio() {
+      this.ADD_COMPARISON_PORTFOLIO()
     },
     clearcomparisonportfolio() {
       this.CLEAR_CPORTFOLIOS()
     },
     pushProductToCportfolio(value) {
       this.PUSH_PRODUCT_TO_CPORTFOLIO(value)
-    }
+    },
+  },
+  mounted() {
+    this.clearDB()
   },
   data() {
     return {
       showModal: false,
       productIdx: '',
-      modalData: null
+      modalData: null,
     }
   },
   beforeCreate: function() {

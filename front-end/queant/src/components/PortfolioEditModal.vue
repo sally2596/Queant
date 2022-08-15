@@ -14,7 +14,6 @@
        </slot>
       </div>
       <hr>
-
       <div class="modal-body">
        <slot name="body">
           <label for="">납임금액(원)</label>
@@ -50,7 +49,7 @@
             v-for="condition in product.conditions"
             :key="condition">
             <label :for="condition.condition_id">
-              [설명] {{ condition.value }}<br>
+              [설명] {{ condition.condition_info || condition.value }}<br>
               [추가금리] {{ condition.special_rate }}%
             </label>
             <input
@@ -105,7 +104,7 @@ export default {
     ...mapGetters(['product'])
   },
   methods: {
-    ...mapActions(['editPortfolio']),
+    ...mapActions(['editPortfolio', 'fetchProduct']),
     checkForm() {
       if (this.payload.amount < 1)
         this.error.amount = '납입금액을 확인해주세요.'
@@ -144,7 +143,8 @@ export default {
         option_id: this.modalData.option_id,
         portfolio_id: this.modalData.portfolio_id,
         portfolio_no: 0,
-        product_id: this.modalData.product_id
+        product_id: this.modalData.product_id,
+        conditions: this.modalData.conditions
       },
       error: {
         amount: '',
@@ -152,6 +152,9 @@ export default {
       },
       isCheckedForm: false
     }
+  },
+  created() {
+    this.fetchProduct(this.modalData.product_id)
   }
 }
 </script>

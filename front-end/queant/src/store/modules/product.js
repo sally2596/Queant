@@ -47,6 +47,21 @@ export default {
       }
   },
   actions: {
+    getName({commit}, productId) {
+      axios({
+        url: spring.product.detail(productId),
+        method: 'get',
+        params: {
+          productId: productId
+        }
+      })
+      .then(res => {
+        console.log(res.data.product.name)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
     fetchKeywords({ commit }) {
       axios({
         url: spring.search.keyword(),
