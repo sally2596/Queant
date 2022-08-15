@@ -300,7 +300,7 @@ export default {
       this.nowDepositChart = this.depositChart[index];
       this.nowDepositCategory = this.depositCategory[index];
     },
-    TestcalculateDeposit(start_date, end_date, amount, rate, simple) {
+    calculateDeposit(start_date, end_date, amount, rate, simple) {
       let result = [];
 
       let start = start_date.split("-");
@@ -514,7 +514,7 @@ export default {
 
         this.depositTerm.push({ name: productName, data: data });
 
-        let result = this.TestcalculateDeposit(
+        let result = this.calculateDeposit(
           item.start_date,
           item.end_date,
           item.amount,
