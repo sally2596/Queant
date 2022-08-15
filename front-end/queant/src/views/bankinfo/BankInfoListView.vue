@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">은행 정보</h1>
+    <!-- <h1 class="title" id="title">은행 정보</h1> -->
   </header>
   
   <!-- 은행 목록 -->
