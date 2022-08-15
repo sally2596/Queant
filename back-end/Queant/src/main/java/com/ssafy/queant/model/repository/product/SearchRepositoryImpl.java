@@ -41,8 +41,10 @@ public class SearchRepositoryImpl implements SearchRepository {
         builder.and(product.isDeposit.eq(isDeposit));
 
         // 금액 범위 설정
-        builder.and(product.budgetMin.coalesce(Long.MIN_VALUE).loe(amount));
-        builder.and(product.budgetMax.coalesce(Long.MAX_VALUE).goe(amount));
+        if(amount!=null&&amount!=0) {
+            builder.and(product.budgetMin.coalesce(Long.MIN_VALUE).loe(amount));
+            builder.and(product.budgetMax.coalesce(Long.MAX_VALUE).goe(amount));
+        }
 
         if (isSimpleInterest != null) {// 단리 복리 설정값이 들어옴
             builder.and(qOptions.rateType.eq(isSimpleInterest));
