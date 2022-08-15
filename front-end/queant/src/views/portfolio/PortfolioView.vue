@@ -218,8 +218,6 @@ export default {
       rate = Math.round(rate * 1000) / 1000;
       return rate;
     };
-    const savingTerm = [];
-    const depositTerm = [];
     const testSeries = [
       {
         name: "월 불입금",
@@ -281,9 +279,6 @@ export default {
       savingTotalRate,
       savingTotalAmount,
       depositTotalAmount,
-
-      savingTerm,
-      depositTerm,
 
       depositChart,
       depositCategory,
@@ -479,12 +474,9 @@ export default {
         y: [item.start_date, item.end_date],
       });
       if (item.product.deposit) {
-        // 일할 계산 or 전체 계산?
-        // 예금이면 이미 들어간 돈이고 이자가 붙는거니까 이자 일할 계산해서 붙여주기?
         this.depositTotalAmount += item.amount;
         this.depositTotalRate += rate;
       } else {
-        // 적금은 한달에 들어가는 돈만 보여주는 걸로?
         this.savingTotalAmount += item.amount;
         this.savingTotalRate += rate;
       }
@@ -498,8 +490,6 @@ export default {
           startDate: startDate,
           endDate: endDate,
         });
-
-        this.depositTerm.push({ name: productName, data: data });
 
         let result = this.calculateDeposit(
           item.start_date,
@@ -520,8 +510,6 @@ export default {
           startDate: startDate,
           endDate: endDate,
         });
-
-        this.savingTerm.push({ name: productName, data: data });
 
         let result = this.calculateSaving(
           item.start_date,
@@ -569,8 +557,6 @@ export default {
           startDate: startDate,
           endDate: endDate,
         });
-
-        this.depositTerm.push({ name: productName, data: data });
       } else {
         this.savingSeries.push({
           name: productName,
@@ -580,7 +566,6 @@ export default {
           startDate: startDate,
           endDate: endDate,
         });
-        this.savingTerm.push({ name: productName, data: data });
       }
     });
 
