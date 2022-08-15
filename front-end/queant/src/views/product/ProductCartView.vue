@@ -7,7 +7,7 @@
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
     <div v-if="cart.length === 0" class="cart-none">
-      <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width: 30%; height: 30%;">
+      <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width: 240px; height:240px;">
       <br><br>
       <h3><strong>담긴 상품이 없습니다.</strong></h3>
       <br>

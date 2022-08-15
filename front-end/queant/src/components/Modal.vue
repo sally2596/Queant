@@ -6,32 +6,30 @@
 
       <div class="modal-header">
        <slot name="header">
-        <label>상품명</label>
-        <input 
-          v-model="modalData.name"
-          type="text"
-          disabled>
+        <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.name }}</h4>
        </slot>
       </div>
       <hr>
 
       <div class="modal-body">
        <slot name="body">
-          <label for="">납임금액(원)</label>
+          <label>납임금액(원)</label>
           <input
             v-model="payload.amount"
             type="number"
+						class="box"
             required>
+					<br><br>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(10000)">+1만원</button>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(50000)">+5만원</button>
           <button class="btn btn-outline-success btn-sm mx-1" @click="changeAmount(100000)">+10만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-10000)">-1만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-50000)">-5만원</button>
           <button class="btn btn-outline-danger btn-sm mx-1" @click="changeAmount(-100000)">-10만원</button>
+					<br>
           <p>{{ error.amount }}</p>
-
           이자유형 & 개월수
-          <select v-model="payload.option_id">
+          <select class="box" v-model="payload.option_id">
             <option disabled>선택</option>
             <option 
               v-for="option in product.options"
@@ -45,34 +43,53 @@
             </option>
           </select>
           <hr>
-      
-          우대사항
-          <div
-            v-for="condition in product.conditions"
-            :key="condition">
-            <label :for="condition.condition_id">
-              [설명] {{ condition.condition_info || condition.value }}<br>
-              [추가금리] {{ condition.special_rate }}%
-            </label>
-            <input
-              v-model="payload.condition_ids"
-              type="checkbox"
-              :value="condition.condition_id"
-              :id="condition.condition_id">
-          </div>
-          <hr>
-
-          <label>예상 가입일</label>
-          <input 
-            v-model="payload.start_date"
-            type="date"
-            required>
-
-          <label>예상 만기일</label>
-          <input 
-            v-model="payload.end_date"
-            type="date"
-            required>
+					<div>우대사항</div>
+					<div></div>
+					<br>
+					<table class="table table-hover">
+						<thead>
+							<tr class="text-center">
+								<th scope="col">설명</th>
+								<th scope="col">추가금리</th>
+								<th scope="col">선택</th>
+							</tr>
+						</thead>
+						<tbody v-for="condition in product.conditions" v-bind:key="condition">
+							<tr scope="row">
+								<td class="col-8 text-center">{{ condition.condition_info || condition.value }}</td>
+								<td class="col-4 text-center">{{ condition.special_rate }}%</td>
+								<td class="col-1 text-center">
+									<input
+										v-model="payload.condition_ids"
+										type="checkbox"
+										class="box"
+										:value="condition.condition_id"
+										:id="condition.condition_id">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<div>
+						예상 가입일
+						<input 
+							v-model="payload.start_date"
+							type="date"
+							class="box"
+							@click="dateCheck(payload.start_date)"
+							required>
+					</div>
+					<br>
+					<div>
+						예상 만기일
+						<input 
+							v-model="payload.end_date"
+							type="text"
+							class="box"
+							required
+							disabled>
+					</div>
+>>>>>>> cf1237250c5817d87e25efe75e377d6b8d43a179
           {{ error.date }}
        </slot>
       </div>
@@ -138,7 +155,17 @@ export default {
       deep: true,
       handler() {
         this.checkForm()
-      }
+      },
+			// dateCheck(data) {
+			// 	let date = data.split('-');
+
+			// 	let year = parseInt(date[0])
+			// 	let month = parseInt(date[1]);
+			// 	let day = parseInt(date[2]);
+			// 	let term = this.product.options[this.payload.option_id].save_term;
+				
+
+			// }
     }
   },
   data() {
@@ -183,7 +210,7 @@ export default {
 
 
 .modal-container {
-  width: 300px;
+  width: 500px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -235,4 +262,11 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.box {
+	float: right;
+	width: 160px;
+	text-align:right;
+}
+
 </style>
