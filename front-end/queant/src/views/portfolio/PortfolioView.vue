@@ -202,62 +202,7 @@ export default {
     let savingTotalAmount = 0;
     let depositTotalAmount = 0;
 
-    const filtered = (val) => String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const computeDBProductRate = (item) => {
-      let rate = 0;
-      rate += item.option.base_rate;
-      item.conditions.forEach((element) => {
-        rate += element.special_rate;
-      });
-      rate = Math.round(rate * 1000) / 1000;
-      return rate;
-    };
-    const computeCustomRate = (item) => {
-      let rate = 0;
-      rate = item.base_rate + item.special_rate;
-      rate = Math.round(rate * 1000) / 1000;
-      return rate;
-    };
-    const testSeries = [
-      {
-        name: "월 불입금",
-        data: [
-          [1484418600000, 200],
-          [1484418600000 + 86400000, 2500],
-          [1484418600000 + 86400000 + 86400000, 2000],
-          [1484418600000 + 86400000 + 86400000 + 86400000, 2000],
-          [1484418600000 + 86400000 + 86400000 + 86400000 + 86400000, 2000],
-          [
-            1484418600000 +
-              86400000 +
-              86400000 +
-              86400000 +
-              86400000 +
-              86400000,
-            2000,
-          ],
-        ],
-      },
-      {
-        name: "이번달에 붙은 이자",
-        data: [
-          [1484418600000, 40],
-          [1484418600000 + 86400000, 500],
-          [1484418600000 + 86400000 + 86400000, 600],
-          [1484418600000 + 86400000 + 86400000 + 86400000, 700],
-          [1484418600000 + 86400000 + 86400000 + 86400000 + 86400000, 800],
-          [
-            1484418600000 +
-              86400000 +
-              86400000 +
-              86400000 +
-              86400000 +
-              86400000,
-            900,
-          ],
-        ],
-      },
-    ];
+    //
 
     const depositChart = [];
     const depositCategory = [];
@@ -288,8 +233,6 @@ export default {
       savingCategory,
       nowSavingChart,
       nowSavingCategory,
-      //testing
-      testSeries,
     };
   },
   setup() {},
