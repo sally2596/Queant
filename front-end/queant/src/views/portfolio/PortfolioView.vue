@@ -31,22 +31,35 @@
           <div class="col-6">
             <pie-chart
               v-bind:series="summarySeries"
-              :chartOptionLabels="summaryChartOptionLabels"
+              v-bind:chartOptionLabels="summaryChartOptionLabels"
             ></pie-chart>
           </div>
           <div class="col-6">
             <div class="d-flex justify-content-between">
               <h4>현재까지 모은 금액</h4>
-              <h2>{{ filtered(depositTotalAmount + savingTotalAmount) }}원</h2>
+              <h2
+                v-text="
+                  filtered(
+                    savingFinishAmount +
+                      savingIngAmount +
+                      depositIngAmount +
+                      depositFinishAmount
+                  )
+                "
+              ></h2>
             </div>
 
             <div class="d-flex justify-content-between">
               <h6>예금</h6>
-              <div>{{ filtered(depositTotalAmount) }}원</div>
+              <div
+                v-text="filtered(depositIngAmount + depositFinishAmount)"
+              ></div>
             </div>
             <div class="d-flex justify-content-between">
               <h6>적금</h6>
-              <div>{{ filtered(savingTotalAmount) }}원</div>
+              <div
+                v-text="filtered(savingFinishAmount + savingIngAmount)"
+              ></div>
             </div>
             <br /><br />
             <!-- 포트폴리오 관리하기 버튼 -->
@@ -62,18 +75,18 @@
         </div>
 
         <!-- 적금 saving -->
-        <div id="saving-view">
+        <div v-if="savingSeries?.length != 0" id="saving-view">
           <div class="d-flex justify-content-between">
             <h1>적금</h1>
-            <h2>{{ filtered(savingTotalAmount) }}원</h2>
+            <h2 v-text="filtered(savingFinishAmount + savingIngAmount)"></h2>
           </div>
           <div class="d-flex justify-content-between">
             <h6>만기된 상품</h6>
-            <h6>{{ filtered(savingTotalAmount) }}원</h6>
+            <h6 v-text="filtered(savingFinishAmount)"></h6>
           </div>
           <div class="d-flex justify-content-between">
             <h6>진행중 상품</h6>
-            <h6>{{ filtered(savingTotalAmount) }}원</h6>
+            <h6 v-text="filtered(savingIngAmount)"></h6>
           </div>
           <div class="d-flex justify-content-between">
             <table class="table">
@@ -81,7 +94,7 @@
                 <tr>
                   <th>은행</th>
                   <th>상품명</th>
-                  <th>금액</th>
+                  <th>투자금</th>
                   <th>금리</th>
                 </tr>
               </thead>
@@ -92,6 +105,7 @@
                     <img :src="saving.picture" alt="" style="width: 40px" />
                   </td>
                   <td>{{ saving.name }}</td>
+                  <td>{{ filtered(saving.total) }}</td>
                   <td>{{ saving.rate }}%</td>
                 </tr>
               </tbody>
@@ -105,18 +119,18 @@
         </div>
 
         <!-- 예금 Deposit -->
-        <div id="deposit-view" class="">
+        <div v-if="depositSeries?.length != 0" id="deposit-view" class="">
           <div class="d-flex justify-content-between">
             <h1>예금</h1>
-            <h2>{{ filtered(depositTotalAmount) }}원</h2>
+            <h2 v-text="filtered(depositIngAmount + depositFinishAmount)"></h2>
           </div>
           <div class="d-flex justify-content-between">
             <h6>만기된 상품</h6>
-            <h6>{{ filtered(depositTotalAmount) }}원</h6>
+            <h6 v-text="filtered(depositFinishAmount)"></h6>
           </div>
           <div class="d-flex justify-content-between">
             <h6>진행중 상품</h6>
-            <h6>{{ filtered(depositTotalAmount) }}원</h6>
+            <h6 v-text="filtered(depositIngAmount)"></h6>
           </div>
 
           <div class="d-flex justify-content-between">
@@ -125,7 +139,7 @@
                 <tr>
                   <th>은행</th>
                   <th>상품명</th>
-                  <th>금액</th>
+                  <th>투자금</th>
                   <th>금리</th>
                 </tr>
               </thead>
@@ -136,6 +150,7 @@
                     <img :src="deposit.picture" alt="" />
                   </td>
                   <td>{{ deposit.name }}</td>
+                  <td>{{ deposit.total }}</td>
                   <td>{{ deposit.rate }}%</td>
                 </tr>
               </tbody>
@@ -147,12 +162,6 @@
             ></column-chart>
           </div>
         </div>
-      </div>
-      <div v-for="p in depositChart" :key="p">
-        {{ p }}
-      </div>
-      <div v-for="p in savingChart" :key="p">
-        {{ p }}
       </div>
     </div>
   </div>
@@ -178,12 +187,16 @@ export default {
     const summaryChartOptionLabels = ["예금", "적금"];
     const savingSeries = [];
     const depositSeries = [];
-    let savingTotalRate = 0;
-    let depositTotalRate = 0;
-    let savingTotalAmount = 0;
-    let depositTotalAmount = 0;
+    let savingIngAmount = 0;
+    let depositIngAmount = 0;
+    let savingFinishAmount = 0;
+    let depositFinishAmount = 0;
 
-    //
+    let RsavingFin = 0;
+    let RsavingIng = 0;
+    let RdepositFin = 0;
+    let RdepositIng = 0;
+
     const depositChart = [];
     const depositCategory = [];
     const nowDepositChart = [];
@@ -197,10 +210,15 @@ export default {
       summaryChartOptionLabels,
       savingSeries,
       depositSeries,
-      depositTotalRate,
-      savingTotalRate,
-      savingTotalAmount,
-      depositTotalAmount,
+      savingIngAmount,
+      depositIngAmount,
+      savingFinishAmount,
+      depositFinishAmount,
+
+      RsavingFin,
+      RsavingIng,
+      RdepositFin,
+      RdepositIng,
 
       depositChart,
       depositCategory,
@@ -217,37 +235,65 @@ export default {
     ...mapGetters(["portfolio", "customProducts"]),
   },
   watch: {
+    savingFinishAmount: function () {
+      console.log("dddddd");
+      this.RsavingFin = this.savingFinishAmount;
+    },
     portfolio: function () {
+      this.savingSeries = [];
+      this.depositSeries = [];
+      this.savingIngAmount = 0;
+      this.depositIngAmount = 0;
+      this.savingFinishAmount = 0;
+      this.depositFinishAmount = 0;
+      this.RsavingFin = 0;
+      this.RsavingIng = 0;
+      this.RdepositFin = 0;
+      this.RdepositIng = 0;
+      this.depositChart = [];
+      this.depositCategory = [];
+      this.nowDepositChart = [];
+      this.nowDepositCategory = [];
+      this.savingChart = [];
+      this.savingCategory = [];
+      this.nowSavingChart = [];
+      this.nowSavingCategory = [];
+
+      let today = new Date();
       this.portfolio.forEach((item) => {
         let productName = item.product.name;
         let picture = item.product.picture;
         let rate = this.sumDBProductRate(item);
+
         let result = this.calculate(
           item.start_date,
           item.amount,
           rate / 100,
           item.option.rate_type,
           item.option.save_term,
-          item.product.deposit
+          item.product.deposit,
+          today
         );
         if (item.product.deposit) {
           this.depositSeries.push({
             name: productName,
             picture: picture,
+            total: result.total,
             rate: rate,
           });
-          this.depositTotalAmount += item.amount;
-          this.depositTotalRate += rate;
+          if (result.isFulled) this.depositFinishAmount += result.total;
+          else this.depositIngAmount += result.total;
           this.depositChart.push(result.result);
           this.depositCategory.push(result.dates);
         } else {
           this.savingSeries.push({
             name: productName,
             picture: picture,
+            total: result.total,
             rate: rate,
           });
-          this.savingTotalAmount += item.amount;
-          this.savingTotalRate += rate;
+          if (result.isFulled) this.savingFinishAmount += result.total;
+          else this.savingIngAmount += result.total;
           this.savingChart.push(result.result);
           this.savingCategory.push(result.dates);
         }
@@ -270,33 +316,38 @@ export default {
           rate / 100,
           item.fixed_rsrv,
           term,
-          item.deposit
+          item.deposit,
+          today
         );
         if (item.deposit) {
           this.depositSeries.push({
             name: productName,
             picture: picture,
+            total: result.total,
             rate: rate,
           });
-          this.depositTotalAmount += item.amount;
-          this.depositTotalRate += rate;
+          if (result.isFulled) this.depositFinishAmount += result.total;
+          else this.depositIngAmount += result.total;
           this.depositChart.push(result.result);
           this.depositCategory.push(result.dates);
         } else {
           this.savingSeries.push({
             name: productName,
             picture: picture,
+            total: result.total,
             rate: rate,
           });
-          this.savingTotalAmount += item.amount;
-          this.savingTotalRate += rate;
+          if (result.isFulled) this.savingFinishAmount += result.total;
+          else this.savingIngAmount += result.total;
           this.savingChart.push(result.result);
           this.savingCategory.push(result.dates);
         }
       });
 
-      this.summarySeries.push(this.depositTotalAmount);
-      this.summarySeries.push(this.savingTotalAmount);
+      this.summarySeries = [
+        this.depositIngAmount + this.depositFinishAmount,
+        this.savingFinishAmount + this.savingIngAmount,
+      ];
     },
   },
   methods: {
@@ -317,7 +368,7 @@ export default {
       return rate;
     },
     filtered(val) {
-      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
     },
     changeDepositData(index) {
       this.nowDepositChart = this.depositChart[index];
@@ -327,27 +378,35 @@ export default {
       this.nowSavingChart = this.savingChart[index];
       this.nowSavingCategory = this.savingCategory[index];
     },
-    calculate(start_date, amount, rate, simple, term, deposit) {
+    calculate(start_date, amount, rate, simple, term, deposit, today) {
       let result = [];
 
       let start = start_date.split("-");
       let year = parseInt(start[0]);
       let month = parseInt(start[1]);
       let dates = [];
+      let todayYear = today.getFullYear();
+      let todayMonth = today.getMonth();
+      let todayIndex = -1;
+      let isFulled = false;
 
       for (let i = 0; i <= term; i++) {
         if (month == 13) {
           year += 1;
           month = 1;
         }
+        if (year <= todayYear && month <= todayMonth + 1) todayIndex = i;
         dates.push([year, month].join("-"));
         month += 1;
       }
+      console.log(todayIndex);
+      if (todayIndex == term) isFulled = true;
 
       //원금
       let original = {};
       original.name = "원금";
       let data = [];
+      let savedMoney = 0;
 
       if (deposit)
         for (var i = 0; i <= term; i++) {
@@ -401,10 +460,23 @@ export default {
         if (deposit && simple) amount *= calcRate;
       }
 
+      let total = 0;
+      if (deposit) {
+        total +=
+          original.data[todayIndex] +
+          interest.data[todayIndex] +
+          interestCumulative.data[todayIndex];
+      } else {
+        total +=
+          original.data[todayIndex] +
+          interest.data[todayIndex] +
+          interestCumulative.data[todayIndex];
+      }
+
       result.push(interest);
       result.push(interestCumulative);
 
-      return { dates, result };
+      return { dates, result, total, isFulled };
     },
   },
   beforeCreate: function () {
