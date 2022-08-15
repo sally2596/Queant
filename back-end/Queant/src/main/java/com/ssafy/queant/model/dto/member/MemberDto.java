@@ -36,9 +36,7 @@ public class MemberDto implements UserDetails {
     private String name;
     @Schema(description = "성별(Female/Male)")
     private Gender gender;
-    @Schema(description = "생일")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul" )
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd")
     private Date birthdate;
     @ApiModelProperty(hidden = true)
     private int portfolioCnt;
