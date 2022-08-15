@@ -25,13 +25,6 @@
     <!-- 포트폴리오 있을 때 -->
     <div v-else class="w-75">
       <div class="container">
-        <!-- 포트폴리오 관리하기 버튼 -->
-        <router-link :to="{ name: 'portfolioEdit' }"
-          ><button class="btn btn-outline-success">
-            포트폴리오 관리하기
-          </button></router-link
-        ><br />
-
         <!-- 포트폴리오 요약 -->
         <!-- 예금과 적금의 비율 + 총 투자액 -->
         <div id="Summary" class="row justify">
@@ -55,6 +48,16 @@
               <h6>적금</h6>
               <div>{{ filtered(savingTotalAmount) }}원</div>
             </div>
+            <br /><br />
+            <!-- 포트폴리오 관리하기 버튼 -->
+            <div class="d-flex justify-content-end">
+              <router-link :to="{ name: 'portfolioEdit' }"
+                ><button class="btn btn-outline-success">
+                  포트폴리오 관리하기
+                </button></router-link
+              >
+            </div>
+            <br />
           </div>
         </div>
 
@@ -73,32 +76,24 @@
             <h6>{{ filtered(savingTotalAmount) }}원</h6>
           </div>
           <div class="d-flex justify-content-between">
-            <table class="col-6">
+            <table class="table">
               <thead>
                 <tr>
                   <th>은행</th>
                   <th>상품명</th>
                   <th>금액</th>
                   <th>금리</th>
-                  <th>차트</th>
                 </tr>
               </thead>
               <br />
               <tbody v-for="(saving, index) in savingSeries" :key="index">
-                <td>
-                  <img :src="saving.picture" alt="" style="width: 40px" />
-                </td>
-                <td>{{ saving.name }}</td>
-                <td>{{ saving.data[0] }}</td>
-                <td>{{ saving.rate }}%</td>
-                <td>
-                  <button
-                    class="btn btn-outline-success"
-                    @click="changeSavingData(index)"
-                  >
-                    보기
-                  </button>
-                </td>
+                <tr @click="changeSavingData(index)">
+                  <td>
+                    <img :src="saving.picture" alt="" style="width: 40px" />
+                  </td>
+                  <td>{{ saving.name }}</td>
+                  <td>{{ saving.rate }}%</td>
+                </tr>
               </tbody>
             </table>
             <column-chart
@@ -125,32 +120,24 @@
           </div>
 
           <div class="d-flex justify-content-between">
-            <table class="col-6">
+            <table class="table">
               <thead>
                 <tr>
                   <th>은행</th>
                   <th>상품명</th>
                   <th>금액</th>
                   <th>금리</th>
-                  <th>차트</th>
                 </tr>
               </thead>
               <br />
               <tbody v-for="(deposit, index) in depositSeries" :key="index">
-                <td>
-                  <img :src="deposit.picture" alt="" />
-                </td>
-                <td>{{ deposit.name }}</td>
-                <td>{{ deposit.data[0] }}</td>
-                <td>{{ deposit.rate }}%</td>
-                <td>
-                  <button
-                    class="btn btn-outline-success"
-                    @click="changeDepositData(index)"
-                  >
-                    보기
-                  </button>
-                </td>
+                <tr @click="changeDepositData(index)">
+                  <td>
+                    <img :src="deposit.picture" alt="" />
+                  </td>
+                  <td>{{ deposit.name }}</td>
+                  <td>{{ deposit.rate }}%</td>
+                </tr>
               </tbody>
             </table>
             <column-chart
@@ -270,7 +257,7 @@ export default {
           year += 1;
           month = 1;
         }
-        dates.push([year, month].join("/"));
+        dates.push([year, month].join("-"));
         month += 1;
       }
 
@@ -344,26 +331,9 @@ export default {
     this.fetchMyPortfolio();
 
     this.portfolio.forEach((item) => {
-      let amount = [item.amount];
       let productName = item.product.name;
       let picture = item.product.picture;
       let rate = this.sumDBProductRate(item);
-
-      const startDate = new Date(item.start_date);
-      const endDate = new Date(item.end_date);
-      let data = [];
-
-      data.push({
-        x: "saving",
-        y: [item.start_date, item.end_date],
-      });
-      if (item.product.deposit) {
-        this.depositTotalAmount += item.amount;
-        this.depositTotalRate += rate;
-      } else {
-        this.savingTotalAmount += item.amount;
-        this.savingTotalRate += rate;
-      }
       let result = this.calculate(
         item.start_date,
         item.amount,
@@ -375,26 +345,21 @@ export default {
       if (item.product.deposit) {
         this.depositSeries.push({
           name: productName,
-          data: amount,
           picture: picture,
           rate: rate,
-          startDate: startDate,
-          endDate: endDate,
         });
-
-        console.log(result);
+        this.depositTotalAmount += item.amount;
+        this.depositTotalRate += rate;
         this.depositChart.push(result.result);
         this.depositCategory.push(result.dates);
       } else {
         this.savingSeries.push({
           name: productName,
-          data: amount,
           picture: picture,
           rate: rate,
-          startDate: startDate,
-          endDate: endDate,
         });
-        console.log(result);
+        this.savingTotalAmount += item.amount;
+        this.savingTotalRate += rate;
         this.savingChart.push(result.result);
         this.savingCategory.push(result.dates);
       }
@@ -402,45 +367,43 @@ export default {
 
     // 커스텀 상품
     this.customProducts.forEach((item) => {
-      let amount = [item.amount];
       let productName = item.product_name;
       let picture = "../assets/image/퀸트_로고.png";
       let rate = this.sumCustomProductRate(item);
-      const startDate = new Date(item.start_date);
-      const endDate = new Date(item.end_date);
-
-      let data = [];
-      data.push({
-        x: "saving",
-        y: [item.start_date, item.end_date],
-      });
-
-      if (item.deposit) {
-        this.depositTotalAmount += item.amount;
-        this.depositTotalRate += rate;
-      } else {
-        this.savingTotalAmount += item.amount;
-        this.savingTotalRate += rate;
-      }
-
+      let startDate = new Date(item.start_date);
+      let endDate = new Date(item.end_date);
+      let term =
+        (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+        endDate.getMonth() -
+        startDate.getMonth();
+      let result = this.calculate(
+        item.start_date,
+        item.amount,
+        rate / 100,
+        item.fixed_rsrv,
+        term,
+        item.deposit
+      );
       if (item.deposit) {
         this.depositSeries.push({
           name: productName,
-          data: amount,
           picture: picture,
           rate: rate,
-          startDate: startDate,
-          endDate: endDate,
         });
+        this.depositTotalAmount += item.amount;
+        this.depositTotalRate += rate;
+        this.depositChart.push(result.result);
+        this.depositCategory.push(result.dates);
       } else {
         this.savingSeries.push({
           name: productName,
-          data: amount,
           picture: picture,
           rate: rate,
-          startDate: startDate,
-          endDate: endDate,
         });
+        this.savingTotalAmount += item.amount;
+        this.savingTotalRate += rate;
+        this.savingChart.push(result.result);
+        this.savingCategory.push(result.dates);
       }
     });
 
