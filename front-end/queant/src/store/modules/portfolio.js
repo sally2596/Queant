@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default {
   state: {
-    product_name: '',
+    comparisonProducts: [],
     portfolio: [],
     customProducts: [],
     portfolios: [],
@@ -13,7 +13,7 @@ export default {
     deletedPortfolio:[],
     },
   getters: {
-    product_name: state => state.product_name,
+    comparisonProducts: state=> state.comparisonProducts,
     portfolio: state => state.portfolio,
     customProducts: state => state.customProducts,
     portfolios: state => state.portfolios,
@@ -22,38 +22,35 @@ export default {
     deletedPortfolio: state => state.deletedPortfolio,
   },
   mutations: {
-    SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
     SET_CUSTOM_PRODUCTS: (state, customProducts) => state.customProducts = customProducts,
-    UPDATE_CPORTFOLIO_FROM_DB(state, value) {
-      state.comparisonPortfolio = value;
-    },
-    PUSH_PRODUCT_TO_PORTFOLIO(state, value) {
-      let portfolioNo = value.portfolioNo
 
-      if (portfolioNo > state.portfolios.length) {
-        state.portfolios.push([value])
-        console.log('내 포트폴리오에 상품이 담겼습니다.')
-      } else {
-        state.portfolios[portfolioNo-1].push(value)
-        console.log('내 포트폴리오에 상품을 추가했습니다.')
-      }
-    },
+    // Comparison Portfolio
+
+    UPDATE_CPORTFOLIO_FROM_DB(state, value) {state.comparisonPortfolio = value;},
+    
+      // DB정리
     CLEAR_CPORTFOLIO_DB(state) {
       state.newlyAddedPortfolio = [],
       state.deletedPortfolio = []
     },
-
+    ADD_COMPARISON_PORTFOLIO_PRODUCTS(state, product) {
+      state.comparisonProducts.push(product);
+    },
+      // 포트폴리오 삭제하기
     POP_CPORTFOLIO(state, cportfolio_cnt) {
       state.deletedPortfolio.push(cportfolio_cnt)
       let portfolioNo = cportfolio_cnt
       // 삭제된 포트폴리오의 이후 포트폴리오의 cnt를 1씩 차감
-      for (let i=portfolioNo; i <= state.comparisonPortfolio.length-1; i++) {
+      for (let i=portfolioNo; i < state.comparisonPortfolio.length; i++) {
         state.comparisonPortfolio[i].cportfolio_cnt -= 1
         console.log(state.comparisonPortfolio[i])
       }
       state.comparisonPortfolio.splice(portfolioNo-1, 1)
     },
+
+      // 포트폴리오 추가하기
     ADD_COMPARISON_PORTFOLIO(state) {
+      // 0개일 때
       if (state.comparisonPortfolio.length === 0) {
         state.newlyAddedPortfolio.push(1);
         state.comparisonPortfolio.push({
@@ -61,47 +58,53 @@ export default {
           products: []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if (state.comparisonPortfolio.length <= 4) {
+      // 1~3개일 때
+      } else if (state.comparisonPortfolio.length < 4) {
         state.newlyAddedPortfolio.push(state.comparisonPortfolio.length+1)
         state.comparisonPortfolio.push({
-          cportfolio_cnt: (state.comparisonPortfolio.length) +1,
+          cportfolio_cnt: (state.comparisonPortfolio.length)+1,
           products: []
         }),
         console.log('새로운 가상 포트폴리오가 추가되었습니다.')
-      } else if (state.comparisonPortfolio.length > 4) {
+      // 4개일 때
+      } else if (state.comparisonPortfolio.length > 3) {
         alert('더 이상 가상 포트폴리오를 만들 수 없습니다.')
       }
     },
 
+      // 가상 포트폴리오에 상품 추가하기
     PUSH_PRODUCT_TO_CPORTFOLIO(state, value) {
+      // 추가할 정보 정리
       let portfolioNo = value[0]
       let product = value[1]
       let cportfolios = state.comparisonPortfolio
       let pushproduct = {
-        portfolio_no: portfolioNo,
-        product_id: product.product.product_id,
         amount: product.amount,
         condition_ids: product.condition_ids,
+        end_date: product.end_date,
+        portfolio_no: portfolioNo,
+        product: product.product,
+        product_id: product.product.product_id,
         option_id: product.option_id,
         start_date: product.start_date,
-        end_date: product.end_date,
-        name: product.product.name
       }
+      console.log(pushproduct)
       if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product_id === product.product.product_id)) {
-        alert('이미 포트폴리오에 있는 상품입니다.')
+        alert(`${product.product.name}은 이미 포트폴리오에 있는 상품입니다.`)
       } else {
         state.comparisonPortfolio[portfolioNo-1].products.push(pushproduct)
-      console.log(`${portfolioNo}번 포트폴리오에 상품이 담겼습니다.`)
+        alert(`${portfolioNo}번 포트폴리오에 ${pushproduct.name}상품이 담겼습니다.`)
       }
     },
-
+    // 상품 삭제
     POP_PRODUCT_FROM_CPORTFOLIO(state, value) {
-      let portfolioNo = value[0]
-      let FindProduct = value[1]
-      let cportfolios = state.comparisonPortfolio
-      let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
-      cportfolios[portfolioNo-1].products.splice(item, 1)
-      alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.product.name} 상품을 삭제했습니다.`)
+    let portfolioNo = value[0]
+    let FindProduct = value[1]
+    let cportfolios = state.comparisonPortfolio
+    let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
+    
+    alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.name} 상품을 삭제했습니다.`)
+    cportfolios[portfolioNo-1].products.splice(item, 1)
     },
 
     POP_CPORTFOLIO_FROM_CPORTFOLIOS(state, cportfolioIdx) {
@@ -113,6 +116,20 @@ export default {
       state.comparisonPortfolio = []
     },
 
+    // My Portfolio
+    
+    SET_PORTFOLIO: (state, portfolio) => state.portfolio = portfolio,
+    PUSH_PRODUCT_TO_PORTFOLIO(state, value) {
+      let portfolioNo = value.portfolioNo
+
+      if (portfolioNo > state.portfolios.length) {
+        state.portfolios.push([value])
+        console.log('내 포트폴리오에 상품이 담겼습니다.')
+      } else {
+        state.portfolios[portfolioNo-1].push(value)
+        console.log('내 포트폴리오에 상품을 추가했습니다.')
+      }
+    },
     POP_PORTFOLIO_FROM_PORTFOLIOS(state, portfolioIdx) {
       state.portfolios.splice(portfolioIdx, 1)
       console.log(`${portfolioIdx+1}번 포트폴리오를 삭제했습니다.`)
@@ -124,11 +141,10 @@ export default {
       state.portfolios[portfolioIdx].splice(productIdx, 1)
       console.log(`${portfolioIdx+1}번 포트폴리오의 ${productIdx+1}번 상품을 삭제했습니다.`)
     },
-    CHANGE_NAMES(state, name) {
-      state.product_name = name
-    }
   },
+
   actions: {
+    // Custom Product
     deleteCustomProduct({ dispatch }, product_id) {
       console.log(product_id)
       axios({
@@ -191,6 +207,9 @@ export default {
         console.log(err)
       })
     },
+
+    // My Portfolio
+
     deletePortfolio({ dispatch }, portfolio_id) {
       console.log(portfolio_id)
       axios({
@@ -299,11 +318,16 @@ export default {
       })
     },
 
+    // Comparison Portfolio
+
     // 가상 포트폴리오 DB 저장 및 가져오기
-    saveToDb({ dispatch, state, getters }) {
+    saveToDb({ dispatch, commit, state, getters }) {
       //삭제된 포트폴리오 DB에서 제거하기
+      // 삭제된 포트폴리오가 있다면 요청 보내기
       if (state.deletedPortfolio.length != 0) {
-        for (const port_no of state.deletedPortfolio) {
+        for (let i=0; i<state.deletedPortfolio.length; i++) {
+          let port_no = state.deletedPortfolio[i]
+          // port_no번에 해당하는 포트폴리오를 모두 삭제해 주세요.
           axios({
             url: spring.portfolio.portfolio(),
             method: 'delete',
@@ -313,82 +337,108 @@ export default {
             }
           }).then(res => {
             console.log(res)
-            console.log(port_no+'번 포트폴리오가 DB에서 제거되었습니다.')
+            console.log(`${i+1}번 포트폴리오가 DB에서 삭제되었습니다.`)
           })
           .catch(err => {
             console.log(err)
           })
         }
       }
-      //현재 남아있는 포트폴리오 수정 및 삽입
-      for (let i = 1; i <= state.comparisonPortfolio.length; i++){
-        if (state.newlyAddedPortfolio.includes(i)) {
-          console.log(state.comparisonPortfolio[i-1])
+    //현재 남아있는 포트폴리오 수정 및 삽입
+    for (let i = 0; i < state.comparisonPortfolio.length; i++){
+      // 새로 추가된 포트폴리오가 있다면
+      if (state.newlyAddedPortfolio.includes(i+1)) {
+          // 만약 비어있는 포트폴리오가 있다면 새로 저장할 수 없음.
+          if (state.comparisonPortfolio[i].cportfolio_cnt === (i+1) && state.comparisonPortfolio[i].products.length === 0) {
+            commit('POP_CPORTFOLIO', i+1)
+            alert(`비어 있는 ${i+1}번 포트폴리오를 삭제했습니다.`)
+          } else if (state.comparisonPortfolio[i].cportfolio_cnt === (i+1) && state.comparisonPortfolio[i].length != 0) {
           let tempPortfolioList = [];
-          for (const port of state.comparisonPortfolio[i - 1].products) {
-            console.log(port.option_id)
+          for (let port of state.comparisonPortfolio[i].products) {
             let temp = {
-              portfolio_no:i,
-              product_id:port.product_id,
-              amount:port.amount,
+              amount: port.amount,
               condition_ids: port.condition_ids,
-              option_id:port.option_id,
+              end_date: port.end_date,
+              portfolio_no: port.portfolio_no,
+              product_id: port.product_id,
+              option_id: port.option_id,
               start_date: port.start_date,
-              end_date: port.end_date
             }
             tempPortfolioList.push(temp)
           }
           console.log(tempPortfolioList)
-          console.log(getters.userInfo)
+          console.log('올릴 자료')
           axios({
             url: spring.portfolio.portfolio(),
             method: 'post',
             data: {
               member_id: getters.userInfo.member_id,
-              portfolio_dto_list:tempPortfolioList
-            }
-          }).then(res => {
-            console.log(res)
-            console.log(i+'번 포트폴리오가 DB에 저장되었습니다.')
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        } else {
-          let tempPortfolioList = [];
-          console.log(state.comparisonPortfolio[i-1])
-          for (const port of state.comparisonPortfolio[i - 1].products) {
-            console.log(port.option_id)
-            let temp = {
-              portfolio_no:i,
-              product_id:port.product_id,
-              amount:port.amount,
-              condition_ids: port.condition_ids,
-              option_id: port.option_id,
-              start_date: port.start_date,
-              end_date: port.end_date
-            }
-            tempPortfolioList.push(temp)
-          }
-          console.log(tempPortfolioList)
-          axios({
-            url: spring.portfolio.portfolio(),
-            method: 'put',
-            data: {
-              member_id: getters.userInfo.member_id,
-              portfolio_no: i,
+              portfolio_no: i+1,
               portfolio_dto_list: tempPortfolioList
             }
           }).then(res => {
             console.log(res)
-            console.log(i+'번 포트폴리오가 DB에 업데이트 되었습니다.')
+            alert(`${i+1}번 포트폴리오가 DB에 새롭게 저장되었습니다.`)
+          })
+          .catch(err => {
+            console.log(err)
+          })}
+        // 새로 추가된 것이 없는 경우
+      } else {
+        // 이 경우에도 비어있는 경우 저장할 수 없고, 오히려 삭제할 것.
+        if (state.comparisonPortfolio[i].cportfolio_cnt === (i+1) && state.comparisonPortfolio[i].products.length === 0) {
+          alert(`비어 있는 포트폴리오를 저장할 수 없습니다. ${i+1}번 포트폴리오를 DB에서 삭제합니다.`)
+          let port_no = state.comparisonPortfolio[i].cportfolio_cnt
+          // port_no번에 해당하는 포트폴리오를 모두 삭제해 주세요.
+          axios({
+            url: spring.portfolio.portfolio(),
+            method: 'delete',
+            data: {
+              member_id: getters.userInfo.member_id,
+              portfolio_no:port_no
+            }
+          }).then(res => {
+            console.log(res)
+            alert(`${i+1}번 포트폴리오가 DB에서 삭제되었습니다.`)
           })
           .catch(err => {
             console.log(err)
           })
+          // 비어있지 않은 경우
+        } else if (state.comparisonPortfolio[i].cportfolio_cnt === (i+1) && state.comparisonPortfolio[i].length != 0) {
+        let tempPortfolioList = [];
+        console.log(state.comparisonPortfolio[i])
+        for (let port of state.comparisonPortfolio[i].products) {
+          console.log(port.option_id)
+          let temp = {
+            amount: port.amount,
+            condition_ids: port.condition_ids,
+            end_date: port.end_date,
+            portfolio_no: port.portfolio_no,
+            product_id: port.product_id,
+            option_id: port.option_id,
+            start_date: port.start_date,
+          }
+          tempPortfolioList.push(temp)
         }
+        console.log(tempPortfolioList)
+        axios({
+          url: spring.portfolio.portfolio(),
+          method: 'put',
+          data: {
+            member_id: getters.userInfo.member_id,
+            portfolio_no: i+1,
+            portfolio_dto_list: tempPortfolioList
+          }
+        }).then(res => {
+          console.log(res)
+          alert(`${i+1}번 포트폴리오를 DB에서 수정했습니다.`)
+        })
+        .catch(err => {
+          console.log(err)
+        })}
       }
-      
+    }
     },
     getFromDb({ commit, dispatch, state, getters, actions }) {
       // Clear DB를 실행(추가, 삭제 초기화)
@@ -414,24 +464,40 @@ export default {
             products: []
           })
         }
-        
         // 받아온 데이터를 다시 형식에 맞게 변경
         for (let i = 0; i<firstdata.length; i++) {
           for (let j = 0; j<firstdata[i].length; j++) {
             bringdata[i].products.push({
-              portfolio_no: firstdata[i][j].portfolio_no,
-              product_id: firstdata[i][j].product_id,
               amount: firstdata[i][j].amount,
               condition_ids: firstdata[i][j].condition_ids,
+              end_date: firstdata[i][j].end_date,
+              portfolio_no: firstdata[i][j].portfolio_no,
+              product: firstdata[i][j].product,
+              product_id: firstdata[i][j].product_id,
               option_id: firstdata[i][j].option_id,
               start_date: firstdata[i][j].start_date,
-              end_date: firstdata[i][j].end_date,
-              name: firstdata[i][j].product.name
             })
+            dispatch('getProductDetails', firstdata[i][j].product_id)
           }
         }
         // ComparisonPortfolio를 업데이트
         commit('UPDATE_CPORTFOLIO_FROM_DB', bringdata);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    getProductDetails({ commit, dispatch }, productId) {
+      axios({
+        url: spring.product.detail(productId),
+        method: 'get',
+        params: {
+            productId: productId
+        }
+      })
+      .then(res=> {
+        console.log(res.data)
+        commit('ADD_COMPARISON_PORTFOLIO_PRODUCTS', res.data)
       })
       .catch(err => {
         console.log(err)

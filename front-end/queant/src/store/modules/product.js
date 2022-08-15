@@ -39,29 +39,14 @@ export default {
         }
       }
     },
+    // 카트에서 프로덕트 삭제
     POP_PRODUCT_FROM_CART(state, product) {
-        let idOfProduct = product.product.product_id
-        let deleteproductIdx = state.cart.indexOf('idOfProduct')
+        let deleteproductIdx = state.cart.indexOf('product')
         state.cart.splice(deleteproductIdx, 1)
-        alert(`${product.name} 상품을 장바구니에서 제거했습니다.`)
+        alert(`${product.product.name} 상품을 장바구니에서 제거했습니다.`)
       }
   },
   actions: {
-    getName({commit}, productId) {
-      axios({
-        url: spring.product.detail(productId),
-        method: 'get',
-        params: {
-          productId: productId
-        }
-      })
-      .then(res => {
-        console.log(res.data.product.name)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
     fetchKeywords({ commit }) {
       axios({
         url: spring.search.keyword(),

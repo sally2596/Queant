@@ -24,7 +24,7 @@
           </dd>
         </dl>
         <br><br>
-        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product?.product)"><h3><i class="fa-solid fa-cart-arrow-down"></i></h3></button>
+        <button class="btn btn-outline-success btn-sm mx-3" @click="openModal(product?.product)"><i class="fa-solid fa-cart-arrow-down"></i></button>
       </div>
     </div>
     <!-- 모달 -->
