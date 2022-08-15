@@ -3,6 +3,9 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
+  <p>{{cart}}</p>
+  <p>{{comparisonPortfolio}}</p>
+  <p>{{comparisonProducts}}</p>
   <!-- 장바구니 섹션 -->
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
@@ -78,7 +81,7 @@
             <div>아직 상품이 없습니다.</div>
           </div>
           <div v-else v-for="cproduct in cportfolio.products" class="d-flex mx-2 my-2" style="font-size: 15px;" :key="cproduct">
-                {{cproduct.name}}
+                {{cproduct.product.name}}
                 <button style="height:1.2rem; font-size: 5px;" class="d-flex align-items-center p-2 btn btn-outline-danger btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
           </div>
           <button class="btn btn-danger btn-sm" type="button" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>
@@ -99,7 +102,7 @@ export default {
   name: 'ProductCartView',
   components : { Navbar, Modal, draggable },
   computed: {
-    ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products']),
+    ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products', 'comparisonProducts']),
   },
   methods: {
     ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb', 'pushProductToPortfolio']),
