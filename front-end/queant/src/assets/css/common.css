@@ -21,6 +21,7 @@
 }
 
 .bank-title {
+  font-family: 'jua';
   position:absolute;
   left:50%;
   right:50%;
@@ -61,4 +62,21 @@
 
 #featured_banks_3 .row {
   width: 100%
+}
+
+.product-detail-sub-box {
+  width: 250px;
+}
+
+.product-detail-sub{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product_detail_button{
+  width: 150px;
+  position:absolute;
+  left:50%;
+  right:50%;
+  transform: translate(-50%,0%);
 }
