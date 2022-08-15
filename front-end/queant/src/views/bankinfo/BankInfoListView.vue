@@ -10,7 +10,6 @@
 
   <h1 class="bank-title">은행</h1>
   <br>
-  <h1>은행</h1>
   <section class="section-floater">
     <div id="featured_banks">
       <div class="row">
@@ -37,8 +36,6 @@
 
   <h1 class="bank-title">저축은행</h1>
   <br>
-
-  <h1>저축은행</h1>
 
   <section class="section-floater">
     <div id="featured_banks">
