@@ -94,6 +94,7 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
+        <!-- 버튼함수에 pushProductToPortfolio(payload) 이거 넣어야댐 -->
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
@@ -125,6 +126,14 @@ export default {
     ...mapActions(['pushProductToPortfolio']),
     ...mapMutations(['PUSH_PRODUCT_TO_CART']),
     pushProductToCart(payload) {
+      // 적용한 우대사항 추가 금리 추가
+      // for (let productCondition of this.product.conditions) {
+      //   for (let selectedConditionId of payload.condition_ids) {
+      //     if (productCondition.condition_id === selectedConditionId) {
+      //       payload.applied_rate += productCondition.special_rate
+      //     }
+      //   }
+      // }
       this.PUSH_PRODUCT_TO_CART(payload)
     },
     checkForm() {
@@ -145,14 +154,24 @@ export default {
         this.payload.amount += money
       else
         alert('납입금액을 확인해주세요.')
+    },
+    // 선택한 이자유형 & 개월수에 따라 payload.applied_rate 변경
+    changeBaseRate(option_id) {
+      for (let option of this.product.options) {
+        if (option.option_id === option_id) {
+          this.payload.applied_rate = option.base_rate
+          this.payload.applied_period = option.save_term
+        }
+      }
     }
   },
   watch: {
     payload: {
       deep: true,
-      handler() {
+      handler(v) {
         this.checkForm()
-      },
+        this.changeBaseRate(v.option_id)
+      }
 			// dateCheck(data) {
 			// 	let date = data.split('-');
 
@@ -173,7 +192,9 @@ export default {
         start_date: null,
         end_date: null,
         option_id: this.modalData.selected_option_id?this.modalData.selected_option_id:'선택',
-        product: this.modalData
+        product: this.modalData,
+        applied_rate: null,
+        applied_period: null
       },
       error: {
         amount: '',
@@ -181,6 +202,14 @@ export default {
       },
       isCheckedForm: false
     }
+  },
+  created() {
+    for (let option of this.product.options) {
+        if (option.option_id === this.modalData.selected_option_id) {
+          this.payload.applied_rate = option.base_rate
+          this.payload.applied_period = option.save_term
+        }
+      }
   }
 }
 </script>
