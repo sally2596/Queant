@@ -1,32 +1,44 @@
 <template>
   <Navbar/>
-  <header id="title-div">
+  <div class="container">
     <h1 class="title" id="title">추천 결과</h1>
-  </header>
-  <section class="product_section">
-    <div id="cart-item">
-      <table class="border">
-        <thead class="border">
-          <tr class="text-center">
-            <th>은행</th>
-            <th>상품명</th>
-            <th>기본 금리</th>
-            <th>최소 가입 기간</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody v-for="product in tenProducts" :key="product.product_id" class="border">
-          <tr scope="row">
-            <td class="col-1 text-center"><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
-            <td class="col-5 text-center"><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
-            <td class="col-2 text-center">{{product.base_rate}}%</td>
-            <td class="col-2 text-center">{{product.term_min}}개월</td>
-            <td class="col-2 text-center"><button class="btn btn-outline-success" id="show-modal" @click="openModal(product)">상품 담기</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    <table class="rwd-table my-5">
+      <tbody>
+        <tr>
+          <th class="text-center">은행</th>
+          <th class="text-center">상품명</th>
+          <th class="text-center">기본 금리</th>
+          <th class="text-center">최소 가입기간</th>
+          <th class="text-center">유형</th>
+          <th></th>
+        </tr>
+        <tr
+          v-for="product in tenProducts"
+          :key="product.product_id">
+          <td data-th="Supplier Code">
+            <router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link>
+          </td>
+          <td class="text-center" data-th="Supplier Name">
+            <router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link>
+          </td>
+          <td class="text-center" data-th="Invoice Number">
+            {{ product.base_rate }}%
+          </td>
+          <td class="text-center" data-th="Invoice Date">
+            {{ product.term_min }}개월
+          </td>
+          <td class="text-center" data-th="Due Date">
+            <p v-if="product.deposit">예금</p>
+            <p v-else>적금</p>
+          </td>
+          <td data-th="Net Amount">
+            <button class="btn btn-outline-success" id="show-modal" @click="openModal(product)"><i class="fa-solid fa-cart-arrow-down"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <h3>퀸트에서 등록한 상품</h3> -->
+  </div>
 
   <!-- 페이지네이션 -->
   <div class="d-flex justify-content-center mb-5">
@@ -108,4 +120,5 @@ export default {
 <style>
 @import '@/assets/css/home.css';
 @import '@/assets/css/product.css';
+@import '@/assets/css/table.css';
 </style>
