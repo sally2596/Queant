@@ -457,6 +457,95 @@ export default {
 
       return { dates, result };
     },
+		temp() {
+			for(let i=0; i<this.portfolio.length; i++) {
+			let name = this.portfolio[i].product.name;
+			let term = this.portfolio[i].option.save_term;
+			let amount = this.portfolio[i].amount;
+			//단복리
+			let type = this.portfolio[i].option.rate_type;
+			//예적금
+			let dep = this.portfolio[i].product.deposit;
+
+			let start = this.portfolio[i].start_date.split('-');
+			let year = parseInt(start[0]);
+			let month = parseInt(start[1]);
+
+			let rate = this.portfolio[i].option.base_rate;
+
+			if(this.portfolio[i].conditions) {
+				for(let j=0; j<this.portfolio[i].conditions.length; j++) {
+					rate += this.portfolio[i].conditions[j].special_rate;
+				}
+			}
+
+			const result = [
+				{
+					name: "원금",
+					data: []
+				},
+				{
+					name: "이번달 이자",
+					data: []
+				},
+				{
+					name: "누적 이자",
+					data: []
+				}
+			]
+
+			let sum = 0;
+
+			if(type) {
+				console.log("적금복리계산")
+				for(let i=0; i<term; i++) {
+					if (month==13) {
+						year++;
+						month=1;
+					}
+					let date = new Date(year,month,1);
+					const msTime = date.getTime();
+					let moneyOrigin = amount*(i+1);
+					result[0].data.push([msTime,moneyOrigin]);
+					const moneyInterest = Math.ceil(amount*((1+rate*0.01/term)**(term-i))-amount);
+					result[1].data.push([msTime,moneyInterest]);
+					sum += moneyInterest;
+					result[2].data.push([msTime,sum]);
+					//sum += amount*((1+(rate*0.01/term))**(term-i));
+
+					month++;
+				}
+			} else {
+			console.log("적금단리계산")
+				for(let i=0; i<term; i++) {
+					if (month==13) {
+						year++;
+						month=1;
+					}
+					let date = new Date(year,month,1);
+					const msTime = date.getTime();
+					let moneyOrigin = amount*(i+1);
+					result[0].data.push([msTime,moneyOrigin]);
+					const moneyInterest = Math.ceil(amount*rate*0.01*(term-i)/term);
+					result[1].data.push([msTime,moneyInterest]);
+					sum += moneyInterest;
+					result[2].data.push([msTime,sum]);
+
+					month++;
+				}
+			}		
+			this.savingProduct.push({
+				name:name,
+				term:term,
+				rate:rate,
+				type:type,
+				dep:dep,
+				amount:amount,
+				data: result
+			});
+		}
+		console.log(this.savingProduct);	
+		}
   },
   beforeCreate: function () {
     document.body.className = "home_body";
