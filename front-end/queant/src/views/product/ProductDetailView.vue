@@ -51,7 +51,7 @@
                 class="btn btn-outline-success btn-sm mx-3 product_detail_button"
                 @click="openModal(product?.product)"
               >
-                <h3 style="font-weight: bold;">상품담기<i class="fa-solid fa-cart-arrow-down"></i></h3>
+                <h3 style="font-weight: bold;margin-top: 5px; margin-bottom: 5px;">상품담기<i class="fa-solid fa-cart-arrow-down"></i></h3>
               </button>
             </div>
           <!-- 모달 -->
