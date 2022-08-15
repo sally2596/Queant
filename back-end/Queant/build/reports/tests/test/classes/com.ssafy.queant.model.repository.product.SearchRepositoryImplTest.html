@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.563s</div>
+<div class="counter">0.496s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">searchBank()</td>
-<td class="success">0.563s</td>
+<td class="success">0.496s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,21 +87,21 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>21:43:40.869 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
-21:43:40.879 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
-21:43:40.918 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
-21:43:40.930 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest], using SpringBootContextLoader
-21:43:40.934 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: class path resource [com/ssafy/queant/model/repository/product/SearchRepositoryImplTest-context.xml] does not exist
-21:43:40.935 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: class path resource [com/ssafy/queant/model/repository/product/SearchRepositoryImplTestContext.groovy] does not exist
-21:43:40.935 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-21:43:40.935 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: SearchRepositoryImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-21:43:40.998 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]
-21:43:41.115 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/sunyoung/SSAFY/S07P11A201/back-end/Queant/build/classes/java/main/com/ssafy/queant/QueantApplication.class]
-21:43:41.117 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ssafy.queant.QueantApplication for test class com.ssafy.queant.model.repository.product.SearchRepositoryImplTest
-21:43:41.247 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: using defaults.
-21:43:41.248 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-21:43:41.321 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@50cf5a23, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@450794b4, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@273c947f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@30457e14, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1af1347d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@632aa1a3, org.springframework.test.context.transaction.TransactionalTestExecutionListener@20765ed5, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3b582111, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@2899a8db, org.springframework.test.context.event.EventPublishingTestExecutionListener@1e8823d2, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@c1a4620, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@76b0ae1b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@130a0f66, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4c432866, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@12365c88, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6105f8a3, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2237bada]
-21:43:41.327 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@4c5204af testClass = SearchRepositoryImplTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3f3ddbd9 testClass = SearchRepositoryImplTest, locations = '{}', classes = '{class com.ssafy.queant.QueantApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2262b621, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@10993713, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5f031ebd, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@53812a9b, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@5974109, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@452e19ca], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+<pre>22:22:41.032 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+22:22:41.044 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+22:22:41.085 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+22:22:41.099 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest], using SpringBootContextLoader
+22:22:41.104 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: class path resource [com/ssafy/queant/model/repository/product/SearchRepositoryImplTest-context.xml] does not exist
+22:22:41.104 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: class path resource [com/ssafy/queant/model/repository/product/SearchRepositoryImplTestContext.groovy] does not exist
+22:22:41.104 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+22:22:41.105 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: SearchRepositoryImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:22:41.164 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]
+22:22:41.284 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/sunyoung/SSAFY/S07P11A201/back-end/Queant/build/classes/java/main/com/ssafy/queant/QueantApplication.class]
+22:22:41.287 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ssafy.queant.QueantApplication for test class com.ssafy.queant.model.repository.product.SearchRepositoryImplTest
+22:22:41.413 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.ssafy.queant.model.repository.product.SearchRepositoryImplTest]: using defaults.
+22:22:41.414 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+22:22:41.480 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@50cf5a23, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@450794b4, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@273c947f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@30457e14, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1af1347d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@632aa1a3, org.springframework.test.context.transaction.TransactionalTestExecutionListener@20765ed5, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3b582111, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@2899a8db, org.springframework.test.context.event.EventPublishingTestExecutionListener@1e8823d2, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@c1a4620, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@76b0ae1b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@130a0f66, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4c432866, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@12365c88, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6105f8a3, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2237bada]
+22:22:41.487 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@4c5204af testClass = SearchRepositoryImplTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3f3ddbd9 testClass = SearchRepositoryImplTest, locations = '{}', classes = '{class com.ssafy.queant.QueantApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2262b621, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@10993713, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5f031ebd, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@53812a9b, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@5974109, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@452e19ca], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -111,7 +111,7 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.6.7)
 
-2022-08-15 21:43:43.018  WARN 22378 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+2022-08-15 22:22:42.048  WARN 22935 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
 
 Found multiple occurrences of org.json.JSONObject on the class path:
 
@@ -120,11 +120,11 @@ Found multiple occurrences of org.json.JSONObject on the class path:
 
 You may wish to exclude one of them to ensure predictable runtime behavior
 
-2022-08-15 21:43:43.038  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : Starting SearchRepositoryImplTest using Java 11.0.15 on JunSunyoungui-MacBookAir.local with PID 22378 (started by sunyoung in /Users/sunyoung/SSAFY/S07P11A201/back-end/Queant)
-2022-08-15 21:43:43.039  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : The following 2 profiles are active: &quot;mail&quot;, &quot;API-KEY&quot;
-2022-08-15 21:43:44.849  INFO 22378 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2022-08-15 21:43:45.021  INFO 22378 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 160 ms. Found 12 JPA repository interfaces.
-2022-08-15 21:43:51.838  WARN 22378 --- [    Test worker] com.amazonaws.util.EC2MetadataUtils      : Unable to retrieve the requested metadata (/latest/meta-data/instance-id). Failed to connect to service endpoint: 
+2022-08-15 22:22:42.064  INFO 22935 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : Starting SearchRepositoryImplTest using Java 11.0.15 on JunSunyoungui-MacBookAir.local with PID 22935 (started by sunyoung in /Users/sunyoung/SSAFY/S07P11A201/back-end/Queant)
+2022-08-15 22:22:42.065  INFO 22935 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : The following 2 profiles are active: &quot;mail&quot;, &quot;API-KEY&quot;
+2022-08-15 22:22:43.879  INFO 22935 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-15 22:22:44.060  INFO 22935 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 173 ms. Found 12 JPA repository interfaces.
+2022-08-15 22:22:50.868  WARN 22935 --- [    Test worker] com.amazonaws.util.EC2MetadataUtils      : Unable to retrieve the requested metadata (/latest/meta-data/instance-id). Failed to connect to service endpoint: 
 
 com.amazonaws.SdkClientException: Failed to connect to service endpoint: 
 	at com.amazonaws.internal.EC2ResourceFetcher.doReadResource(EC2ResourceFetcher.java:100) ~[aws-java-sdk-core-1.11.792.jar:na]
@@ -256,74 +256,66 @@ Caused by: java.net.ConnectException: Host is down (connect failed)
 	at com.amazonaws.internal.EC2ResourceFetcher.doReadResource(EC2ResourceFetcher.java:80) ~[aws-java-sdk-core-1.11.792.jar:na]
 	... 108 common frames omitted
 
-2022-08-15 21:43:52.465  INFO 22378 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#2c34402' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-08-15 21:43:52.470  INFO 22378 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#3e2d44f3' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-08-15 21:43:52.487  INFO 22378 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#286866cb' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-08-15 21:43:52.518  INFO 22378 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-08-15 21:43:52.519  INFO 22378 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-08-15 21:43:53.402  INFO 22378 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2022-08-15 21:43:53.530  INFO 22378 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2022-08-15 21:43:53.730  INFO 22378 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2022-08-15 21:43:53.792  INFO 22378 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
-2022-08-15 21:43:53.998  INFO 22378 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2022-08-15 21:43:54.119  INFO 22378 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB106Dialect
-2022-08-15 21:43:55.223  INFO 22378 --- [    Test worker] p6spy                                    : #1660567435223 | took 5ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+2022-08-15 22:22:51.513  INFO 22935 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#1b4a3a1' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-08-15 22:22:51.519  INFO 22935 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#9f0fc36' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-08-15 22:22:51.536  INFO 22935 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#4438b862' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-08-15 22:22:51.563  INFO 22935 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-08-15 22:22:51.564  INFO 22935 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-08-15 22:22:52.329  INFO 22935 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-15 22:22:52.414  INFO 22935 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-15 22:22:52.564  INFO 22935 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-15 22:22:52.612  INFO 22935 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-08-15 22:22:52.838  INFO 22935 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-15 22:22:52.955  INFO 22935 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MariaDB106Dialect
+2022-08-15 22:22:54.073  INFO 22935 --- [    Test worker] p6spy                                    : #1660569774073 | took 5ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
 select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE'
 select table_name from information_schema.tables where table_schema = database() and table_type = 'SEQUENCE';
-2022-08-15 21:43:55.253  INFO 22378 --- [    Test worker] p6spy                                    : #1660567435253 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+2022-08-15 22:22:54.104  INFO 22935 --- [    Test worker] p6spy                                    : #1660569774104 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
 select * from `queant`.`member` where 1=0
 select * from `queant`.`member` where 1=0;
-2022-08-15 21:43:55.258  INFO 22378 --- [    Test worker] p6spy                                    : #1660567435258 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+2022-08-15 22:22:54.109  INFO 22935 --- [    Test worker] p6spy                                    : #1660569774109 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
 select * from `queant`.`member` where 1=0
 select * from `queant`.`member` where 1=0;
-2022-08-15 21:43:55.260  INFO 22378 --- [    Test worker] p6spy                                    : #1660567435260 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+2022-08-15 22:22:54.112  INFO 22935 --- [    Test worker] p6spy                                    : #1660569774112 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
 select * from `queant`.`options` where 1=0
 select * from `queant`.`options` where 1=0;
-2022-08-15 21:43:55.262  INFO 22378 --- [    Test worker] p6spy                                    : #1660567435262 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+2022-08-15 22:22:54.113  INFO 22935 --- [    Test worker] p6spy                                    : #1660569774113 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
 select * from `queant`.`product` where 1=0
 select * from `queant`.`product` where 1=0;
-2022-08-15 21:43:55.265  INFO 22378 --- [    Test worker] p6spy                                    : #1660567435265 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+2022-08-15 22:22:54.117  INFO 22935 --- [    Test worker] p6spy                                    : #1660569774117 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
 select * from `queant`.`conditions` where 1=0
 select * from `queant`.`conditions` where 1=0;
-2022-08-15 21:43:55.267  INFO 22378 --- [    Test worker] p6spy                                    : #1660567435267 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
+2022-08-15 22:22:54.119  INFO 22935 --- [    Test worker] p6spy                                    : #1660569774119 | took 0ms | statement | connection 2| url jdbc:mariadb://localhost:3306/queant
 select * from `queant`.`portfolio` where 1=0
 select * from `queant`.`portfolio` where 1=0;
-2022-08-15 21:43:55.270  INFO 22378 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-08-15 21:43:55.277  INFO 22378 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2022-08-15 21:43:56.071  WARN 22378 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [m.roleSet.size]; use collection function syntax instead [size(m.roleSet)].
-2022-08-15 21:43:56.265  WARN 22378 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2022-08-15 21:43:58.941  INFO 22378 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2022-08-15 21:43:59.084  WARN 22378 --- [    Test worker] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2022-08-15 21:43:59.488  INFO 22378 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73534675, org.springframework.security.web.context.SecurityContextPersistenceFilter@1c8bf01d, org.springframework.security.web.header.HeaderWriterFilter@5f27d271, org.springframework.web.filter.CorsFilter@550482aa, org.springframework.security.web.authentication.logout.LogoutFilter@37ecff9, com.ssafy.queant.security.JwtAuthenticationFilter@2b7b6f58, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@129a20d8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2acf3108, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2dc4b58a, org.springframework.security.web.session.SessionManagementFilter@28897ca, org.springframework.security.web.access.ExceptionTranslationFilter@5d9576a0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5e4874ae]
-2022-08-15 21:44:00.542  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : Started SearchRepositoryImplTest in 19.151 seconds (JVM running for 20.931)
+2022-08-15 22:22:54.122  INFO 22935 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-15 22:22:54.130  INFO 22935 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-15 22:22:54.908  WARN 22935 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [m.roleSet.size]; use collection function syntax instead [size(m.roleSet)].
+2022-08-15 22:22:55.130  WARN 22935 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-15 22:22:57.649  INFO 22935 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2022-08-15 22:22:57.802  WARN 22935 --- [    Test worker] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-08-15 22:22:58.183  INFO 22935 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2f9a7d6f, org.springframework.security.web.context.SecurityContextPersistenceFilter@3983b06d, org.springframework.security.web.header.HeaderWriterFilter@51d2218e, org.springframework.web.filter.CorsFilter@3f96ef2, org.springframework.security.web.authentication.logout.LogoutFilter@3b48ffe8, com.ssafy.queant.security.JwtAuthenticationFilter@12039ae0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1a5e19fe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7f0952cf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fb320de, org.springframework.security.web.session.SessionManagementFilter@c360f40, org.springframework.security.web.access.ExceptionTranslationFilter@11501f90, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@43bda665]
+2022-08-15 22:22:59.222  INFO 22935 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : Started SearchRepositoryImplTest in 17.669 seconds (JVM running for 19.414)
 Hibernate: 
     select
         distinct product0_.product_id as col_0_0_,
         options1_.base_rate as col_1_0_,
         options1_.option_id as col_2_0_,
-        coalesce(max(conditions2_.special_rate),
-        ?) as col_3_0_,
-        conditions2_.condition_id as col_4_0_,
-        product0_.product_id as product_1_11_0_,
-        conditions2_.condition_id as conditio1_2_1_,
-        product0_.age_max as age_max2_11_0_,
-        product0_.age_min as age_min3_11_0_,
-        product0_.bank_id as bank_id4_11_0_,
-        product0_.budget_max as budget_m5_11_0_,
-        product0_.budget_min as budget_m6_11_0_,
-        product0_.etc as etc7_11_0_,
-        product0_.is_deposit as is_depos8_11_0_,
-        product0_.is_enabled as is_enabl9_11_0_,
-        product0_.name as name10_11_0_,
-        product0_.picture as picture11_11_0_,
-        product0_.product_code as product12_11_0_,
-        product0_.scode_id as scode_i13_11_0_,
-        product0_.term_max as term_ma14_11_0_,
-        product0_.term_min as term_mi15_11_0_,
-        conditions2_.condition_info as conditio2_2_1_,
-        conditions2_.product_id as product_3_2_1_,
-        conditions2_.scode_id as scode_id4_2_1_,
-        conditions2_.special_rate as special_5_2_1_ 
+        product0_.product_id as product_1_11_,
+        product0_.age_max as age_max2_11_,
+        product0_.age_min as age_min3_11_,
+        product0_.bank_id as bank_id4_11_,
+        product0_.budget_max as budget_m5_11_,
+        product0_.budget_min as budget_m6_11_,
+        product0_.etc as etc7_11_,
+        product0_.is_deposit as is_depos8_11_,
+        product0_.is_enabled as is_enabl9_11_,
+        product0_.name as name10_11_,
+        product0_.picture as picture11_11_,
+        product0_.product_code as product12_11_,
+        product0_.scode_id as scode_i13_11_,
+        product0_.term_max as term_ma14_11_,
+        product0_.term_min as term_mi15_11_ 
     from
         product product0_ 
     inner join
@@ -331,12 +323,6 @@ Hibernate:
             on (
                 product0_.product_id=options1_.product_id 
                 and options1_.save_term=?
-            ) 
-    left outer join
-        conditions conditions2_ 
-            on (
-                product0_.product_id=conditions2_.product_id 
-                and conditions2_.scode_id=?
             ) 
     where
         product0_.is_enabled=? 
@@ -348,152 +334,41 @@ Hibernate:
         and (
             product0_.bank_id in (
                 select
-                    bank3_.bank_id 
+                    bank2_.bank_id 
                 from
-                    bank bank3_ 
+                    bank bank2_ 
                 where
-                    bank3_.scode_id=?
+                    bank2_.scode_id=? 
+                    and bank2_.bank_id=?
             )
         ) 
-    group by
-        product0_.product_id ,
-        conditions2_.scode_id 
+        and (
+            product0_.product_id not in  (
+                select
+                    traitset3_.product_id 
+                from
+                    trait_set traitset3_
+            )
+        ) 
     order by
         options1_.base_rate desc,
         product0_.name asc
-2022-08-15 21:44:01.036 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [FLOAT] - [0.0]
-2022-08-15 21:44:01.040 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [INTEGER] - [6]
-2022-08-15 21:44:01.041 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [B007]
-2022-08-15 21:44:01.042 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [BOOLEAN] - [true]
-2022-08-15 21:44:01.043 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BOOLEAN] - [false]
-2022-08-15 21:44:01.043 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [-9223372036854775808]
-2022-08-15 21:44:01.044 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [BIGINT] - [0]
-2022-08-15 21:44:01.044 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [BIGINT] - [9223372036854775807]
-2022-08-15 21:44:01.045 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [9] as [BIGINT] - [0]
-2022-08-15 21:44:01.045 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [10] as [BOOLEAN] - [false]
-2022-08-15 21:44:01.045 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [11] as [BOOLEAN] - [false]
-2022-08-15 21:44:01.045 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [12] as [VARCHAR] - [C001]
-2022-08-15 21:44:01.057  INFO 22378 --- [    Test worker] p6spy                                    : #1660567441057 | took 10ms | statement | connection 3| url jdbc:mariadb://localhost:3306/queant
-select distinct product0_.product_id as col_0_0_, options1_.base_rate as col_1_0_, options1_.option_id as col_2_0_, coalesce(max(conditions2_.special_rate), ?) as col_3_0_, conditions2_.condition_id as col_4_0_, product0_.product_id as product_1_11_0_, conditions2_.condition_id as conditio1_2_1_, product0_.age_max as age_max2_11_0_, product0_.age_min as age_min3_11_0_, product0_.bank_id as bank_id4_11_0_, product0_.budget_max as budget_m5_11_0_, product0_.budget_min as budget_m6_11_0_, product0_.etc as etc7_11_0_, product0_.is_deposit as is_depos8_11_0_, product0_.is_enabled as is_enabl9_11_0_, product0_.name as name10_11_0_, product0_.picture as picture11_11_0_, product0_.product_code as product12_11_0_, product0_.scode_id as scode_i13_11_0_, product0_.term_max as term_ma14_11_0_, product0_.term_min as term_mi15_11_0_, conditions2_.condition_info as conditio2_2_1_, conditions2_.product_id as product_3_2_1_, conditions2_.scode_id as scode_id4_2_1_, conditions2_.special_rate as special_5_2_1_ from product product0_ inner join options options1_ on (product0_.product_id=options1_.product_id and options1_.save_term=?) left outer join conditions conditions2_ on (product0_.product_id=conditions2_.product_id and conditions2_.scode_id=?) where product0_.is_enabled=? and product0_.is_deposit=? and coalesce(product0_.budget_min, ?)&lt;=? and coalesce(product0_.budget_max, ?)&gt;=? and options1_.rate_type=? and options1_.rsrv_type=? and (product0_.bank_id in (select bank3_.bank_id from bank bank3_ where bank3_.scode_id=?)) group by product0_.product_id , conditions2_.scode_id order by options1_.base_rate desc, product0_.name asc
-select distinct product0_.product_id as col_0_0_, options1_.base_rate as col_1_0_, options1_.option_id as col_2_0_, coalesce(max(conditions2_.special_rate), 0.0) as col_3_0_, conditions2_.condition_id as col_4_0_, product0_.product_id as product_1_11_0_, conditions2_.condition_id as conditio1_2_1_, product0_.age_max as age_max2_11_0_, product0_.age_min as age_min3_11_0_, product0_.bank_id as bank_id4_11_0_, product0_.budget_max as budget_m5_11_0_, product0_.budget_min as budget_m6_11_0_, product0_.etc as etc7_11_0_, product0_.is_deposit as is_depos8_11_0_, product0_.is_enabled as is_enabl9_11_0_, product0_.name as name10_11_0_, product0_.picture as picture11_11_0_, product0_.product_code as product12_11_0_, product0_.scode_id as scode_i13_11_0_, product0_.term_max as term_ma14_11_0_, product0_.term_min as term_mi15_11_0_, conditions2_.condition_info as conditio2_2_1_, conditions2_.product_id as product_3_2_1_, conditions2_.scode_id as scode_id4_2_1_, conditions2_.special_rate as special_5_2_1_ from product product0_ inner join options options1_ on (product0_.product_id=options1_.product_id and options1_.save_term=6) left outer join conditions conditions2_ on (product0_.product_id=conditions2_.product_id and conditions2_.scode_id='B007') where product0_.is_enabled=true and product0_.is_deposit=false and coalesce(product0_.budget_min, -9223372036854775808)&lt;=0 and coalesce(product0_.budget_max, 9223372036854775807)&gt;=0 and options1_.rate_type=false and options1_.rsrv_type=false and (product0_.bank_id in (select bank3_.bank_id from bank bank3_ where bank3_.scode_id='C001')) group by product0_.product_id , conditions2_.scode_id order by options1_.base_rate desc, product0_.name asc;
-2022-08-15 21:44:01.061 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_1_11_0_] : [INTEGER]) - [36]
-2022-08-15 21:44:01.061 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_1_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.066 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_max2_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.067 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_min3_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.067 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([bank_id4_11_0_] : [INTEGER]) - [10030]
-2022-08-15 21:44:01.067 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m5_11_0_] : [BIGINT]) - [null]
-2022-08-15 21:44:01.068 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m6_11_0_] : [BIGINT]) - [null]
-2022-08-15 21:44:01.069 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([etc7_11_0_] : [VARCHAR]) - [해당없음]
-2022-08-15 21:44:01.070 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_depos8_11_0_] : [BOOLEAN]) - [false]
-2022-08-15 21:44:01.071 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_enabl9_11_0_] : [BOOLEAN]) - [true]
-2022-08-15 21:44:01.073 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([name10_11_0_] : [VARCHAR]) - [정기적금]
-2022-08-15 21:44:01.077 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([picture11_11_0_] : [VARCHAR]) - [https://queant.s3.ap-northeast-2.amazonaws.com/banks/KDB.png]
-2022-08-15 21:44:01.077 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product12_11_0_] : [VARCHAR]) - [03100]
-2022-08-15 21:44:01.077 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_i13_11_0_] : [VARCHAR]) - [D001]
-2022-08-15 21:44:01.077 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_ma14_11_0_] : [INTEGER]) - [36]
-2022-08-15 21:44:01.077 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_mi15_11_0_] : [INTEGER]) - [6]
-2022-08-15 21:44:01.080 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_0_0_] : [INTEGER]) - [36]
-2022-08-15 21:44:01.086 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_1_0_] : [FLOAT]) - [2.9]
-2022-08-15 21:44:01.086 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_2_0_] : [INTEGER]) - [83]
-2022-08-15 21:44:01.086 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_3_0_] : [FLOAT]) - [0.0]
-2022-08-15 21:44:01.087 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_4_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.087 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_1_11_0_] : [INTEGER]) - [32]
-2022-08-15 21:44:01.087 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_1_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.087 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_max2_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.087 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_min3_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.087 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([bank_id4_11_0_] : [INTEGER]) - [10026]
-2022-08-15 21:44:01.087 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m5_11_0_] : [BIGINT]) - [300000]
-2022-08-15 21:44:01.088 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m6_11_0_] : [BIGINT]) - [null]
-2022-08-15 21:44:01.088 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([etc7_11_0_] : [VARCHAR]) - [1인당 1계좌 가입가능하며, 계좌당 월적립금액 30만원 이하로 제한]
-2022-08-15 21:44:01.089 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_depos8_11_0_] : [BOOLEAN]) - [false]
-2022-08-15 21:44:01.089 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_enabl9_11_0_] : [BOOLEAN]) - [true]
-2022-08-15 21:44:01.089 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([name10_11_0_] : [VARCHAR]) - [IBK썸통장 (자유적립식)]
-2022-08-15 21:44:01.089 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([picture11_11_0_] : [VARCHAR]) - [https://queant.s3.ap-northeast-2.amazonaws.com/banks/IBK.png]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product12_11_0_] : [VARCHAR]) - [01211210110]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_i13_11_0_] : [VARCHAR]) - [D001]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_ma14_11_0_] : [INTEGER]) - [12]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_mi15_11_0_] : [INTEGER]) - [12]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_0_0_] : [INTEGER]) - [32]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_1_0_] : [FLOAT]) - [2.7]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_2_0_] : [INTEGER]) - [76]
-2022-08-15 21:44:01.090 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_3_0_] : [FLOAT]) - [0.0]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_4_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_1_11_0_] : [INTEGER]) - [62]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_1_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_max2_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_min3_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([bank_id4_11_0_] : [INTEGER]) - [14807]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m5_11_0_] : [BIGINT]) - [1000000]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m6_11_0_] : [BIGINT]) - [null]
-2022-08-15 21:44:01.091 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([etc7_11_0_] : [VARCHAR]) - [- 1인 1계좌 
-- 월 가입한도 : 100만원]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_depos8_11_0_] : [BOOLEAN]) - [false]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_enabl9_11_0_] : [BOOLEAN]) - [true]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([name10_11_0_] : [VARCHAR]) - [Sh평생주거래우대적금]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([picture11_11_0_] : [VARCHAR]) - [https://queant.s3.ap-northeast-2.amazonaws.com/banks/수협은행.png]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product12_11_0_] : [VARCHAR]) - [10140110400011]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_i13_11_0_] : [VARCHAR]) - [D001]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_ma14_11_0_] : [INTEGER]) - [36]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_mi15_11_0_] : [INTEGER]) - [12]
-2022-08-15 21:44:01.092 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_0_0_] : [INTEGER]) - [62]
-2022-08-15 21:44:01.093 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_1_0_] : [FLOAT]) - [2.5]
-2022-08-15 21:44:01.093 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_2_0_] : [INTEGER]) - [149]
-2022-08-15 21:44:01.093 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_3_0_] : [FLOAT]) - [0.0]
-2022-08-15 21:44:01.093 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_4_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.093 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_1_11_0_] : [INTEGER]) - [23]
-2022-08-15 21:44:01.093 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_1_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.093 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_max2_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.094 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_min3_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.094 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([bank_id4_11_0_] : [INTEGER]) - [10020]
-2022-08-15 21:44:01.094 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m5_11_0_] : [BIGINT]) - [null]
-2022-08-15 21:44:01.094 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m6_11_0_] : [BIGINT]) - [null]
-2022-08-15 21:44:01.094 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([etc7_11_0_] : [VARCHAR]) - [&quot;해당 없음&quot;]
-2022-08-15 21:44:01.094 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_depos8_11_0_] : [BOOLEAN]) - [false]
-2022-08-15 21:44:01.094 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_enabl9_11_0_] : [BOOLEAN]) - [true]
-2022-08-15 21:44:01.095 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([name10_11_0_] : [VARCHAR]) - [사이버우대매일부금]
-2022-08-15 21:44:01.095 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([picture11_11_0_] : [VARCHAR]) - [https://queant.s3.ap-northeast-2.amazonaws.com/banks/제주은행.png]
-2022-08-15 21:44:01.095 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product12_11_0_] : [VARCHAR]) - [230000202]
-2022-08-15 21:44:01.095 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_i13_11_0_] : [VARCHAR]) - [D001]
-2022-08-15 21:44:01.095 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_ma14_11_0_] : [INTEGER]) - [36]
-2022-08-15 21:44:01.095 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_mi15_11_0_] : [INTEGER]) - [6]
-2022-08-15 21:44:01.095 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_0_0_] : [INTEGER]) - [23]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_1_0_] : [FLOAT]) - [2.4]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_2_0_] : [INTEGER]) - [52]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_3_0_] : [FLOAT]) - [0.0]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_4_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product_1_11_0_] : [INTEGER]) - [63]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([conditio1_2_1_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_max2_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([age_min3_11_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([bank_id4_11_0_] : [INTEGER]) - [14807]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m5_11_0_] : [BIGINT]) - [1000000]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([budget_m6_11_0_] : [BIGINT]) - [null]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([etc7_11_0_] : [VARCHAR]) - [- 1인 1계좌 
-- 월 가입한도 : 100만원]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_depos8_11_0_] : [BOOLEAN]) - [false]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([is_enabl9_11_0_] : [BOOLEAN]) - [true]
-2022-08-15 21:44:01.096 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([name10_11_0_] : [VARCHAR]) - [Sh보고싶다!명태야적금Ⅱ(개인)]
-2022-08-15 21:44:01.097 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([picture11_11_0_] : [VARCHAR]) - [https://queant.s3.ap-northeast-2.amazonaws.com/banks/수협은행.png]
-2022-08-15 21:44:01.098 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([product12_11_0_] : [VARCHAR]) - [10140111600061 10141111600051]
-2022-08-15 21:44:01.098 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([scode_i13_11_0_] : [VARCHAR]) - [D001]
-2022-08-15 21:44:01.099 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_ma14_11_0_] : [INTEGER]) - [36]
-2022-08-15 21:44:01.099 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([term_mi15_11_0_] : [INTEGER]) - [12]
-2022-08-15 21:44:01.099 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_0_0_] : [INTEGER]) - [63]
-2022-08-15 21:44:01.099 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_1_0_] : [FLOAT]) - [2.3]
-2022-08-15 21:44:01.099 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_2_0_] : [INTEGER]) - [150]
-2022-08-15 21:44:01.099 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_3_0_] : [FLOAT]) - [0.0]
-2022-08-15 21:44:01.100 TRACE 22378 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([col_4_0_] : [INTEGER]) - [null]
-2022-08-15 21:44:01.113  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [[Product(productId=36, productCode=03100, bankId=10030, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=해당없음, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/KDB.png), 2.9, 83, 0.0, null], [Product(productId=32, productCode=01211210110, bankId=10026, name=IBK썸통장 (자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=300000, termMin=12, termMax=12, etc=1인당 1계좌 가입가능하며, 계좌당 월적립금액 30만원 이하로 제한, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/IBK.png), 2.7, 76, 0.0, null], [Product(productId=62, productCode=10140110400011, bankId=14807, name=Sh평생주거래우대적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌 
-- 월 가입한도 : 100만원, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/수협은행.png), 2.5, 149, 0.0, null], [Product(productId=23, productCode=230000202, bankId=10020, name=사이버우대매일부금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=&quot;해당 없음&quot;, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/제주은행.png), 2.4, 52, 0.0, null], [Product(productId=63, productCode=10140111600061 10141111600051, bankId=14807, name=Sh보고싶다!명태야적금Ⅱ(개인), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌 
-- 월 가입한도 : 100만원, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/수협은행.png), 2.3, 150, 0.0, null]]
-2022-08-15 21:44:01.138  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=36, productCode=03100, bankId=10030, name=정기적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=해당없음, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/KDB.png), 2.9, 83, 0.0, null]
-2022-08-15 21:44:01.138  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=32, productCode=01211210110, bankId=10026, name=IBK썸통장 (자유적립식), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=300000, termMin=12, termMax=12, etc=1인당 1계좌 가입가능하며, 계좌당 월적립금액 30만원 이하로 제한, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/IBK.png), 2.7, 76, 0.0, null]
-2022-08-15 21:44:01.140  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=62, productCode=10140110400011, bankId=14807, name=Sh평생주거래우대적금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌 
-- 월 가입한도 : 100만원, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/수협은행.png), 2.5, 149, 0.0, null]
-2022-08-15 21:44:01.140  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=23, productCode=230000202, bankId=10020, name=사이버우대매일부금, scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=null, termMin=6, termMax=36, etc=&quot;해당 없음&quot;, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/제주은행.png), 2.4, 52, 0.0, null]
-2022-08-15 21:44:01.140  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : [TUPLE]: [Product(productId=63, productCode=10140111600061 10141111600051, bankId=14807, name=Sh보고싶다!명태야적금Ⅱ(개인), scodeId=D001, isDeposit=false, ageMin=null, ageMax=null, budgetMin=null, budgetMax=1000000, termMin=12, termMax=36, etc=- 1인 1계좌 
-- 월 가입한도 : 100만원, isEnabled=true, picture=https://queant.s3.ap-northeast-2.amazonaws.com/banks/수협은행.png), 2.3, 150, 0.0, null]
-2022-08-15 21:44:01.140  INFO 22378 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : 5
+2022-08-15 22:22:59.754 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [INTEGER] - [6]
+2022-08-15 22:22:59.758 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [BOOLEAN] - [true]
+2022-08-15 22:22:59.759 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [BOOLEAN] - [false]
+2022-08-15 22:22:59.760 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [BIGINT] - [-9223372036854775808]
+2022-08-15 22:22:59.761 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [BIGINT] - [0]
+2022-08-15 22:22:59.761 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BIGINT] - [9223372036854775807]
+2022-08-15 22:22:59.761 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [BIGINT] - [0]
+2022-08-15 22:22:59.761 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [BOOLEAN] - [false]
+2022-08-15 22:22:59.761 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [9] as [BOOLEAN] - [false]
+2022-08-15 22:22:59.762 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [10] as [VARCHAR] - [C001]
+2022-08-15 22:22:59.763 TRACE 22935 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [11] as [INTEGER] - [10016]
+2022-08-15 22:22:59.770  INFO 22935 --- [    Test worker] p6spy                                    : #1660569779770 | took 5ms | statement | connection 3| url jdbc:mariadb://localhost:3306/queant
+select distinct product0_.product_id as col_0_0_, options1_.base_rate as col_1_0_, options1_.option_id as col_2_0_, product0_.product_id as product_1_11_, product0_.age_max as age_max2_11_, product0_.age_min as age_min3_11_, product0_.bank_id as bank_id4_11_, product0_.budget_max as budget_m5_11_, product0_.budget_min as budget_m6_11_, product0_.etc as etc7_11_, product0_.is_deposit as is_depos8_11_, product0_.is_enabled as is_enabl9_11_, product0_.name as name10_11_, product0_.picture as picture11_11_, product0_.product_code as product12_11_, product0_.scode_id as scode_i13_11_, product0_.term_max as term_ma14_11_, product0_.term_min as term_mi15_11_ from product product0_ inner join options options1_ on (product0_.product_id=options1_.product_id and options1_.save_term=?) where product0_.is_enabled=? and product0_.is_deposit=? and coalesce(product0_.budget_min, ?)&lt;=? and coalesce(product0_.budget_max, ?)&gt;=? and options1_.rate_type=? and options1_.rsrv_type=? and (product0_.bank_id in (select bank2_.bank_id from bank bank2_ where bank2_.scode_id=? and bank2_.bank_id=?)) and (product0_.product_id not in  (select traitset3_.product_id from trait_set traitset3_)) order by options1_.base_rate desc, product0_.name asc
+select distinct product0_.product_id as col_0_0_, options1_.base_rate as col_1_0_, options1_.option_id as col_2_0_, product0_.product_id as product_1_11_, product0_.age_max as age_max2_11_, product0_.age_min as age_min3_11_, product0_.bank_id as bank_id4_11_, product0_.budget_max as budget_m5_11_, product0_.budget_min as budget_m6_11_, product0_.etc as etc7_11_, product0_.is_deposit as is_depos8_11_, product0_.is_enabled as is_enabl9_11_, product0_.name as name10_11_, product0_.picture as picture11_11_, product0_.product_code as product12_11_, product0_.scode_id as scode_i13_11_, product0_.term_max as term_ma14_11_, product0_.term_min as term_mi15_11_ from product product0_ inner join options options1_ on (product0_.product_id=options1_.product_id and options1_.save_term=6) where product0_.is_enabled=true and product0_.is_deposit=false and coalesce(product0_.budget_min, -9223372036854775808)&lt;=0 and coalesce(product0_.budget_max, 9223372036854775807)&gt;=0 and options1_.rate_type=false and options1_.rsrv_type=false and (product0_.bank_id in (select bank2_.bank_id from bank bank2_ where bank2_.scode_id='C001' and bank2_.bank_id=10016)) and (product0_.product_id not in  (select traitset3_.product_id from trait_set traitset3_)) order by options1_.base_rate desc, product0_.name asc;
+2022-08-15 22:22:59.774  INFO 22935 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : []
+2022-08-15 22:22:59.774  INFO 22935 --- [    Test worker] c.s.q.m.r.p.SearchRepositoryImplTest     : 0
 </pre>
 </span>
 </div>
@@ -505,7 +380,7 @@ select distinct product0_.product_id as col_0_0_, options1_.base_rate as col_1_0
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.4.1</a> at 2022. 8. 15. 오후 9:44:01</p>
+<a href="http://www.gradle.org">Gradle 7.4.1</a> at 2022. 8. 15. 오후 10:22:59</p>
 </div>
 </div>
 </body>
