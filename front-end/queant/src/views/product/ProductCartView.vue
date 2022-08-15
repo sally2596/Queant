@@ -3,6 +3,9 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
+  <p>{{cart}}</p>
+  <p>{{comparisonPortfolio}}</p>
+  <p>{{comparisonProducts}}</p>
   <!-- 장바구니 섹션 -->
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
@@ -17,7 +20,7 @@
     <!-- 장바구니에 상품이 담겨 있을 때 -->
     <div v-else id="cart-item">
       
-    <h1>장바구니</h1>
+    <h1 class="title" id="title">장바구니</h1>
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
       <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
       <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()">포트폴리오 모두 삭제</button>      
@@ -38,8 +41,8 @@
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
           <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
           <td><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
-          <td>{{productInCart.product.base_rate}}%</td>
-          <td>{{productInCart.product.term_min}}</td>
+          <td>{{productInCart.applied_rate}}%</td>
+          <td>{{productInCart.applied_period}}</td>
           <td class="flex-wrap">
             <button v-for="cportfolio in comparisonPortfolio"
              :key="cportfolio.cportfolio_cnt"
@@ -49,14 +52,14 @@
               {{cportfolio.cportfolio_cnt}}번 <i class="fa-solid fa-circle-plus"></i>
             </button>
           </td>
-          <td><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="addProductInCart(productInCart)"><i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
+          <td><button class="btn btn-outline-success btn-sm p-1" style="height: 2rem;" @click="pushProductToPortfolio(productInCart)"><i class="fa-solid fa-circle-plus fa-lg"></i></button></td>
           <td><button class="btn btn-outline-danger btn-sm p-1" style="height: 2rem;" @click="popProductFromCart(productInCart)"><i class="fa-solid fa-circle-minus fa-lg"></i></button></td>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 가상 포트폴리오 섹션 -->
+<!-- 가상 포트폴리오 섹션 -->
 <section class="product-detail-box">
     
     <div v-if="comparisonPortfolio.length === 0" class="cart-none">
@@ -78,7 +81,7 @@
             <div>아직 상품이 없습니다.</div>
           </div>
           <div v-else v-for="cproduct in cportfolio.products" class="d-flex mx-2 my-2" style="font-size: 15px;" :key="cproduct">
-                {{cproduct.name}}
+                {{cproduct.product.name}}
                 <button style="height:1.2rem; font-size: 5px;" class="d-flex align-items-center p-2 btn btn-outline-danger btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
           </div>
           <button class="btn btn-danger btn-sm" type="button" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>
@@ -99,10 +102,10 @@ export default {
   name: 'ProductCartView',
   components : { Navbar, Modal, draggable },
   computed: {
-    ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products']),
+    ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products', 'comparisonProducts']),
   },
   methods: {
-    ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb']),
+    ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb', 'pushProductToPortfolio']),
     ...mapMutations(['POP_PRODUCT_FROM_CPORTFOLIO', 'CLEAR_CPORTFOLIO_DB', 'CLEAR_CART',
     'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO',
     'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO', 'UPDATE_CPORTFOLIO_FROM_DB']),

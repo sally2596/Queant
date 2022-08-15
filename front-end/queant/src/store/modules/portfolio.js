@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export default {
   state: {
+    comparisonProducts: [],
     portfolio: [],
     customProducts: [],
     portfolios: [],
@@ -12,6 +13,7 @@ export default {
     deletedPortfolio:[],
     },
   getters: {
+    comparisonProducts: state=> state.comparisonProducts,
     portfolio: state => state.portfolio,
     customProducts: state => state.customProducts,
     portfolios: state => state.portfolios,
@@ -31,7 +33,9 @@ export default {
       state.newlyAddedPortfolio = [],
       state.deletedPortfolio = []
     },
-
+    ADD_COMPARISON_PORTFOLIO_PRODUCTS(state, product) {
+      state.comparisonProducts.push(product);
+    },
       // 포트폴리오 삭제하기
     POP_CPORTFOLIO(state, cportfolio_cnt) {
       state.deletedPortfolio.push(cportfolio_cnt)
@@ -68,7 +72,7 @@ export default {
       }
     },
 
-      // 포트폴리오에 상품 추가하기
+      // 가상 포트폴리오에 상품 추가하기
     PUSH_PRODUCT_TO_CPORTFOLIO(state, value) {
       // 추가할 정보 정리
       let portfolioNo = value[0]
@@ -84,6 +88,7 @@ export default {
         option_id: product.option_id,
         start_date: product.start_date,
       }
+      console.log(pushproduct)
       if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product_id === product.product.product_id)) {
         alert(`${product.product.name}은 이미 포트폴리오에 있는 상품입니다.`)
       } else {
@@ -354,8 +359,7 @@ export default {
               amount: port.amount,
               condition_ids: port.condition_ids,
               end_date: port.end_date,
-              portfolio_no: port.portfolio_No,
-              product: port.product,
+              portfolio_no: port.portfolio_no,
               product_id: port.product_id,
               option_id: port.option_id,
               start_date: port.start_date,
@@ -363,14 +367,14 @@ export default {
             tempPortfolioList.push(temp)
           }
           console.log(tempPortfolioList)
-          console.log(getters.userInfo)
+          console.log('올릴 자료')
           axios({
             url: spring.portfolio.portfolio(),
             method: 'post',
             data: {
               member_id: getters.userInfo.member_id,
               portfolio_no: i+1,
-              portfolio_dto_list:tempPortfolioList
+              portfolio_dto_list: tempPortfolioList
             }
           }).then(res => {
             console.log(res)
@@ -410,8 +414,7 @@ export default {
             amount: port.amount,
             condition_ids: port.condition_ids,
             end_date: port.end_date,
-            portfolio_no: port.portfolio_No,
-            product: port.product,
+            portfolio_no: port.portfolio_no,
             product_id: port.product_id,
             option_id: port.option_id,
             start_date: port.start_date,
@@ -461,24 +464,40 @@ export default {
             products: []
           })
         }
-        
         // 받아온 데이터를 다시 형식에 맞게 변경
         for (let i = 0; i<firstdata.length; i++) {
           for (let j = 0; j<firstdata[i].length; j++) {
             bringdata[i].products.push({
-              portfolio_no: firstdata[i][j].portfolio_no,
-              product_id: firstdata[i][j].product_id,
               amount: firstdata[i][j].amount,
               condition_ids: firstdata[i][j].condition_ids,
+              end_date: firstdata[i][j].end_date,
+              portfolio_no: firstdata[i][j].portfolio_no,
+              product: firstdata[i][j].product,
+              product_id: firstdata[i][j].product_id,
               option_id: firstdata[i][j].option_id,
               start_date: firstdata[i][j].start_date,
-              end_date: firstdata[i][j].end_date,
-              name: firstdata[i][j].product.name
             })
+            dispatch('getProductDetails', firstdata[i][j].product_id)
           }
         }
         // ComparisonPortfolio를 업데이트
         commit('UPDATE_CPORTFOLIO_FROM_DB', bringdata);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    getProductDetails({ commit, dispatch }, productId) {
+      axios({
+        url: spring.product.detail(productId),
+        method: 'get',
+        params: {
+            productId: productId
+        }
+      })
+      .then(res=> {
+        console.log(res.data)
+        commit('ADD_COMPARISON_PORTFOLIO_PRODUCTS', res.data)
       })
       .catch(err => {
         console.log(err)
