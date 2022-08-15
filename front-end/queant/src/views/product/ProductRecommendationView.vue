@@ -37,8 +37,8 @@
         </div>
 
         <!-- 필수 -->
-        <div class="col-lg-3 m-3">
-          <h6>* 예치 기간</h6>
+        <div class="col-lg-5 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>*예치 기간</strong></h6>
           <input v-model="filtersForDeposit.period" :value="6" type="radio" class="btn-check" id="deposit-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
           <input v-model="filtersForDeposit.period" :value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
@@ -52,15 +52,32 @@
         </div>
 
         <!-- 필수 -->
-        <div class="col-lg-2 m-3">
-          <h6>* 예치금(원)</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>*예치금(원)</strong></h6>
           <input
+          style="  width: 100%;
+  padding: 20px 10px 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 18px; color: #000;
+  outline: none;"
             required
             v-model="filtersForDeposit.amount"
             type="number"
             class="p-1"
             id="deposit-money"
             name="deposit-money">
+          <div class="d-flex mt-1">
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(10000)">+1만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(50000)">+5만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(100000)">+10만</button>
+          </div>
+          <div class="d-flex">
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-10000)">-1만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-50000)">-5만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-100000)">-10만</button>
+          </div>
         </div>
 
         <div class="col-lg-5 p-4 m-2 border-bottom">
@@ -218,8 +235,8 @@
         </div>
         
         <!-- 필수 입력 -->
-        <div class="col-lg-3 m-3 select">
-          <h6>* 적립 기간</h6>
+        <div class="col-lg-5 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>*적립 기간</strong></h6>
           <input v-model="filtersForSaving.period" value="6" type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
           <input v-model="filtersForSaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
@@ -233,12 +250,32 @@
         </div>
 
         <!-- 필수 입력 -->
-        <div class="col-lg-2 m-3">
-          <h6>* 희망 월 적립금(원)</h6>
+        <div class="col-lg-3 p-4 m-2 border-bottom">
+          <h6 class="mb-3"><strong>*월 적립금(원)</strong></h6>
           <input
+            style="  width: 100%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 18px; color: #000;
+    outline: none;"
             v-model="filtersForSaving.amount"
+            required
+            type="number"
             class="p-1"
-            type="number">
+            id="saving-money"
+            name="saving-money">
+          <div class="d-flex mt-1">
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(10000)">+1만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(50000)">+5만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(100000)">+10만</button>
+          </div>
+          <div class="d-flex">
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-10000)">-1만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-50000)">-5만</button>
+            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-100000)">-10만</button>
+          </div>
         </div>
         
         <div class="col-lg-5 p-4 m-2 border-bottom">
@@ -444,6 +481,18 @@ export default {
     
     inputOnlyNumberFormat(obj) {
         obj.value = onlynumber(uncomma(obj.value));
+    },
+    changeDepositAmount(money) {
+      if (this.filtersForDeposit.amount + money >= 0)
+        this.filtersForDeposit.amount += money
+      else
+        alert('금액을 확인해주세요.')
+    },
+    changeSavingAmount(money) {
+      if (this.filtersForSaving.amount + money >= 0)
+        this.filtersForSaving.amount += money
+      else
+        alert('금액을 확인해주세요.')
     },
     
     onlynumber(str) {
