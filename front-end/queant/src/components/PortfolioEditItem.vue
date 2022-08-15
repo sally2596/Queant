@@ -3,7 +3,7 @@
     <table>
       <thead>
         <tr>
-          <th>기관이름</th>
+          <th>기관</th>
           <th>이름</th>
           <th>납입금액</th>
           <th>가입일</th>
@@ -16,10 +16,7 @@
       
       <tbody>
         <td>
-          <input 
-            type="text"
-            v-model="bank.bank_name"
-            disabled>
+          <img :src="myProduct.product.picture" :alt="myProduct.product.name">
         </td>
         <td>
           <input 
@@ -62,12 +59,6 @@
         </td>
       </tbody>
     </table>
-
-    <!-- <label>은행사진</label>
-    <input 
-      type="text"
-      v-model="myProduct.myProduct.picture"
-      disabled> -->
 
     <button class="btn btn-outline-success btn-sm mx-2" @click="openModal(payload)">수정</button>
     <button class="btn btn-outline-danger btn-sm mx-2" @click="deletePortfolio(myProduct.portfolio_id)">삭제</button>
@@ -112,7 +103,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['editPortfolio', 'deletePortfolio', 'fetchProduct', 'fetchBank']),
+    ...mapActions(['editPortfolio', 'deletePortfolio']),
     // 타임스탬프 포맷(15자리 숫자)을 정상적인 날짜로 변경
     changeTimeStamp() {
       var date = new Date(this.myProduct.start_date)
@@ -152,7 +143,6 @@ export default {
   },
   created() {
     this.changeTimeStamp()
-    this.fetchBank(this.myProduct.product.bank_id)
   }
 }
 </script>

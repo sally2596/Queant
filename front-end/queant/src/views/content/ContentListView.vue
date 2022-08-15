@@ -21,7 +21,7 @@
     <div class="container p-0">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" data-aos="fade-up" v-for="content in contents">
+        <div class="col" data-aos="fade-up" v-for="content in contents" :key="content">
           <div class="card shadow-sm">
             <div class="card-body">
               <img :src=randomThumbnail() class="card-img-top" alt="..." style="height:300px;">
