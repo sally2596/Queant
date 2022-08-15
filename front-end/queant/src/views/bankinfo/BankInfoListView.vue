@@ -1,18 +1,13 @@
 <template>
   <Navbar/>
-  <header id="title-div">
-    <!-- <h1 class="title" id="title">은행 정보</h1> -->
+  <header id="title-div" class="section-floater">
+    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(1)">은행</h1>
+    <h1 class="title" id="title" style="display:inline-block;">|</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(2)">저축은행</h1>
+    <h1 class="title" id="title" style="display:inline-block;">|</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(3)">기타 금융권</h1>
   </header>
   
-  <!-- 은행 목록 -->
-
-  <div
-    class="d-flex justify-content-center">
-    <button class="btn btn-outline-success" @click="changeBanks(1)">은행</button>
-    <button class="btn btn-outline-success" @click="changeBanks(2)">저축은행</button>
-    <button class="btn btn-outline-success" @click="changeBanks(3)">기타 금융권</button>
-  </div>
-
   <!-- 제 1금융 목록 -->
   <section v-if="showBanks===1" class="section-floater">
     <div id="featured_banks">
