@@ -161,6 +161,7 @@ export default {
         if (option.option_id === option_id) {
           this.payload.applied_rate = option.base_rate
           this.payload.applied_period = option.save_term
+          this.payload.rate_type = option.rate_type
         }
       }
     }
@@ -194,7 +195,8 @@ export default {
         option_id: this.modalData.selected_option_id?this.modalData.selected_option_id:'선택',
         product: this.modalData,
         applied_rate: null,
-        applied_period: null
+        applied_period: null,
+        rate_type: null
       },
       error: {
         amount: '',

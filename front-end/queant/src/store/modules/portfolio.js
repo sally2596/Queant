@@ -87,6 +87,10 @@ export default {
         product_id: product.product.product_id,
         option_id: product.option_id,
         start_date: product.start_date,
+        total_rate: product.product.total_rate,
+        isDeposit: product.product.deposit,
+        term: product.aplied_period,
+        rate_type: product.rate_type
       }
       console.log(pushproduct)
       if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product_id === product.product.product_id)) {
@@ -467,6 +471,12 @@ export default {
         // 받아온 데이터를 다시 형식에 맞게 변경
         for (let i = 0; i<firstdata.length; i++) {
           for (let j = 0; j<firstdata[i].length; j++) {
+            var conditions_rate = 0
+            if (firstdata[i][j].conditions.length > 0) {
+              for (var condition of firstdata[i][j].conditions) {
+                conditions_rate += condition.special_rate
+              }
+            }
             bringdata[i].products.push({
               amount: firstdata[i][j].amount,
               condition_ids: firstdata[i][j].condition_ids,
@@ -476,6 +486,10 @@ export default {
               product_id: firstdata[i][j].product_id,
               option_id: firstdata[i][j].option_id,
               start_date: firstdata[i][j].start_date,
+              total_rate: firstdata[i][j].option.base_rate+conditions_rate,
+              isDeposit: firstdata[i][j].product.deposit,
+              term: firstdata[i][j].option.save_term,
+              rate_type: firstdata[i][j].option.rate_type
             })
             dispatch('getProductDetails', firstdata[i][j].product_id)
           }

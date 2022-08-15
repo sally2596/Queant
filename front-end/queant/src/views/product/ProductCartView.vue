@@ -3,9 +3,9 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
-  <p>{{cart}}</p>
-  <p>{{comparisonPortfolio}}</p>
-  <p>{{comparisonProducts}}</p>
+  {{cart}}
+  <br><br>
+  {{comparisonPortfolio}}
   <!-- 장바구니 섹션 -->
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
@@ -19,11 +19,10 @@
 
     <!-- 장바구니에 상품이 담겨 있을 때 -->
     <div v-else id="cart-item">
-      
+
     <h1>장바구니</h1>
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
       <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
-      <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()">포트폴리오 모두 삭제</button>      
       <button  class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="saveToDb()">가상 포트폴리오 최종 저장</button>
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
