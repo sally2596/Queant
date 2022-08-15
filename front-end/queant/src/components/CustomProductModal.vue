@@ -6,13 +6,18 @@
 
       <div class="modal-header">
       <slot name="header">
-        <label>* 상품명</label>
-        <input
-          style="width: 170px;"
-          v-model="payload.product_name"
-          type="text">
+        <div class="int-area">
+          <label>* 상품명</label>
+          <input
+            style="width: 170px;"
+            v-model="payload.product_name"
+            type="text">
+
+        </div>
       </slot>
       </div>
+      <p class="h1 m-0"><b-icon-x-circle type="button" style="position:fixed; height: 5em; margin-left:400px; margin-top: -140px;" @click="$emit('close')"/>
+			</p>
       <hr>
 
       <div class="modal-body">
@@ -89,7 +94,6 @@
           <button v-if="!this.customDto" class="btn btn-outline-success btn-sm mx-2" disabled>등록</button>
           <button v-else class="btn btn-outline-success btn-sm mx-2" disabled>수정</button>
         </div>
-        <button class="btn btn-outline-danger btn-sm mx-2" @click="$emit('close')">닫기</button>
        </slot>
       </div>
      </div>
@@ -100,10 +104,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
+import { BIconXCircle } from 'bootstrap-icons-vue';
 export default {
   props: {
     customDto: Object
+  },
+  components: {
+		BIconXCircle
   },
   data() {
     return {
