@@ -3,7 +3,7 @@
     <table>
       <thead>
         <tr>
-          <th>기관이름</th>
+          <th>기관</th>
           <th>이름</th>
           <th>납입금액</th>
           <th>가입일</th>

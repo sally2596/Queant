@@ -7,30 +7,38 @@
     <div id="product-detail-box">
       <table class="border">
         <thead class="border">
-          <tr>
+          <tr class="text-center">
             <th>은행</th>
             <th>상품명</th>
             <th>기본 금리</th>
-            <th>최소 가입 기간(개월)</th>
+            <th>최소 가입 기간</th>
+            <th></th>
           </tr>
         </thead>
-          <br>
         <tbody v-for="product in tenProducts" :key="product.product_id" class="border">
-          <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
-          <td><router-link :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
-          <td>{{product.base_rate}}</td>
-          <td>{{product.term_min}}</td>
-          <button class="btn btn-outline-success btn-sm mx-3" id="show-modal" @click="openModal(product)">담기</button>
+          <tr scope="row">
+            <td class="col-1 text-center"><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: product.bank_id }}"><img :src="product.picture" alt=""></router-link></td>
+            <td class="col-5 text-center"><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: product.product_id }}">{{product.name}}</router-link></td>
+            <td class="col-2 text-center">{{product.base_rate}}%</td>
+            <td class="col-2 text-center">{{product.term_min}}개월</td>
+            <td class="col-2 text-center"><button class="btn btn-outline-success" id="show-modal" @click="openModal(product)">상품 담기</button></td>
+          </tr>
         </tbody>
       </table>
     </div>
   </section>
+
   <!-- 페이지네이션 -->
-  <div
-    v-for="page in totalPage"
-    :key="page">
-    <button class="btn btn-sm" @click="changePage(page)">{{ page }}</button>
+  <div class="d-flex justify-content-center mb-5">
+    <button v-if="pageIdx" class="btn btn-sm" @click="changePageIdx(-10)">이전</button>
+    <div
+      v-for="page in displayPages"
+      :key="page">
+      <button class="btn btn-sm" @click="changePage(page)">{{ page }}</button>
+    </div>
+    <button v-if="pageIdx < (totalPage.length - (totalPage.length % 10))" class="btn btn-sm" @click="changePageIdx(10)"> 다음 </button>
   </div>
+
   <!-- 모달 -->
   <Modal
     v-if="showModal" @close="showModal=false"
@@ -52,12 +60,8 @@ export default {
     tenProducts() {
       return this.products.slice(this.productIdx, this.productIdx + 10)
     },
-    totalPage() {
-      let productsLength = this.products.length
-      if (productsLength % 10)
-        return ((productsLength - (productsLength % 10)) / 10) + 1
-      else
-        return (productsLength - (productsLength % 10)) / 10
+    displayPages() {
+      return this.totalPage.slice(this.pageIdx, this.pageIdx + 10)
     }
   },
   methods: {
@@ -69,14 +73,34 @@ export default {
     },
     changePage(page) {
       this.productIdx = (page - 1) * 10 
+    },
+    countTotalPages() {
+      let productsLength = this.products.length
+      if (productsLength % 10) {
+        for (var i=1; i <= ((productsLength - (productsLength % 10)) / 10) + 1; i++) {
+          this.totalPage.push(i)
+        }
+      } else {
+        for (var i=1; i <= (productsLength - (productsLength % 10)) / 10; i++) {
+          this.totalPage.push(i)
+        }
+      }
+    },
+    changePageIdx(num) {
+      this.pageIdx += num
     }
   },
   data() {
     return {
       showModal: false,
       modalData: null,
-      productIdx: 0
+      productIdx: 0,
+      pageIdx: 0,
+      totalPage: []
     }
+  },
+  created() {
+    this.countTotalPages()
   }
 }
 </script>

@@ -29,14 +29,14 @@
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
         <thead>
-          <tr>
+          <tr class="text-center">
             <th>은행</th>
             <th>상품명</th>
             <th>금리</th>
-            <th>기간(개월)</th>
-            <th>비교 포트폴리오에 추가</th>
-            <th>내 포트폴리오에 추가</th>
-            <th>상품 삭제하기</th>
+            <th>기간</th>
+            <th>비교 포트폴리오</th>
+            <th>내 포트폴리오</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
@@ -77,7 +77,7 @@
     <div v-else>
       
       <div class="product-detail d-flex flex-wrap justify-content-center">
-        <div class="m-2 p-4 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" id="cportfolio">
+        <div class="m-2 p-4 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" id="cportfolio" :key="cportfolio">
           <div class="border p-2" style="background-color: #92ce95; font-family: 'jua';">
             <h5 class="text-center m-0"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
           </div>
@@ -86,7 +86,7 @@
             <div>아직 상품이 없습니다.</div>
             <br><br><br><br>
           </div>
-          <div v-else v-for="cproduct in cportfolio.products" class="d-flex" style="font-size: 15px;">
+          <div v-else v-for="cproduct in cportfolio.products" class="d-flex" style="font-size: 15px;" :key="cproduct">
                 {{cproduct.name}}
                 <button style="height:1.2rem; font-size: 5px;" class="d-flex p-0 btn btn-outline btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
           </div>
@@ -130,9 +130,6 @@ export default {
     },
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
-    },
-    pushProductToPortfolio(value) {
-      this.PUSH_PRODUCT_TO_PORTFOLIO(value)
     },
     openModal(value) {
       this.modalData = value,

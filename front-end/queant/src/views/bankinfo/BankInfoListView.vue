@@ -7,7 +7,7 @@
   <!-- 은행 목록 -->
     <!-- 제 1금융 목록 -->
   <section>
-  <h1 class="bank-title">은행</h1>
+  <h1>은행</h1>
   <section class="section-floater">
     <div id="featured_banks">
       <div class="row">
@@ -30,7 +30,7 @@
     <br><br><br><br><br><br><br>
     <!-- 제 2금융 목록 -->
   
-  <h1 class="bank-title">저축은행</h1>
+  <h1>저축은행</h1>
   <section class="section-floater">
     <div id="featured_banks">
       <div class="row">
@@ -53,7 +53,7 @@
     </div>
   </section>
 
-  <h1 class="bank-title">기타 기관</h1>
+  <h1>기타 기관</h1>
   <section class="section-floater">
     <div id="featured_banks_3">
       <div class="row">
