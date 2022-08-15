@@ -225,6 +225,7 @@ export default {
     },
     // 2. 회원정보 수정 요청
     editUserInfo({ dispatch, getters }, credentials) {
+      console.log(typeof(credentials.birthdate))
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')

@@ -1,31 +1,33 @@
 <template>
-    <navbar/>
+    <NavbarAdmin/>
     <header id="title-div">
-      <h1 class="title" id="title">특판상품 관리</h1>
+      <h1 class="title" id="title">제보 상품 관리</h1>
     </header>
-		<section class="container row">
-			<table class="table table-hover">
-				<thead>
-					<tr class="text-center">
-						<th scope="col">번호</th>
-						<th scope="col">은행명</th>
-						<th scope="col">상품명</th>
-						<th scope="col">작업</th>
-					</tr>
-				</thead>
-				<tbody v-for="report in reports" v-bind:key="report">
-					<tr scope="row">
-						<td class="col-1 text-center">{{ report.report_product_id }}</td>
-						<td class="col-1 text-center">{{ report.bank_name }}</td>
-						<td class="col-1 text-center">{{ report.product_name }}</td>
-						<td class="col-1 text-center">
-							<button type="button" class="btn btn-sm btn-outline-secondary" @click="modal(report.report_product_id)">입력</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeItem(report.report_product_id)">삭제</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
+		<div class="d-flex justify-content-center">
+      <section class="container row">
+        <table class="table table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">번호</th>
+              <th scope="col">은행명</th>
+              <th scope="col">상품명</th>
+              <th scope="col">작업</th>
+            </tr>
+          </thead>
+          <tbody v-for="report in reports" v-bind:key="report">
+            <tr scope="row">
+              <td class="col-1 text-center">{{ report.report_product_id }}</td>
+              <td class="col-1 text-center">{{ report.bank_name }}</td>
+              <td class="col-1 text-center">{{ report.product_name }}</td>
+              <td class="col-1 text-center">
+                <button type="button" class="btn btn-sm btn-outline-secondary" @click="modal(report.report_product_id)">입력</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" @click="removeItem(report.report_product_id)">삭제</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+		</div>
     <br><br>
 		<!-- 모달 -->
     <CustomProductModal 
@@ -38,12 +40,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import _ from 'lodash'
-import Navbar from '@/components/Navbar.vue'
+import NavbarAdmin from '@/components/NavbarAdmin.vue'
 import CustomProductModal from '@/views/product/ReportProductModal.vue'
 
 export default {
   name: 'AdminSpecialView',
-  components: { Navbar, CustomProductModal },
+  components: { NavbarAdmin, CustomProductModal },
   computed: {
     ...mapGetters(['reports']),
   },

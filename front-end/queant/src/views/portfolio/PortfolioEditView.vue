@@ -1,8 +1,9 @@
 <template>
   <Navbar/>
+  <header id="title-div">
+    <h1 class="title" id="title">내 포트폴리오 관리</h1>
+  </header>
   <div>
-    <h1>PortfolioEditView</h1>
-    <h1>내 포트폴리오 관리하기</h1>
 
     <div class="d-flex justify-content-center my-5">
       <input 
@@ -16,7 +17,7 @@
 
 
     <div class="container">
-      <h1>퀸트에서 등록한 상품들</h1>
+      <h2 style="font-family: NanumSquareRound;" class="text-center my-5">퀸트에서 등록한 상품들</h2>
       <table class="rwd-table">
         <tbody>
           <tr>
@@ -32,16 +33,17 @@
             v-for="myProduct in portfolio"
             :key="myProduct">
             <td data-th="Supplier Code">
-              <router-link class="d-flex" :to="{ name: 'bankInfoDetail', params: { bankId: myProduct.product.bank_id } }">
-              <div
+              <router-link class="d-flex" style="text-decoration-line: none;" :to="{ name: 'bankInfoDetail', params: { bankId: myProduct.product.bank_id } }">
+              <img :src="myProduct.product.picture" :alt="`${myProduct.product.name}`">
+              <!-- <div
                 v-for="char in myProduct.product.picture.slice(53)"
                 :key=char>
                 <p v-if="char !== '.' && char !== 'p' && char !== 'n' && char !== 'g'">{{ char }}</p>
-              </div>
+              </div> -->
               </router-link>
             </td>
             <td class="text-center" data-th="Supplier Name">
-              <router-link :to="{ name: 'productDetail', params: { productId: myProduct.product_id } }">
+              <router-link style="text-decoration-line: none;" :to="{ name: 'productDetail', params: { productId: myProduct.product_id } }">
                 <p class="text-center">{{ myProduct.product.name }}</p>
               </router-link>
             </td>
@@ -69,7 +71,7 @@
     </div>
 
     <div class="container my-5">
-    <h1>직접 추가한 상품들</h1>
+    <h2 style="font-family: NanumSquareRound;" class="text-center my-5">직접 추가한 상품들</h2>
       <table class="rwd-table">
         <tbody>
           <tr>
@@ -181,4 +183,11 @@ export default {
 @import '@/assets/css/home.css';
 @import '@/assets/css/product.css';
 @import '@/assets/css/table.css';
+
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 </style>
