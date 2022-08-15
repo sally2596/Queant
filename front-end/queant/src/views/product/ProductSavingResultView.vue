@@ -4,7 +4,7 @@
     <h1 class="title" id="title">추천 결과</h1>
   </header>
   <section class="product_section">
-    <div id="cart-item">
+    <div id="product-detail-box">
       <table class="border">
         <thead class="border">
           <tr>

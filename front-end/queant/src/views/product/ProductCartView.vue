@@ -3,6 +3,12 @@
   <header id="title-div">
     <h1 class="title" id="title">상품 저장소</h1>
   </header>
+  <p>{{comparisonPortfolio}}</p>
+  <p>현재 Cporfolio</p>
+  <p>{{newlyAddedPortfolio}}</p>
+  <p>추가된 포트폴리오</p>
+  <p>{{deletedPortfolio}}</p>
+  <p>삭제된 포트폴리오</p>
   <!-- 장바구니 섹션 -->
   <section class="product_section">
     <!-- 장바구니에 상품이 비어 있을 때 -->
@@ -18,9 +24,7 @@
     <div v-else id="cart-item">
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
       <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
-      <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()">포트폴리오 전체 삭제</button>
-      <button class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="getFromDb()">DB 불러오기</button>
-      
+      <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()">포트폴리오 모두 삭제</button>      
       <button  class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="saveToDb()">최종 저장</button>
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
@@ -84,6 +88,7 @@
           </div>
           <div v-else v-for="cproduct in cportfolio.products" class="d-flex" style="font-size: 15px;">
                 {{cproduct.name}}
+                <button style="height:1.2rem; font-size: 5px;" class="d-flex p-0 btn btn-outline btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
           </div>
           <button class="btn btn-danger" type="button" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>
         </div>
@@ -107,8 +112,13 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb']),
-    ...mapMutations(['CLEAR_CPORTFOLIO_DB', 'CLEAR_CART', 'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO', 'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO', 'UPDATE_CPORTFOLIO_FROM_DB']),
+    ...mapMutations(['POP_PRODUCT_FROM_CPORTFOLIO', 'CLEAR_CPORTFOLIO_DB', 'CLEAR_CART',
+    'POP_PRODUCT_FROM_CART', 'PUSH_PRODUCT_TO_PORTFOLIO', 'ADD_COMPARISON_PORTFOLIO',
+    'CLEAR_CPORTFOLIOS', 'PUSH_PRODUCT_TO_CPORTFOLIO', 'POP_CPORTFOLIO', 'UPDATE_CPORTFOLIO_FROM_DB']),
     
+    popProductFromCPortfolio(value) {
+      this.POP_PRODUCT_FROM_CPORTFOLIO(value)
+    },
     clearDB() {
       this.CLEAR_CPORTFOLIO_DB()
     },
@@ -141,6 +151,7 @@ export default {
   },
   mounted() {
     this.clearDB()
+    this.getFromDb()
   },
   data() {
     return {
