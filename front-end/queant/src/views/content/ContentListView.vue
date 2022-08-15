@@ -1,16 +1,14 @@
 <template>
   <Navbar/>
-  <header id="title-div">
-    <h1 class="title" id="title">컨텐츠</h1>
-  </header>
-  <main>
 
-  <section class="py-5 text-center container" id="content-header-section">
+  
+  <main>
+  <section class="py-5 text-center container" id="content-header-section" style="margin-top:100px">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1>자산 관리의 핵심, Queant</h1>
         <div v-if="isAdmin">
-          <router-link  class="btn btn-secondary my-2" :to="{ name: 'contentCreate' }">기사 작성하기</router-link>
+          <router-link  class="btn btn-success" :to="{ name: 'contentCreate' }">기사 작성하기</router-link>
         </div>
         
       </div>
