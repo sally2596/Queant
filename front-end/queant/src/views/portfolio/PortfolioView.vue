@@ -176,7 +176,7 @@
                     <img :src="deposit.picture" alt="" style="height: 30%" />
                   </td>
                   <td>{{ deposit.name }}</td>
-                  <td>{{ deposit.total }}</td>
+                  <td>{{ filtered(deposit.total) }}</td>
                   <td>{{ deposit.rate }}%</td>
                 </tr>
               </tbody>
@@ -331,7 +331,8 @@ export default {
       // 커스텀 상품
       this.customProducts.forEach((item) => {
         let productName = item.product_name;
-        let picture = "src/assets/image/퀸트_로고.png";
+        let picture =
+          "https://queant.s3.ap-northeast-2.amazonaws.com/images/Queant.png";
         let rate = this.sumCustomProductRate(item);
         let startDate = new Date(item.start_date);
         let endDate = new Date(item.end_date);
