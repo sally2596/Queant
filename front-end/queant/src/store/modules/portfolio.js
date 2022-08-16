@@ -211,21 +211,24 @@ export default {
     // My Portfolio
 
     deletePortfolio({ dispatch }, portfolio_id) {
-      console.log(portfolio_id)
-      axios({
-        url: spring.portfolio.single(),
-        method: 'delete',
-        data: {
-          portfolio_id: portfolio_id
-        }
-      })
-      .then(res => {
-        console.log(res)
-        dispatch('fetchMyPortfolio')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      if (confirm('해당 상품을 삭제하시겠습니까?') === true) {
+        axios({
+          url: spring.portfolio.single(),
+          method: 'delete',
+          data: {
+            portfolio_id: portfolio_id
+          }
+        })
+        .then(res => {
+          console.log(res)
+          dispatch('fetchMyPortfolio')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      } else {
+        return
+      }
     },
     editPortfolio({ dispatch }, payload) {
       axios({

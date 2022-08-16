@@ -1,8 +1,6 @@
 <template>
   <Navbar/>
 
-  
-  <main>
   <section class="py-5 text-center container" id="content-header-section" style="margin-top:100px">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
@@ -29,7 +27,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <router-link class="btn btn-sm btn-outline-secondary"
-                :to="{ name: 'contentDetail' , params: { contentId: content.content_id }}">보기</router-link>
+                    :to="{ name: 'contentDetail', params: { contentId: content.content_id }}">보기</router-link>
                   <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(content.content_id)" v-if="isAdmin">삭제</button>
                 </div>
               </div>  
@@ -40,7 +38,6 @@
     </div>
   </div>
 
-</main>
 </template>
 <script>
 import Navbar from "@/components/Navbar.vue"
