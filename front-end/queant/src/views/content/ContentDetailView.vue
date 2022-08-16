@@ -9,9 +9,11 @@
       <div>
         <div v-html=content.content></div>
       </div>
-      <router-link type="button" class="btn btn-sm btn-outline-secondary" v-if="isAdmin"
-      :to="{ name: 'contentEdit' , params: { contentId: content.content_id }}">수정</router-link>
-      <button type="button" class="btn btn-sm btn-outline-secondary" v-if="isAdmin" @click="deleteContent(content.content_id)">삭제</button>
+      <div v-if="isAdmin">
+        <router-link
+          :to="{ name: 'contentEdit', params: { contentId } }"><button class="btn btn-sm btn-outline-secondary">수정</button></router-link>
+        <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(contentId)">삭제</button>
+      </div>
     </div>
   </section>
 </template>
@@ -26,11 +28,16 @@ export default {
   computed: {
     ...mapGetters(['content', 'contents', 'userInfo', 'isAdmin'])
   },
+  data() {
+    return {
+      contentId: this.$route.params.contentId
+    }
+  },
   methods: {
     ...mapActions(['getContent', 'deleteContent', 'editContent'])
   },
   created() {
-    this.getContent(this.$route.params.contentId);
+    this.getContent(this.contentId)
   }
 }
 </script>
