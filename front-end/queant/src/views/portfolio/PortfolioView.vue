@@ -6,7 +6,10 @@
 
   <div class="content">
     <!-- 포트폴리오 없을 때 -->
-    <div v-if="portfolio?.length === 0" class="portfolio-none">
+    <div
+      v-if="portfolio?.length === 0 && customProducts?.length === 0"
+      class="portfolio-none"
+    >
       <img
         src="../../assets/image/물음표개미_none.png"
         alt=""
@@ -328,7 +331,7 @@ export default {
       // 커스텀 상품
       this.customProducts.forEach((item) => {
         let productName = item.product_name;
-        let picture = "../assets/image/퀸트_로고.png";
+        let picture = "src/assets/image/퀸트_로고.png";
         let rate = this.sumCustomProductRate(item);
         let startDate = new Date(item.start_date);
         let endDate = new Date(item.end_date);
@@ -477,9 +480,9 @@ export default {
         }
 
         interest.data.push(Math.ceil(calcMoney));
-        cumulMoney += calcMoney;
-        interestCumulative.data.push(Math.ceil(cumulMoney));
 
+        interestCumulative.data.push(Math.ceil(cumulMoney));
+        cumulMoney += calcMoney;
         //복리일 경우 amount 보정
         if (deposit && simple) amount *= calcRate;
       }

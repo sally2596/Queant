@@ -74,16 +74,17 @@ export default {
       let pushproduct = {
         amount: product.amount,
         condition_ids: product.condition_ids,
-        end_date: product.end_date,
         portfolio_no: portfolioNo,
         product: product.product,
         product_id: product.product.product_id,
         option_id: product.option_id,
         start_date: product.start_date,
+        end_date: product.end_date,
         total_rate: product.product.total_rate,
         isDeposit: product.product.deposit,
         term: product.aplied_period,
-        rate_type: product.rate_type
+        rate_type: product.rate_type,
+        save_term: product.save_term
       }
       console.log(pushproduct)
       if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product_id === product.product.product_id)) {
@@ -189,13 +190,13 @@ export default {
             amount: payload.amount,
             base_rate: payload.base_rate,
             deposit: payload.deposit,
-            end_date: payload.end_date,
             etc: payload.etc,
             fixed_rsrv: payload.fixed_rsrv,
             institution_name: payload.institution_name,
             product_name: payload.product_name,
             special_rate: payload.special_rate,
-            start_date: payload.start_date
+            start_date: payload.start_date,
+            save_term: payload.save_term
           }
         }
       })
@@ -239,7 +240,7 @@ export default {
             amount: payload.amount,
             condition_ids: payload.condition_ids,
             start_date: payload.start_date,
-            end_date: payload.end_date,
+            save_term: payload.save_term,
             option_id: payload.option_id,
             portfolio_id: payload.portfolio_id,
             portfolio_no: 0,
@@ -297,7 +298,6 @@ export default {
               amount: payload.amount,
               condition_ids: payload.condition_ids,
               start_date: payload.start_date,
-              end_date: payload.end_date,
               option_id: payload.option_id,
               portfolio_no: 0,
               product_id: payload.product.product_id
@@ -337,7 +337,6 @@ export default {
           let temp = {
             amount: port.amount,
             condition_ids: port.condition_ids,
-            end_date: port.end_date,
             portfolio_no: port.portfolio_no,
             product_id: port.product_id,
             option_id: port.option_id,
@@ -409,7 +408,8 @@ export default {
               total_rate: firstdata[i][j].option.base_rate+conditions_rate,
               isDeposit: firstdata[i][j].product.deposit,
               term: firstdata[i][j].option.save_term,
-              rate_type: firstdata[i][j].option.rate_type
+              rate_type: firstdata[i][j].option.rate_type,
+              save_term : firstdata[i][j].option.save_term,
             })
           }
         }
