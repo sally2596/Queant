@@ -14,6 +14,7 @@
         type="text"
         placeholder="SEARCH"
         v-model="text"
+				style="width: 180px;"
         @keyup.enter="fetchProductsByText(text)"
         >
         <button class="searching" @click="fetchProductsByText(text)"><i class="fa-solid fa-magnifying-glass"></i></button>
