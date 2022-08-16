@@ -8,6 +8,8 @@
         <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.product.name }}</h4>
        </slot>
       </div>
+			<p class="h1 m-0"><b-icon-x-circle type="button" class="modal-close-button" @click="$emit('close')"/>
+			</p>
       <hr>
       <div class="modal-body">
        <slot name="body">
@@ -96,9 +98,6 @@
         <div v-else>
           <button class="btn btn-outline-success btn-sm mx-2" disabled>수정</button>
         </div>
-        <button class="btn btn-outline-danger btn-sm mx-2" @click="$emit('close')">
-         닫기
-        </button>
        </slot>
       </div>
      </div>
@@ -109,11 +108,15 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { BIconXCircle } from 'bootstrap-icons-vue';
 
 export default {
   name: 'PortfolioEditModal',
   props: {
     modalData: Object
+  },
+	components: {
+		BIconXCircle
   },
   computed: {
     ...mapGetters(['product'])
