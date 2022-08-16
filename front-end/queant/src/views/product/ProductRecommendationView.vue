@@ -55,13 +55,16 @@
         <div class="col-lg-3 p-4 m-2 border-bottom">
           <h6 class="mb-3"><strong>*예치금(원)</strong></h6>
           <input
-          style="  width: 100%;
-  padding: 20px 10px 10px;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #000;
-  font-size: 18px; color: #000;
-  outline: none;"
+          style=
+            "  
+              width: 100%;
+              padding: 20px 10px 10px;
+              background-color: transparent;
+              border: none;
+              border-bottom: 1px solid #000;
+              font-size: 18px; color: #000;
+              outline: none;
+            "
             required
             v-model="filtersForDeposit.amount"
             type="number"

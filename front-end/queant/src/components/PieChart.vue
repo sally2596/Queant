@@ -3,7 +3,7 @@
     type="pie"
     width="380"
     :options="chartOptions"
-    :series="series"
+    :series="realSeries"
   ></apexchart>
 </template>
 
@@ -12,7 +12,7 @@ import VueApexCharts from "vue3-apexcharts";
 export default {
   name: "PieChart",
   components: { apexchart: VueApexCharts },
-  props: ["series", "chartOptionLabels"],
+  props: ["series"],
   data() {
     const chartOptions = {
       chart: {
@@ -29,7 +29,7 @@ export default {
           },
         },
       },
-      labels: this.chartOptionLabels,
+      labels: ["예금", "적금"],
       responsive: [
         {
           breakpoint: 480,
@@ -44,7 +44,11 @@ export default {
         },
       ],
     };
-    return { chartOptions };
+    const realSeries = [100, 200];
+    return { chartOptions, realSeries };
+  },
+  updated() {
+    this.realSeries = this.series;
   },
 };
 </script>

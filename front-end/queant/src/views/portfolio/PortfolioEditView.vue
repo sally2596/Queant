@@ -17,7 +17,7 @@
 
 
     <div class="container">
-      <h2 style="font-family: NanumSquareRound;" class="text-center my-5">퀸트에서 등록한 상품들</h2>
+      <h2 style="font-family: jua;" class="text-center my-5">Queant 등록 상품</h2>
       <table class="rwd-table">
         <tbody>
           <tr>
@@ -53,9 +53,11 @@
             <td class="text-center" data-th="Invoice Date">
               {{ myProduct.start_date }} ~ {{ myProduct.end_date }}
             </td>
-            <td class="text-center" data-th="Due Date">
-              <p v-if="myProduct.product.deposit">예금</p>
-              <p v-else>적금</p>
+            <td class="text-center" data-th="Due Date" v-if="myProduct.product.deposit">
+              예금
+						</td>
+						<td class="text-center" data-th="Due Date" v-if="!myProduct.product.deposit">
+              적금
             </td>
             <td class="text-center" data-th="Net Amount">
               <applied-rate
@@ -72,7 +74,7 @@
     </div>
 
     <div class="container my-5">
-    <h2 style="font-family: NanumSquareRound;" class="text-center my-5">직접 추가한 상품들</h2>
+    <h2 style="font-family: jua;" class="text-center my-5">사용자 정의 상품</h2>
       <table class="rwd-table">
         <tbody>
           <tr>

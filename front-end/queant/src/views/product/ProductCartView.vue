@@ -19,7 +19,6 @@
       
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
       <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
-      <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()">포트폴리오 모두 삭제</button>      
       <button  class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="saveToDb()">가상 포트폴리오 최종 저장</button>
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
@@ -77,7 +76,7 @@
             <div>아직 상품이 없습니다.</div>
           </div>
           <div v-else v-for="cproduct in cportfolio.products" class="d-flex mx-2 my-2" style="font-size: 15px;" :key="cproduct">
-                {{cproduct.name}}
+                {{cproduct.product.name}}
                 <button style="height:1.2rem; font-size: 5px;" class="d-flex align-items-center p-2 btn btn-outline-danger btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
           </div>
           <button class="btn btn-danger btn-sm" type="button" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>
@@ -97,7 +96,7 @@ export default {
   name: 'ProductCartView',
   components : { Navbar, draggable },
   computed: {
-    ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products']),
+    ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products', 'comparisonProducts']),
   },
   methods: {
     ...mapActions(['fetchProduct', 'saveToDb', 'getFromDb', 'pushProductToPortfolio']),
