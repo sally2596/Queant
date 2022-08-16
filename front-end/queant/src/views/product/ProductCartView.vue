@@ -130,7 +130,6 @@ export default {
     },
   },
   mounted() {
-    this.clearDB()
     this.getFromDb()
   },
   beforeCreate: function() {
