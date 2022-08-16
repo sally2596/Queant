@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">상품 비교하기</h1>
+    <h1 class="title" id="title">가상 포트폴리오</h1>
   </header>
   <section class="product-detail-box">
     <div v-if="comparisonPortfolio.length === 0" class="cart-none">
