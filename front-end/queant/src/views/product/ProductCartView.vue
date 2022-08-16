@@ -17,7 +17,6 @@
     <!-- 장바구니에 상품이 담겨 있을 때 -->
     <div v-else id="cart-item">
       
-    <h1>장바구니</h1>
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
       <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
       <button class="btn btn-outline-success btn-sm" @click="clearcomparisonportfolio()">포트폴리오 모두 삭제</button>      
@@ -38,8 +37,8 @@
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
           <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
           <td><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
-          <td>{{productInCart.applied_rate}}%</td>
-          <td>{{productInCart.applied_period}}</td>
+          <td>{{ (productInCart.applied_rate + productInCart.special_rate).toFixed(2) }}%</td>
+          <td> {{productInCart.applied_period }}</td>
           <td class="flex-wrap">
             <button v-for="cportfolio in comparisonPortfolio"
              :key="cportfolio.cportfolio_cnt"

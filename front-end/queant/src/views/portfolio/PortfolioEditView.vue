@@ -104,7 +104,7 @@
               <p v-else>적금</p>
             </td>
             <td class="text-center" data-th="Net Amount">
-              {{ customProduct.base_rate }}%
+              {{ customProduct.base_rate + customProduct.special_rate }}%
             </td>
             <td>
               <button class="btn btn-outline-success btn-sm mx-1" @click="openCustomProductEditModal(customProduct)">수정</button>
