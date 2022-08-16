@@ -1,45 +1,74 @@
 <template>
-  <Navbar/>
+  <Navbar />
   <header id="title-div">
     <h1 class="title" id="title">상품 비교하기</h1>
   </header>
   <section class="product-detail-box">
     <div v-if="comparisonPortfolio.length === 0" class="cart-none">
-      <img src="../../assets/image/물음표개미_none.png" alt="없음" style="width:30%;">
-      
-      <br><br>
+      <img
+        src="../../assets/image/물음표개미_none.png"
+        alt="없음"
+        style="width: 30%"
+      />
+
+      <br /><br />
       <h5>가상 포트폴리오가 없습니다.</h5>
-      <br><br>
-      
-      <h6><strong><router-link :to="{name : 'productCart'}">상품 저장소</router-link>에서 포트폴리오를 추가해보세요.</strong></h6>
+      <br /><br />
+
+      <h6>
+        <strong
+          ><router-link :to="{ name: 'productCart' }">상품 저장소</router-link
+          >에서 포트폴리오를 추가해보세요.</strong
+        >
+      </h6>
     </div>
 
     <div v-else>
-
-        <div class="product-detail d-flex flex-wrap justify-content-center">
-
-        <div class="m-2 p-3 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" id="cportfolio" style="height:50vh">
-          
-          <div class="border p-2" style="height: 50px; background-color: #92ce95; font-family: 'jua';">
-              <h5 class="text-center m-0"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
+      <div>{{ comparisonPortfolio }}</div>
+      <div class="product-detail d-flex flex-wrap justify-content-center">
+        <div
+          class="m-2 p-3 border border-1 d-grid gap-2"
+          v-for="cportfolio in comparisonPortfolio"
+          :key="cportfolio"
+          id="cportfolio"
+          style="height: 50vh"
+        >
+          <div
+            class="border p-2"
+            style="height: 50px; background-color: #92ce95; font-family: 'jua'"
+          >
+            <h5 class="text-center m-0">
+              예상 포트폴리오 {{ cportfolio.cportfolio_cnt }}
+            </h5>
           </div>
 
-          <br>
-
           <div v-if="cportfolio.products.length === 0">
-
             <div>아직 상품이 없습니다.</div>
           </div>
 
           <div v-else>
             <h2>상품 목록</h2>
-            <div v-for="cproduct in cportfolio.products" class="d-flex" style="font-size: 15px;">
-              {{cproduct.name}}
-                <button style="height:1.2rem; font-size: 5px;" class="d-flex p-0 btn btn-outline btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
+            <div
+              v-for="cproduct in cportfolio.products"
+              :key="cproduct"
+              class="d-flex"
+              style="font-size: 15px"
+            >
+              {{ cproduct.name }}
+              <button
+                style="height: 1.2rem; font-size: 5px"
+                class="d-flex p-0 btn btn-outline btn-sm"
+                @click="
+                  popProductFromCPortfolio([
+                    cportfolio.cportfolio_cnt,
+                    cproduct,
+                  ])
+                "
+              >
+                상품삭제
+              </button>
             </div>
-            <div >
-              예상 이익금 : 
-            </div>
+            <div>예상 이익금 :</div>
           </div>
         </div>
       </div>
@@ -48,43 +77,202 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-
+import { useStore } from "vuex";
+import { ref, watch } from "vue";
+import Navbar from "@/components/Navbar.vue";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import ColumnChart from "@/components/ColumnChart.vue";
 export default {
-  name: 'ProductComparisonView',
-  components : { Navbar },
+  name: "ProductComparisonView",
+  components: { Navbar, ColumnChart },
   computed: {
-    ...mapGetters(['isLoggedIn', 'userInfo', 'comparisonPortfolio']),
+    ...mapGetters(["isLoggedIn", "userInfo", "comparisonPortfolio"]),
     total(number) {
-      let sum_value = 0
+      let sum_value = 0;
       for (let product of this.comparisonPortfolio[number].products) {
-        sum_value += (product.amount)
+        sum_value += product.amount;
       }
-    }
+    },
   },
   methods: {
-    ...mapMutations(['POP_PRODUCT_FROM_CART', 'ADD_COMPARISON_PORTFOLIO', 'POP_CPORTFOLIO', 'POP_PRODUCT_FROM_CPORTFOLIO']),
-    ...mapActions(['saveDb', 'getFromDb']),
+    ...mapMutations([
+      "POP_PRODUCT_FROM_CART",
+      "ADD_COMPARISON_PORTFOLIO",
+      "POP_CPORTFOLIO",
+      "POP_PRODUCT_FROM_CPORTFOLIO",
+    ]),
+    ...mapActions(["saveDb", "getFromDb"]),
     popCPortfolioFromCPortfolios(portfolioIdx) {
-      this.POP_CPORTFOLIO(portfolioIdx)
+      this.POP_CPORTFOLIO(portfolioIdx);
     },
     popProductFromCPortfolio(value) {
-      this.POP_PRODUCT_FROM_CPORTFOLIO(value)
+      this.POP_PRODUCT_FROM_CPORTFOLIO(value);
     },
     addcomparisonportfolio() {
-      this.ADD_COMPARISON_PORTFOLIO()
+      this.ADD_COMPARISON_PORTFOLIO();
+    },
+    calculate(start_date, amount, rate, simple, term, deposit, today) {
+      let result = [];
+
+      let start = start_date.split("-");
+      let year = parseInt(start[0]);
+      let month = parseInt(start[1]);
+      let dates = [];
+      let todayYear = today.getFullYear();
+      let todayMonth = today.getMonth();
+      let todayIndex = -1;
+      let isFulled = false;
+
+      for (let i = 0; i <= term; i++) {
+        if (month == 13) {
+          year += 1;
+          month = 1;
+        }
+        if (year <= todayYear && month <= todayMonth + 1) todayIndex = i;
+        dates.push([year, month].join("-"));
+        month += 1;
+      }
+      console.log(todayIndex);
+      if (todayIndex == term) isFulled = true;
+
+      //원금
+      let original = {};
+      original.name = "원금";
+      let data = [];
+      let savedMoney = 0;
+
+      if (deposit)
+        for (var i = 0; i <= term; i++) {
+          data.push(amount);
+        }
+      else {
+        for (var i = 0; i <= term; i++) {
+          if (i === term) data.push(amount * i);
+          else data.push(amount * (i + 1));
+        }
+      }
+
+      original.data = data;
+      result.push(original);
+
+      let interest = {};
+      interest.name = "이번 달 이자";
+      interest.data = [];
+
+      let interestCumulative = {};
+      interestCumulative.name = "누적 이자";
+      interestCumulative.data = [];
+
+      //첫번째 달 이자 없음
+      interest.data.push(0);
+      interestCumulative.data.push(0);
+
+      let cumulMoney = 0;
+
+      //예금 복리에서만 사용
+      var calcRate = rate / 12 + 1;
+
+      for (var i = 0; i < term; i++) {
+        let calcMoney = 0.0;
+
+        if (deposit) {
+          //예금
+          if (!simple) calcMoney = (rate / 12) * amount; //단리
+          else calcMoney = (rate / 12) * amount; //복리
+        } else {
+          //적금
+          if (!simple) calcMoney = (amount * rate * (term - i)) / term; //단리
+          else calcMoney = amount * (1 + rate / term) ** (term - i) - amount; //복리
+        }
+
+        interest.data.push(Math.ceil(calcMoney));
+        cumulMoney += calcMoney;
+        interestCumulative.data.push(Math.ceil(cumulMoney));
+
+        //복리일 경우 amount 보정
+        if (deposit && simple) amount *= calcRate;
+      }
+
+      let total = 0;
+      if (deposit) {
+        total +=
+          original.data[todayIndex] +
+          interest.data[todayIndex] +
+          interestCumulative.data[todayIndex];
+      } else {
+        total +=
+          original.data[todayIndex] +
+          interest.data[todayIndex] +
+          interestCumulative.data[todayIndex];
+      }
+
+      result.push(interest);
+      result.push(interestCumulative);
+
+      return { dates, result, total, isFulled };
     },
   },
-  beforeCreate: function() {
-    document.body.className = 'home_body'
+  setup() {
+    const store = useStore();
+    watch(
+      () => store.getters.comparisonPortfolio,
+      function () {
+        console.log("포트폴리오 바뀜");
+        console.log(store.getters.comparisonPortfolio);
+      }
+    );
+    const savingSeries = [];
+    const depositSeries = [];
+    let savingIngAmount = 0;
+    let depositIngAmount = 0;
+    let savingFinishAmount = 0;
+    let depositFinishAmount = 0;
+
+    let RsavingFin = 0;
+    let RsavingIng = 0;
+    let RdepositFin = 0;
+    let RdepositIng = 0;
+
+    const depositChart = [];
+    const depositCategory = [];
+    const nowDepositChart = [];
+    const nowDepositCategory = [];
+    const savingChart = [];
+    const savingCategory = [];
+    const nowSavingChart = [];
+    const nowSavingCategory = [];
+    return {
+      savingSeries,
+      depositSeries,
+      savingIngAmount,
+      depositIngAmount,
+      savingFinishAmount,
+      depositFinishAmount,
+
+      RsavingFin,
+      RsavingIng,
+      RdepositFin,
+      RdepositIng,
+
+      depositChart,
+      depositCategory,
+      nowDepositChart,
+      nowDepositCategory,
+      savingChart,
+      savingCategory,
+      nowSavingChart,
+      nowSavingCategory,
+    };
   },
-  mounted() {
-    this.getFromDb()
+  beforeCreate: function () {
+    document.body.className = "home_body";
   },
-}
+  created() {
+    this.getFromDb();
+  },
+};
 </script>
 
 <style>
-@import '../../assets/css/home.css';
+@import "../../assets/css/home.css";
 </style>
