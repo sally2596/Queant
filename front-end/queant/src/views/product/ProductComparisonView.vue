@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <header id="title-div">
-    <h1 class="title" id="title">가상 포트폴리오</h1>
+    <h1 class="title" id="title">포트폴리오 비교하기</h1>
   </header>
   <section class="product-detail-box">
     <div v-if="comparisonPortfolio.length === 0" class="cart-none">
@@ -24,61 +24,45 @@
     </div>
 
     <div v-else>
-      <div class="product-detail d-flex flex-wrap justify-content-center">
-        <div
-          class="m-2 p-3 border border-1 d-grid gap-2"
-          v-for="cportfolio in comparisonPortfolio"
-          :key="cportfolio"
-          id="cportfolio"
-          style="height: 50vh"
-        >
-          <div
-            class="border p-2"
-            style="height: 50px; background-color: #92ce95; font-family: 'jua'"
+      <column-chart-comparison
+        v-if="series.length > 0"
+        v-bind:series="series"
+        v-bind:category="categories"
+        class=""
+      ></column-chart-comparison>
+      <div class="d-flex justify-content-center">
+        <div>
+          <table
+            class="table"
+            style="height: 5rem"
+            v-for="(cportfolio, portfolioNum) in comparisonPortfolio"
+            :key="portfolioNum"
           >
-            <h5 class="text-center m-0">
-              예상 포트폴리오 {{ cportfolio.cportfolio_cnt }}
-            </h5>
-          </div>
-
-          <div v-if="cportfolio.products.length === 0">
-            <div>아직 상품이 없습니다.</div>
-          </div>
-
-          <div v-else>
-            <h2>상품 목록</h2>
-            <div
-              v-for="cproduct in cportfolio.products"
-              :key="cproduct"
-              class="d-flex"
-              style="font-size: 15px"
+            <thead>
+              <tr>
+                <th colspan="6">
+                  예상 포트폴리오 {{ cportfolio.cportfolio_cnt }}
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              v-for="(cproduct, productNum) in cportfolio.products"
+              :key="productNum"
             >
-              {{ cproduct.product.name }}
-              {{ cproduct.amount }}
-              <button
-                style="height: 1.2rem; font-size: 5px"
-                class="d-flex p-0 btn btn-outline btn-sm"
-                @click="
-                  popProductFromCPortfolio([
-                    cportfolio.cportfolio_cnt,
-                    cproduct,
-                  ])
-                "
-              >
-                상품삭제
-              </button>
-            </div>
-            <div>예상 이익금 :</div>
-          </div>
-        </div>
-        <column-chart-comparison
-          v-if="series.length > 0"
-          v-bind:series="series"
-          v-bind:category="categories"
-          class="col-lg-6"
-        ></column-chart-comparison>
-        <div v-for="cportfolio in comparisonPortfolio" :key="cportfolio">
-          {{ cportfolio }}
+              <tr id="portfolio-deposit-table-tr">
+                <td>
+                  <img
+                    :src="cproduct.product.picture"
+                    alt=""
+                    style="width: 40px"
+                  />
+                </td>
+                <td>{{ cproduct.product.name }}</td>
+                <td>{{ filtered(cproduct.amount, cproduct.isDeposit) }}</td>
+                <td>{{ cproduct.total_rate }}%</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -114,6 +98,18 @@ export default {
     popCPortfolioFromCPortfolios(portfolioIdx) {
       this.POP_CPORTFOLIO(portfolioIdx);
     },
+    filtered(val, isDeposit) {
+      if (isDeposit)
+        return (
+          "예치금: " + String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+        );
+      else
+        return (
+          "월 불입금: " +
+          String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+          "원"
+        );
+    },
     popProductFromCPortfolio(value) {
       this.POP_PRODUCT_FROM_CPORTFOLIO(value);
     },
@@ -128,13 +124,8 @@ export default {
     const calculate2 = function (amount, rate, simple, term, deposit) {
       let original = 0;
 
-      if (deposit) original = term * amount;
-      else {
-        for (var i = 0; i <= term; i++) {
-          if (i === term) original += amount * i;
-          else original += amount * (i + 1);
-        }
-      }
+      if (deposit) original = amount;
+      else original = term * amount;
 
       let cumulMoney = 0;
 
@@ -186,7 +177,7 @@ export default {
           item.products.forEach((product) => {
             let result = calculate2(
               product.amount,
-              product.total_rate,
+              product.total_rate / 100,
               product.rate_type,
               product.term,
               product.isDeposit
@@ -208,15 +199,15 @@ export default {
           cPortfolioSavingInterest.push(savingInterest);
         });
         series.push({
-          name: "적금 총 불입금",
+          name: "예금 예치금",
           data: cPortfolioDepositMymoney,
         });
         series.push({
-          name: "적금 총 이자",
+          name: "예금 총 이자",
           data: cPortfolioDepositInterest,
         });
-        series.push({ name: "예금 예치금", data: cPortfolioSavingMymoney });
-        series.push({ name: "예금 총 이자", data: cPortfolioSavingInterest });
+        series.push({ name: "적금 총 불입금", data: cPortfolioSavingMymoney });
+        series.push({ name: "적금 총 이자", data: cPortfolioSavingInterest });
       }
     );
 
@@ -244,6 +235,6 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "../../assets/css/home.css";
 </style>
