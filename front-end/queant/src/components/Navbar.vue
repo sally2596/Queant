@@ -12,7 +12,7 @@
       <li class="ms-lg-auto content" id="searching_place">
         <input 
         type="text"
-        placeholder="빠른 상품 검색"
+        placeholder="Search"
         v-model="text"
         @keyup.enter="fetchProductsByText(text)"
         >
@@ -90,7 +90,6 @@
         </ul>
       </li>
     </ul>
-
 	</header> 
   
   <!-- <div class="nav_header" id="nav_header">
@@ -190,9 +189,7 @@ export default {
 </script>
 
 <style scoped>
-/* @import '../assets/css/navbar.css'; */
-
-
+@import '../assets/css/navbar.css';
 * {
   z-index: 8;
 	box-sizing: border-box;
