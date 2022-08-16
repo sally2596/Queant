@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">내 포트폴리오 관리</h1>
+    <h1 class="title" id="title">MY 포트폴리오 관리</h1>
   </header>
   <div>
 

@@ -1,8 +1,6 @@
 <template>
   <Navbar/>
 
-  
-  <main>
   <section class="py-5 text-center container" id="content-header-section" style="margin-top:100px">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
@@ -29,8 +27,8 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <router-link class="btn btn-sm btn-outline-secondary"
-                :to="{ name: 'contentDetail' , params: { contentId: content.content_id }}">보기</router-link>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(content.content_id)" v-if="isAdmin">삭제</button>
+                    :to="{ name: 'contentDetail', params: { contentId: content.content_id }}">보기</router-link>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="remove(content.content_id)" v-if="isAdmin">삭제</button>
                 </div>
               </div>  
             </div>
@@ -40,10 +38,10 @@
     </div>
   </div>
 
-</main>
 </template>
 <script>
 import Navbar from "@/components/Navbar.vue"
+import router from '@/router'
 import { mapGetters, mapActions } from 'vuex'
 import _ from 'lodash'
 import thumbnail1 from '../../assets/image/thumbnail/1.jpg'
@@ -74,6 +72,11 @@ export default {
       let thumbnail = this.thumbnails[idx]
       return thumbnail
     },
+		remove(id){
+			this.deleteContent(id);
+			alert("컨텐츠가 삭제되었습니다.");
+			this.$router.go();
+		}
   },
   created() {
     this.getContentList();

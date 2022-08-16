@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">상품 저장소</h1>
+    <h1 class="title" id="title">상품저장소</h1>
   </header>
 
   <!-- 장바구니 섹션 -->
@@ -21,6 +21,7 @@
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
       <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
       <button  class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="saveToDb()">가상 포트폴리오 최종 저장</button>
+      <router-link :to="{name:'productComparison'}" class="btn btn-outline-success btn-sm">가상 포트폴리오 비교하기</router-link>
       <br><br>
       <table class="table table--block" cellspacing="0" cellpadding="0">
         <thead>
@@ -69,8 +70,11 @@
     <div v-else>
       <h1>가상 포트폴리오</h1>
       <div class="product-detail d-flex flex-wrap justify-content-center">
-        <div class="m-2 p-4 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" id="cportfolio" :key="cportfolio">
-          <div class="border p-2" style="height: 40px; background-color: #92ce95; font-family: 'jua';">
+        
+        <div class="m-2 p-4 border border-1 my-5" v-for="cportfolio in comparisonPortfolio" id="cportfolio" :key="cportfolio" style="position: relative; height: 500px;">
+        
+        <button class="btn btn-danger" type="button" style="position: absolute; width:100%; bottom: -40px; right:-3px;" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>
+          <div class="border p-2" style="width:100%; background-color: #92ce95; font-family: 'jua';">
             <h5 class="text-center m-0"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
           </div>
           <div class="my-2 mx-2" v-if="cportfolio.products.length === 0">
@@ -80,7 +84,6 @@
                 {{cproduct.product.name}}
                 <button style="height:1.2rem; font-size: 5px;" class="d-flex align-items-center p-2 btn btn-outline-danger btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
           </div>
-          <button class="btn btn-danger btn-sm" type="button" @click="deleteCportfolio(cportfolio.cportfolio_cnt)">포트폴리오 삭제</button>
         </div>
         
       </div>

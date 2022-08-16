@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">맞춤 상품 추천</h1>
+    <h1 class="title" id="title">맞춤상품검색</h1>
   </header>
 
   <section class="product_section">

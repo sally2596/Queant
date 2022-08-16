@@ -27,6 +27,9 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: "ContentEditView",
+    props: {
+      content: Object
+    },
     components: {
       ckeditor: CKEditor.component,
       Navbar
@@ -64,7 +67,7 @@ export default {
 		},
   },
   created() {
-  this.getContent(this.$route.params.contentId);
+  // this.getContent(this.$route.params.contentId);
   this.editorData = this.content.content;
   this.article.contentId = this.content.content_id;
   this.article.title = this.content.title;

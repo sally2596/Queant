@@ -205,13 +205,5 @@ export default {
 </script>
 
 <style scoped>
-.box {
-	float: right;
-	width: 160px;
-	text-align:right;
-}
-
-.label {
-	line-height:30px;
-}
+@import '@/assets/css/modal.css';
 </style>

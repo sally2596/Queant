@@ -1,7 +1,7 @@
 <template>
     <Navbar/>
 		<section id="hero">
-			<h1 class="title" id="title">상품 제보</h1>
+			<h1 class="title" id="title">상품제보</h1>
 			<section class="search_filter" style="padding:0; width:600px;">
 				<div class="filter_button_wrap">
 					<button class="filter_button filter_active" style="width:100%">필요하신 상품 정보를 기입해 주세요!</button>
