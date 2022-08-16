@@ -31,8 +31,6 @@ export default {
   },
   created() {
     this.getContent(this.$route.params.contentId);
-  },
-  data() {
   }
 }
 </script>
