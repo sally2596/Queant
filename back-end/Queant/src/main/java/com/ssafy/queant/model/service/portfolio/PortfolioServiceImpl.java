@@ -369,6 +369,8 @@ public class PortfolioServiceImpl implements PortfolioService {
          }
       }
 
+      portfolioRepository.flush();
+
       insertPortfolio(memberId, portfolioDtoList);
    }
 
