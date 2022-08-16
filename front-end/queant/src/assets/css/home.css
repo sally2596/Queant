@@ -30,8 +30,14 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 60vh;
+  height: 40vh;
   position: relative;
+	max-width: 600px;
+	background-color: white;
+	margin-top: 2rem; margin-left: 1rem; margin-bottom: 1rem;
+	box-shadow: 1px 5px 10px rgb(0 0 0 / 10%);
+	margin: auto;
+	margin-top: 50px;
 }
 
 .portfolio-none {

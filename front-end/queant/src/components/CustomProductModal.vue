@@ -203,14 +203,4 @@ export default {
 
 <style scoped>
 @import '@/assets/css/modal.css';
-
-.box {
-	float: right;
-	width: 160px;
-	text-align:right;
-}
-
-.label {
-	line-height:30px;
-}
 </style>
