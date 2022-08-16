@@ -74,26 +74,30 @@
           required>
         <div class="error-text" v-if="error.password2" style="margin-bottom:0px;">{{ error.password2 }}</div>
 
-        <!-- 성별 -->
+        <!-- 성별 mx-1 mb-2 -->
         <div class="d-flex justify-content-center">
           <button
             @click="setGender('Female')"
             type="button"
-            class="mx-1 mb-2"
+            :class="{ opacity: selectedFemale }"
             style="width: 122px;
             height: 49px;
+            margin-right: 2.5px;
+            margin-bottom: 2%;
             color: darkslategrey;
             font-family: NanumSquareRound;">
             여자
           </button>
-          
+
           <button
             @click="setGender('Male')"
             type="button"
-            class="mx-1 mb-2"
+            :class="{ opacity: selectedMale }"
             style="width: 122px;
             height: 49px;
-            color: darkslategrey; 
+            margin-left: 2.5px;
+            margin-bottom: 2%;
+            color: darkslategrey;
             font-family: NanumSquareRound;">
             남자
           </button>
@@ -174,6 +178,8 @@ export default {
         password2 : ''
       },
       timerCount : 300,
+      selectedMale: false,
+      selectedFemale: false
     }
   },
   methods: {
@@ -201,6 +207,13 @@ export default {
         this.timerCount--
     },
     setGender(gender) {
+      if (gender === 'Male') {
+        this.selectedMale = true
+        this.selectedFemale = false
+      } else {
+        this.selectedMale = false
+        this.selectedFemale = true
+      }
       this.credentials.gender = gender
     }
   },
@@ -277,6 +290,11 @@ export default {
   padding: 0;
   font-weight: 300;
 }
+
+.opacity {
+  opacity: 70%;
+}
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
