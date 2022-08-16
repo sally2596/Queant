@@ -118,6 +118,8 @@ public class PortfolioServiceImpl implements PortfolioService {
       CustomProduct customProduct = modelMapper.map(customProductDto, CustomProduct.class);
 
       customProduct.setMemberId(result.get().getMemberId());
+      Date endDate = addMonth(customProductDto.getStartDate(), customProductDto.getSaveTerm());
+      customProduct.setEndDate(endDate); //endDate 셋팅
       CustomProduct savedCustomProduct = customProductRepository.save(customProduct);
 
       CustomProductDto savedCustomProductDto = modelMapper.map(savedCustomProduct,CustomProductDto.class);
