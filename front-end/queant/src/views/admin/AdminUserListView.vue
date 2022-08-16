@@ -11,8 +11,7 @@
       <button
         @click="fetchUserInfo(email)"
         class="btn btn-sm my-0 mb-1 text-align-center"
-        style="height: 25px; font-size: 12px"
-      >
+        style="height: 25px; font-size: 12px">
         이메일 검색
       </button>
     </div>
@@ -53,15 +52,75 @@
   </div>
   <div id="section-float">
     <section id="adminUserList" class="container row">
-      <admin-user-item
+      
+       <table class="rwd-table my-5">
+        <tbody>
+          <tr>
+            <th class="text-center">이름</th>
+            <th class="text-center">이메일</th>
+            <th class="text-center">성별</th>
+            <th class="text-center">생년월일</th>
+            <th class="text-center">소셜</th>
+            <th class="text-center">권한</th>
+            <th class="text-center">상태</th>
+            <th class="text-center">관리</th>
+          </tr>
+          <tr 
+            v-for="user in users"
+            :key="user.email">
+            <td class="col-1 text-center" data-th="Supplier Code">
+              <p style="font-family: NanumSquareRound;">{{ user.name }}</p>
+            </td>
+            <td class="col-3 text-center" data-th="Supplier Name">
+              {{ user.email }}
+            </td>
+            <td class="col-1 text-center" data-th="Invoice Number">
+              {{ user.gender }}
+            </td>
+            <td class="col-2 text-center" data-th="Invoice Date">
+              {{ user.birthdate }}
+            </td>
+            <td class="col-1 text-center" data-th="Due Date">
+              {{ user.social }}
+            </td>
+            <td class="col-1 text-center" data-th="Due Date">
+              <p v-if="user.role_set.length === 3">Admin</p>
+              <p v-if="user.role_set.length === 2">Manager</p>
+              <p v-if="user.role_set.length === 1">User</p>
+            </td>
+            <td class="col-2 text-center">
+              <p v-if="user.enabled" style="font-family: NanumSquareRound;">활성화</p>
+              <p v-else style="font-family: NanumSquareRound;">비활성화</p>
+            </td>
+            <td class="col-1 text-center" data-th="Net Amount">
+              <button
+                @click="openUserModal(user)"
+                class="btn btn-outline-success"
+                id="show-modal">
+                <i class="fa-solid fa-user-gear"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- <admin-user-item
         class="col-12 d-flex justify-content-center align-items-center"
         v-for="user in users"
         :key="user.email"
-        :user="user"
-      >
-      </admin-user-item>
+        :user="user">
+      </admin-user-item> -->
     </section>
   </div>
+
+  <!-- 모달 -->
+  <user-change-modal
+    v-if="showModal" 
+    @close="showModal = false" 
+    :modalData="modalData">
+  </user-change-modal>
+
+  <!-- 페이지네이션 -->
   <div id="admin-userlist-pagenation">
     <div v-for="page in totalPage" :key="page">
       <button @click="changeCurrentPage(page)" class="pages btn btn-sm">
@@ -77,10 +136,11 @@ import { mapActions, mapGetters } from "vuex";
 import _ from "lodash";
 import AdminUserItem from "@/components/AdminUserItem.vue";
 import NavbarAdmin from "@/components/NavbarAdmin.vue";
+import UserChangeModal from "@/components/UserChangeModal.vue";
 
 export default {
   name: "AdminUserListView",
-  components: { AdminUserItem, NavbarAdmin },
+  components: { AdminUserItem, NavbarAdmin, UserChangeModal },
   beforeCreate: function () {
     document.body.className = "admin_body";
   },
@@ -95,6 +155,8 @@ export default {
         role: "ROLE_USER",
         page: 1,
       },
+      showModal: false,
+      modalData: null
     };
   },
   watch: {
@@ -109,7 +171,7 @@ export default {
     ...mapActions(["fetchUserInfo", "fetchUsers"]),
     changeCurrentPage(page) {
       this.payload.page = page;
-    },
+    },  
     changeRoleSet(event) {
       this.payload.role = event.target.value;
       this.payload.page = 1;
@@ -118,10 +180,14 @@ export default {
       this.payload.social = event.target.value;
       this.payload.page = 1;
     },
+    openUserModal(user) {
+      this.modalData = user,
+      this.showModal = true
+    }
   },
   created() {
     this.fetchUsers(this.payload);
-  },
+  }
 };
 </script>
 
