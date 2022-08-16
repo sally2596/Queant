@@ -1,18 +1,16 @@
 <template>
   <Navbar/>
 
-  <section class="py-5 text-center container" id="content-header-section" style="margin-top:100px">
+  <section class="py-5 text-center container" id="content-header-section" style="margin-top:100px; margin-bottom:-70px">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1>자산 관리의 핵심, Queant</h1>
-        <div v-if="isAdmin">
-          <router-link  class="btn btn-success" :to="{ name: 'contentCreate' }">기사 작성하기</router-link>
-        </div>
-        
+        <h1>자산 관리의 핵심, Queant</h1>        
       </div>
     </div>
   </section>
-
+	<div v-if="isAdmin" style="text-align: center;">
+		<router-link  class="btn btn-success" :to="{ name: 'contentCreate' }">기사 작성하기</router-link>
+	</div>
   <div class="album py-5">
     <div class="container p-0">
 

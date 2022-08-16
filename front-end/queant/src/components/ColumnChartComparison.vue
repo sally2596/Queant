@@ -99,7 +99,9 @@ export default {
           enabled: true,
         },
       },
-
+title: {
+          text: "포트폴리오 상품 만기일 지급 기준 총 합",
+        },
       plotOptions: {
         bar: {
           horizontal: false,

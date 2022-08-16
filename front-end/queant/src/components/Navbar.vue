@@ -12,7 +12,7 @@
       <li class="ms-lg-auto content" id="searching_place">
         <input 
         type="text"
-        placeholder="빠른 상품 검색"
+        placeholder="SEARCH"
         v-model="text"
         @keyup.enter="fetchProductsByText(text)"
         >
