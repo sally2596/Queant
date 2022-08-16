@@ -202,6 +202,8 @@ export default {
 </script>
 
 <style scoped>
+@import '@/assets/css/modal.css';
+
 .box {
 	float: right;
 	width: 160px;
