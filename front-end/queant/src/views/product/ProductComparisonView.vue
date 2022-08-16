@@ -18,9 +18,9 @@
 
         <div class="product-detail d-flex flex-wrap justify-content-center">
 
-        <div class="m-2 p-3 border border-1 d-grid gap-2" v-for="cportfolio in comparisonPortfolio" :key="cportfolio" id="cportfolio" style="height:50vh">
+        <div class="m-2 p-3 border border-1" v-for="cportfolio in comparisonPortfolio" :key="cportfolio" id="cportfolio" style="position: relative; height: 500px;">
           
-          <div class="border p-2" style="height: 50px; background-color: #92ce95; font-family: 'jua';">
+          <div class="border p-2" style="height: 50px; background-color: #92ce95; font-family: 'jua'; ">
               <h5 class="text-center m-0"> 예상 포트폴리오 {{cportfolio.cportfolio_cnt}}</h5>
           </div>
 
@@ -32,13 +32,9 @@
           </div>
 
           <div v-else>
-            <h2>상품 목록</h2>
-            <div v-for="cproduct in cportfolio.products" :key="cproduct" class="d-flex" style="font-size: 15px;">
-              {{cproduct.name}}
-                <button style="height:1.2rem; font-size: 5px;" class="d-flex p-0 btn btn-outline btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
-            </div>
-            <div >
-              예상 이익금 : 
+            <div v-for="cproduct in cportfolio.products" :key="cproduct" class="d-flex mb-3" style="font-size: 15px;">
+              {{cproduct.product.name}}
+                <button style="height:1.2rem; font-size: 5px;" class="d-flex p-0 btn btn-outline-danger btn-sm" @click="popProductFromCPortfolio([cportfolio.cportfolio_cnt, cproduct])">상품삭제</button>
             </div>
           </div>
         </div>
