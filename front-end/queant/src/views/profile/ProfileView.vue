@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
 	<section id="hero">
-		<h1 class="title" id="title">내 프로필 관리</h1>
+		<h1 class="title" id="title">회원정보수정</h1>
 		<section class="home_profile">
 			<div v-if="passwordCheckedStatus !== 200 && userInfo.social === 'None'">
 				<h5 style="font-family: 'jua';">비밀번호를 한 번 더 확인합니다.</h5>

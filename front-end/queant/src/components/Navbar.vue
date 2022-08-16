@@ -46,11 +46,11 @@
           </li>
           <hr>
           <li>
-            <router-link :to="{ name : 'productComparison' }">가상포트폴리오</router-link>
+            <router-link :to="{ name : 'productComparison' }">가상 포트폴리오</router-link>
           </li>
           <hr>
           <li class="mb-3">
-            <router-link :to="{ name : 'productSpecialPlus' }">상품 제보하기</router-link>
+            <router-link :to="{ name : 'productSpecialPlus' }">상품제보</router-link>
           </li>
         </ul>
       </li>
