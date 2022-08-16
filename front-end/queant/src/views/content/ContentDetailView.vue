@@ -12,7 +12,7 @@
       <div v-if="isAdmin">
         <router-link
           :to="{ name: 'contentEdit', params: { contentId } }"><button class="btn btn-sm btn-outline-secondary">수정</button></router-link>
-        <button type="button" class="btn btn-sm btn-outline-secondary" @click="deleteContent(contentId)">삭제</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" @click="remove(contentId)">삭제</button>
       </div>
     </div>
   </section>
@@ -21,6 +21,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar.vue'
+import router from '@/router'
 
 export default {
   name: 'ContentDetailView',
@@ -34,7 +35,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getContent', 'deleteContent', 'editContent'])
+    ...mapActions(['getContent', 'deleteContent', 'editContent']),
+		remove(id){
+			this.deleteContent(id);
+			alert("컨텐츠가 삭제되었습니다.");
+			this.$router.push({ name: 'contents' });
+		}
   },
   created() {
     this.getContent(this.contentId)
