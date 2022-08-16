@@ -75,7 +75,11 @@
         </div>
 
         <!-- 적금 saving -->
-        <div v-if="savingSeries?.length != 0" id="saving-view" class="container row">
+        <div
+          v-if="savingSeries?.length != 0"
+          id="saving-view"
+          class="container row"
+        >
           <div class="col-lg-6 m-4">
             <div class="d-flex justify-content-between">
               <h1>적금</h1>
@@ -90,8 +94,11 @@
               <h6 v-text="filtered(savingIngAmount)"></h6>
             </div>
           </div>
-          <div class="col-lg-6 d-flex justify-content-between" style="height:500px; overflow:auto">
-            <table class="table" style="height:5rem">
+          <div
+            class="col-lg-6 d-flex justify-content-between"
+            style="height: 500px; overflow: auto"
+          >
+            <table class="table" style="height: 5rem">
               <thead>
                 <tr>
                   <th>은행</th>
@@ -100,31 +107,40 @@
                   <th>금리</th>
                 </tr>
               </thead>
-                <tbody v-for="(saving, index) in savingSeries" :key="index">
-                  <tr @click="changeSavingData(index)"  id="portfolio-saving-table-tr">
-                    <td>
-                      <img :src="saving.picture" alt="" style="width: 40px" />
-                    </td>
-                    <td>{{ saving.name }}</td>
-                    <td>{{ filtered(saving.total) }}</td>
-                    <td>{{ saving.rate }}%</td>
-                  </tr>
-                </tbody>
+              <tbody v-for="(saving, index) in savingSeries" :key="index">
+                <tr
+                  @click="changeSavingData(index)"
+                  id="portfolio-saving-table-tr"
+                >
+                  <td>
+                    <img :src="saving.picture" alt="" style="width: 40px" />
+                  </td>
+                  <td>{{ saving.name }}</td>
+                  <td>{{ filtered(saving.total) }}</td>
+                  <td>{{ saving.rate }}%</td>
+                </tr>
+              </tbody>
             </table>
           </div>
-            <column-chart
-              v-bind:series="nowSavingChart"
-              v-bind:category="nowSavingCategory"
-              class="col-lg-6"
-            ></column-chart>
+          <column-chart
+            v-bind:series="nowSavingChart"
+            v-bind:category="nowSavingCategory"
+            class="col-lg-6"
+          ></column-chart>
         </div>
 
         <!-- 예금 Deposit -->
-        <div v-if="depositSeries?.length != 0" id="deposit-view" class="container row">
+        <div
+          v-if="depositSeries?.length != 0"
+          id="deposit-view"
+          class="container row"
+        >
           <div class="col-lg-6 m-4">
             <div class="d-flex justify-content-between">
               <h1>예금</h1>
-              <h2 v-text="filtered(depositIngAmount + depositFinishAmount)"></h2>
+              <h2
+                v-text="filtered(depositIngAmount + depositFinishAmount)"
+              ></h2>
             </div>
             <div class="d-flex justify-content-between">
               <h6>만기된 상품</h6>
@@ -135,8 +151,11 @@
               <h6 v-text="filtered(depositIngAmount)"></h6>
             </div>
           </div>
-          <div class="col-lg-6 d-flex justify-content-between" style="height:500px; overflow:auto">
-            <table class="table" style="height:5rem">
+          <div
+            class="col-lg-6 d-flex justify-content-between"
+            style="height: 500px; overflow: auto"
+          >
+            <table class="table" style="height: 5rem">
               <thead>
                 <tr>
                   <th>은행</th>
@@ -146,9 +165,12 @@
                 </tr>
               </thead>
               <tbody v-for="(deposit, index) in depositSeries" :key="index">
-                <tr @click="changeDepositData(index)" id="portfolio-deposit-table-tr">
+                <tr
+                  @click="changeDepositData(index)"
+                  id="portfolio-deposit-table-tr"
+                >
                   <td>
-                    <img :src="deposit.picture" alt="" style="height:30%;">
+                    <img :src="deposit.picture" alt="" style="height: 30%" />
                   </td>
                   <td>{{ deposit.name }}</td>
                   <td>{{ deposit.total }}</td>
@@ -157,14 +179,14 @@
               </tbody>
             </table>
           </div>
-            <column-chart
-              v-bind:series="nowDepositChart"
-              v-bind:category="nowDepositCategory"
-              class="col-lg-6"
-            ></column-chart>
-          </div>
+          <column-chart
+            v-bind:series="nowDepositChart"
+            v-bind:category="nowDepositCategory"
+            class="col-lg-6"
+          ></column-chart>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -173,7 +195,7 @@ import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters } from "vuex";
 import PieChart from "@/components/PieChart.vue";
 import ColumnChart from "@/components/ColumnChart.vue";
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar';
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
 
 // globally registered and available for all charts
 
@@ -183,7 +205,7 @@ export default {
     Navbar,
     PieChart,
     ColumnChart,
-    PerfectScrollbar
+    PerfectScrollbar,
   },
   data() {
     const summarySeries = [];
@@ -239,10 +261,11 @@ export default {
   },
   watch: {
     savingFinishAmount: function () {
-      console.log("dddddd");
       this.RsavingFin = this.savingFinishAmount;
     },
     portfolio: function () {
+      console.log("제발좀..잘 좀 들어가봐");
+      this.summarySeries = [];
       this.savingSeries = [];
       this.depositSeries = [];
       this.savingIngAmount = 0;
@@ -347,10 +370,8 @@ export default {
         }
       });
 
-      this.summarySeries = [
-        this.depositIngAmount + this.depositFinishAmount,
-        this.savingFinishAmount + this.savingIngAmount,
-      ];
+      this.summarySeries.push(this.depositIngAmount + this.depositFinishAmount);
+      this.summarySeries.push(this.savingFinishAmount + this.savingIngAmount);
     },
   },
   methods: {
