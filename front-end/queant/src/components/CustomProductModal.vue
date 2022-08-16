@@ -193,7 +193,7 @@ export default {
       this.payload.base_rate= this.customDto?.base_rate;
       this.payload.special_rate= this.customDto?.special_rate;
       this.payload.start_date= this.customDto?.start_date;
-      this.payload.end_date= this.customDto?.end_date;
+      this.payload.save_term= this.customDto?.save_term;
       this.payload.etc= this.customDto?.etc;
         
       if(!this.customDto.deposit) {
