@@ -99,6 +99,7 @@ public class PortfolioController {
 
     @ApiResponses({
             @ApiResponse(code = 200, message="포트폴리오 생성 성공"),
+            @ApiResponse(code = 409, message=""),
             @ApiResponse(code = 500, message="기타 서버 에러"),
     })
     @ApiOperation(value="포트폴리오 생성", notes="memberId, PortfolioDto 리스트 필수")
@@ -109,6 +110,7 @@ public class PortfolioController {
         try{
             portfolioService.deleteAndInsert(portfolioRequestDto.getMemberId(), portfolioRequestDto.getPortfolioDtoList());
             return new ResponseEntity<>(HttpStatus.OK);
+
         } catch (Exception e) {
             e.printStackTrace();
             return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

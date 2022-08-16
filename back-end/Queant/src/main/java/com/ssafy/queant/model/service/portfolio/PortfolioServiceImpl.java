@@ -357,7 +357,10 @@ public class PortfolioServiceImpl implements PortfolioService {
    @Override
    public void deleteAndInsert(UUID memberId, List<PortfolioDto> portfolioDtoList) throws Exception {
       Member member = Member.builder().memberId(memberId).build();
-      portfolioRepository.deleteByMember(member);
+      Optional<List<Portfolio>> portfolio = portfolioRepository.findPortfolioByMember(member);
+
+      if(portfolio.isPresent())portfolioRepository.deleteAll(portfolio.get());
+
       insertPortfolio(memberId, portfolioDtoList);
    }
 
