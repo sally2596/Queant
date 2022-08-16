@@ -9,13 +9,8 @@
         <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.name }}</h4>
        </slot>
       </div>
-      <p class="h1 m-0"><b-icon-x-circle type="button" style="
-        position:fixed; 
-        height: 5em; 
-        margin-left:400px; 
-        margin-top: -130px;
-        z-index: 1000;
-      " @click="$emit('close')"/>
+      <p class="h1 m-0"><b-icon-x-circle type="button" class="modal-close-button"
+      @click="$emit('close')"/>
 			</p>
       <hr>
 
@@ -248,10 +243,10 @@ export default {
 
 
 .modal-container {
-  width: 510px;
+  width: 560px;
   height: 600px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 20px 60px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
@@ -307,6 +302,14 @@ export default {
 	float: right;
 	width: 160px;
 	text-align:right;
+}
+
+.modal-close-button {
+	position:fixed; 
+	height: 5em;
+	margin-left: 441px; 
+	margin-top: -130px;
+	z-index: 1000;
 }
 
 </style>
