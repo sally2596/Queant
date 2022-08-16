@@ -27,14 +27,14 @@
       <div class="container">
         <!-- 포트폴리오 요약 -->
         <!-- 예금과 적금의 비율 + 총 투자액 -->
-        <div id="Summary" class="row justify">
-          <div class="col-6">
+        <div id="Summary" class="container row justify">
+          <div class="col-lg-6">
             <pie-chart
               v-bind:series="summarySeries"
               v-bind:chartOptionLabels="summaryChartOptionLabels"
             ></pie-chart>
           </div>
-          <div class="col-6">
+          <div class="col-lg-6">
             <div class="d-flex justify-content-between">
               <h4>현재까지 모은 금액</h4>
               <h2
@@ -75,21 +75,30 @@
         </div>
 
         <!-- 적금 saving -->
-        <div v-if="savingSeries?.length != 0" id="saving-view">
-          <div class="d-flex justify-content-between">
-            <h1>적금</h1>
-            <h2 v-text="filtered(savingFinishAmount + savingIngAmount)"></h2>
+        <div
+          v-if="savingSeries?.length != 0"
+          id="saving-view"
+          class="container row"
+        >
+          <div class="col-lg-6 m-4">
+            <div class="d-flex justify-content-between">
+              <h1>적금</h1>
+              <h2 v-text="filtered(savingFinishAmount + savingIngAmount)"></h2>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h6>만기된 상품</h6>
+              <h6 v-text="filtered(savingFinishAmount)"></h6>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h6>진행중 상품</h6>
+              <h6 v-text="filtered(savingIngAmount)"></h6>
+            </div>
           </div>
-          <div class="d-flex justify-content-between">
-            <h6>만기된 상품</h6>
-            <h6 v-text="filtered(savingFinishAmount)"></h6>
-          </div>
-          <div class="d-flex justify-content-between">
-            <h6>진행중 상품</h6>
-            <h6 v-text="filtered(savingIngAmount)"></h6>
-          </div>
-          <div class="d-flex justify-content-between">
-            <table class="table">
+          <div
+            class="col-lg-6 d-flex justify-content-between"
+            style="height: 500px; overflow: auto"
+          >
+            <table class="table" style="height: 5rem">
               <thead>
                 <tr>
                   <th>은행</th>
@@ -98,9 +107,11 @@
                   <th>금리</th>
                 </tr>
               </thead>
-              <br />
               <tbody v-for="(saving, index) in savingSeries" :key="index">
-                <tr @click="changeSavingData(index)">
+                <tr
+                  @click="changeSavingData(index)"
+                  id="portfolio-saving-table-tr"
+                >
                   <td>
                     <img :src="saving.picture" alt="" style="width: 40px" />
                   </td>
@@ -110,31 +121,41 @@
                 </tr>
               </tbody>
             </table>
-            <column-chart
-              v-bind:series="nowSavingChart"
-              v-bind:category="nowSavingCategory"
-              class="col-6"
-            ></column-chart>
           </div>
+          <column-chart
+            v-bind:series="nowSavingChart"
+            v-bind:category="nowSavingCategory"
+            class="col-lg-6"
+          ></column-chart>
         </div>
 
         <!-- 예금 Deposit -->
-        <div v-if="depositSeries?.length != 0" id="deposit-view" class="">
-          <div class="d-flex justify-content-between">
-            <h1>예금</h1>
-            <h2 v-text="filtered(depositIngAmount + depositFinishAmount)"></h2>
+        <div
+          v-if="depositSeries?.length != 0"
+          id="deposit-view"
+          class="container row"
+        >
+          <div class="col-lg-6 m-4">
+            <div class="d-flex justify-content-between">
+              <h1>예금</h1>
+              <h2
+                v-text="filtered(depositIngAmount + depositFinishAmount)"
+              ></h2>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h6>만기된 상품</h6>
+              <h6 v-text="filtered(depositFinishAmount)"></h6>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h6>진행중 상품</h6>
+              <h6 v-text="filtered(depositIngAmount)"></h6>
+            </div>
           </div>
-          <div class="d-flex justify-content-between">
-            <h6>만기된 상품</h6>
-            <h6 v-text="filtered(depositFinishAmount)"></h6>
-          </div>
-          <div class="d-flex justify-content-between">
-            <h6>진행중 상품</h6>
-            <h6 v-text="filtered(depositIngAmount)"></h6>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <table class="table">
+          <div
+            class="col-lg-6 d-flex justify-content-between"
+            style="height: 500px; overflow: auto"
+          >
+            <table class="table" style="height: 5rem">
               <thead>
                 <tr>
                   <th>은행</th>
@@ -143,11 +164,13 @@
                   <th>금리</th>
                 </tr>
               </thead>
-              <br />
               <tbody v-for="(deposit, index) in depositSeries" :key="index">
-                <tr @click="changeDepositData(index)">
+                <tr
+                  @click="changeDepositData(index)"
+                  id="portfolio-deposit-table-tr"
+                >
                   <td>
-                    <img :src="deposit.picture" alt="" />
+                    <img :src="deposit.picture" alt="" style="height: 30%" />
                   </td>
                   <td>{{ deposit.name }}</td>
                   <td>{{ deposit.total }}</td>
@@ -155,17 +178,13 @@
                 </tr>
               </tbody>
             </table>
-            <column-chart
-              v-bind:series="nowDepositChart"
-              v-bind:category="nowDepositCategory"
-              class="col-6"
-            ></column-chart>
           </div>
+          <column-chart
+            v-bind:series="nowDepositChart"
+            v-bind:category="nowDepositCategory"
+            class="col-lg-6"
+          ></column-chart>
         </div>
-      </div>
-      <div v-for="(cportfolio, index) in portfolio" :key="index">
-        <h2>index</h2>
-        {{ cportfolio }}
       </div>
     </div>
   </div>
@@ -176,6 +195,7 @@ import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters } from "vuex";
 import PieChart from "@/components/PieChart.vue";
 import ColumnChart from "@/components/ColumnChart.vue";
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
 
 // globally registered and available for all charts
 
@@ -185,6 +205,7 @@ export default {
     Navbar,
     PieChart,
     ColumnChart,
+    PerfectScrollbar,
   },
   data() {
     const summarySeries = [];
