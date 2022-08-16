@@ -1,7 +1,66 @@
 <template>
-  <section class="login-form">
+
+  <div class="wrapper d-flex justify-content-center align-items-center">
+    <div class="container">
+      <h1>QueÆnt</h1>
+      <form @submit.prevent="login({ credentials, nextPath })" class="form">
+        <input
+          v-model="credentials.email"
+          v-bind:class="{error : error.email, complete:!error.email&&credentials.email.length!==0}"
+          type="text"
+          placeholder="Email"
+          autocomplete="off"
+          required>
+        <div class="error-text" v-if="error.email">{{error.email}}</div>
+
+        <input
+          style="font-family: NanumSquareRound;"
+          v-model="credentials.password"
+          v-bind:class="{error : error.password, complete:!error.password&&credentials.password.length!==0}"
+          type="password" 
+          placeholder="비밀번호"
+          autocomplete="off"
+          required>
+
+        <p v-if="authError === 404">이메일을 다시 확인해주세요.</p>
+        <p v-else-if="authError === 409">비밀번호가 일치하지 않습니다.</p>
+        <p v-else-if="authError === 423">비활성화 계정입니다.</p>
+
+        <button type="submit" style="color: darkslategrey; font-family: NanumSquareRound;" id="login-button" :disabled="!isCheckedForm">로그인</button>
+        <br>
+        <router-link style="text-decoration: none;" :to="{ name: 'register' }"><button type="button" style="color: darkslategrey; font-family: NanumSquareRound;" class="my-2">회원가입</button></router-link>
+        <br><br>
+        <router-link style="color: darkslategrey; text-decoration: none;" :to="{ name: 'passwordFind' }">비밀번호를 잊으셨나요?</router-link>
+        <br><br>
+        
+        <div>
+          <span class="mx-3" @click="kakaoLogin()"><img style="width: 10%; cursor: pointer;" src="@/assets/image/kakao_icon.png" alt="kakao login"></span>
+          
+          <span class="mx-3" @click="naverLogin()"><img style="width: 10%; cursor: pointer;" src="@/assets/image/naver_icon.png" alt="naver login"></span>
+
+          <span class="mx-3" @click="googleLogin()"><img style="width: 10%; cursor: pointer;" src="@/assets/image/google_icon.png" alt="google login"></span>
+        </div>
+      </form>
+
+    </div>
+   
+    <ul class="bg-bubbles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>   
+
+  <!-- <section class="login-form">
     <h1>QueÆnt</h1>
-    <!-- Login Form -->
+    Login Form
     <form @submit.prevent="login({ credentials, nextPath })">
 
       <div class="int-area">
@@ -26,7 +85,6 @@
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
-      <!-- 값에 따라 보여지는 화면 추후 설정 -->
       <p v-if="authError === 404">이메일을 다시 확인해주세요.</p>
       <p v-else-if="authError === 409">비밀번호가 일치하지 않습니다.</p>
       <p v-else-if="authError === 423">비활성화 계정입니다.</p>
@@ -56,7 +114,7 @@
         <button @click="googleLogin()"><img src="@/assets/image/google_icon.png" alt="google login"> </button>
       </div>
     </div>
-  </section>
+  </section> -->
 </template>
 
 <script>
@@ -98,7 +156,7 @@ export default {
 
       if (!this.error.email && !this.error.password && this.credentials.email && this.credentials.password)
         this.isCheckedForm = true
-    },
+    }
   },
   watch: {
     credentials: {
@@ -109,7 +167,7 @@ export default {
     }
   },
   beforeCreate: function() {
-    document.body.className = 'auth'
+    // document.body.className = 'auth'
   },
   created() {
     this.SET_AUTH_ERROR('')
@@ -129,4 +187,5 @@ export default {
 </script>
 <style scoped>
 @import url('../../assets/css/user.css');
+@import '@/assets/css/auth.css';
 </style>
