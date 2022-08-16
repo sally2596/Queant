@@ -57,6 +57,26 @@ export default {
 </script>
 
 <style scoped>
+/* 레페리포인트 */
+/* @font-face {
+    font-family: 'LeferiPoint-BlackA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+@font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  font-family: LeferiBaseType-RegularA !important;
+  /* font-family: LeferiPoint-BlackA; */
+}
+
 @import url(http://fonts.useso.com/css?family=Source+Sans+Pro:200,300);
 * {
   box-sizing: border-box;

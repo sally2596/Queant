@@ -1,8 +1,14 @@
-
 @font-face {
-    font-family: 'jua';
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* @font-face {
+    font-family: 'LeferiBaseType-RegularA';
     src: url(../font/BMJUA_ttf.ttf);
-  }
+} */
 
 #contents-create-section {
     max-width: 1080px;
@@ -31,7 +37,10 @@
   top: 0;
   width: 130%;
   height: 96%;
-  background: lightcoral;
+  /* background: lightcoral; */
+  background: rgb(236, 182, 182);
+  background: -webkit-linear-gradient(top left, rgb(241, 170, 170) 0%, #f13333 100%);
+  background: linear-gradient(to bottom right, rgb(231, 172, 172) 0%, #fa3636 100%);
   opacity: 0.3;
   z-index: -10;
   border-radius: 0 0 50% 50%;
@@ -39,7 +48,7 @@
 }
 
 #content-header-section h1 {
-    font-family: 'jua';
+    font-family: 'LeferiBaseType-RegularA';
     color: black;
     font-size: 4rem;
 }
