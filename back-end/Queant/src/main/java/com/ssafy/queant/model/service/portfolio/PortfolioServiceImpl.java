@@ -363,6 +363,7 @@ public class PortfolioServiceImpl implements PortfolioService {
       if(portfolio.isPresent()){
          for(Portfolio port: portfolio.get()){
             if(port.getPortfolioNo() == 0) continue;
+            log.info("[deleteAdnInsert] 삭제되는 포트폴리오 : {}", port.toString());
             portfolioRepository.delete(port);
 
          }

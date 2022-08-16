@@ -104,7 +104,11 @@ public class PortfolioController {
     @ApiOperation(value="포트폴리오 생성", notes="memberId, PortfolioDto 리스트 필수")
     @PostMapping
     public ResponseEntity<?> InsertPortfolio(@RequestBody PortfolioRequestDto portfolioRequestDto) {
-        log.info("[Controller: InsertPortfolio]");
+        log.info("[Controller: InsertPortfolio], memberId: {}", portfolioRequestDto.getMemberId());
+
+        for(PortfolioDto portfolioDto: portfolioRequestDto.getPortfolioDtoList()){
+            log.info("요청받은 portfolioDto: {}", portfolioDto.toString());
+        }
 
         try{
             portfolioService.deleteAndInsert(portfolioRequestDto.getMemberId(), portfolioRequestDto.getPortfolioDtoList());
