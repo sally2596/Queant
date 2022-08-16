@@ -60,6 +60,16 @@ body.auth {
   border-radius: 25px;
 }
 
+.btn-profile-area {margin-top: 15px;}
+.btn-profile-area button {
+  width: 60%; height: 40px;
+  background: #04AA6D;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+}
+
 .btn-edit {margin-top: 30px;}
 .btn-edit button {
   width: 40%; height: 40px;
