@@ -24,7 +24,6 @@
     </div>
 
     <div v-else>
-      <div>{{ comparisonPortfolio }}</div>
       <div class="product-detail d-flex flex-wrap justify-content-center">
         <div
           class="m-2 p-3 border border-1 d-grid gap-2"
@@ -54,7 +53,7 @@
               class="d-flex"
               style="font-size: 15px"
             >
-              {{ cproduct.name }}
+              {{ cproduct.product.name }}
               <button
                 style="height: 1.2rem; font-size: 5px"
                 class="d-flex p-0 btn btn-outline btn-sm"
@@ -69,7 +68,24 @@
               </button>
             </div>
             <div>예상 이익금 :</div>
+            <input
+              type="checkbox"
+              :id="cportfolio.cportfolio_cnt"
+              :value="cportfolio.cportfolio_cnt"
+              v-model="checkedComparison"
+            />
+            <label for="{{cportfolio.cportfolio_cnt}}">상품 비교하기</label>
           </div>
+        </div>
+        <button @click="renderChart()">상품삭제</button>
+        <column-chart-comparison
+          v-show="isComputed == true"
+          v-bind:series="series"
+          v-bind:category="categories"
+          class="col-lg-6"
+        ></column-chart-comparison>
+        <div v-for="cportfolio in comparisonPortfolio" :key="cportfolio">
+          {{ cportfolio }}
         </div>
       </div>
     </div>
@@ -78,13 +94,13 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref, watch } from "vue";
+import { reactive, ref, watch } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import ColumnChart from "@/components/ColumnChart.vue";
+import ColumnChartComparison from "@/components/ColumnChartComparison.vue";
 export default {
   name: "ProductComparisonView",
-  components: { Navbar, ColumnChart },
+  components: { Navbar, ColumnChartComparison },
   computed: {
     ...mapGetters(["isLoggedIn", "userInfo", "comparisonPortfolio"]),
     total(number) {
@@ -111,61 +127,26 @@ export default {
     addcomparisonportfolio() {
       this.ADD_COMPARISON_PORTFOLIO();
     },
-    calculate(start_date, amount, rate, simple, term, deposit, today) {
-      let result = [];
-
-      let start = start_date.split("-");
-      let year = parseInt(start[0]);
-      let month = parseInt(start[1]);
-      let dates = [];
-      let todayYear = today.getFullYear();
-      let todayMonth = today.getMonth();
-      let todayIndex = -1;
-      let isFulled = false;
-
-      for (let i = 0; i <= term; i++) {
-        if (month == 13) {
-          year += 1;
-          month = 1;
-        }
-        if (year <= todayYear && month <= todayMonth + 1) todayIndex = i;
-        dates.push([year, month].join("-"));
-        month += 1;
-      }
-      console.log(todayIndex);
-      if (todayIndex == term) isFulled = true;
-
-      //원금
-      let original = {};
-      original.name = "원금";
-      let data = [];
-      let savedMoney = 0;
+    renderChart() {
+      this.realSeries = this.series;
+      this.realCategories = this.realCategories;
+      this.isComputed = true;
+    },
+  },
+  data() {
+    const calculate2 = function (amount, rate, simple, term, deposit) {
+      let original = 0;
 
       if (deposit)
         for (var i = 0; i <= term; i++) {
-          data.push(amount);
+          original += amount;
         }
       else {
         for (var i = 0; i <= term; i++) {
-          if (i === term) data.push(amount * i);
-          else data.push(amount * (i + 1));
+          if (i === term) original += amount * i;
+          else original += amount * (i + 1);
         }
       }
-
-      original.data = data;
-      result.push(original);
-
-      let interest = {};
-      interest.name = "이번 달 이자";
-      interest.data = [];
-
-      let interestCumulative = {};
-      interestCumulative.name = "누적 이자";
-      interestCumulative.data = [];
-
-      //첫번째 달 이자 없음
-      interest.data.push(0);
-      interestCumulative.data.push(0);
 
       let cumulMoney = 0;
 
@@ -184,90 +165,120 @@ export default {
           if (!simple) calcMoney = (amount * rate * (term - i)) / term; //단리
           else calcMoney = amount * (1 + rate / term) ** (term - i) - amount; //복리
         }
-
-        interest.data.push(Math.ceil(calcMoney));
         cumulMoney += calcMoney;
-        interestCumulative.data.push(Math.ceil(cumulMoney));
-
         //복리일 경우 amount 보정
         if (deposit && simple) amount *= calcRate;
       }
+      cumulMoney = Math.ceil(cumulMoney);
+      return { original, cumulMoney };
+    };
 
-      let total = 0;
-      if (deposit) {
-        total +=
-          original.data[todayIndex] +
-          interest.data[todayIndex] +
-          interestCumulative.data[todayIndex];
-      } else {
-        total +=
-          original.data[todayIndex] +
-          interest.data[todayIndex] +
-          interestCumulative.data[todayIndex];
-      }
+    // 전체 계산 값 넣어둘 배열
 
-      result.push(interest);
-      result.push(interestCumulative);
+    const cPortfolioDepositMymoney = []; // 예금 예치금
+    const cPortfolioDepositInterest = []; //예금 이자
+    const cPortfolioSavingMymoney = []; //적금 총 불입금
+    const cPortfolioSavingInterest = []; //적금 이자
+    const cPortfolioNumber = []; //적금 이자
 
-      return { dates, result, total, isFulled };
-    },
-  },
-  setup() {
     const store = useStore();
     watch(
       () => store.getters.comparisonPortfolio,
       function () {
-        console.log("포트폴리오 바뀜");
+        console.log("포트폴리오 바뀜 ==> 전체 애들 값 계산");
         console.log(store.getters.comparisonPortfolio);
+        store.getters.comparisonPortfolio.forEach((item) => {
+          let depositMyMoney = 0;
+          let savingMyMoney = 0;
+          let depositInterest = 0;
+          let savingInterest = 0;
+
+          item.products.forEach((product) => {
+            let result = calculate2(
+              product.amount,
+              product.total_rate,
+              product.rate_type,
+              product.term,
+              product.isDeposit
+            );
+            let original = result.original;
+            let interest = result.cumulMoney;
+            if (product.isDeposit) {
+              depositMyMoney += original;
+              depositInterest += interest;
+            } else {
+              savingMyMoney += original;
+              savingInterest += interest;
+            }
+          });
+          cPortfolioNumber.push(item.cportfolio_cnt);
+          cPortfolioDepositMymoney.push(depositMyMoney);
+          cPortfolioDepositInterest.push(depositInterest);
+          cPortfolioSavingMymoney.push(savingMyMoney);
+          cPortfolioSavingInterest.push(savingInterest);
+        });
       }
     );
-    const savingSeries = [];
-    const depositSeries = [];
-    let savingIngAmount = 0;
-    let depositIngAmount = 0;
-    let savingFinishAmount = 0;
-    let depositFinishAmount = 0;
 
-    let RsavingFin = 0;
-    let RsavingIng = 0;
-    let RdepositFin = 0;
-    let RdepositIng = 0;
+    const checkedComparison = ref([]);
+    let comparisonDepositMymoney = [];
+    let comparisonDepositInterest = [];
+    let comparisonSavingMymoney = [];
+    let comparisonSavingInterest = [];
+    let comparisonName = [];
 
-    const depositChart = [];
-    const depositCategory = [];
-    const nowDepositChart = [];
-    const nowDepositCategory = [];
-    const savingChart = [];
-    const savingCategory = [];
-    const nowSavingChart = [];
-    const nowSavingCategory = [];
+    let series = {};
+    let categories = [];
+    let realSeries = {};
+    let realCategories = [];
+
+    let isComputed = false;
+    watch(checkedComparison, () => {
+      comparisonDepositMymoney = [];
+      comparisonDepositInterest = [];
+      comparisonSavingMymoney = [];
+      comparisonSavingInterest = [];
+      comparisonName = [];
+      checkedComparison._value.forEach((index) => {
+        index -= 1;
+        comparisonName.push(cPortfolioNumber[index]);
+        comparisonDepositMymoney.push(cPortfolioDepositMymoney[index]);
+        comparisonDepositInterest.push(cPortfolioDepositInterest[index]);
+        comparisonSavingMymoney.push(cPortfolioSavingMymoney[index]);
+        comparisonSavingInterest.push(cPortfolioSavingInterest[index]);
+      });
+      series = [
+        { name: "적금 총 불입금", data: comparisonDepositMymoney },
+        { name: "적금 총 이자", data: comparisonDepositInterest },
+        { name: "예금 예치금", data: comparisonSavingMymoney },
+        { name: "예금 총 이자", data: comparisonSavingInterest },
+      ];
+      categories = comparisonName;
+      console.log("*********");
+      console.log(checkedComparison._value.length);
+      // if (checkedComparison._value.length > 0) isComputed = true;
+      // else isComputed = false;
+      console.log(isComputed);
+    });
+
     return {
-      savingSeries,
-      depositSeries,
-      savingIngAmount,
-      depositIngAmount,
-      savingFinishAmount,
-      depositFinishAmount,
+      checkedComparison,
 
-      RsavingFin,
-      RsavingIng,
-      RdepositFin,
-      RdepositIng,
-
-      depositChart,
-      depositCategory,
-      nowDepositChart,
-      nowDepositCategory,
-      savingChart,
-      savingCategory,
-      nowSavingChart,
-      nowSavingCategory,
+      cPortfolioDepositMymoney,
+      cPortfolioDepositInterest,
+      cPortfolioSavingMymoney,
+      cPortfolioSavingInterest,
+      series,
+      categories,
+      isComputed,
+      realSeries,
+      realCategories,
     };
   },
   beforeCreate: function () {
     document.body.className = "home_body";
   },
-  created() {
+  mounted() {
     this.getFromDb();
   },
 };
