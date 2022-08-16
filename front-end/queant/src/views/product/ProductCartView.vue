@@ -17,7 +17,6 @@
     <!-- 장바구니에 상품이 담겨 있을 때 -->
     <div v-else id="cart-item">
       
-    <h1 class="title" id="title">장바구니</h1>
       <button class="btn btn-outline-danger btn-sm" @click="clearCart()">장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i></button>
       <button class="btn btn-outline-primary btn-sm" @click="addComparisonPortfolio()">가상 포트폴리오 추가 <i class="fa-solid fa-circle-plus fa-lg"></i></button>
       <button  class="btn btn-outline-success btn-sm" v-show="isLoggedIn" @click="saveToDb()">가상 포트폴리오 최종 저장</button>
@@ -37,8 +36,8 @@
         <tbody class="border" v-for="productInCart in cart" :key="productInCart.product.product_id">
           <td><router-link :to="{ name: 'bankInfoDetail' , params: { bankId: productInCart.product.bank_id }}"><img :src="productInCart.product.picture" alt="" style="width: 2rem;"></router-link></td>
           <td><router-link style="text-decoration-line: none;" :to="{ name: 'productDetail' , params: { productId: productInCart.product.product_id }}">{{productInCart.product.name}}</router-link></td>
-          <td>{{productInCart.applied_rate}}%</td>
-          <td>{{productInCart.applied_period}}</td>
+          <td>{{ (productInCart.applied_rate + productInCart.special_rate).toFixed(2) }}%</td>
+          <td> {{productInCart.applied_period }}</td>
           <td class="flex-wrap">
             <button v-for="cportfolio in comparisonPortfolio"
              :key="cportfolio.cportfolio_cnt"
@@ -90,13 +89,12 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import Modal from '@/components/Modal.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import draggable from 'vuedraggable'
 
 export default {
   name: 'ProductCartView',
-  components : { Navbar, Modal, draggable },
+  components : { Navbar, draggable },
   computed: {
     ...mapGetters(['isLoggedIn', 'userInfo', 'cart', 'portfolios', 'comparisonPortfolio', 'newlyAddedPortfolio', 'deletedPortfolio', 'products', 'comparisonProducts']),
   },
@@ -121,11 +119,6 @@ export default {
     popProductFromCart(product) {
       this.POP_PRODUCT_FROM_CART(product)
     },
-    openModal(value) {
-      this.modalData = value,
-      this.showModal = true,
-      this.fetchProduct(value[1].product_id)
-    },
     addComparisonPortfolio() {
       this.ADD_COMPARISON_PORTFOLIO()
     },
@@ -137,15 +130,7 @@ export default {
     },
   },
   mounted() {
-    this.clearDB()
     this.getFromDb()
-  },
-  data() {
-    return {
-      showModal: false,
-      productIdx: '',
-      modalData: null,
-    }
   },
   beforeCreate: function() {
     document.body.className = 'home_body'

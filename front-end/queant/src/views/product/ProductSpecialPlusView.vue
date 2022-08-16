@@ -1,32 +1,33 @@
 <template>
     <Navbar/>
-    <header id="title-div">
-      <h1 class="title" id="title">상품 제보</h1>
-    </header>
-  
-    <section class="search_filter" style="padding:0; width:600px;">
-      <div class="filter_button_wrap">
-        <button class="filter_button filter_active" style="width:100%">필요하신 상품 정보를 기입해 주세요!</button>
-      </div>
-      <div class="product_section" style="padding: 60px 0;">
-        <form @submit="checkForm()">
-					<div class="int-area">
-						<input type="text" v-model="product.bankName" id="bank">
-						<label class="form-label" for="bank" autocomplete="off">은행명</label>
-					</div>
-					<div class="int-area">
-						<input type="text" v-model="product.productName" id="prd">
-						<label class="form-label" for="prd" autocomplete="off">상품명</label>
-					</div>
-					<div class="int-area">
-						<input type="text" v-model="product.referenceData" id="ref">
-						<label class="form-label" for="ref" autocomplete="off">관련 링크</label>
-					</div>
-          <br><br>
-          <input type="submit" class="btn btn-sm btn-outline-secondary" value="제보하기">
-	      </form>
-      </div>
-    </section>
+		<section id="hero">
+			<h1 class="title" id="title">상품 제보</h1>
+			<section class="search_filter" style="padding:0; width:600px;">
+				<div class="filter_button_wrap">
+					<button class="filter_button filter_active" style="width:100%">필요하신 상품 정보를 기입해 주세요!</button>
+				</div>
+				<div class="product_section" style="padding: 60px 0;">
+					<form @submit="checkForm()">
+						<div class="int-area">
+							<input type="text" v-model="product.bankName" id="bank">
+							<label class="form-label" for="bank" autocomplete="off">은행명</label>
+						</div>
+						<div class="int-area">
+							<input type="text" v-model="product.productName" id="prd">
+							<label class="form-label" for="prd" autocomplete="off">상품명</label>
+						</div>
+						<div class="int-area">
+							<input type="text" v-model="product.referenceData" id="ref">
+							<label class="form-label" for="ref" autocomplete="off">관련 링크</label>
+						</div>
+						<br><br>
+						<input type="submit" class="btn btn-sm btn-outline-secondary" value="제보하기">
+					</form>
+				</div>
+			</section>
+
+		</section>
+    
 </template>
 
 <script>
