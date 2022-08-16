@@ -279,32 +279,32 @@ public class PortfolioServiceImpl implements PortfolioService {
       }
    }
 
-   @Override
-   @Transactional
-   public void deletePortfolio(UUID memberId, int portfolioNo) throws Exception {
-
-      log.info("[updatePortfolio] : memberId: {} 포트폴리오 수정, 포트폴리오 번호: {}", memberId, portfolioNo);
-
-      Optional<Member> result = memberRepository.findById(memberId);
-      Member member = result.get();
-
-      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
-      portfolioResult.orElseThrow(()-> new NoSuchElementException());
-
-      portfolioRepository.deleteAll(portfolioResult.get());
-
-      for(int i=portfolioNo+1; i<member.getPortfolio_cnt(); i++){
-         Optional<List<Portfolio>> portfolios = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member, i);
-
-         for(Portfolio portfolio : portfolios.get()){
-            portfolio.setPortfolioNo(i-1);
-            portfolioRepository.save(portfolio);
-         }
-      }
-
-      member.setPortfolio_cnt(member.getPortfolio_cnt()-1);
-
-   }
+//   @Override
+//   @Transactional
+//   public void deletePortfolio(UUID memberId, int portfolioNo) throws Exception {
+//
+//      log.info("[updatePortfolio] : memberId: {} 포트폴리오 수정, 포트폴리오 번호: {}", memberId, portfolioNo);
+//
+//      Optional<Member> result = memberRepository.findById(memberId);
+//      Member member = result.get();
+//
+//      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
+//      portfolioResult.orElseThrow(()-> new NoSuchElementException());
+//
+//      portfolioRepository.deleteAll(portfolioResult.get());
+//
+//      for(int i=portfolioNo+1; i<member.getPortfolio_cnt(); i++){
+//         Optional<List<Portfolio>> portfolios = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member, i);
+//
+//         for(Portfolio portfolio : portfolios.get()){
+//            portfolio.setPortfolioNo(i-1);
+//            portfolioRepository.save(portfolio);
+//         }
+//      }
+//
+//      member.setPortfolio_cnt(member.getPortfolio_cnt()-1);
+//
+//   }
 
    @Override
    @Transactional
@@ -352,6 +352,13 @@ public class PortfolioServiceImpl implements PortfolioService {
       Optional<Portfolio> portfolio = portfolioRepository.findById(portfolioId);
       portfolio.orElseThrow(() -> new NoSuchElementException());
       portfolioRepository.delete(portfolio.get());
+   }
+
+   @Override
+   public void deleteAndInsert(UUID memberId, List<PortfolioDto> portfolioDtoList) throws Exception {
+      Member member = Member.builder().memberId(memberId).build();
+      portfolioRepository.deleteByMember(member);
+      insertPortfolio(memberId, portfolioDtoList);
    }
 
 }
