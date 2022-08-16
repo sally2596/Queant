@@ -137,7 +137,6 @@ export default {
     },
   },
   mounted() {
-    this.clearDB()
     this.getFromDb()
   },
   data() {
