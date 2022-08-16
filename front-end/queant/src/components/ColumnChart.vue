@@ -43,6 +43,9 @@ export default {
             borderRadius: 3,
           },
         },
+        dataLabels: {
+          enabled: false,
+        },
         xaxis: {
           type: "datetime",
           categories: this.category,

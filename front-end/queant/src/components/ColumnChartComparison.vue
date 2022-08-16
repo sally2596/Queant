@@ -38,7 +38,11 @@ export default {
             enabled: true,
           },
         },
-
+        dataLabels: {
+          formatter: function (val, opt) {
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+          },
+        },
         plotOptions: {
           bar: {
             horizontal: false,
@@ -99,7 +103,14 @@ export default {
           enabled: true,
         },
       },
-
+      title: {
+        text: "만기 수령액",
+      },
+      dataLabels: {
+        formatter: function (val, opt) {
+          return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+        },
+      },
       plotOptions: {
         bar: {
           horizontal: false,

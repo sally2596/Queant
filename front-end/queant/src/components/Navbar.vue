@@ -11,10 +11,12 @@
       
       <li class="ms-lg-auto content" id="searching_place">
         <input 
-        type="text"
-        placeholder="Search"
-        v-model="text"
-        @keyup.enter="fetchProductsByText(text)"
+          type="text"
+          placeholder="SEARCH"
+          v-model="text"
+          style="width: 180px;
+          font-style: italic;"
+          @keyup.enter="fetchProductsByText(text)"
         >
         <button class="searching" @click="fetchProductsByText(text)"><i class="fa-solid fa-magnifying-glass"></i></button>
       </li>
