@@ -156,7 +156,7 @@ export default {
     ...mapGetters(['portfolio', 'customProducts'])
   },
   methods: {
-    ...mapActions(['editPortfolio', 'addProductToPortfolio', 'fetchProductsByText', 'deletePortfolio']),
+    ...mapActions(['editPortfolio', 'addProductToPortfolio', 'fetchProductsByText', 'deletePortfolio', 'deleteCustomProduct']),
     openMyProductModal(payload) {
       this.modalData = payload,
       this.showMyProductModal = true
