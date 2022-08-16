@@ -9,6 +9,16 @@
 
     <ul class="main-nav">
       
+      <li class="ms-lg-auto content" id="searching_place">
+        <input 
+        type="text"
+        placeholder="빠른 상품 검색"
+        v-model="text"
+        @keyup.enter="fetchProductsByText(text)"
+        >
+        <button class="searching" @click="fetchProductsByText(text)"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </li>
+
       <li v-show="isAdmin">
         <router-link :to="{ name : 'admin' }">Admin</router-link>
       </li>
@@ -257,7 +267,31 @@ a {
 /* ================================= 
   Media Queries
 ==================================== */
-
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: 0;
+  border: 1px solid darkgray;
+  background-color: white;
+  width: 250px;
+  border-radius: 3px;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  font-weight: 300;
+}
+input:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+input:focus {
+  background-color: white;
+  width: 300px;
+  color: #34495e;
+}
 
 
 
