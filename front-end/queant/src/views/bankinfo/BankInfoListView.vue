@@ -124,7 +124,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '../../assets/css/home.css';
 @import '../../assets/css/bank.css';
 @import '../../assets/css/common.css';

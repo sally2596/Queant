@@ -26,8 +26,11 @@
                     </dl>
                     <br />
                     <dl class="product-detail-sub-box">
-                      <dt style="font-weight: bold; font-size: 120%;">최소 가입 연령</dt>
-                      <dd><br />{{ product?.product.age_min }}세</dd>
+                      <dt style="font-weight: bold; font-size: 120%;">가입 연령</dt>
+                      <dd v-if="product?.product.age_min === 0 && product?.product.age_max === 0"><br />제한 없음</dd>
+                      <dd v-else-if="product?.product.age_min === 0 && product?.product.age_max !== 0"><br />~ 만{{ product?.product.age_max }}세</dd>
+                      <dd v-else-if="product?.product.age_min !== 0 && product?.product.age_max === 0"><br />만{{ product?.product.age_min }}세 ~</dd>
+                      <dd v-else><br />만 {{ product?.product.age_min }}세 ~ 만 {{ product?.product.age_max }}세</dd>
                     </dl>
                     <br />
                     <dl class="product-detail-sub-box">
@@ -39,9 +42,13 @@
                 <br />
                 <dd class="foot">
                   <p style="font-weight: bold; font-size: 24px;">추가 금리 조건</p>
+                  <div v-if="product?.conditions.length === 0">조건 없음</div>
                   <ul v-for="condition in product?.conditions" :key="condition" style="padding-left: 0px;">
-                    <li style="list-style: none">
+                    <li style="list-style: none" v-if="condition.condition_info">
                       - {{ condition.value }} : {{ condition.condition_info }}
+                    </li>
+                    <li style="list-style: none" v-else>
+                      - {{ condition.value }} : 상단 조건과 동일
                     </li>
                   </ul>
                 </dd>
@@ -94,6 +101,6 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "../../assets/css/product.css";
 </style>

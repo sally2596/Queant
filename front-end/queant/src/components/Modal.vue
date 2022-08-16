@@ -9,13 +9,8 @@
         <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.name }}</h4>
        </slot>
       </div>
-      <p class="h1 m-0"><b-icon-x-circle type="button" style="
-        position:fixed; 
-        height: 5em; 
-        margin-left:400px; 
-        margin-top: -130px;
-        z-index: 1000;
-      " @click="$emit('close')"/>
+      <p class="h1 m-0"><b-icon-x-circle type="button" class="modal-close-button"
+      @click="$emit('close')"/>
 			</p>
       <hr>
 
@@ -102,8 +97,8 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-        <!-- 버튼함수에 pushProductToPortfolio(payload) 이거 넣어야댐 -->
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
+          <!-- <button class="btn btn-outline-success btn-sm mx-3" @click="[changeAppliedRate(payload.condition_ids), $emit('close')]">장바구니</button> -->
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
         <div v-else>
@@ -136,14 +131,13 @@ export default {
     ...mapActions(['pushProductToPortfolio']),
     ...mapMutations(['PUSH_PRODUCT_TO_CART']),
     pushProductToCart(payload) {
-      // 적용한 우대사항 추가 금리 추가
-      // for (let productCondition of this.product.conditions) {
-      //   for (let selectedConditionId of payload.condition_ids) {
-      //     if (productCondition.condition_id === selectedConditionId) {
-      //       payload.applied_rate += productCondition.special_rate
-      //     }
-      //   }
-      // }
+      for (let productCondition of this.product.conditions) {
+        for (let selectedConditionId of payload.condition_ids) {
+          if (productCondition.condition_id === selectedConditionId) {
+            this.payload.special_rate += productCondition.special_rate
+          }
+        }
+      }
       this.PUSH_PRODUCT_TO_CART(payload)
     },
     checkForm() {
@@ -166,7 +160,7 @@ export default {
         alert('납입금액을 확인해주세요.')
     },
     // 선택한 이자유형 & 개월수에 따라 payload.applied_rate 변경
-    changeBaseRate(option_id) {
+    changeOption(option_id) {
       for (let option of this.product.options) {
         if (option.option_id === option_id) {
           this.payload.applied_rate = option.base_rate
@@ -181,7 +175,7 @@ export default {
       deep: true,
       handler(v) {
         this.checkForm()
-        this.changeBaseRate(v.option_id)
+        this.changeOption(v.option_id)
       }
 			// dateCheck(data) {
 			// 	let date = data.split('-');
@@ -206,6 +200,7 @@ export default {
         product: this.modalData,
         applied_rate: null,
         applied_period: null,
+        special_rate: 0,
         rate_type: null
       },
       error: {
@@ -226,87 +221,6 @@ export default {
 }
 </script>
 
-<style>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-  color:#555555;
-}
-
-
-.modal-container {
-  width: 510px;
-  height: 600px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-  overflow: scroll;
-}
-
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-
-.modal-body {
-  margin: 20px 0;
-}
-
-
-.modal-default-button {
-  float: right;
-}
-
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-
-.modal-enter {
-  opacity: 0;
-}
-
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.box {
-	float: right;
-	width: 160px;
-	text-align:right;
-}
-
+<style scoped>
+@import '@/assets/css/modal.css';
 </style>

@@ -537,7 +537,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '../../assets/css/product.css';
 @import '../../assets/css/common.css';
 </style>

@@ -11,7 +11,7 @@
 
       </slot>
       </div>
-      <p class="h1 m-0"><b-icon-x-circle type="button" style="position:fixed; height: 5em; margin-left:400px; margin-top: -140px;" @click="$emit('close')"/>
+      <p class="h1 m-0"><b-icon-x-circle type="button" class="modal-close-button" @click="$emit('close')"/>
 			</p>
       <hr>
 
@@ -202,6 +202,8 @@ export default {
 </script>
 
 <style scoped>
+@import '@/assets/css/modal.css';
+
 .box {
 	float: right;
 	width: 160px;
