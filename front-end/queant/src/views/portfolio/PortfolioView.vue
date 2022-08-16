@@ -480,9 +480,9 @@ export default {
         }
 
         interest.data.push(Math.ceil(calcMoney));
-        cumulMoney += calcMoney;
-        interestCumulative.data.push(Math.ceil(cumulMoney));
 
+        interestCumulative.data.push(Math.ceil(cumulMoney));
+        cumulMoney += calcMoney;
         //복리일 경우 amount 보정
         if (deposit && simple) amount *= calcRate;
       }
