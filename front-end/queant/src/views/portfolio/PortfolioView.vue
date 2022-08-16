@@ -163,6 +163,10 @@
           </div>
         </div>
       </div>
+      <div v-for="(cportfolio, index) in portfolio" :key="index">
+        <h2>index</h2>
+        {{ cportfolio }}
+      </div>
     </div>
   </div>
 </template>
@@ -236,10 +240,11 @@ export default {
   },
   watch: {
     savingFinishAmount: function () {
-      console.log("dddddd");
       this.RsavingFin = this.savingFinishAmount;
     },
     portfolio: function () {
+      console.log("제발좀..잘 좀 들어가봐");
+      this.summarySeries = [];
       this.savingSeries = [];
       this.depositSeries = [];
       this.savingIngAmount = 0;
@@ -344,10 +349,8 @@ export default {
         }
       });
 
-      this.summarySeries = [
-        this.depositIngAmount + this.depositFinishAmount,
-        this.savingFinishAmount + this.savingIngAmount,
-      ];
+      this.summarySeries.push(this.depositIngAmount + this.depositFinishAmount);
+      this.summarySeries.push(this.savingFinishAmount + this.savingIngAmount);
     },
   },
   methods: {
