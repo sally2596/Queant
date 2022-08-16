@@ -27,6 +27,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '../assets/css/navbar.css';
 </style>

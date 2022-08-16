@@ -116,7 +116,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '@/assets/css/home.css';
 @import '@/assets/css/product.css';
 @import '@/assets/css/table.css';

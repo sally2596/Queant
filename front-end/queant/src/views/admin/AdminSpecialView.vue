@@ -74,6 +74,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '../../assets/css/admin.css';
 </style>
