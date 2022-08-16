@@ -14,6 +14,7 @@ import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.model.repository.portfolio.PortfolioRepository;
 import com.ssafy.queant.model.repository.product.CustomProductRepository;
+import com.ssafy.queant.model.repository.product.OptionsRepository;
 import com.ssafy.queant.model.repository.product.ProductRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -37,19 +39,23 @@ public class PortfolioServiceImpl implements PortfolioService {
 
    private final PortfolioRepository portfolioRepository;
 
+   private final OptionsRepository optionsRepository;
+
    @Autowired
    public PortfolioServiceImpl(
               CustomProductRepository customProductRepository,
               ModelMapper modelMapper,
               ProductRepository productRepository,
               MemberRepository memberRepository,
-              PortfolioRepository portfolioRepository
+              PortfolioRepository portfolioRepository,
+              OptionsRepository optionsRepository
            ) {
       this.customProductRepository = customProductRepository;
       this.modelMapper = modelMapper;
       this.productRepository = productRepository;
       this.memberRepository = memberRepository;
       this.portfolioRepository = portfolioRepository;
+      this.optionsRepository = optionsRepository;
    }
 
    @Override
@@ -62,7 +68,9 @@ public class PortfolioServiceImpl implements PortfolioService {
       log.info("[사용자 정의 상품 추가]");
 
       CustomProduct customProduct = modelMapper.map(customProductDto,CustomProduct.class);
-      customProduct.setMemberId(memberId);
+      customProduct.setMemberId(memberId); //멤버 아이디 셋팅
+      Date endDate = addMonth(customProductDto.getStartDate(), customProductDto.getSaveTerm());
+      customProduct.setEndDate(endDate); //endDate 셋팅
 
       CustomProduct savedCustomProduct = customProductRepository.save(customProduct);
 
@@ -169,8 +177,12 @@ public class PortfolioServiceImpl implements PortfolioService {
          portfolioIdx = portfolioDto.getPortfolioNo();
 
          Product product = Product.builder().productId(portfolioDto.getProductId()).build();
-         Options option = Options.builder().optionId(portfolioDto.getOptionId()).build();
          Member member = Member.builder().memberId(memberId).build();
+         //옵션에 기반하여 endDate 구하기
+         Optional<Options> result = optionsRepository.findById(portfolioDto.getOptionId());
+         Options option = result.get();
+
+         Date endDate = addMonth(portfolioDto.getStartDate(), option.getSaveTerm());
          //포트폴리오 생성
          Portfolio portfolio = Portfolio.builder()
                  .member(member)
@@ -178,7 +190,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                  .portfolioNo(portfolioDto.getPortfolioNo())
                  .amount(portfolioDto.getAmount())
                  .startDate(portfolioDto.getStartDate())
-                 .endDate(portfolioDto.getEndDate())
+                 .endDate(endDate)
                  .option(option)
                  .build();
 
@@ -195,6 +207,14 @@ public class PortfolioServiceImpl implements PortfolioService {
       member.setPortfolio_cnt(portfolioIdx);
       memberRepository.save(member);
    }
+
+   public Date addMonth(Date date, int months) {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(date);
+      cal.add(Calendar.MONTH, months);
+      return cal.getTime();
+   }
+
 
    //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
 //   @Override
