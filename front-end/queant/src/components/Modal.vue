@@ -200,6 +200,7 @@ export default {
         product: this.modalData,
         applied_rate: null,
         applied_period: null,
+        special_rate: 0,
         rate_type: null
       },
       error: {
