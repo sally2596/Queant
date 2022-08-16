@@ -54,6 +54,7 @@
               style="font-size: 15px"
             >
               {{ cproduct.product.name }}
+              {{ cproduct.amount }}
               <button
                 style="height: 1.2rem; font-size: 5px"
                 class="d-flex p-0 btn btn-outline btn-sm"
@@ -68,18 +69,10 @@
               </button>
             </div>
             <div>예상 이익금 :</div>
-            <input
-              type="checkbox"
-              :id="cportfolio.cportfolio_cnt"
-              :value="cportfolio.cportfolio_cnt"
-              v-model="checkedComparison"
-            />
-            <label for="{{cportfolio.cportfolio_cnt}}">상품 비교하기</label>
           </div>
         </div>
-        <button @click="renderChart()">상품삭제</button>
         <column-chart-comparison
-          v-if="isComputed == true"
+          v-if="series.length > 0"
           v-bind:series="series"
           v-bind:category="categories"
           class="col-lg-6"
@@ -135,10 +128,7 @@ export default {
     const calculate2 = function (amount, rate, simple, term, deposit) {
       let original = 0;
 
-      if (deposit)
-        for (var i = 0; i <= term; i++) {
-          original += amount;
-        }
+      if (deposit) original = term * amount;
       else {
         for (var i = 0; i <= term; i++) {
           if (i === term) original += amount * i;
@@ -177,13 +167,15 @@ export default {
     const cPortfolioDepositInterest = []; //예금 이자
     const cPortfolioSavingMymoney = []; //적금 총 불입금
     const cPortfolioSavingInterest = []; //적금 이자
-    const cPortfolioNumber = []; //적금 이자
 
     const store = useStore();
     watch(
       () => store.getters.comparisonPortfolio,
       function () {
         console.log("포트폴리오 바뀜 ==> 전체 애들 값 계산");
+        series.splice(0);
+        categories.splice(0);
+
         console.log(store.getters.comparisonPortfolio);
         store.getters.comparisonPortfolio.forEach((item) => {
           let depositMyMoney = 0;
@@ -209,21 +201,24 @@ export default {
               savingInterest += interest;
             }
           });
-          cPortfolioNumber.push(item.cportfolio_cnt);
+          categories.push(item.cportfolio_cnt + "번 포트폴리오");
           cPortfolioDepositMymoney.push(depositMyMoney);
           cPortfolioDepositInterest.push(depositInterest);
           cPortfolioSavingMymoney.push(savingMyMoney);
           cPortfolioSavingInterest.push(savingInterest);
         });
+        series.push({
+          name: "적금 총 불입금",
+          data: cPortfolioDepositMymoney,
+        });
+        series.push({
+          name: "적금 총 이자",
+          data: cPortfolioDepositInterest,
+        });
+        series.push({ name: "예금 예치금", data: cPortfolioSavingMymoney });
+        series.push({ name: "예금 총 이자", data: cPortfolioSavingInterest });
       }
     );
-
-    const checkedComparison = ref([]);
-    let comparisonDepositMymoney = [];
-    let comparisonDepositInterest = [];
-    let comparisonSavingMymoney = [];
-    let comparisonSavingInterest = [];
-    let comparisonName = [];
 
     let series = [];
     let categories = [];
@@ -231,42 +226,8 @@ export default {
     let realCategories = [];
 
     let isComputed = false;
-    watch(checkedComparison, () => {
-      comparisonDepositMymoney.splice(0);
-      comparisonDepositInterest.splice(0);
-      comparisonSavingMymoney.splice(0);
-      comparisonSavingInterest.splice(0);
-      categories.splice(0);
-      series.splice(0);
-
-      checkedComparison._value.forEach((index) => {
-        index -= 1;
-        categories.push(cPortfolioNumber[index]);
-        comparisonDepositMymoney.push(cPortfolioDepositMymoney[index]);
-        comparisonDepositInterest.push(cPortfolioDepositInterest[index]);
-        comparisonSavingMymoney.push(cPortfolioSavingMymoney[index]);
-        comparisonSavingInterest.push(cPortfolioSavingInterest[index]);
-      });
-      console.log(comparisonDepositMymoney);
-      series.push({ name: "적금 총 불입금", data: comparisonDepositMymoney });
-      series.push({ name: "적금 총 이자", data: comparisonDepositInterest });
-      series.push({ name: "예금 예치금", data: comparisonSavingMymoney });
-      series.push({ name: "예금 총 이자", data: comparisonSavingInterest });
-
-      console.log("*********");
-      console.log(checkedComparison._value.length);
-      // if (checkedComparison._value.length > 0) isComputed = true;
-      // else isComputed = false;
-      console.log(isComputed);
-    });
 
     return {
-      checkedComparison,
-
-      cPortfolioDepositMymoney,
-      cPortfolioDepositInterest,
-      cPortfolioSavingMymoney,
-      cPortfolioSavingInterest,
       series,
       categories,
       isComputed,

@@ -127,9 +127,11 @@ export default {
             return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
           },
         },
-        // x: {
-
-        // },
+        x: {
+          // formatter: function (val) {
+          //   return val + "번 포트폴리오";
+          // },
+        },
       },
       legend: {
         position: "top",
