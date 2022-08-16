@@ -63,12 +63,13 @@
             <th class="text-center">소셜</th>
             <th class="text-center">권한</th>
             <th class="text-center">상태</th>
+            <th class="text-center">관리</th>
           </tr>
           <tr 
             v-for="user in users"
             :key="user.email">
             <td class="col-1 text-center" data-th="Supplier Code">
-              {{ user.name }}
+              <p style="font-family: NanumSquareRound;">{{ user.name }}</p>
             </td>
             <td class="col-3 text-center" data-th="Supplier Name">
               {{ user.email }}
@@ -82,17 +83,21 @@
             <td class="col-1 text-center" data-th="Due Date">
               {{ user.social }}
             </td>
-            <td class="col-3 text-center" data-th="Due Date">
-              <p v-if="user.role_set.length === 3">Admin User</p>
-              <p v-if="user.role_set.length === 2">Super User</p>
-              <p v-if="user.role_set.length === 1">Normal User</p>
+            <td class="col-1 text-center" data-th="Due Date">
+              <p v-if="user.role_set.length === 3">Admin</p>
+              <p v-if="user.role_set.length === 2">Manager</p>
+              <p v-if="user.role_set.length === 1">User</p>
+            </td>
+            <td class="col-2 text-center">
+              <p v-if="user.enabled" style="font-family: NanumSquareRound;">활성화</p>
+              <p v-else style="font-family: NanumSquareRound;">비활성화</p>
             </td>
             <td class="col-1 text-center" data-th="Net Amount">
               <button
                 @click="openUserModal(user)"
                 class="btn btn-outline-success"
                 id="show-modal">
-                <i class="fa-solid fa-cart-arrow-down"></i>
+                <i class="fa-solid fa-user-gear"></i>
               </button>
             </td>
           </tr>
@@ -109,11 +114,11 @@
   </div>
 
   <!-- 모달 -->
-  <user-modal
+  <user-change-modal
     v-if="showModal" 
     @close="showModal = false" 
     :modalData="modalData">
-  </user-modal>
+  </user-change-modal>
 
   <!-- 페이지네이션 -->
   <div id="admin-userlist-pagenation">
@@ -131,11 +136,11 @@ import { mapActions, mapGetters } from "vuex";
 import _ from "lodash";
 import AdminUserItem from "@/components/AdminUserItem.vue";
 import NavbarAdmin from "@/components/NavbarAdmin.vue";
-import UserModal from "@/components/UserModal.vue";
+import UserChangeModal from "@/components/UserChangeModal.vue";
 
 export default {
   name: "AdminUserListView",
-  components: { AdminUserItem, NavbarAdmin, UserModal },
+  components: { AdminUserItem, NavbarAdmin, UserChangeModal },
   beforeCreate: function () {
     document.body.className = "admin_body";
   },
