@@ -1,8 +1,14 @@
-
 @font-face {
-    font-family: 'jua';
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* @font-face {
+    font-family: 'LeferiBaseType-RegularA';
     src: url(../font/BMJUA_ttf.ttf);
-  }
+} */
 
 #contents-create-section {
     max-width: 1080px;
@@ -42,7 +48,7 @@
 }
 
 #content-header-section h1 {
-    font-family: 'jua';
+    font-family: 'LeferiBaseType-RegularA';
     color: black;
     font-size: 4rem;
 }

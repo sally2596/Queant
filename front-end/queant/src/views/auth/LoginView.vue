@@ -14,7 +14,6 @@
         <div class="error-text" v-if="error.email">{{error.email}}</div>
 
         <input
-          style="font-family: NanumSquareRound;"
           v-model="credentials.password"
           v-bind:class="{error : error.password, complete:!error.password&&credentials.password.length!==0}"
           type="password" 
@@ -26,9 +25,9 @@
         <p v-else-if="authError === 409">비밀번호가 일치하지 않습니다.</p>
         <p v-else-if="authError === 423">비활성화 계정입니다.</p>
 
-        <button type="submit" style="color: darkslategrey; font-family: NanumSquareRound;" id="login-button" :disabled="!isCheckedForm">로그인</button>
+        <button type="submit" style="color: darkslategrey;" id="login-button" :disabled="!isCheckedForm">로그인</button>
         <br>
-        <router-link style="text-decoration: none;" :to="{ name: 'register' }"><button type="button" style="color: darkslategrey; font-family: NanumSquareRound;" class="my-2">회원가입</button></router-link>
+        <router-link style="text-decoration: none;" :to="{ name: 'register' }"><button type="button" style="color: darkslategrey;" class="my-2">회원가입</button></router-link>
         <br><br>
         <router-link style="color: darkslategrey; text-decoration: none;" :to="{ name: 'passwordFind' }">비밀번호를 잊으셨나요?</router-link>
         <br><br>
@@ -187,6 +186,26 @@ export default {
 </script>
 
 <style scoped>
+/* 레페리포인트 */
+/* @font-face {
+    font-family: 'LeferiPoint-BlackA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+@font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  font-family: LeferiBaseType-RegularA !important;
+  /* font-family: LeferiPoint-BlackA; */
+}
+
 @import url(http://fonts.useso.com/css?family=Source+Sans+Pro:200,300);
 * {
   box-sizing: border-box;

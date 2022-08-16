@@ -24,7 +24,7 @@
 
     <div class="container">
       <h2 style="font-family: jua" class="text-center my-5">
-        Queant 등록 상품
+        퀸트 등록 상품
       </h2>
       <table class="rwd-table">
         <tbody>
