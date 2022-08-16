@@ -60,7 +60,7 @@
               background-color: transparent;
               border: none;
               border-bottom: 1px solid #000;
-              font-size: 18px; color: #000;
+              font-size: 1.5rem; color: #000;
               outline: none;
             "
             required
@@ -70,14 +70,14 @@
             id="deposit-money"
             name="deposit-money">
           <div class="d-flex mt-1">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(10000)">+1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(50000)">+5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(100000)">+10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(10000)">+1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(50000)">+5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(100000)">+10만</button>
           </div>
           <div class="d-flex">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-10000)">-1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-50000)">-5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-100000)">-10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-10000)">-1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-50000)">-5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-100000)">-10만</button>
           </div>
         </div>
 
@@ -257,7 +257,7 @@
             background-color: transparent;
             border: none;
             border-bottom: 1px solid #000;
-            font-size: 18px; color: #000;
+            font-size: 1.5rem; color: #000;
             outline: none;"
             v-model="filtersForSaving.amount"
             required
@@ -266,14 +266,14 @@
             id="saving-money"
             name="saving-money">
           <div class="d-flex mt-1">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(10000)">+1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(50000)">+5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(100000)">+10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(10000)">+1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(50000)">+5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(100000)">+10만</button>
           </div>
           <div class="d-flex">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-10000)">-1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-50000)">-5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-100000)">-10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-10000)">-1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-50000)">-5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-100000)">-10만</button>
           </div>
         </div>
         

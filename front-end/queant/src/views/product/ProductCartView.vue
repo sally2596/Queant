@@ -31,7 +31,7 @@
 				</h6><br><br>
 			</div>
 			<div>
-				<div class="d-flex justify-content-center">
+				<div class="d-flex justify-content-center" style="width:60vw;">
 					<div v-if="!this.cartVisible">
 						<button class="btn btn-outline-danger btn-sm" @click="clearCart()">
 						장바구니 전체 비우기 <i class="fa-solid fa-circle-minus fa-lg"></i>
@@ -106,7 +106,7 @@
 									)
 								}}%
 							</td>
-							<td>{{ productInCart.applied_period }}</td>
+							<td>{{ productInCart.applied_period }}개월</td>
 							<td class="flex-wrap">
 								<button
 									v-for="cportfolio in comparisonPortfolio"
@@ -150,12 +150,11 @@
 			</div>
 		</div>
   </section>
-
   <!-- 가상 포트폴리오 섹션 -->
   <section class="product-detail-box">
 		<div>
       <div class="d-flex justify-content-center mt-3">
-				<h1 style="font-family: jua">가상 포트폴리오</h1>
+				<h1 style="font-family: jua">가상 포트폴리오 상품 관리</h1>
 			</div>
 			<div v-if="!this.cartVisible && this.portVisible" class="cart-none">
 				<img
