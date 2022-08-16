@@ -42,7 +42,9 @@ export default {
     },
     // 카트에서 프로덕트 삭제
     POP_PRODUCT_FROM_CART(state, product) {
-        let deleteproductIdx = state.cart.indexOf('product')
+        let FindProduct = product
+        let deleteproductIdx = state.cart.indexOf(FindProduct)
+        console.log(deleteproductIdx)
         state.cart.splice(deleteproductIdx, 1)
         alert(`${product.product.name} 상품을 장바구니에서 제거했습니다.`)
       }
