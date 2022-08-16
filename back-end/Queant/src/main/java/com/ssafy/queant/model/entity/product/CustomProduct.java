@@ -46,6 +46,7 @@ public class CustomProduct {
 
     private Date startDate;
     private Date endDate;
+    private int saveTerm;
 
     @Column(nullable = false)
     @Type(type="org.hibernate.type.UUIDCharType")
