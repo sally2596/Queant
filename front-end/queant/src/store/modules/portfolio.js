@@ -143,21 +143,24 @@ export default {
   actions: {
     // Custom Product
     deleteCustomProduct({ dispatch }, product_id) {
-      console.log(product_id)
-      axios({
-        url: spring.portfolio.custom(),
-        method: 'delete',
-        data: {
-          product_id: product_id
-        }
-      })
-      .then(res => {
-        console.log(res)
-        dispatch('fetchMyPortfolio')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      if (confirm('해당 상품을 삭제하시겠습니까?') === true) {
+        axios({
+          url: spring.portfolio.custom(),
+          method: 'delete',
+          data: {
+            product_id: product_id
+          }
+        })
+        .then(res => {
+          console.log(res)
+          dispatch('fetchMyPortfolio')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      } else {
+        return
+      }
     },
     updateCustomProduct({ dispatch }, payload) {
       payload.fixed_rsrv = false
