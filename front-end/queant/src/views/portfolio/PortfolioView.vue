@@ -91,7 +91,7 @@
             </div>
           </div>
           <div class="col-lg-6 d-flex justify-content-between" style="height:500px; overflow:auto">
-            <table class="table" style="height:5rem" id="portfolio-saving-table-tr">
+            <table class="table" style="height:5rem">
               <thead>
                 <tr>
                   <th>은행</th>
@@ -101,7 +101,7 @@
                 </tr>
               </thead>
                 <tbody v-for="(saving, index) in savingSeries" :key="index">
-                  <tr @click="changeSavingData(index)">
+                  <tr @click="changeSavingData(index)"  id="portfolio-saving-table-tr">
                     <td>
                       <img :src="saving.picture" alt="" style="width: 40px" />
                     </td>
