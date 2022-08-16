@@ -196,6 +196,9 @@ td img {
 
 @media screen and (max-width:991px) {
   /*block*/
+  .table {
+    box-shadow: none !important;
+  }
   .table--block thead {
     display:none;
   }
@@ -207,7 +210,9 @@ td img {
   }
 
   .table--block tbody {
-    margin-bottom: 10px;
+    display: block;
+    margin-top: 20px;
+    box-shadow: none;
   }
 
   .table--block th, .table--block td {

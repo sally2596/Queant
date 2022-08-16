@@ -4,7 +4,7 @@
 			<h1 class="title" id="title">상품제보</h1>
 			<section class="search_filter" style="padding:0; width:600px;">
 				<div class="filter_button_wrap">
-					<button class="filter_button filter_active" style="width:100%">필요하신 상품 정보를 기입해 주세요!</button>
+					<div style="width:100%; background-color: #3e8e41; height: 50px; text-align: center; line-height:3rem; font-size: 1.5rem; color: white;"><strong>필요하신 상품 정보를 기입해 주세요!</strong></div>
 				</div>
 				<div class="product_section" style="padding: 60px 0;">
 					<form @submit="checkForm()">
@@ -98,4 +98,5 @@ export default {
 <style scoped>
 @import '../../assets/css/product.css';
 @import '../../assets/css/common.css';
+@import '../../assets/css/home.css';
 </style>

@@ -1,9 +1,9 @@
 <template>
   <Navbar />
   <header id="title-div">
-    <h1 class="title" id="title">포트폴리오 비교하기</h1>
+    <h1 class="title" id="title">가상 포트폴리오 비교</h1>
   </header>
-  <section class="product-detail-box">
+  <section class="product-detail-box" style="position:relative">
     <div v-if="comparisonPortfolio.length === 0" class="cart-none">
       <img
         src="../../assets/image/물음표개미_none.png"
@@ -23,25 +23,43 @@
       </h6>
     </div>
 
-    <div v-else>
-      <column-chart-comparison
-        v-if="series.length > 0"
-        v-bind:series="series"
-        v-bind:category="categories"
-        class=""
-      ></column-chart-comparison>
-      <div class="d-flex justify-content-center">
-        <div>
+    <div v-else class="container row">
+      <div v-show="chartview === true">
+        <column-chart-comparison
+          style="margin-bottom: 2%"
+          v-if="series.length > 0"
+          v-bind:series="series"
+          v-bind:category="categories"
+        ></column-chart-comparison>
+      </div>
+      
+        <div class="btn-group col-lg-4 offset-lg-4 mb-5">
+          <router-link :to="{name : 'productCart'}" class="btn btn-outline-primary btn-sm">상품 저장소 가기</router-link>
+          <router-link :to="{name : 'portfolio'}" class="btn btn-outline-success btn-sm">내 포트폴리오 가기</router-link>
+          <button class="btn btn-outline-warning btn-sm"  @click="chartviewOnOff()" v-show="chartview===false && series.length>0">비교 그래프 생성</button>
+          <button class="btn btn-outline-danger btn-sm" @click="chartviewOnOff()" v-show="chartview===true && series.length>0">비교 그래프 삭제</button>
+        </div>
+      <br><br><br>
+      <div class="col-lg-6 mb-2 p-2" v-for="(cportfolio, portfolioNum) in comparisonPortfolio" :key="portfolioNum">
+        <div class="mb-2" style="text-align: center; background-color: #bcdefb; color:white;"><strong>{{portfolioNum+1}}번 포트폴리오 상품 목록</strong></div>
+        <div style="height:20rem; overflow: auto;">
           <table
             class="table"
-            style="height: 5rem"
-            v-for="(cportfolio, portfolioNum) in comparisonPortfolio"
-            :key="portfolioNum"
+            style="height: 5rem; box-shadow: none;"
           >
             <thead>
               <tr>
-                <th colspan="6">
-                  예상 포트폴리오 {{ cportfolio.cportfolio_cnt }}
+                <th>
+                  은행
+                </th>
+                <th>
+                  상품 이름
+                </th>
+                <th>
+                  예치금
+                </th>
+                <th>
+                  이자율
                 </th>
               </tr>
             </thead>
@@ -65,6 +83,8 @@
           </table>
         </div>
       </div>
+      </div>
+      <div class="d-flex justify-content-center">
     </div>
   </section>
 </template>
@@ -101,7 +121,7 @@ export default {
     filtered(val, isDeposit) {
       if (isDeposit)
         return (
-          "예치금: " + String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+          String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
         );
       else
         return (
@@ -119,6 +139,9 @@ export default {
     renderChart() {
       this.isComputed = true;
     },
+    chartviewOnOff() {
+      this.chartview = !this.chartview
+    }
   },
   data() {
     const calculate2 = function (amount, rate, simple, term, deposit) {
@@ -224,6 +247,7 @@ export default {
       isComputed,
       realSeries,
       realCategories,
+      chartview: true,
     };
   },
   beforeCreate: function () {

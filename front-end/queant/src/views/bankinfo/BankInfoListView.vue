@@ -1,11 +1,11 @@
 <template>
   <Navbar/>
   <header id="title-div" class="section-floater">
-    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(1)">은행</h1>
-    <h1 class="title" id="title" style="display:inline-block;">I</h1>
-    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(2)">저축은행</h1>
-    <h1 class="title" id="title" style="display:inline-block;">I</h1>
-    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(3)">기타 금융권</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block; font-size: 2rem;" @click="changeBanks(1)">은행</h1>
+    <h1 class="title" id="title" style="display:inline-block; font-size: 2rem;">I</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block; font-size: 2rem;" @click="changeBanks(2)">저축은행</h1>
+    <h1 class="title" id="title" style="display:inline-block; font-size: 2rem;">I</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block; font-size: 2rem;" @click="changeBanks(3)">기타 금융권</h1>
   </header>
   
   <!-- 제 1금융 목록 -->
