@@ -3,7 +3,7 @@
     type="bar"
     height="500"
     :options="chartOptions"
-    :series="realSeries"
+    :series="series"
   ></apexchart>
 </template>
 
@@ -85,6 +85,60 @@ export default {
     const realCategory = [];
     const realSeries = [];
     return { chartOptions, realCategory, realSeries };
+  },
+  created() {
+    this.chartOptions = {
+      chart: {
+        type: "bar",
+        height: 500,
+        stacked: true,
+        toolbar: {
+          show: true,
+        },
+        zoom: {
+          enabled: true,
+        },
+      },
+
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 3,
+        },
+      },
+      xaxis: {
+        categories: this.category,
+      },
+      yaxis: {
+        labels: {
+          formatter: function (val) {
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+          },
+        },
+      },
+      theme: {
+        palette: "palette4",
+      },
+      tooltip: {
+        intersect: false,
+        shared: true,
+        y: {
+          formatter: function (val) {
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+          },
+        },
+        // x: {
+
+        // },
+      },
+      legend: {
+        position: "top",
+        offsetY: 5,
+      },
+      fill: {
+        opacity: 1,
+      },
+    };
   },
 };
 </script>

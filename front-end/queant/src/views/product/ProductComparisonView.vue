@@ -79,7 +79,7 @@
         </div>
         <button @click="renderChart()">상품삭제</button>
         <column-chart-comparison
-          v-show="isComputed == true"
+          v-if="isComputed == true"
           v-bind:series="series"
           v-bind:category="categories"
           class="col-lg-6"
@@ -128,8 +128,6 @@ export default {
       this.ADD_COMPARISON_PORTFOLIO();
     },
     renderChart() {
-      this.realSeries = this.series;
-      this.realCategories = this.realCategories;
       this.isComputed = true;
     },
   },
@@ -227,33 +225,34 @@ export default {
     let comparisonSavingInterest = [];
     let comparisonName = [];
 
-    let series = {};
+    let series = [];
     let categories = [];
-    let realSeries = {};
+    let realSeries = [];
     let realCategories = [];
 
     let isComputed = false;
     watch(checkedComparison, () => {
-      comparisonDepositMymoney = [];
-      comparisonDepositInterest = [];
-      comparisonSavingMymoney = [];
-      comparisonSavingInterest = [];
-      comparisonName = [];
+      comparisonDepositMymoney.splice(0);
+      comparisonDepositInterest.splice(0);
+      comparisonSavingMymoney.splice(0);
+      comparisonSavingInterest.splice(0);
+      categories.splice(0);
+      series.splice(0);
+
       checkedComparison._value.forEach((index) => {
         index -= 1;
-        comparisonName.push(cPortfolioNumber[index]);
+        categories.push(cPortfolioNumber[index]);
         comparisonDepositMymoney.push(cPortfolioDepositMymoney[index]);
         comparisonDepositInterest.push(cPortfolioDepositInterest[index]);
         comparisonSavingMymoney.push(cPortfolioSavingMymoney[index]);
         comparisonSavingInterest.push(cPortfolioSavingInterest[index]);
       });
-      series = [
-        { name: "적금 총 불입금", data: comparisonDepositMymoney },
-        { name: "적금 총 이자", data: comparisonDepositInterest },
-        { name: "예금 예치금", data: comparisonSavingMymoney },
-        { name: "예금 총 이자", data: comparisonSavingInterest },
-      ];
-      categories = comparisonName;
+      console.log(comparisonDepositMymoney);
+      series.push({ name: "적금 총 불입금", data: comparisonDepositMymoney });
+      series.push({ name: "적금 총 이자", data: comparisonDepositInterest });
+      series.push({ name: "예금 예치금", data: comparisonSavingMymoney });
+      series.push({ name: "예금 총 이자", data: comparisonSavingInterest });
+
       console.log("*********");
       console.log(checkedComparison._value.length);
       // if (checkedComparison._value.length > 0) isComputed = true;
