@@ -80,12 +80,20 @@
           v-model="payload.start_date"
           type="date">        
         <br>
-        <label class="label" for="enddate">* 만기일</label>
-        <input
-					class="box"
-          v-model="payload.end_date"
-          type="date">
-        <p>{{ error.date }}</p>
+        <div>
+          <label class="label">* 투자 기간</label>
+          <br>
+          <input v-model="payload.save_term" value="6" type="radio" class="btn-check" name="saving-time" id="saving-months-6" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
+          <input v-model="payload.save_term" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-12">12개월</label>
+          <input v-model="payload.save_term" value="18" type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-18">18개월</label>
+          <input v-model="payload.save_term" value="24" type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-24">24개월</label>
+          <input v-model="payload.save_term" value="36" type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
+          <label class="btn btn-outline-success" for="saving-months-36">36개월</label>
+        </div>
         </slot>
       </div>
 
@@ -124,18 +132,17 @@ export default {
         amount: 0,
         base_rate: 0,
         deposit: null,
-        end_date: '',
         etc: '',
         fixed_rsrv: false,
         institution_name: '',
         product_name: '',
         special_rate: 0,
         start_date: '',
+        save_term: 0
       },
       error: {
         require: '',
         amount: '',
-        date: '',
       },
       isCheckedForm: false
     }
@@ -143,7 +150,7 @@ export default {
   methods: {
     ...mapActions(['addCustomProduct', 'updateCustomProduct']),
     checkForm() {
-      if (!this.payload.amount || !this.payload.base_rate || !this.payload.deposit===null && !this.payload.end_date || !this.payload.product_name || !this.payload.start_date)
+      if (!this.payload.amount || !this.payload.base_rate || !this.payload.deposit===null && !this.payload.save_term || !this.payload.product_name || !this.payload.start_date)
         this.error.require = '필수 입력사항(*)을 확인해주세요.'
       else this.error.require = ''
 
@@ -151,11 +158,7 @@ export default {
         this.error.amount = '납입금액을 확인해주세요.'
       else this.error.amount = ''
       
-      if (this.payload.start_date && this.payload.end_date && this.payload.start_date >= this.payload.end_date)
-        this.error.date = '날짜를 확인해주세요.'
-      else this.error.date = ''
-    
-      if (!this.error.amount && !this.error.date && !this.error.require && this.payload.amount && this.payload.start_date && this.payload.end_date)
+      if (!this.error.amount  && !this.error.require && this.payload.amount && this.payload.start_date && this.payload.save_term)
         this.isCheckedForm = true
       else this.isCheckedForm = false
     },
@@ -190,7 +193,7 @@ export default {
       this.payload.base_rate= this.customDto?.base_rate;
       this.payload.special_rate= this.customDto?.special_rate;
       this.payload.start_date= this.customDto?.start_date;
-      this.payload.end_date= this.customDto?.end_date;
+      this.payload.save_term= this.customDto?.save_term;
       this.payload.etc= this.customDto?.etc;
         
       if(!this.customDto.deposit) {
