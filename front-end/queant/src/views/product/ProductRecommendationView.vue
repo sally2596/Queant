@@ -43,8 +43,6 @@
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
           <input v-model="filtersForDeposit.period" :value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-12">12개월</label>
-          <input v-model="filtersForDeposit.period" :value="18" type="radio" class="btn-check" id="deposit-months-18" autocomplete="off">
-          <label class="btn btn-outline-success" for="deposit-months-18">18개월</label>
           <input v-model="filtersForDeposit.period" :value="24" type="radio" class="btn-check" id="deposit-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-24">24개월</label>
           <input v-model="filtersForDeposit.period" :value="36" type="radio" class="btn-check" id="deposit-months-36" autocomplete="off">
@@ -244,8 +242,6 @@
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
           <input v-model="filtersForSaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-12">12개월</label>
-          <input v-model="filtersForSaving.period" value="18" type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
-          <label class="btn btn-outline-success" for="saving-months-18">18개월</label>
           <input v-model="filtersForSaving.period" value="24" type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-24">24개월</label>
           <input v-model="filtersForSaving.period" value="36" type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
@@ -256,13 +252,13 @@
         <div class="col-lg-3 p-4 m-2 border-bottom">
           <h6 class="mb-3"><strong>*월 적립금(원)</strong></h6>
           <input
-            style="  width: 100%;
-    padding: 20px 10px 10px;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #000;
-    font-size: 18px; color: #000;
-    outline: none;"
+            style="width: 100%;
+            padding: 20px 10px 10px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #000;
+            font-size: 18px; color: #000;
+            outline: none;"
             v-model="filtersForSaving.amount"
             required
             type="number"
