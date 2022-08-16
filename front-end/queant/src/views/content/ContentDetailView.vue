@@ -1,5 +1,5 @@
 <template>
-  <Navbar></Navbar>
+  <Navbar/>
   
   <header id="title-div">
     <h1 class="title" id="title">{{content.title}}</h1>
