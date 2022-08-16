@@ -98,8 +98,8 @@ export default {
     let portfolioNo = value[0]
     let FindProduct = value[1]
     let cportfolios = state.comparisonPortfolio
-    let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
-    
+    let item = cportfolios[portfolioNo-1].products.indexOf(FindProduct)
+    console.log(item)
     alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.product.name} 상품을 삭제했습니다.`)
     cportfolios[portfolioNo-1].products.splice(item, 1)
     },
