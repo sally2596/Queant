@@ -20,23 +20,23 @@
       <label class="form-label" for="profile-email">이메일</label>
     </div>
 
-    <div class="choose-area">
-      <input 
-        v-model="credentials.gender"
-        type="radio"
-        value="Female"
-        class="gender-input-female"
-        id="Female-select">
-      <p class="female">여성</p>
-      <input
-        v-model="credentials.gender"
-        type="radio"
-        value="Male"
-        class="gender-input-male"
-        id="Male-select">
-      <p class="male" style="margin-right:0;">남성</p>
-      <label for="gender">성별</label>
-    </div>
+		<div class="btn-profile-area" style="border-bottom: 1px solid #000;">
+			<label for="gender" style="font-size: 18px; color: #999; margin:0px 220px 25px 10px;">성별</label>
+			<input
+				v-model="credentials.gender"
+				value="Female"
+				type="radio"
+				class="btn-check" 
+				id="Female-select">
+			<label class="btn btn-outline-success" for="Female-select">여성</label>
+			<input
+				v-model="credentials.gender"
+				value="Male"
+				type="radio"
+				class="btn-check" 
+				id="Male-select">
+			<label class="btn btn-outline-success" for="Male-select">남성</label>
+		</div>
 
     <div class="choose-area">
       <input
@@ -97,6 +97,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '../assets/css/user.css';
 </style>

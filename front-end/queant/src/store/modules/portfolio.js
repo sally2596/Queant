@@ -74,16 +74,17 @@ export default {
       let pushproduct = {
         amount: product.amount,
         condition_ids: product.condition_ids,
-        end_date: product.end_date,
         portfolio_no: portfolioNo,
         product: product.product,
         product_id: product.product.product_id,
         option_id: product.option_id,
         start_date: product.start_date,
+        end_date: product.end_date,
         total_rate: product.product.total_rate,
         isDeposit: product.product.deposit,
         term: product.aplied_period,
-        rate_type: product.rate_type
+        rate_type: product.rate_type,
+        save_term: product.save_term
       }
       console.log(pushproduct)
       if (cportfolios[portfolioNo-1].products.find(cportfolioItem => cportfolioItem.product_id === product.product.product_id)) {
@@ -98,8 +99,8 @@ export default {
     let portfolioNo = value[0]
     let FindProduct = value[1]
     let cportfolios = state.comparisonPortfolio
-    let item = cportfolios[portfolioNo-1].products.indexOf('FindProduct')
-    
+    let item = cportfolios[portfolioNo-1].products.indexOf(FindProduct)
+    console.log(item)
     alert(`${portfolioNo}번 포트폴리오의 ${FindProduct.product.name} 상품을 삭제했습니다.`)
     cportfolios[portfolioNo-1].products.splice(item, 1)
     },
@@ -143,21 +144,24 @@ export default {
   actions: {
     // Custom Product
     deleteCustomProduct({ dispatch }, product_id) {
-      console.log(product_id)
-      axios({
-        url: spring.portfolio.custom(),
-        method: 'delete',
-        data: {
-          product_id: product_id
-        }
-      })
-      .then(res => {
-        console.log(res)
-        dispatch('fetchMyPortfolio')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      if (confirm('해당 상품을 삭제하시겠습니까?') === true) {
+        axios({
+          url: spring.portfolio.custom(),
+          method: 'delete',
+          data: {
+            product_id: product_id
+          }
+        })
+        .then(res => {
+          console.log(res)
+          dispatch('fetchMyPortfolio')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      } else {
+        return
+      }
     },
     updateCustomProduct({ dispatch }, payload) {
       payload.fixed_rsrv = false
@@ -186,13 +190,13 @@ export default {
             amount: payload.amount,
             base_rate: payload.base_rate,
             deposit: payload.deposit,
-            end_date: payload.end_date,
             etc: payload.etc,
             fixed_rsrv: payload.fixed_rsrv,
             institution_name: payload.institution_name,
             product_name: payload.product_name,
             special_rate: payload.special_rate,
-            start_date: payload.start_date
+            start_date: payload.start_date,
+            save_term: payload.save_term
           }
         }
       })
@@ -208,21 +212,24 @@ export default {
     // My Portfolio
 
     deletePortfolio({ dispatch }, portfolio_id) {
-      console.log(portfolio_id)
-      axios({
-        url: spring.portfolio.single(),
-        method: 'delete',
-        data: {
-          portfolio_id: portfolio_id
-        }
-      })
-      .then(res => {
-        console.log(res)
-        dispatch('fetchMyPortfolio')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      if (confirm('해당 상품을 삭제하시겠습니까?') === true) {
+        axios({
+          url: spring.portfolio.single(),
+          method: 'delete',
+          data: {
+            portfolio_id: portfolio_id
+          }
+        })
+        .then(res => {
+          console.log(res)
+          dispatch('fetchMyPortfolio')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      } else {
+        return
+      }
     },
     editPortfolio({ dispatch }, payload) {
       axios({
@@ -233,7 +240,7 @@ export default {
             amount: payload.amount,
             condition_ids: payload.condition_ids,
             start_date: payload.start_date,
-            end_date: payload.end_date,
+            save_term: payload.save_term,
             option_id: payload.option_id,
             portfolio_id: payload.portfolio_id,
             portfolio_no: 0,
@@ -291,7 +298,6 @@ export default {
               amount: payload.amount,
               condition_ids: payload.condition_ids,
               start_date: payload.start_date,
-              end_date: payload.end_date,
               option_id: payload.option_id,
               portfolio_no: 0,
               product_id: payload.product.product_id
@@ -331,7 +337,6 @@ export default {
           let temp = {
             amount: port.amount,
             condition_ids: port.condition_ids,
-            end_date: port.end_date,
             portfolio_no: port.portfolio_no,
             product_id: port.product_id,
             option_id: port.option_id,
@@ -403,7 +408,8 @@ export default {
               total_rate: firstdata[i][j].option.base_rate+conditions_rate,
               isDeposit: firstdata[i][j].product.deposit,
               term: firstdata[i][j].option.save_term,
-              rate_type: firstdata[i][j].option.rate_type
+              rate_type: firstdata[i][j].option.rate_type,
+              save_term : firstdata[i][j].option.save_term,
             })
           }
         }

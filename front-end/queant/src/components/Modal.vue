@@ -82,15 +82,7 @@
 							required>
 					</div>
 					<br>
-					<div>
-						예상 만기일
-						<input 
-							v-model="payload.end_date"
-							type="date"
-							class="box"
-							required>
-					</div>
-          {{ error.date }}
+					
        </slot>
       </div>
 
@@ -145,11 +137,7 @@ export default {
         this.error.amount = '납입금액을 확인해주세요.'
       else this.error.amount = ''
       
-      if (this.payload.start_date && this.payload.end_date && this.payload.start_date >= this.payload.end_date)
-        this.error.date = '날짜를 확인해주세요.'
-      else this.error.date = ''
-    
-      if (!this.error.amount && !this.error.date && this.payload.amount && this.payload.start_date && this.payload.end_date && this.payload.option_id !== '선택')
+      if (!this.error.amount && this.payload.amount && this.payload.start_date  && this.payload.option_id !== '선택')
         this.isCheckedForm = true
       else this.isCheckedForm = false
     },
@@ -195,7 +183,6 @@ export default {
         amount: this.modalData.amount?this.modalData.amount:0,
         condition_ids: [],
         start_date: null,
-        end_date: null,
         option_id: this.modalData.selected_option_id?this.modalData.selected_option_id:'선택',
         product: this.modalData,
         applied_rate: null,
@@ -204,8 +191,7 @@ export default {
         rate_type: null
       },
       error: {
-        amount: '',
-        date: ''
+        amount: ''
       },
       isCheckedForm: false
     }

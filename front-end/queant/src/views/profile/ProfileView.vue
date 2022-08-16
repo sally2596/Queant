@@ -1,14 +1,10 @@
 <template>
   <Navbar/>
 	<section id="hero">
-		<h1 class="title" id="title">내 프로필 관리</h1>
-
+		<h1 class="title" id="title">회원정보수정</h1>
 		<section class="home_profile">
 			<div v-if="passwordCheckedStatus !== 200 && userInfo.social === 'None'">
-				<h5>비밀번호를 한 번 더 확인합니다.</h5>
-				<div v-if="passwordCheckedStatus === 409">
-					<p>비밀번호를 확인해주세요.</p>
-				</div>
+				<h5 style="font-family: 'jua';">비밀번호를 한 번 더 확인합니다.</h5>
 				<br><br><br>
 				<div class="int-area">
 					<input
@@ -20,12 +16,15 @@
 						required>
 					<label for="password">비밀번호</label>
 					<button type="button" class="password-post" id="check-password" @click="passwordCheck(password)">확인</button>
+					<div v-if="passwordCheckedStatus === 409">
+					<br><br>
+					<h6 style="font-weight:bold">비밀번호를 확인해주세요.</h6>
+				</div>
 				</div>
 			</div>
 			<profile-edit v-else :userInfo="userInfo">
 			</profile-edit>
 		</section>
-
 	</section>
     
 </template>

@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">내 포트폴리오 관리</h1>
+    <h1 class="title" id="title">MY 포트폴리오 관리</h1>
   </header>
   <div>
 
@@ -156,7 +156,7 @@ export default {
     ...mapGetters(['portfolio', 'customProducts'])
   },
   methods: {
-    ...mapActions(['editPortfolio', 'addProductToPortfolio', 'fetchProductsByText', 'deletePortfolio']),
+    ...mapActions(['editPortfolio', 'addProductToPortfolio', 'fetchProductsByText', 'deletePortfolio', 'deleteCustomProduct']),
     openMyProductModal(payload) {
       this.modalData = payload,
       this.showMyProductModal = true
@@ -181,7 +181,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '@/assets/css/home.css';
 @import '@/assets/css/product.css';
 @import '@/assets/css/table.css';
