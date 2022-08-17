@@ -29,6 +29,8 @@
         <br>
         <router-link style="text-decoration: none;" :to="{ name: 'register' }"><button type="button" style="color: darkslategrey;" class="my-2">회원가입</button></router-link>
         <br><br>
+        <router-link style="color: darkslategrey; text-decoration: none;" :to="{ name: 'home' }">홈으로</router-link>
+        <br><br>
         <router-link style="color: darkslategrey; text-decoration: none;" :to="{ name: 'passwordFind' }">비밀번호를 잊으셨나요?</router-link>
         <br><br>
         

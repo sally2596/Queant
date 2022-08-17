@@ -77,7 +77,7 @@
                 </td>
                 <td>{{ cproduct.product.name }}</td>
                 <td>{{ filtered(cproduct.amount, cproduct.isDeposit) }}</td>
-                <td>{{ cproduct.total_rate }}%</td>
+                <td>{{ cproduct.total_rate.toFixed(2) }}%</td>
               </tr>
             </tbody>
           </table>

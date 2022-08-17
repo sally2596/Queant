@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper d-flex justify-content-center align-items-center">
     <div class="container">
-      <h1 style="font-family: NanumSquareRound;">회원가입</h1>
+      <h1 style="font-family: NanumSquareRound; margin-top: -130px;">회원가입</h1>
       <form @submit.prevent="register(credentials)" class="form">
         <!-- 이름 -->
         <input
@@ -115,11 +115,13 @@
 
         <!-- 생년월일 -->
         <input
+          class="date_empty placeholder-date"
+          data-placeholder="생일"
           v-model="credentials.birthdate"
           type="date"
           id="birthdate">
 
-        <button v-if="isCheckedForm && emailCheckedStatus === 200 && emailVerifiedStatus === 200" style="color: darkslategrey;" type="submit">Register</button>
+        <button v-if="isCheckedForm && emailCheckedStatus === 200 && emailVerifiedStatus === 200" style="color: darkslategrey;" type="submit">회원가입</button>
 
         <button v-else disabled style="color: darkslategrey; font-family: NanumSquareRound; opacity: 70%;">회원가입</button>
       </form>
@@ -263,6 +265,12 @@ export default {
 </script>
 
 <style scoped>
+
+.date_empty:before {
+  content: attr(data-placeholder);
+  width: calc(100%);
+}
+
 /* 레페리포인트 */
 /* @font-face {
     font-family: 'LeferiPoint-BlackA';
