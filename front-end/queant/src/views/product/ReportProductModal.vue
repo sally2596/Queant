@@ -26,7 +26,7 @@
 					<br><br>
 					<label>* 상품명</label>
           <input
-            v-model="product.product_name"
+            v-model="product.name"
             type="text"
 						class="box"
 						required>
