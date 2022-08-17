@@ -68,8 +68,8 @@
           <tr 
             v-for="user in users"
             :key="user.email">
-            <td class="col-1 text-center" data-th="Supplier Code">
-              <p style="font-family: NanumSquareRound;">{{ user.name }}</p>
+            <td style="font-family: NanumSquareRound;" class="col-1 text-center" data-th="Supplier Code">
+              {{ user.name }}
             </td>
             <td class="col-3 text-center" data-th="Supplier Name">
               {{ user.email }}
@@ -199,4 +199,15 @@ export default {
 
 <style scoped>
 @import "../../assets/css/admin.css";
+
+/* @font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  font-family: LeferiBaseType-RegularA;
+} */
 </style>
