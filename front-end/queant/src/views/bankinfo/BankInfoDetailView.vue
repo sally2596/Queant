@@ -9,19 +9,18 @@
         <div class="col-lg-4 col-6 my-2" v-for="product in products" :key="product.product_id">
           <div class="card">
             <div class="card-body" v-bind:style="{ background:'url('+product.picture+')'}"
-             style="background-size: 50px;; background-repeat :no-repeat; background-position:90% 90%;">
-             <br>
+            	style="background-size: 50px;; background-repeat :no-repeat; background-position:90% 90%;">
+            	<br>
                 <h4 class="card-title" style="font-size: 18px;"><strong>{{product.name}}</strong></h4>
                 <br>
                 <p>기본 금리 : {{product.base_rate}}%</p>
                 <p>최소 가입 기간 : {{product.term_min}}개월</p>
                 <p>최대 가입 기간 : {{product.term_max}}개월</p>
-                <br>
-                <br>
+                
                 <router-link class="banks btn btn-outline-success btn-sm" 
                 :to="{ name: 'productDetail', params: { productId: product.product_id }}"
-                style="height: 35px;">
-                  <p style="font-size: 14px;">상세 정보</p>
+                style="height: 35px; font-size: 14px; padding-top: 7px;">
+                  상세 정보
                 </router-link>
                 
             </div>

@@ -9,9 +9,9 @@
         <h4 style="font-family: 'jua'; margin-top: 1rem;">{{ modalData.name }}</h4>
        </slot>
       </div>
-      <p class="h1 m-0"><b-icon-x-circle type="button" class="modal-close-button"
+      <div class="h1 m-0"><b-icon-x-circle type="button" class="modal-close-button"
       @click="$emit('close')"/>
-			</p>
+			</div>
       <hr>
 
       <div class="modal-body">
