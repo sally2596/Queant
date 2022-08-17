@@ -1,7 +1,7 @@
 <template>
   <div v-if="emailCheckedStatus !== 200" class="wrapper d-flex justify-content-center align-items-center">
     <div class="container">
-      <h1 style="font-family: NanumSquareRound;">비밀번호 찾기</h1>
+      <h1 style="font-family: NanumSquareRound;">비밀번호 변경</h1>
 
       <form class="form">
         <input
