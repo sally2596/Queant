@@ -173,7 +173,7 @@
                   id="portfolio-deposit-table-tr"
                 >
                   <td>
-                    <img :src="deposit.picture" alt="" style="height: 30%" />
+                    <img :src="deposit.picture" alt="" style="height: 40px;" />
                   </td>
                   <td>{{ deposit.name }}</td>
                   <td>{{ filtered(deposit.total) }}</td>
