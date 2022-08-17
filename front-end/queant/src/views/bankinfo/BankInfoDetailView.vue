@@ -1,7 +1,7 @@
 <template>
   <Navbar></Navbar>
-  <header id="title-div">
-    <h1 class="title" id="title">{{bank.bank_name}} 상품 정보</h1>
+  <header id="content-header-section">
+    <h1 class="title" id="title" style="font-size:xx-large;">{{bank.bank_name}} 상품 정보</h1>
   </header>
   <section class="section-floater">
     <div id="featured_banks" style="width:100vw;">
