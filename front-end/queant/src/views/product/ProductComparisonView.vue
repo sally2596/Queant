@@ -56,7 +56,7 @@
                   상품 이름
                 </th>
                 <th>
-                  예치금
+                  금액
                 </th>
                 <th>
                   이자율
@@ -67,7 +67,7 @@
               v-for="(cproduct, productNum) in cportfolio.products"
               :key="productNum"
             >
-              <tr id="portfolio-deposit-table-tr">
+              <tr>
                 <td>
                   <img
                     :src="cproduct.product.picture"
@@ -121,7 +121,7 @@ export default {
     filtered(val, isDeposit) {
       if (isDeposit)
         return (
-          String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+          "예치금: "+ String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
         );
       else
         return (
