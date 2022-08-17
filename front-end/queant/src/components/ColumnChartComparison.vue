@@ -115,6 +115,7 @@ export default {
         bar: {
           horizontal: false,
           borderRadius: 3,
+					columnWidth: "30%"
         },
       },
       xaxis: {

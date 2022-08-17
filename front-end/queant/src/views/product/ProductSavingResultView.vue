@@ -1,8 +1,9 @@
 <template>
   <Navbar />
-
-  <div class="container">
+	<header id="title-div" >
     <h1 class="title" id="title">추천 결과</h1>
+  </header>
+  <div class="container" id="content-header-section">
     <table class="rwd-table my-5">
       <tbody>
         <tr>

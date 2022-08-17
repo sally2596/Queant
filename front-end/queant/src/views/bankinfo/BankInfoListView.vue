@@ -9,7 +9,7 @@
   </header>
   
   <!-- 제 1금융 목록 -->
-  <section v-if="showBanks===1" class="section-floater">
+  <section v-if="showBanks===1" class="section-floater" id="content-header-section">
     <div id="featured_banks">
       <div class="row">
         <div
@@ -26,8 +26,8 @@
               background-repeat :no-repeat; 
               background-position:100% 100%;">
               <h5 class="card-title">{{bank.short_name}}</h5>
-              <a :href="bank.homepage">홈페이지</a>
-              <p>전화번호 : {{bank.tel}}</p>
+              <a :href="bank.homepage" style="text-decoration:none;">홈페이지</a>
+              <h6>전화번호 : {{bank.tel}}</h6>
               <router-link :to="{ name: 'bankInfoDetail', params: { bankId: bank.bank_id } }">
               <button 
                 class="banks btn btn-outline-success btn-sm"
@@ -42,7 +42,7 @@
   </section>
 
   <!-- 제 2금융 목록 -->
-  <section v-if="showBanks===2" class="section-floater">
+  <section v-if="showBanks===2" class="section-floater" id="content-header-section">
     <div id="featured_banks">
       <div class="row">
         <div 
@@ -54,13 +54,14 @@
             <div class="card-body" id="banks_card"  v-bind:style="{ background:'url('+bank.picture+')'}"
              style="background-size: 30%; background-repeat :no-repeat; background-position:100% 100%;">
                 <h5 class="card-title">{{bank.short_name}}</h5>
-                <a :href="bank.homepage">홈페이지</a>
-                <p>전화번호 : {{bank.tel}}</p>
-                <router-link class="banks btn btn-outline-success btn-sm"
-                :to="{ name: 'bankInfoDetail' , params: { bankId: bank.bank_id }}"
-                style="height: 35px; text-align: center;">
-                  <p style="font-size: 14px;">상품 보러가기</p>
-                </router-link>
+                <a :href="bank.homepage" style="text-decoration:none;">홈페이지</a>
+                <h6>전화번호 : {{bank.tel}}</h6>
+                <router-link :to="{ name: 'bankInfoDetail', params: { bankId: bank.bank_id } }">
+              	<button 
+									class="banks btn btn-outline-success btn-sm"
+									style="font-size: 14px;
+									height: 35px;">상품 보러가기</button>
+								</router-link>
             </div>
           </div>
         </div>
@@ -69,7 +70,7 @@
   </section>
 
   <!-- 기타 금융 목록 -->
-  <section v-if="showBanks===3" class="section-floater">
+  <section v-if="showBanks===3" class="section-floater" id="content-header-section">
     <div id="featured_banks_3">
       <div class="row">
         <div 
@@ -79,10 +80,10 @@
           data-aos="fade-up">
           <div class="card">
             <div class="card-body" id="banks_card"  v-bind:style="{ background:'url('+bank.picture+')'}"
-             style="background-size: 30%; background-repeat :no-repeat; background-position:100% 100%;">
+            	style="background-size: 30%; background-repeat :no-repeat; background-position:100% 100%;">
               <h5 class="card-title">{{bank.short_name}}</h5>
-              <a :href="bank.homepage">홈페이지</a>
-              <p>전화번호 : {{bank.tel}}</p>
+              <a :href="bank.homepage" style="text-decoration:none;">홈페이지</a>
+              <h6>전화번호 : {{bank.tel}}</h6>
               <router-link :to="{ name: 'bankInfoDetail', params: { bankId: bank.bank_id }}">
               <button class="banks btn btn-outline-success btn-sm" style="font-size: 14px; height: 35px;">상품 보러가기</button>
               </router-link>

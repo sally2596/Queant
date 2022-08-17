@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
-  <div class="container">
-    <h1 class="title" id="title">'{{this.$route.params.text}}' 검색 결과</h1>
+  <div class="container" id="content-header-section">
+    <h1 class="title" id="title" style="font-size:xx-large;">'{{this.$route.params.text}}' 검색 결과</h1>
     <table class="rwd-table my-5">
       <tbody>
         <tr>

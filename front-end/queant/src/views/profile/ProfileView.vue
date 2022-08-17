@@ -4,7 +4,7 @@
 		<h1 class="title" id="title">회원정보수정</h1>
 		<section class="home_profile">
 			<div v-if="passwordCheckedStatus !== 200 && userInfo.social === 'None'">
-				<h5 style="font-family: 'jua';">비밀번호를 한 번 더 확인합니다.</h5>
+				<h5 style="font-family: 'jua';">비밀번호를 다시 확인합니다.</h5>
 				<br><br><br>
 				<div class="int-area">
 					<input
