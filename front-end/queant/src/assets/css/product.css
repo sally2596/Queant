@@ -1,7 +1,8 @@
-
 @font-face {
-    font-family: 'jua';
-    src: url(../font/BMJUA_ttf.ttf);
+  font-family: 'LeferiBaseType-RegularA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 #cportfolio {
@@ -195,6 +196,9 @@ td img {
 
 @media screen and (max-width:991px) {
   /*block*/
+  .table {
+    box-shadow: none !important;
+  }
   .table--block thead {
     display:none;
   }
@@ -206,7 +210,9 @@ td img {
   }
 
   .table--block tbody {
-    margin-bottom: 10px;
+    display: block;
+    margin-top: 20px;
+    box-shadow: none;
   }
 
   .table--block th, .table--block td {

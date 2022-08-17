@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <header id="title-div">
-    <h1 class="title" id="title">맞춤 상품 추천</h1>
+    <h1 class="title" id="title">맞춤상품검색</h1>
   </header>
 
   <section class="product_section">
@@ -43,8 +43,6 @@
           <label class="btn btn-outline-success" for="deposit-months-6">6개월</label>
           <input v-model="filtersForDeposit.period" :value="12" type="radio" class="btn-check" id="deposit-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-12">12개월</label>
-          <input v-model="filtersForDeposit.period" :value="18" type="radio" class="btn-check" id="deposit-months-18" autocomplete="off">
-          <label class="btn btn-outline-success" for="deposit-months-18">18개월</label>
           <input v-model="filtersForDeposit.period" :value="24" type="radio" class="btn-check" id="deposit-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="deposit-months-24">24개월</label>
           <input v-model="filtersForDeposit.period" :value="36" type="radio" class="btn-check" id="deposit-months-36" autocomplete="off">
@@ -62,7 +60,7 @@
               background-color: transparent;
               border: none;
               border-bottom: 1px solid #000;
-              font-size: 18px; color: #000;
+              font-size: 1.5rem; color: #000;
               outline: none;
             "
             required
@@ -72,14 +70,14 @@
             id="deposit-money"
             name="deposit-money">
           <div class="d-flex mt-1">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(10000)">+1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(50000)">+5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(100000)">+10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(10000)">+1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(50000)">+5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeDepositAmount(100000)">+10만</button>
           </div>
           <div class="d-flex">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-10000)">-1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-50000)">-5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-100000)">-10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-10000)">-1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-50000)">-5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeDepositAmount(-100000)">-10만</button>
           </div>
         </div>
 
@@ -244,8 +242,6 @@
           <label class="btn btn-outline-success" for="saving-months-6">6개월</label>
           <input v-model="filtersForSaving.period" value="12" type="radio" class="btn-check" name="saving-time" id="saving-months-12" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-12">12개월</label>
-          <input v-model="filtersForSaving.period" value="18" type="radio" class="btn-check" name="saving-time" id="saving-months-18" autocomplete="off">
-          <label class="btn btn-outline-success" for="saving-months-18">18개월</label>
           <input v-model="filtersForSaving.period" value="24" type="radio" class="btn-check" name="saving-time" id="saving-months-24" autocomplete="off">
           <label class="btn btn-outline-success" for="saving-months-24">24개월</label>
           <input v-model="filtersForSaving.period" value="36" type="radio" class="btn-check" name="saving-time" id="saving-months-36" autocomplete="off">
@@ -256,13 +252,13 @@
         <div class="col-lg-3 p-4 m-2 border-bottom">
           <h6 class="mb-3"><strong>*월 적립금(원)</strong></h6>
           <input
-            style="  width: 100%;
-    padding: 20px 10px 10px;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #000;
-    font-size: 18px; color: #000;
-    outline: none;"
+            style="width: 100%;
+            padding: 20px 10px 10px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #000;
+            font-size: 1.5rem; color: #000;
+            outline: none;"
             v-model="filtersForSaving.amount"
             required
             type="number"
@@ -270,14 +266,14 @@
             id="saving-money"
             name="saving-money">
           <div class="d-flex mt-1">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(10000)">+1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(50000)">+5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(100000)">+10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(10000)">+1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(50000)">+5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-success btn-sm mx-1" @click="changeSavingAmount(100000)">+10만</button>
           </div>
           <div class="d-flex">
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-10000)">-1만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-50000)">-5만</button>
-            <button style="width:5rem; height:2rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-100000)">-10만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-10000)">-1만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-50000)">-5만</button>
+            <button style="width:5rem; height:2rem; font-size: 0.8rem;" class="btn btn-outline-danger btn-sm mx-1" @click="changeSavingAmount(-100000)">-10만</button>
           </div>
         </div>
         
@@ -540,4 +536,24 @@ export default {
 <style scoped>
 @import '../../assets/css/product.css';
 @import '../../assets/css/common.css';
+
+/* 레페리포인트 */
+/* @font-face {
+    font-family: 'LeferiPoint-BlackA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+@font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  font-family: LeferiBaseType-RegularA !important;
+  /* font-family: LeferiPoint-BlackA; */
+}
 </style>

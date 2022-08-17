@@ -1,11 +1,11 @@
 <template>
   <Navbar/>
   <header id="title-div" class="section-floater">
-    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(1)">은행</h1>
-    <h1 class="title" id="title" style="display:inline-block;">|</h1>
-    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(2)">저축은행</h1>
-    <h1 class="title" id="title" style="display:inline-block;">|</h1>
-    <h1 type="button" class="title" id="title" style="display:inline-block;" @click="changeBanks(3)">기타 금융권</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block; font-size: 2rem;" @click="changeBanks(1)">은행</h1>
+    <h1 class="title" id="title" style="display:inline-block; font-size: 2rem;">I</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block; font-size: 2rem;" @click="changeBanks(2)">저축은행</h1>
+    <h1 class="title" id="title" style="display:inline-block; font-size: 2rem;">I</h1>
+    <h1 type="button" class="title" id="title" style="display:inline-block; font-size: 2rem;" @click="changeBanks(3)">기타 금융권</h1>
   </header>
   
   <!-- 제 1금융 목록 -->
@@ -128,4 +128,24 @@ export default {
 @import '../../assets/css/home.css';
 @import '../../assets/css/bank.css';
 @import '../../assets/css/common.css';
+
+/* 레페리포인트 */
+/* @font-face {
+    font-family: 'LeferiPoint-BlackA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+@font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  font-family: LeferiBaseType-RegularA !important;
+  /* font-family: LeferiPoint-BlackA; */
+}
 </style>

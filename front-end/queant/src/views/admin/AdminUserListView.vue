@@ -1,115 +1,196 @@
 <template>
-    <NavbarAdmin/>
-    <header id="title-div">
-      <h1 class="title" id="title">유저 관리</h1>
-    </header>
-    <!-- 검색바 & 필터 -->
-    <div class="d-flex justify-content-center align-items-center">
-      <!-- 이메일 검색 -->
-      <div class="align-items-center">
-        <input
-          v-model="email" 
-          type="text"
-          style="height:30px;">
-        <button @click="fetchUserInfo(email)" class="btn btn-sm my-0 mb-1 text-align-center" style="height:25px; font-size: 12px;">이메일 검색</button>
-      </div>
+  <NavbarAdmin />
+  <header id="title-div">
+    <h1 class="title" id="title">유저 관리</h1>
+  </header>
+  <!-- 검색바 & 필터 -->
+  <div class="d-flex justify-content-center align-items-center">
+    <!-- 이메일 검색 -->
+    <div class="align-items-center">
+      <input v-model="email" type="text" style="height: 30px" />
+      <button
+        @click="fetchUserInfo(email)"
+        class="btn btn-sm my-0 mb-1 text-align-center"
+        style="height: 25px; font-size: 12px">
+        이메일 검색
+      </button>
+    </div>
 
-      <!-- ROLE_SET 필터 -->
-      <div class="m-2 align-items-center">
-        <select @change="changeRoleSet($event)" style="height:30px; font-size: 12px;">
-          <option selected disabled>권한</option>
-          <option value='ROLE_USER'>ROLE_USER</option>
-          <option value='ROLE_SUPER'>ROLE_SUPER</option>
-          <option value='ROLE_ADMIN'>ROLE_ADMIN</option>
-        </select>
+    <!-- ROLE_SET 필터 -->
+    <div class="m-2 align-items-center">
+      <select
+        @change="changeRoleSet($event)"
+        style="height: 30px; font-size: 12px"
+      >
+        <option selected disabled>권한</option>
+        <option value="ROLE_USER">ROLE_USER</option>
+        <option value="ROLE_SUPER">ROLE_SUPER</option>
+        <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+      </select>
       <!-- SOCIAL 필터 -->
-        <select @change='changeSocial($event)' style="height:30px; font-size: 12px;">
-          <option selected disabled>가입유형</option>
-          <option value='None'>QueÆnt</option>
-          <option value='Google'>Google</option>
-          <option value='Naver'>Naver</option>
-          <option value='Kakao'>Kakao</option>
-        </select>
-      </div>
-      <!-- 필터 초기화 -->
-      <div class="align-items-center">
-        <button @click="this.$router.go()" class="btn btn-sm mt-0" style="height:30px; font-size: 12px;">필터 초기화</button>
-      </div>
+      <select
+        @change="changeSocial($event)"
+        style="height: 30px; font-size: 12px"
+      >
+        <option selected disabled>가입유형</option>
+        <option value="None">QueÆnt</option>
+        <option value="Google">Google</option>
+        <option value="Naver">Naver</option>
+        <option value="Kakao">Kakao</option>
+      </select>
     </div>
-    <br><br><br><br>
-    <div id="section-float">
-      <section id="adminUserList" class="container row">
-        <admin-user-item
-          class="col-12 d-flex justify-content-center align-items-center"
-          v-for="user in users"
-          :key="user.email"
-          :user="user">
-        </admin-user-item>
-      </section>
+    <!-- 필터 초기화 -->
+    <div class="align-items-center">
+      <button
+        @click="this.$router.go()"
+        class="btn btn-sm mt-0"
+        style="height: 30px; font-size: 12px"
+      >
+        필터 초기화
+      </button>
     </div>
-    <div id="admin-userlist-pagenation">
-      <div
-        v-for="page in totalPage"
-        :key="page">
-        <button @click="changeCurrentPage(page)" class="pages btn btn-sm">{{ page }}</button>
-      </div>
+  </div>
+  <div id="section-float">
+    <section id="adminUserList" class="container row">
+      
+       <table class="rwd-table my-5">
+        <tbody>
+          <tr>
+            <th class="text-center">이름</th>
+            <th class="text-center">이메일</th>
+            <th class="text-center">성별</th>
+            <th class="text-center">생년월일</th>
+            <th class="text-center">소셜</th>
+            <th class="text-center">권한</th>
+            <th class="text-center">상태</th>
+            <th class="text-center">관리</th>
+          </tr>
+          <tr 
+            v-for="user in users"
+            :key="user.email">
+            <td class="col-1 text-center" data-th="Supplier Code">
+              <p style="font-family: NanumSquareRound;">{{ user.name }}</p>
+            </td>
+            <td class="col-3 text-center" data-th="Supplier Name">
+              {{ user.email }}
+            </td>
+            <td class="col-1 text-center" data-th="Invoice Number">
+              {{ user.gender }}
+            </td>
+            <td class="col-2 text-center" data-th="Invoice Date">
+              {{ user.birthdate }}
+            </td>
+            <td class="col-1 text-center" data-th="Due Date">
+              {{ user.social }}
+            </td>
+            <td class="col-1 text-center" data-th="Due Date">
+              <p v-if="user.role_set.length === 3">Admin</p>
+              <p v-if="user.role_set.length === 2">Manager</p>
+              <p v-if="user.role_set.length === 1">User</p>
+            </td>
+            <td class="col-2 text-center">
+              <p v-if="user.enabled" style="font-family: NanumSquareRound;">활성화</p>
+              <p v-else style="font-family: NanumSquareRound;">비활성화</p>
+            </td>
+            <td class="col-1 text-center" data-th="Net Amount">
+              <button
+                @click="openUserModal(user)"
+                class="btn btn-outline-success"
+                id="show-modal">
+                <i class="fa-solid fa-user-gear"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- <admin-user-item
+        class="col-12 d-flex justify-content-center align-items-center"
+        v-for="user in users"
+        :key="user.email"
+        :user="user">
+      </admin-user-item> -->
+    </section>
+  </div>
+
+  <!-- 모달 -->
+  <user-change-modal
+    v-if="showModal" 
+    @close="showModal = false" 
+    :modalData="modalData">
+  </user-change-modal>
+
+  <!-- 페이지네이션 -->
+  <div id="admin-userlist-pagenation">
+    <div v-for="page in totalPage" :key="page">
+      <button @click="changeCurrentPage(page)" class="pages btn btn-sm">
+        {{ page }}
+      </button>
     </div>
-    <br><br>
+  </div>
+  <br /><br />
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import _ from 'lodash'
-import AdminUserItem from '@/components/AdminUserItem.vue'
-import NavbarAdmin from '@/components/NavbarAdmin.vue'
+import { mapActions, mapGetters } from "vuex";
+import _ from "lodash";
+import AdminUserItem from "@/components/AdminUserItem.vue";
+import NavbarAdmin from "@/components/NavbarAdmin.vue";
+import UserChangeModal from "@/components/UserChangeModal.vue";
 
 export default {
-  name: 'AdminUserListView',
-  components: { AdminUserItem, NavbarAdmin },
-  beforeCreate: function() {
-    document.body.className = 'admin_body'
+  name: "AdminUserListView",
+  components: { AdminUserItem, NavbarAdmin, UserChangeModal },
+  beforeCreate: function () {
+    document.body.className = "admin_body";
   },
   computed: {
-    ...mapGetters(['users', 'totalPage']),
+    ...mapGetters(["users", "totalPage"]),
   },
   data() {
     return {
-      email: '',
+      email: "",
       payload: {
-        social: '',
-        role: 'ROLE_USER',
-        page: 1
-      }
-    }
+        social: "",
+        role: "ROLE_USER",
+        page: 1,
+      },
+      showModal: false,
+      modalData: null
+    };
   },
   watch: {
     payload: {
       deep: true,
       handler(value) {
-        this.fetchUsers(value)
-      }
-    }
+        this.fetchUsers(value);
+      },
+    },
   },
   methods: {
-    ...mapActions(['fetchUserInfo', 'fetchUsers']),
+    ...mapActions(["fetchUserInfo", "fetchUsers"]),
     changeCurrentPage(page) {
-      this.payload.page = page
-    },
+      this.payload.page = page;
+    },  
     changeRoleSet(event) {
-      this.payload.role = event.target.value
-      this.payload.page = 1
+      this.payload.role = event.target.value;
+      this.payload.page = 1;
     },
     changeSocial(event) {
-      this.payload.social = event.target.value
-      this.payload.page = 1
+      this.payload.social = event.target.value;
+      this.payload.page = 1;
+    },
+    openUserModal(user) {
+      this.modalData = user,
+      this.showModal = true
     }
   },
   created() {
-    this.fetchUsers(this.payload)
-  },
-}
+    this.fetchUsers(this.payload);
+  }
+};
 </script>
 
 <style scoped>
-@import '../../assets/css/admin.css';
+@import "../../assets/css/admin.css";
 </style>

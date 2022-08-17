@@ -149,15 +149,15 @@ const routes = [
     meta: { isAdmin: true }
   },
   {
-    path: '/content/edit/:contentId',
-    name : 'contentEdit',
-    component: ContentEditView,
-    meta: { isAdmin: true }
-  },
-  {
     path: '/content/:contentId',
     name: 'contentDetail',
     component: ContentDetailView
+  },
+  {
+    path: '/content/:contentId/edit',
+    name : 'contentEdit',
+    component: ContentEditView,
+    meta: { isAdmin: true }
   },
   // profile
   {

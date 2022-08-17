@@ -3,18 +3,20 @@
     type="bar"
     height="500"
     :options="chartOptions"
-    :series="realSeries"
+    :series="series"
   ></apexchart>
 </template>
 
 <script>
 import VueApexCharts from "vue3-apexcharts";
 export default {
-  name: "ColumnChart",
+  name: "ColumnChartComparison",
   components: { apexchart: VueApexCharts },
   props: ["series", "category"],
   watch: {
     series: function () {
+      console.log("들어오긴 하냐");
+      console.log(this.series);
       this.updateSeriesLine();
     },
     category: function () {
@@ -36,22 +38,19 @@ export default {
             enabled: true,
           },
         },
-
+        dataLabels: {
+          formatter: function (val, opt) {
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+          },
+        },
         plotOptions: {
           bar: {
             horizontal: false,
             borderRadius: 3,
           },
         },
-        dataLabels: {
-          enabled: false,
-        },
         xaxis: {
-          type: "datetime",
           categories: this.category,
-          labels: {
-            format: "yyyy/MM",
-          },
         },
         yaxis: {
           labels: {
@@ -71,21 +70,9 @@ export default {
               return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
             },
           },
-          x: {
-            formatter: function (val) {
-              let date = new Date(val);
-              let year = date.getFullYear();
-              let month = date.getMonth();
-              let day = date.getDate();
-              if (day == 31 || day == 30) month += 1;
-              if (month == 12) {
-                year += 1;
-                month = 0;
-              }
-              month += 1;
-              return year + "/" + month;
-            },
-          },
+          // x: {
+
+          // },
         },
         legend: {
           position: "top",
@@ -102,6 +89,69 @@ export default {
     const realCategory = [];
     const realSeries = [];
     return { chartOptions, realCategory, realSeries };
+  },
+  created() {
+    this.chartOptions = {
+      chart: {
+        type: "bar",
+        height: 500,
+        stacked: true,
+        toolbar: {
+          show: true,
+        },
+        zoom: {
+          enabled: true,
+        },
+      },
+      title: {
+        text: "만기 수령액",
+      },
+      dataLabels: {
+        formatter: function (val, opt) {
+          return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 3,
+        },
+      },
+      xaxis: {
+        categories: this.category,
+      },
+      yaxis: {
+        labels: {
+          formatter: function (val) {
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+          },
+        },
+      },
+      theme: {
+        palette: "palette4",
+      },
+      tooltip: {
+        intersect: false,
+        shared: true,
+        y: {
+          formatter: function (val) {
+            return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+          },
+        },
+        x: {
+          // formatter: function (val) {
+          //   return val + "번 포트폴리오";
+          // },
+        },
+      },
+      legend: {
+        position: "top",
+        offsetY: 5,
+      },
+      fill: {
+        opacity: 1,
+      },
+    };
   },
 };
 </script>

@@ -80,6 +80,10 @@
 	text-align:right;
 }
 
+.label {
+	line-height:30px;
+}
+
 .modal-close-button {
 	position:fixed; 
 	height: 5em;

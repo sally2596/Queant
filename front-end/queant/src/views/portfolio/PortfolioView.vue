@@ -1,12 +1,15 @@
 <template>
   <Navbar />
   <header id="title-div">
-    <h1 class="title" id="title">내 포트폴리오</h1>
+    <h1 class="title" id="title">MY 포트폴리오</h1>
   </header>
 
   <div class="content">
     <!-- 포트폴리오 없을 때 -->
-    <div v-if="portfolio?.length === 0" class="portfolio-none">
+    <div
+      v-if="portfolio?.length === 0 && customProducts?.length === 0"
+      class="portfolio-none"
+    >
       <img
         src="../../assets/image/물음표개미_none.png"
         alt=""
@@ -66,7 +69,7 @@
             <div class="d-flex justify-content-end">
               <router-link :to="{ name: 'portfolioEdit' }"
                 ><button class="btn btn-outline-success">
-                  포트폴리오 관리하기
+                  MY 포트폴리오 관리
                 </button></router-link
               >
             </div>
@@ -173,7 +176,7 @@
                     <img :src="deposit.picture" alt="" style="height: 30%" />
                   </td>
                   <td>{{ deposit.name }}</td>
-                  <td>{{ deposit.total }}</td>
+                  <td>{{ filtered(deposit.total) }}</td>
                   <td>{{ deposit.rate }}%</td>
                 </tr>
               </tbody>
@@ -328,7 +331,8 @@ export default {
       // 커스텀 상품
       this.customProducts.forEach((item) => {
         let productName = item.product_name;
-        let picture = "../assets/image/퀸트_로고.png";
+        let picture =
+          "https://queant.s3.ap-northeast-2.amazonaws.com/images/Queant.png";
         let rate = this.sumCustomProductRate(item);
         let startDate = new Date(item.start_date);
         let endDate = new Date(item.end_date);
@@ -477,9 +481,9 @@ export default {
         }
 
         interest.data.push(Math.ceil(calcMoney));
-        cumulMoney += calcMoney;
-        interestCumulative.data.push(Math.ceil(cumulMoney));
 
+        interestCumulative.data.push(Math.ceil(cumulMoney));
+        cumulMoney += calcMoney;
         //복리일 경우 amount 보정
         if (deposit && simple) amount *= calcRate;
       }
