@@ -101,9 +101,7 @@
 							</td>
 							<td>
 								{{
-									(productInCart.applied_rate + productInCart.special_rate).toFixed(
-										2
-									)
+									(productInCart.applied_rate + productInCart.special_rate).toFixed(2)
 								}}%
 							</td>
 							<td>{{ productInCart.applied_period }}개월</td>
@@ -230,6 +228,7 @@
 import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import draggable from "vuedraggable";
+import router from '@/router';
 
 export default {
   name: "ProductCartView",
@@ -283,6 +282,13 @@ export default {
       this.POP_PRODUCT_FROM_CART(product);
     },
     addComparisonPortfolio() {
+			if (!this.isLoggedIn) {
+				if (confirm('로그인이 필요합니다. 로그인 하시겠어요?') === true) {
+					router.push({ name: 'login' })
+				} else {
+					return
+				}
+			}
       this.ADD_COMPARISON_PORTFOLIO();
     },
     clearcomparisonportfolio() {
