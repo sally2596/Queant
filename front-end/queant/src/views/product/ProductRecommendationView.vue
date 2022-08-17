@@ -51,7 +51,7 @@
 
         <!-- 필수 -->
         <div class="col-lg-3 p-4 m-2 border-bottom">
-          <h6 class="mb-3"><strong>*예치금(원)</strong></h6>
+          <h6 class="mb-3"><strong>예치금(원)</strong></h6>
           <input
           style=
             "  
@@ -250,7 +250,7 @@
 
         <!-- 필수 입력 -->
         <div class="col-lg-3 p-4 m-2 border-bottom">
-          <h6 class="mb-3"><strong>*월 적립금(원)</strong></h6>
+          <h6 class="mb-3"><strong>월 적립금(원)</strong></h6>
           <input
             style="width: 100%;
             padding: 20px 10px 10px;
@@ -553,7 +553,7 @@ export default {
 }
 
 * {
-  font-family: LeferiBaseType-RegularA !important;
+  font-family: LeferiBaseType-RegularA;
   /* font-family: LeferiPoint-BlackA; */
 }
 </style>

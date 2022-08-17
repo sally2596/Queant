@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../../assets/image/퀸트_로고.png" alt="" style="width: 100%; height:100%;">
+    <img src="@/assets/image/퀸트로고단일.png" alt="" style="width: 100%; height:100%;">
   </div>
 </template>
 
