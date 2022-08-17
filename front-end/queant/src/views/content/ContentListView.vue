@@ -2,9 +2,9 @@
   <Navbar/>
 
   <section class="py-5 text-center container" id="content-header-section" style="margin-top:100px; margin-bottom:-70px">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1>자산 관리의 핵심, 퀸트</h1>        
+    <div class="row">
+      <div class="col-lg-6 col-md-8 mx-auto my-0">
+        <h1>자산 관리의 핵심, 퀸트</h1> 
       </div>
     </div>
   </section>

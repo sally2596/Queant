@@ -68,8 +68,8 @@
           <tr 
             v-for="user in users"
             :key="user.email">
-            <td class="col-1 text-center" data-th="Supplier Code">
-              <p style="font-family: NanumSquareRound;">{{ user.name }}</p>
+            <td style="font-family: NanumSquareRound;" class="col-1 text-center" data-th="Supplier Code">
+              {{ user.name }}
             </td>
             <td class="col-3 text-center" data-th="Supplier Name">
               {{ user.email }}
@@ -83,14 +83,20 @@
             <td class="col-1 text-center" data-th="Due Date">
               {{ user.social }}
             </td>
-            <td class="col-1 text-center" data-th="Due Date">
-              <p v-if="user.role_set.length === 3">Admin</p>
-              <p v-if="user.role_set.length === 2">Manager</p>
-              <p v-if="user.role_set.length === 1">User</p>
-            </td>
-            <td class="col-2 text-center">
-              <p v-if="user.enabled" style="font-family: NanumSquareRound;">활성화</p>
-              <p v-else style="font-family: NanumSquareRound;">비활성화</p>
+            <td class="col-1 text-center" data-th="Due Date" v-if="user.role_set.length === 3">
+							Admin
+						</td>
+						<td class="col-1 text-center" data-th="Due Date" v-if="user.role_set.length === 2">
+							Manager
+						</td>
+						<td class="col-1 text-center" data-th="Due Date" v-if="user.role_set.length === 1">
+							User
+						</td> 
+            <td class="col-2 text-center" style="font-family: NanumSquareRound;" v-if="user.enabled">
+							활성화
+						</td>
+						<td class="col-2 text-center" style="font-family: NanumSquareRound;" v-if="!user.enabled">
+							비활성화
             </td>
             <td class="col-1 text-center" data-th="Net Amount">
               <button
@@ -193,4 +199,15 @@ export default {
 
 <style scoped>
 @import "../../assets/css/admin.css";
+
+/* @font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  font-family: LeferiBaseType-RegularA;
+} */
 </style>
