@@ -124,7 +124,8 @@ const routes = [
   {
     path: '/product/comparison',
     name: 'productComparison',
-    component: ProductComparisonView
+    component: ProductComparisonView,
+    meta: { isLoggedIn: true }
   },
   {
     path: '/product/search/:text',
@@ -219,8 +220,11 @@ router.beforeEach((to, from, next) => {
 	// $route.matched 배열에 저장된 라우터 중 meta 필드에 'isLoggedIn'가 있는지 찾는다.
 	if (to.matched.some(record => record.meta.isLoggedIn)) {
     if (!isLoggedIn) { // 로그인 되어있지 않으면 로그인 페이지로 이동
-      alert('로그인이 필요합니다.')
-      next({ name: 'login' })
+      if (confirm('로그인이 필요합니다. 로그인 하시겠어요?') === true) {
+        next({ name: 'login' })
+      } else {
+        return
+      }
     } else { // 로그인 되어 있다면 그대로 라우터 이동
       next()
     }

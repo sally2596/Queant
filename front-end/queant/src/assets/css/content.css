@@ -32,15 +32,15 @@
 }
 
 #content-header-section::before {
-	position: absolute;
+  position: absolute;
   left: 50%;
   top: 0;
   width: 130%;
   height: 96%;
   /* background: lightcoral; */
-  background: rgb(236, 182, 182);
-  background: -webkit-linear-gradient(top left, rgb(241, 170, 170) 0%, #f13333 100%);
-  background: linear-gradient(to bottom right, rgb(231, 172, 172) 0%, #fa3636 100%);
+  background: rgb(240, 216, 216);
+  background: -webkit-linear-gradient(top left, rgb(240, 221, 221) 0%, #f13333 100%);
+  background: linear-gradient(to bottom right, rgb(240, 217, 217) 0%, #fa3636 100%);
   opacity: 0.3;
   z-index: -10;
   border-radius: 0 0 50% 50%;
