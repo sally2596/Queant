@@ -83,14 +83,20 @@
             <td class="col-1 text-center" data-th="Due Date">
               {{ user.social }}
             </td>
-            <td class="col-1 text-center" data-th="Due Date">
-              <p v-if="user.role_set.length === 3">Admin</p>
-              <p v-if="user.role_set.length === 2">Manager</p>
-              <p v-if="user.role_set.length === 1">User</p>
-            </td>
-            <td class="col-2 text-center">
-              <p v-if="user.enabled" style="font-family: NanumSquareRound;">활성화</p>
-              <p v-else style="font-family: NanumSquareRound;">비활성화</p>
+            <td class="col-1 text-center" data-th="Due Date" v-if="user.role_set.length === 3">
+							Admin
+						</td>
+						<td class="col-1 text-center" data-th="Due Date" v-if="user.role_set.length === 2">
+							Manager
+						</td>
+						<td class="col-1 text-center" data-th="Due Date" v-if="user.role_set.length === 1">
+							User
+						</td> 
+            <td class="col-2 text-center" style="font-family: NanumSquareRound;" v-if="user.enabled">
+							활성화
+						</td>
+						<td class="col-2 text-center" style="font-family: NanumSquareRound;" v-if="!user.enabled">
+							비활성화
             </td>
             <td class="col-1 text-center" data-th="Net Amount">
               <button
