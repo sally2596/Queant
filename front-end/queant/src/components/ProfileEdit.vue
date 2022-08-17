@@ -49,7 +49,7 @@
     <br>
     <div>
       <button class="btn btn-sm btn-outline-success" @click="confirmEditUserInfo()">정보 변경하기</button>
-      <router-link to="/passwordEditByProfile" class="btn btn-sm btn-outline-success">비밀번호 변경</router-link>
+      <router-link :to="{ name: 'passwordFind' }" class="btn btn-sm btn-outline-success">비밀번호 변경</router-link>
       <button class="btn btn-sm btn-outline-danger" @click="confirmUnregister()">회원탈퇴</button>
     </div>
   </div>
