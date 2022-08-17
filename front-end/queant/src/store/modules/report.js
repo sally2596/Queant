@@ -48,7 +48,6 @@ export default {
       })
       .then(res => {
 				console.log(res)
-				alert("제보에 성공했습니다!");
       })
       .catch(err => {
         console.log(err)
