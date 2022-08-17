@@ -14,9 +14,9 @@
               <th scope="col">작업</th>
             </tr>
           </thead>
-          <tbody v-for="report in reports" v-bind:key="report">
+          <tbody v-for="(report, index) in reports" v-bind:key="report">
             <tr scope="row">
-              <td class="col-1 text-center">{{ report.report_product_id }}</td>
+              <td class="col-1 text-center">{{ index + 1 }}</td>
               <td class="col-1 text-center">{{ report.bank_name }}</td>
               <td class="col-1 text-center">{{ report.product_name }}</td>
               <td class="col-1 text-center">
