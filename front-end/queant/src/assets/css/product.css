@@ -22,8 +22,9 @@
 }
 
 #title-div {
-    background-color: white !important;
+    /* background-color: white !important; */
 }
+
 #product_select_article {
     background-color: #ffffff;
     margin-top: 2rem; margin-left: 1rem;

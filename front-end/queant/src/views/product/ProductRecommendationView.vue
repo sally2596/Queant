@@ -1,10 +1,10 @@
 <template>
   <Navbar/>
-  <header id="title-div">
+  <header id="title-div" >
     <h1 class="title" id="title">맞춤상품검색</h1>
   </header>
 
-  <section class="product_section">
+  <section class="product_section" id="content-header-section">
     <div class="search_filter">
       <div class="filter_button_wrap">
         <button @click="deposit_OnOff" :class="{'filter_active' : filter_deposit==true}" class="filter_button" id="filter_button_a">예금</button>
