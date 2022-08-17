@@ -16,7 +16,7 @@
 
       <div class="modal-body">
        <slot name="body">
-					<label>은행명</label>
+					<label>* 은행명</label>
 					<input class="box" v-model="product.bank_name" type="text" list="bankList"/>
 						<datalist id="bankList">
 							<option v-for="opt in bank" v-bind:value="opt.value" v-bind:key="opt">
