@@ -489,16 +489,18 @@ export default {
       }
 
       let total = 0;
-      if (deposit) {
-        total +=
-          original.data[todayIndex] +
-          interest.data[todayIndex] +
-          interestCumulative.data[todayIndex];
-      } else {
-        total +=
-          original.data[todayIndex] +
-          interest.data[todayIndex] +
-          interestCumulative.data[todayIndex];
+      if (todayIndex != -1) {
+        if (deposit) {
+          total +=
+            original.data[todayIndex] +
+            interest.data[todayIndex] +
+            interestCumulative.data[todayIndex];
+        } else {
+          total +=
+            original.data[todayIndex] +
+            interest.data[todayIndex] +
+            interestCumulative.data[todayIndex];
+        }
       }
 
       result.push(interest);
