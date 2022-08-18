@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.*;
 import java.util.UUID;
 
 @Data
@@ -46,6 +46,7 @@ public class CustomProduct {
 
     private Date startDate;
     private Date endDate;
+    private int saveTerm;
 
     @Column(nullable = false)
     @Type(type="org.hibernate.type.UUIDCharType")

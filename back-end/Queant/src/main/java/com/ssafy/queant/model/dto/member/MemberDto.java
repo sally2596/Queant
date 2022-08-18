@@ -11,15 +11,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Builder
@@ -39,8 +36,7 @@ public class MemberDto implements UserDetails {
     private String name;
     @Schema(description = "성별(Female/Male)")
     private Gender gender;
-    @Schema(description = "생일")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul" )
     private Date birthdate;
     @ApiModelProperty(hidden = true)
     private int portfolioCnt;
@@ -49,7 +45,6 @@ public class MemberDto implements UserDetails {
     @ApiModelProperty(hidden = true)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String refreshToken;
-    @ApiModelProperty(hidden = true)
     @Builder.Default
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean enabled = true;

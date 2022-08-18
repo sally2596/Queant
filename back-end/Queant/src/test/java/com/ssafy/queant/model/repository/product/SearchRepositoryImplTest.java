@@ -30,14 +30,16 @@ class SearchRepositoryImplTest {
         List<String> joinway = new ArrayList<>();
 //        joinway.add("A001");
         List<String> conditions = new ArrayList<>();
-        conditions.add("B003");
-        conditions.add("B004");
-        conditions.add("B005");
+        conditions.add("B007");
+//        conditions.add("B004");
+//        conditions.add("B005");
         List<String> traitSet = new ArrayList<>();
 //        traitSet.add("E001");
-
-        int period = 12;
-        List<Tuple> p = searchRepository.searchSingle(0l, false, false, false, period, list, joinway, conditions,
+        List<String> banktype = new ArrayList<>();
+        banktype.add("C001");
+        int period = 6;
+        List<Tuple> p = searchRepository.searchSingle(0l, false, false, false, period, list, banktype, joinway,
+                conditions,
                 traitSet);
         log.info(String.valueOf(p));
         int cnt = 0;

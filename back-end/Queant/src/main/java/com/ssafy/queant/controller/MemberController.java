@@ -120,6 +120,7 @@ public class MemberController {
     @ApiOperation(value="회원 정보 수정", notes="email, birthdate, name, gender 필수")
     @PutMapping("/info")
     public ResponseEntity<?> UpdateInfo(@RequestBody MemberDto memberDto){
+        log.info("birthdate 확인:{}", memberDto.getBirthdate());
         MemberDto result = memberService.updateMember(memberDto);
         if(result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         result.setPassword(null);

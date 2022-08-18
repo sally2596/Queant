@@ -14,6 +14,7 @@ import com.ssafy.queant.model.entity.product.Product;
 import com.ssafy.queant.model.repository.MemberRepository;
 import com.ssafy.queant.model.repository.portfolio.PortfolioRepository;
 import com.ssafy.queant.model.repository.product.CustomProductRepository;
+import com.ssafy.queant.model.repository.product.OptionsRepository;
 import com.ssafy.queant.model.repository.product.ProductRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -37,19 +39,23 @@ public class PortfolioServiceImpl implements PortfolioService {
 
    private final PortfolioRepository portfolioRepository;
 
+   private final OptionsRepository optionsRepository;
+
    @Autowired
    public PortfolioServiceImpl(
               CustomProductRepository customProductRepository,
               ModelMapper modelMapper,
               ProductRepository productRepository,
               MemberRepository memberRepository,
-              PortfolioRepository portfolioRepository
+              PortfolioRepository portfolioRepository,
+              OptionsRepository optionsRepository
            ) {
       this.customProductRepository = customProductRepository;
       this.modelMapper = modelMapper;
       this.productRepository = productRepository;
       this.memberRepository = memberRepository;
       this.portfolioRepository = portfolioRepository;
+      this.optionsRepository = optionsRepository;
    }
 
    @Override
@@ -62,7 +68,9 @@ public class PortfolioServiceImpl implements PortfolioService {
       log.info("[사용자 정의 상품 추가]");
 
       CustomProduct customProduct = modelMapper.map(customProductDto,CustomProduct.class);
-      customProduct.setMemberId(memberId);
+      customProduct.setMemberId(memberId); //멤버 아이디 셋팅
+      Date endDate = addMonth(customProductDto.getStartDate(), customProductDto.getSaveTerm());
+      customProduct.setEndDate(endDate); //endDate 셋팅
 
       CustomProduct savedCustomProduct = customProductRepository.save(customProduct);
 
@@ -110,6 +118,8 @@ public class PortfolioServiceImpl implements PortfolioService {
       CustomProduct customProduct = modelMapper.map(customProductDto, CustomProduct.class);
 
       customProduct.setMemberId(result.get().getMemberId());
+      Date endDate = addMonth(customProductDto.getStartDate(), customProductDto.getSaveTerm());
+      customProduct.setEndDate(endDate); //endDate 셋팅
       CustomProduct savedCustomProduct = customProductRepository.save(customProduct);
 
       CustomProductDto savedCustomProductDto = modelMapper.map(savedCustomProduct,CustomProductDto.class);
@@ -169,8 +179,12 @@ public class PortfolioServiceImpl implements PortfolioService {
          portfolioIdx = portfolioDto.getPortfolioNo();
 
          Product product = Product.builder().productId(portfolioDto.getProductId()).build();
-         Options option = Options.builder().optionId(portfolioDto.getOptionId()).build();
          Member member = Member.builder().memberId(memberId).build();
+         //옵션에 기반하여 endDate 구하기
+         Optional<Options> result = optionsRepository.findById(portfolioDto.getOptionId());
+         Options option = result.get();
+
+         Date endDate = addMonth(portfolioDto.getStartDate(), option.getSaveTerm());
          //포트폴리오 생성
          Portfolio portfolio = Portfolio.builder()
                  .member(member)
@@ -178,7 +192,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                  .portfolioNo(portfolioDto.getPortfolioNo())
                  .amount(portfolioDto.getAmount())
                  .startDate(portfolioDto.getStartDate())
-                 .endDate(portfolioDto.getEndDate())
+                 .endDate(endDate)
                  .option(option)
                  .build();
 
@@ -196,115 +210,123 @@ public class PortfolioServiceImpl implements PortfolioService {
       memberRepository.save(member);
    }
 
+   public Date addMonth(Date date, int months) {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(date);
+      cal.add(Calendar.MONTH, months);
+      return cal.getTime();
+   }
+
+
    //포트폴리오 수정(예상 포트폴리오 상품 추가 및 제거)
-   @Override
-   @Transactional
-   public void updatePortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList, int portfolioNo) throws Exception {
-      //기존의 포트폴리오 가져오기
-      Member member = Member.builder().memberId(memberId).build();
-      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
-      portfolioResult.orElseThrow(() -> new NoSuchElementException());
+//   @Override
+//   @Transactional
+//   public void updatePortfolio(UUID memberId, List<PortfolioDto> portfolioDtoList, int portfolioNo) throws Exception {
+//      //기존의 포트폴리오 가져오기
+//      Member member = Member.builder().memberId(memberId).build();
+//      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
+//      portfolioResult.orElseThrow(() -> new NoSuchElementException());
+//
+//      HashMap<Integer,Integer> map = new HashMap<>();
+//      List<Portfolio> existing = portfolioResult.get();
+//
+//      for(int i=0; i<existing.size(); i++){
+//         map.put(existing.get(i).getPortfolioId(),i);
+//      }
+//
+//      for(PortfolioDto portfolioDto: portfolioDtoList){
+//         //기존에 있던 포트폴리오 수정
+//         if(map.containsKey(portfolioDto.getPortfolioId())){
+//            //기존 -> portfolio 새거-> portfolioDto
+//            Portfolio portfolio = existing.get(map.get(portfolioDto.getPortfolioId()));
+//            portfolio.setAmount(portfolioDto.getAmount());
+//            portfolio.setStartDate(portfolioDto.getStartDate());
+//            portfolio.setEndDate(portfolioDto.getEndDate());
+//
+//            //옵션 수정
+//            if(portfolio.getOption().getOptionId() != portfolioDto.getOptionId()){
+//               portfolio.setOption(Options.builder().optionId(portfolioDto.getOptionId()).build());
+//            }
+//
+//            //컨디션 수정
+//            HashSet<Integer> conds = new HashSet<>();
+//            Set<Conditions> changeConditions = new HashSet<>();
+//            for(Conditions conditions : portfolio.getConditions()){
+//               conds.add(conditions.getConditionId());
+//            }
+//
+//            for(int cond : portfolioDto.getConditionIds()){
+//               //이미 있으면 비교 set 에서 제거
+//               if(conds.contains(cond)){
+//                  Conditions condition = Conditions.builder().conditionId(cond).build();
+//                  changeConditions.add(condition);
+//                  conds.remove(cond);
+//               } else { //없으면 추가해주기
+//                  Conditions condition = Conditions.builder().conditionId(cond).build();
+//                  changeConditions.add(condition);
+//               }
+//            }
+//
+//            portfolio.setConditions(changeConditions);
+//
+//            portfolioRepository.save(portfolio);
+//            map.remove(portfolioDto.getPortfolioId());
+//         } else { //기존에 없다면 추가
+//            Product product = Product.builder().productId(portfolioDto.getProductId()).build();
+//            Options option = Options.builder().optionId(portfolioDto.getOptionId()).build();
+//
+//            //포트폴리오 생성
+//            Portfolio portfolio = Portfolio.builder()
+//                    .member(member)
+//                    .product(product)
+//                    .portfolioNo(portfolioDto.getPortfolioNo())
+//                    .amount(portfolioDto.getAmount())
+//                    .startDate(portfolioDto.getStartDate())
+//                    .endDate(portfolioDto.getEndDate())
+//                    .option(option)
+//                    .build();
+//
+//            //컨디션 생성 및 주입
+//            for(int conditionId : portfolioDto.getConditionIds()){
+//               Conditions condition = Conditions.builder().conditionId(conditionId).build();
+//               portfolio.addCondition(condition);
+//            }
+//
+//            portfolioRepository.save(portfolio);
+//         }
+//      }
+//      //set에 남아있다면 삭제
+//      for(int key : map.keySet()){
+//         portfolioRepository.deleteById(key);
+//      }
+//   }
 
-      HashMap<Integer,Integer> map = new HashMap<>();
-      List<Portfolio> existing = portfolioResult.get();
-
-      for(int i=0; i<existing.size(); i++){
-         map.put(existing.get(i).getPortfolioId(),i);
-      }
-
-      for(PortfolioDto portfolioDto: portfolioDtoList){
-         //기존에 있던 포트폴리오 수정
-         if(map.containsKey(portfolioDto.getPortfolioId())){
-            //기존 -> portfolio 새거-> portfolioDto
-            Portfolio portfolio = existing.get(map.get(portfolioDto.getPortfolioId()));
-            portfolio.setAmount(portfolioDto.getAmount());
-            portfolio.setStartDate(portfolioDto.getStartDate());
-            portfolio.setEndDate(portfolioDto.getEndDate());
-
-            //옵션 수정
-            if(portfolio.getOption().getOptionId() != portfolioDto.getOptionId()){
-               portfolio.setOption(Options.builder().optionId(portfolioDto.getOptionId()).build());
-            }
-
-            //컨디션 수정
-            HashSet<Integer> conds = new HashSet<>();
-            Set<Conditions> changeConditions = new HashSet<>();
-            for(Conditions conditions : portfolio.getConditions()){
-               conds.add(conditions.getConditionId());
-            }
-
-            for(int cond : portfolioDto.getConditionIds()){
-               //이미 있으면 비교 set 에서 제거
-               if(conds.contains(cond)){
-                  Conditions condition = Conditions.builder().conditionId(cond).build();
-                  changeConditions.add(condition);
-                  conds.remove(cond);
-               } else { //없으면 추가해주기
-                  Conditions condition = Conditions.builder().conditionId(cond).build();
-                  changeConditions.add(condition);
-               }
-            }
-
-            portfolio.setConditions(changeConditions);
-
-            portfolioRepository.save(portfolio);
-            map.remove(portfolioDto.getPortfolioId());
-         } else { //기존에 없다면 추가
-            Product product = Product.builder().productId(portfolioDto.getProductId()).build();
-            Options option = Options.builder().optionId(portfolioDto.getOptionId()).build();
-
-            //포트폴리오 생성
-            Portfolio portfolio = Portfolio.builder()
-                    .member(member)
-                    .product(product)
-                    .portfolioNo(portfolioDto.getPortfolioNo())
-                    .amount(portfolioDto.getAmount())
-                    .startDate(portfolioDto.getStartDate())
-                    .endDate(portfolioDto.getEndDate())
-                    .option(option)
-                    .build();
-
-            //컨디션 생성 및 주입
-            for(int conditionId : portfolioDto.getConditionIds()){
-               Conditions condition = Conditions.builder().conditionId(conditionId).build();
-               portfolio.addCondition(condition);
-            }
-
-            portfolioRepository.save(portfolio);
-         }
-      }
-      //set에 남아있다면 삭제
-      for(int key : map.keySet()){
-         portfolioRepository.deleteById(key);
-      }
-   }
-
-   @Override
-   @Transactional
-   public void deletePortfolio(UUID memberId, int portfolioNo) throws Exception {
-
-      log.info("[updatePortfolio] : memberId: {} 포트폴리오 수정, 포트폴리오 번호: {}", memberId, portfolioNo);
-
-      Optional<Member> result = memberRepository.findById(memberId);
-      Member member = result.get();
-
-      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
-      portfolioResult.orElseThrow(()-> new NoSuchElementException());
-
-      portfolioRepository.deleteAll(portfolioResult.get());
-
-      for(int i=portfolioNo+1; i<member.getPortfolio_cnt(); i++){
-         Optional<List<Portfolio>> portfolios = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member, i);
-
-         for(Portfolio portfolio : portfolios.get()){
-            portfolio.setPortfolioNo(i-1);
-            portfolioRepository.save(portfolio);
-         }
-      }
-
-      member.setPortfolio_cnt(member.getPortfolio_cnt()-1);
-
-   }
+//   @Override
+//   @Transactional
+//   public void deletePortfolio(UUID memberId, int portfolioNo) throws Exception {
+//
+//      log.info("[updatePortfolio] : memberId: {} 포트폴리오 수정, 포트폴리오 번호: {}", memberId, portfolioNo);
+//
+//      Optional<Member> result = memberRepository.findById(memberId);
+//      Member member = result.get();
+//
+//      Optional<List<Portfolio>> portfolioResult = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member,portfolioNo);
+//      portfolioResult.orElseThrow(()-> new NoSuchElementException());
+//
+//      portfolioRepository.deleteAll(portfolioResult.get());
+//
+//      for(int i=portfolioNo+1; i<member.getPortfolio_cnt(); i++){
+//         Optional<List<Portfolio>> portfolios = portfolioRepository.findPortfolioByMemberAndPortfolioNo(member, i);
+//
+//         for(Portfolio portfolio : portfolios.get()){
+//            portfolio.setPortfolioNo(i-1);
+//            portfolioRepository.save(portfolio);
+//         }
+//      }
+//
+//      member.setPortfolio_cnt(member.getPortfolio_cnt()-1);
+//
+//   }
 
    @Override
    @Transactional
@@ -352,6 +374,26 @@ public class PortfolioServiceImpl implements PortfolioService {
       Optional<Portfolio> portfolio = portfolioRepository.findById(portfolioId);
       portfolio.orElseThrow(() -> new NoSuchElementException());
       portfolioRepository.delete(portfolio.get());
+   }
+
+   @Override
+   @Transactional
+   public void deleteAndInsert(UUID memberId, List<PortfolioDto> portfolioDtoList) throws Exception {
+      Member member = Member.builder().memberId(memberId).build();
+      Optional<List<Portfolio>> portfolio = portfolioRepository.findPortfolioByMember(member);
+
+      if(portfolio.isPresent()){
+         for(Portfolio port: portfolio.get()){
+            if(port.getPortfolioNo() == 0) continue;
+            log.info("[deleteAdnInsert] 삭제되는 포트폴리오 : {}", port.toString());
+            portfolioRepository.delete(port);
+
+         }
+      }
+
+      portfolioRepository.flush();
+
+      insertPortfolio(memberId, portfolioDtoList);
    }
 
 }

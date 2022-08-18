@@ -92,6 +92,7 @@ public class SearchServiceImpl implements SearchService {
                 searchRequestDto.getIsFixed(),
                 searchRequestDto.getPeriod(),
                 searchRequestDto.getBank(),
+                searchRequestDto.getBankType(),
                 searchRequestDto.getJoinway(),
                 searchRequestDto.getConditions(),
                 searchRequestDto.getTraitSet());

@@ -44,6 +44,7 @@ public class Portfolio implements Serializable{
     private int portfolioNo;
     @Column(nullable = false)
     private Long amount;
+    private int saveTerm;
     @Column(nullable = false)
     private Date startDate;
     private Date endDate;
