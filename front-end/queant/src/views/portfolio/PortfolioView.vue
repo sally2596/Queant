@@ -33,8 +33,7 @@
         <div id="Summary" class="container row justify">
           <div class="col-lg-6">
             <pie-chart
-              v-bind:series="summarySeries"
-              v-bind:chartOptionLabels="summaryChartOptionLabels"
+             
             ></pie-chart>
           </div>
           <div class="col-lg-6">
@@ -173,7 +172,7 @@
                   id="portfolio-deposit-table-tr"
                 >
                   <td>
-                    <img :src="deposit.picture" alt="" style="height: 40px;" />
+                    <img :src="deposit.picture" alt="" style="width: 40px" />
                   </td>
                   <td>{{ deposit.name }}</td>
                   <td>{{ filtered(deposit.total) }}</td>
@@ -195,7 +194,7 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import PieChart from "@/components/PieChart.vue";
 import ColumnChart from "@/components/ColumnChart.vue";
 import { PerfectScrollbar } from "vue3-perfect-scrollbar";
@@ -267,7 +266,6 @@ export default {
       this.RsavingFin = this.savingFinishAmount;
     },
     portfolio: function () {
-      console.log("제발좀..잘 좀 들어가봐");
       this.summarySeries = [];
       this.savingSeries = [];
       this.depositSeries = [];
@@ -376,10 +374,13 @@ export default {
 
       this.summarySeries.push(this.depositIngAmount + this.depositFinishAmount);
       this.summarySeries.push(this.savingFinishAmount + this.savingIngAmount);
+
+      this.SET_MYSUMMARIES(this.summarySeries);
     },
   },
   methods: {
     ...mapActions(["fetchMyPortfolio"]),
+    ...mapMutations(['SET_MYSUMMARIES']),
     sumDBProductRate(item) {
       let rate = 0;
       rate += item.option.base_rate;
@@ -489,16 +490,18 @@ export default {
       }
 
       let total = 0;
-      if (deposit) {
-        total +=
-          original.data[todayIndex] +
-          interest.data[todayIndex] +
-          interestCumulative.data[todayIndex];
-      } else {
-        total +=
-          original.data[todayIndex] +
-          interest.data[todayIndex] +
-          interestCumulative.data[todayIndex];
+      if (todayIndex != -1) {
+        if (deposit) {
+          total +=
+            original.data[todayIndex] +
+            interest.data[todayIndex] +
+            interestCumulative.data[todayIndex];
+        } else {
+          total +=
+            original.data[todayIndex] +
+            interest.data[todayIndex] +
+            interestCumulative.data[todayIndex];
+        }
       }
 
       result.push(interest);

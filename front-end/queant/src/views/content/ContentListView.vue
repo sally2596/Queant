@@ -1,87 +1,118 @@
 <template>
-  <Navbar/>
+  <Navbar />
 
-  <section class="py-5 text-center container" id="content-header-section" style="margin-top:100px; margin-bottom:-70px">
+  <section
+    class="py-5 text-center container"
+    id="content-header-section"
+    style="margin-top: 100px; margin-bottom: -70px"
+  >
     <div class="row">
       <div class="col-lg-6 col-md-8 mx-auto my-0">
-        <h1>자산 관리의 핵심, 퀸트</h1> 
+        <h1>자산 관리의 핵심, 퀸트</h1>
       </div>
     </div>
   </section>
-	<div v-if="isAdmin" style="text-align: center;">
-		<router-link  class="btn btn-success" :to="{ name: 'contentCreate' }">기사 작성하기</router-link>
-	</div>
+  <div v-if="isAdmin" class="mt-5" style="text-align: center">
+    <router-link class="btn btn-success" :to="{ name: 'contentCreate' }"
+      >기사 작성하기</router-link
+    >
+  </div>
   <div class="album py-5">
     <div class="container p-0">
-
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" data-aos="fade-up" v-for="content in contents" :key="content">
+        <div
+          class="col"
+          data-aos="fade-up"
+          v-for="content in contents"
+          :key="content"
+        >
           <div class="card shadow-sm">
             <div class="card-body">
-              <img :src=randomThumbnail() class="card-img-top" alt="..." style="height:300px;">
-              <br><br>
-              <h5 class="card-title">{{content.title}}</h5>
-              <br><br>
+              <img
+                :src="randomThumbnail()"
+                class="card-img-top"
+                alt="..."
+                style="height: 300px"
+              />
+              <br /><br />
+              <h5 class="card-title">{{ content.title }}</h5>
+              <br /><br />
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <router-link class="btn btn-sm btn-outline-secondary"
-                    :to="{ name: 'contentDetail', params: { contentId: content.content_id }}">보기</router-link>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="remove(content.content_id)" v-if="isAdmin">삭제</button>
+                  <router-link
+                    class="btn btn-sm btn-outline-secondary"
+                    :to="{
+                      name: 'contentDetail',
+                      params: { contentId: content.content_id },
+                    }"
+                    >보기</router-link
+                  >
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    @click="remove(content.content_id)"
+                    v-if="isAdmin"
+                  >
+                    삭제
+                  </button>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 <script>
-import Navbar from "@/components/Navbar.vue"
-import router from '@/router'
-import { mapGetters, mapActions } from 'vuex'
-import _ from 'lodash'
-import thumbnail1 from '../../assets/image/thumbnail/1.jpg'
-import thumbnail2 from '../../assets/image/thumbnail/2.jpg'
-import thumbnail3 from '../../assets/image/thumbnail/3.jpg'
-import thumbnail4 from '../../assets/image/thumbnail/4.jpg'
-import thumbnail5 from '../../assets/image/thumbnail/5.jpg'
-import thumbnail6 from '../../assets/image/thumbnail/6.jpg'
-import thumbnail7 from '../../assets/image/thumbnail/7.jpg'
-import thumbnail8 from '../../assets/image/thumbnail/8.jpg'
-import thumbnail9 from '../../assets/image/thumbnail/9.jpg'
-import thumbnail10 from '../../assets/image/thumbnail/10.jpg'
-
+import Navbar from "@/components/Navbar.vue";
+import router from "@/router";
+import { mapGetters, mapActions } from "vuex";
+import _ from "lodash";
+import thumbnail1 from "../../assets/image/thumbnail/1.jpg";
+import thumbnail2 from "../../assets/image/thumbnail/2.jpg";
+import thumbnail3 from "../../assets/image/thumbnail/3.jpg";
+import thumbnail4 from "../../assets/image/thumbnail/4.jpg";
+import thumbnail5 from "../../assets/image/thumbnail/5.jpg";
+import thumbnail6 from "../../assets/image/thumbnail/6.jpg";
+import thumbnail7 from "../../assets/image/thumbnail/7.jpg";
+import thumbnail8 from "../../assets/image/thumbnail/8.jpg";
+import thumbnail9 from "../../assets/image/thumbnail/9.jpg";
+import thumbnail10 from "../../assets/image/thumbnail/10.jpg";
 
 export default {
-  name: 'ContentListView',
-  components : { Navbar },
+  name: "ContentListView",
+  components: { Navbar },
   computed: {
-    ...mapGetters(['userInfo', 'isAdmin', 'contents']),
+    ...mapGetters(["userInfo", "isAdmin", "contents"]),
   },
-  beforeCreate: function() {
-    document.body.className = 'home_body'
+  beforeCreate: function () {
+    document.body.className = "home_body";
   },
-  methods : {
-    ...mapActions(['getContentList', 'getContent', 'deleteContent', 'editContent']),
+  methods: {
+    ...mapActions([
+      "getContentList",
+      "getContent",
+      "deleteContent",
+      "editContent",
+    ]),
     randomThumbnail() {
-      const idx = Math.floor(Math.random() * this.thumbnails.length)
-      let thumbnail = this.thumbnails[idx]
-      return thumbnail
+      const idx = Math.floor(Math.random() * this.thumbnails.length);
+      let thumbnail = this.thumbnails[idx];
+      return thumbnail;
     },
-		remove(id){
-			this.deleteContent(id);
-			alert("컨텐츠가 삭제되었습니다.");
-			this.$router.go();
-		}
+    remove(id) {
+      this.deleteContent(id);
+      alert("컨텐츠가 삭제되었습니다.");
+      this.$router.go();
+    },
   },
   created() {
     this.getContentList();
   },
   data() {
     return {
-      thumbnails : [
+      thumbnails: [
         thumbnail1,
         thumbnail2,
         thumbnail3,
@@ -93,11 +124,9 @@ export default {
         thumbnail9,
         thumbnail10,
       ],
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

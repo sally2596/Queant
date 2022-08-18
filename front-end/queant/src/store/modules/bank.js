@@ -3,21 +3,21 @@ import axios from 'axios'
 
 export default {
   state: {
-    banks: [],
     bank: {},
     theFirstBanks: [],
     theSecondBanks: [],
     theThirdBanks: []
+    // banks: [],
   },
   getters: {
-    banks: state => state.banks,
     bank: state => state.bank,
     theFirstBanks: state => state.theFirstBanks,
     theSecondBanks: state => state.theSecondBanks,
     theThirdBanks: state => state.theThirdBanks
+    // banks: state => state.banks,
   },
   mutations: {
-    // SET_BANKS: (state, banks) => state.banks = banks,
+    SET_BANK: (state, bank) => state.bank = bank,
     SET_BANKS(state, banks) {
       for (let bank of banks) {
         if (bank.scode_id === 'C001') {
@@ -38,7 +38,7 @@ export default {
         }
       }
     },
-    SET_BANK: (state, bank) => state.bank = bank
+        // SET_BANKS: (state, banks) => state.banks = banks,
   },
   actions: {
     fetchBanks({ commit }) {

@@ -89,12 +89,12 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
-          <!-- <button class="btn btn-outline-success btn-sm mx-3" @click="[changeAppliedRate(payload.condition_ids), $emit('close')]">장바구니</button> -->
+          <!-- <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">MY 포트폴리오</button> -->
+           <button class="btn btn-outline-success btn-sm mx-3" @click="confirmIsLoggedIn(payload)">MY 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
         <div v-else>
-          <button class="btn btn-outline-success btn-sm mx-3" disabled>내 포트폴리오</button>
+          <button class="btn btn-outline-success btn-sm mx-3" disabled>MY 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" disabled>장바구니</button>
         </div>
        </slot>
@@ -108,6 +108,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { BIconXCircle } from 'bootstrap-icons-vue';
+import router from '@/router';
 export default {
   name: 'Modal',
   props: {
@@ -117,7 +118,7 @@ export default {
 		BIconXCircle
   },
   computed: {
-    ...mapGetters(['portfolios', 'product'])
+    ...mapGetters(['portfolios', 'product', 'isLoggedIn'])
   },
   methods: {
     ...mapActions(['pushProductToPortfolio']),
@@ -131,6 +132,18 @@ export default {
         }
       }
       this.PUSH_PRODUCT_TO_CART(payload)
+    },
+    confirmIsLoggedIn(payload) {
+      if (!this.isLoggedIn) {
+        if (confirm('로그인이 필요합니다. 로그인 하시겠습니까?') === true) {
+          router.push({ name: 'login' })
+        } else {
+          return
+        }
+      } else {
+        this.pushProductToPortfolio(payload)
+        this.$emit('close')
+      }
     },
     checkForm() {
       if (this.payload.amount < 1)
@@ -175,6 +188,14 @@ export default {
 				
 
 			// }
+    },
+    product :function(){
+      for (let option of this.product.options) {
+        if (option.option_id === this.modalData.selected_option_id) {
+          this.payload.applied_rate = option.base_rate
+          this.payload.applied_period = option.save_term
+        }
+      }
     }
   },
   data() {
@@ -195,14 +216,6 @@ export default {
       },
       isCheckedForm: false
     }
-  },
-  created() {
-    for (let option of this.product.options) {
-        if (option.option_id === this.modalData.selected_option_id) {
-          this.payload.applied_rate = option.base_rate
-          this.payload.applied_period = option.save_term
-        }
-      }
   }
 }
 </script>

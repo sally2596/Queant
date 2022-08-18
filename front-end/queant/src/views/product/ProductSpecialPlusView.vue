@@ -16,10 +16,6 @@
 							<input type="text" v-model="product.productName" id="prd">
 							<label class="form-label" for="prd" autocomplete="off">상품명</label>
 						</div>
-						<div class="int-area">
-							<input type="text" v-model="product.referenceData" id="ref">
-							<label class="form-label" for="ref" autocomplete="off">관련 링크</label>
-						</div>
 						<br><br>
 						<input type="submit" class="btn btn-sm btn-outline-secondary" value="제보하기">
 					</form>
@@ -75,7 +71,7 @@ export default {
   methods: {
     ...mapActions(['registReport']),
 		checkForm() {
-      if (this.product.bankName && this.product.productName && this.product.referenceData) {
+      if (this.product.bankName && this.product.productName) {
 				this.product.memberEmail = this.userInfo.email;
 				this.registReport(this.product);	
 				alert("제보가 성공적으로 완료되었습니다!")	
@@ -86,9 +82,6 @@ export default {
 				else if (!this.product.productName) {
 					alert('상품 이름을 입력해주세요.');
 				}
-				else if (!this.product.referenceData) {
-					alert('관련 링크를 입력해주세요.');
-      	}
 			}
     },
   }

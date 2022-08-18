@@ -3,16 +3,19 @@
     type="pie"
     width="380"
     :options="chartOptions"
-    :series="realSeries"
+    :series="summarySeries"
   ></apexchart>
 </template>
 
 <script>
 import VueApexCharts from "vue3-apexcharts";
+import {mapGetters } from "vuex";
 export default {
   name: "PieChart",
   components: { apexchart: VueApexCharts },
-  props: ["series"],
+  computed: {
+    ...mapGetters(["summarySeries"]),
+  },
   data() {
     const chartOptions = {
       chart: {
@@ -44,12 +47,9 @@ export default {
         },
       ],
     };
-    const realSeries = [100, 200];
-    return { chartOptions, realSeries };
+    return { chartOptions };
   },
-  updated() {
-    this.realSeries = this.series;
-  },
+ 
 };
 </script>
 

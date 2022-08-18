@@ -1,163 +1,211 @@
 <template>
 	<transition on name="modal">
-	<div class="modal-mask">
-		<div class="modal-wrapper">
-		<div class="modal-container">
-			<div class="modal-header" >
-				<h1 style="font-family: 'jua'; margin: 1rem;">제보 상품 등록</h1>
-			</div>
-				<p class="h1 m-0"><b-icon-x-circle type="button" style="position:fixed; height: 5em; margin-left:400px; margin-top: -150px;" @click="$emit('close-modal')"/>
-				</p>
+   <div class="modal-mask">
+    <div class="modal-wrapper">
+     <div class="modal-container">
 
-			
-			<div class="modal-body">
-				<form>
-					<p style="font-weight:bold; padding-left:10px;">* 표시는 필수 입력사항입니다.</p>
-					<div>
-						<h3 style="font-family: 'jua'; margin-top: 1rem;">상품 상세 정보</h3>
-						<br>
-						<div class="choose-area" style="width:350px">
-							<label>* 상품등록경로 </label>
-							<select v-model="product.scode_id">
-								<option v-for="opt in D_code" v-bind:value="opt.value" v-bind:key="opt">
+      <div class="modal-header">
+       <slot name="header">
+        <h4 style="font-family: 'jua'; margin-top: 1rem;">제보 상품 등록</h4>
+       </slot>
+      </div>
+      <div class="h1 m-0"><b-icon-x-circle type="button" class="modal-close-button"
+      @click="$emit('close-modal')"/>
+			</div>
+      <hr>
+
+      <div class="modal-body">
+       <slot name="body">
+					<label>* 은행명</label>
+					<input class="box" v-model="product.bank_name" type="text" list="bankList"/>
+						<datalist id="bankList">
+							<option v-for="opt in bank" v-bind:value="opt.value" v-bind:key="opt">
+								{{ opt.value }}
+							</option>
+						</datalist>
+					<br><br>
+					<label>* 상품명</label>
+          <input
+            v-model="product.name"
+            type="text"
+						class="box"
+						required>
+					<br><br>
+					<label>* 상품등록경로</label>
+						<select class="box" v-model="product.scode_id">
+							<option v-for="opt in D_code" v-bind:value="opt.value" v-bind:key="opt">
+								{{ opt.text }}
+							</option>
+						</select>
+					<br><br>
+					<label>* 예적금</label>
+						<select class="box" v-model="product.deposit">
+							<option v-for="opt in dep" v-bind:value="opt.value" v-bind:key="opt">
+								{{ opt.text }}
+							</option>
+						</select>
+					<br><br>
+          <label>최소 연령</label>
+          <input
+            v-model="product.age_min"
+            type="number"
+						class="box">
+					<br><br>
+					<label>최대 연령</label>
+          <input
+            v-model="product.age_max"
+            type="number"
+						class="box">
+					<br><br>
+					<label>최소 예산</label>
+          <input
+            v-model="product.budget_min"
+            type="number"
+						class="box">
+					<br><br>
+					<label>최대 예산</label>
+          <input
+            v-model="product.budget_max"
+            type="number"
+						class="box">
+					<br><br>
+					<label>최소 기간</label>
+          <input
+            v-model="product.term_min"
+            type="number"
+						class="box">
+					<br><br>
+					<label>최대 기간</label>
+          <input
+            v-model="product.term_max"
+            type="number"
+						class="box">
+					<br><br>
+					<label>기타</label>
+          <input
+            v-model="product.etc"
+            type="text"
+						class="box">
+					<br><br>
+          <hr>
+					<h3 style="font-family: 'jua'; margin-top: 1rem;">특징  
+						<button type="button" class="btn btn-sm btn-outline-secondary" @click="addTraitForm()">특징 추가</button>
+					</h3>
+					<br>
+					<div v-for="(trait, index) in traits" v-bind:key="trait">
+						<div>
+							<label>* 특징</label>
+							<select class="box" v-model="trait.scode_id">
+								<option v-for="opt in E_code" v-bind:value="opt.value" v-bind:key="opt">
 									{{ opt.text }}
 								</option>
-							</select><br>
-						</div>
-
-						<div class="btn-area" style="width:350px; border-bottom: 1px solid #000;">
-							<label style="font-size: 18px; color: #999; margin:0 130px 25px 10px;">* 예적금</label>
-							<input v-model="product.deposit" :value="false" type="radio" class="btn-check" id="deposit-false" autocomplete="off">
-							<label class="btn btn-outline-success" for="deposit-false">예금</label>
-							<input v-model="product.deposit" :value="true" type="radio" class="btn-check" id="deposit-true" autocomplete="off">
-							<label class="btn btn-outline-success" for="deposit-true">적금</label><br>
-						</div>
-						
-						<div class="int-area" style="width:350px">
-							<input type="number" v-model="product.age_min" id="ageMin">
-							<label class="form-label" for="ageMin" autocomplete="off">최소 연령</label>
-						</div>
-						<div class="int-area" style="width:350px">
-							<input type="number" v-model="product.age_max" id="ageMax">
-							<label class="form-label" for="ageMax" autocomplete="off">최대 연령</label>
-						</div>
-						<div class="int-area" style="width:350px">
-							<input type="number" v-model="product.budget_min" id="budMin">
-							<label class="form-label" for="budMin" autocomplete="off">최소 예산</label>
-						</div>
-						<div class="int-area" style="width:350px">
-							<input type="number" v-model="product.budget_max" id="budMax">
-							<label class="form-label" for="budMax" autocomplete="off">최대 예산</label>
-						</div>
-						<div class="int-area" style="width:350px">
-							<input type="number" v-model="product.term_min" id="termMin">
-							<label class="form-label" for="termMin" autocomplete="off">최소 기간</label>
-						</div>
-						<div class="int-area" style="width:350px">
-							<input type="number" v-model="product.term_max" id="termMax">
-							<label class="form-label" for="termMax" autocomplete="off">최대 기간</label>
-						</div>
-						<div class="int-area" style="width:350px">
-							<input type="text" v-model="product.etc" id="etc">
-							<label class="form-label" for="etc" autocomplete="off">기타</label>
-						</div>
-					</div>
-					<div>
-						<h3 style="font-family: 'jua'; margin-top: 1rem;">특징  
-							<button type="button" class="btn btn-sm btn-outline-secondary" @click="addTraitForm()">특징 추가</button>
-						</h3>
-						<br>
-						<div v-for="(trait, index) in traits" v-bind:key="trait">
-							<div class="choose-area" style="width:350px">
-								<label>* 특징 </label>
-								<select v-model="trait.scode_id"><option v-for="opt in E_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
-							</div>
+							</select>
+							<br><br>
 							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeTraitForm(index)">특징 삭제</button>
 							<br><br>
 						</div>
 					</div>
-
-					<div>
-						<h3 style="font-family: 'jua'; margin-top: 1rem;">옵션  <button type="button" class="btn btn-sm btn-outline-secondary" @click="addOptionForm()">옵션 추가</button></h3>
-						<br>
-						<div v-for="(option, index) in options" v-bind:key="option">
-							<div class="int-area" style="width:350px">
-								<input type="text" v-model="option.base_rate" id="base">
-								<label class="form-label" for="base" autocomplete="off">* 기본금리</label>
-							</div>
-							<div class="int-area" style="width:350px">
-								<input type="text" v-model="option.high_base_rate" id="hbase">
-								<label class="form-label" for="hbase" autocomplete="off">최고금리</label>
-							</div>
-							<div class="int-area" style="width:350px">
-								<input type="text" v-model="option.save_term" id="term">
-								<label class="form-label" for="term" autocomplete="off">* 저축기간</label>
-							</div>
-							<div class="choose-area" style="width:350px">
-								<label>* 금리유형</label>
-								<select v-model="option.rate_type">
-									<option v-for="opt in rate" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
-								</select>
-							</div>
-
-							<div class="choose-area" style="width:350px">
-								<label>적립방식</label>
-								<select v-model="option.rsrv_type"><option v-for="opt in rsrv" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option></select><br>
-							</div>
-							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeOptionForm(index)">옵션 삭제</button>
-							<br><br>
-						</div>
-					</div>
+					<hr>
+					<h3 style="font-family: 'jua'; margin-top: 1rem;">옵션
+						<button type="button" class="btn btn-sm btn-outline-secondary" @click="addOptionForm()">옵션 추가</button>
+					</h3>
 					<br>
-					<div>
-						<h3 style="font-family: 'jua'; margin-top: 1rem;">우대조건  <button type="button" class="btn btn-sm btn-outline-secondary" @click="addConditionForm()">우대조건 추가</button></h3>
-						<br>
-						<div v-for="(condition, index) in conditions" v-bind:key="condition">
-							<div class="choose-area" style="width:350px">
-								<label>* 우대사항</label> 
-								<select v-model="condition.scode_id">
-									<option v-for="opt in B_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
-								</select><br>
-							</div>
-							<div class="int-area" style="width:350px">
-								<input type="text" v-model="condition.special_rate" id="special">
-								<label class="form-label" for="special" autocomplete="off">* 우대금리</label>
-							</div>
-							<div class="int-area" style="width:350px">
-								<input type="text" v-model="condition.condition_info" id="info">
-								<label class="form-label" for="info" autocomplete="off">세부내용</label>
-							</div>
+					<div v-for="(option, index) in options" v-bind:key="option">
+					<label>* 기본금리</label>
+          <input
+            v-model="option.base_rate"
+            type="number"
+						class="box"
+						required>
+					<br><br>
+					<label>최고금리</label>
+          <input
+            v-model="option.high_base_rate"
+            type="number"
+						class="box">
+					<br><br>
+					<label>* 저축기간</label>
+          <input
+            v-model="option.save_term"
+            type="number"
+						class="box"
+						required>
+					<br><br>
+					<label>* 금리유형</label>
+						<select class="box" v-model="option.rate_type">
+							<option v-for="opt in rate" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
+						</select>
+					<br><br>
+					<label>적립방식</label>
+						<select class="box" v-model="option.rsrv_type">
+							<option v-for="opt in rsrv" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
+						</select>
+					<br><br>
+					<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeOptionForm(index)">옵션 삭제</button>
+					<br><br>
+					</div>
+					<hr>
+					<h3 style="font-family: 'jua'; margin-top: 1rem;">우대조건  
+						<button type="button" class="btn btn-sm btn-outline-secondary" @click="addConditionForm()">우대조건 추가</button>
+					</h3>
+					<br>
+					<div v-for="(condition, index) in conditions" v-bind:key="condition">
+						<div>
+							<label>* 우대사항</label>
+							<select class="box" v-model="condition.scode_id">
+								<option v-for="opt in B_code" v-bind:value="opt.value" v-bind:key="opt">
+									{{ opt.text }}
+								</option>
+							</select>
+							<br><br>
+							<label>* 우대금리</label>
+							<input
+								v-model="condition.special_rate"
+								type="number"
+								class="box">
+							<br><br>
+							<label>세부내용</label>
+							<input
+								v-model="condition.condition_info"
+								type="text"
+								class="box">
+							<br><br>
 							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeConditionForm(index)">우대조건 삭제</button>
 							<br><br>
 						</div>
 					</div>
+					<hr>
+					<h3 style="font-family: 'jua'; margin-top: 1rem;">가입방법  
+						<button type="button" class="btn btn-sm btn-outline-secondary" @click="addJoinForm()">가입방법 추가</button>
+					</h3>
 					<br>
-					<div>
-						<h3 style="font-family: 'jua'; margin-top: 1rem;">가입방법  <button type="button" class="btn btn-sm btn-outline-secondary" @click="addJoinForm()">가입방법 추가</button></h3>
-						<br>
-						<div v-for="(joinway, index) in joinways" v-bind:key="joinway">
-							<div class="choose-area" style="width:350px">
-								<label class="form-label">*가입방법</label> 
-								<select v-model="joinway.scode_id">
-									<option v-for="opt in A_code" v-bind:value="opt.value" v-bind:key="opt">{{ opt.text }}</option>
-								</select>
-							</div>
-							<br>
+					<div v-for="(joinway, index) in joinways" v-bind:key="joinway">
+						<div>
+							<label>* 가입방법</label>
+							<select class="box" v-model="joinway.scode_id">
+								<option v-for="opt in A_code" v-bind:value="opt.value" v-bind:key="opt">
+									{{ opt.text }}
+								</option>
+							</select>
+							<br><br>
 							<button type="button" class="btn btn-sm btn-outline-secondary" @click="removeJoinForm(index)">가입방법 삭제</button>
 							<br><br>
 						</div>
 					</div>
-				</form>
-				<form>
-					<div class="btn-area">
-						<button type="submit" @click="registProduct(report.report_product_id)"> 등록</button>
-					</div>
-				</form>
-			</div>
+			</slot>
+      </div>
+
+			<div class="modal-footer">
+			<slot name="footer">
+        <div>
+          <button class="btn btn-outline-success btn-sm mx-3" @click="[registProduct(report.report_product_id), $emit('close')]">등록</button>
+        </div>
+			</slot>
+      </div>
 		</div>
-		</div>
+    </div>
 	</div>
-	</transition>
+  </transition>
 </template>
 
 <script>
@@ -210,6 +258,24 @@ export default {
 				{ text: '자유적립', value: false },
 				{ text: '정액적립', value: true },
 			],
+			dep: [
+				{ text: '예금', value: false },
+				{ text: '적금', value: true },
+			],
+			bank : [
+				{ value: '우리은행' }, { value: 'SC제일' }, { value: '대구은행' }, { value: '부산은행' }, { value: '광주은행' }, { value: '제주은행' }, { value: '전북은행' }, { value: '경남은행' },
+				{ value: 'IBK' },{ value: 'KDB' }, { value: '국민은행' }, { value: '신한은행' }, { value: '농협은행' }, { value: '하나은행' }, { value: '케이뱅크' }, { value: '수협은행' },
+				{ value: '카카오뱅크' }, { value: '토스뱅크' }, { value: '우체국' }, { value: '애큐온저축' }, { value: 'OSB저축' }, { value: '디비저축' }, { value: '스카이저축' }, { value: '민국저축' },
+				{ value: '푸른저축' }, { value: 'HB저축' }, { value: '키움' }, { value: '더케이저축' }, { value: '조은저축' }, { value: 'SBI저축' }, { value: '바로저축' }, { value: '다올저축' },
+				{ value: '유안타저축' }, { value: '고려저축' }, { value: '국제저축' }, { value: 'DH저축' }, { value: '흥국저축' }, { value: '우리저축' }, { value: '인성저축' }, { value: '금화저축' },
+				{ value: '인천저축' }, { value: '모아저축' }, { value: '대백저축' }, { value: '유니온저축' }, { value: 'MS저축' }, { value: '안국저축' }, { value: '남양저축' }, { value: '부림저축' },
+				{ value: '키움저축' }, { value: '삼정저축' }, { value: '평택상호저축' }, { value: '안양저축' }, { value: '영진저축' }, { value: '융창저축' }, { value: '세람저축' }, { value: '페퍼저축' },
+				{ value: '상상인' }, { value: '한화저축' }, { value: 'CK저축' }, { value: '대명상호저축' }, { value: '우리금융저축' }, { value: '청주저축' }, { value: '한성저축' }, { value: '상상인플러스' },
+				{ value: '아산저축' }, { value: '오투저축' }, { value: '스타저축' }, { value: '대한저축' }, { value: '동양저축' }, { value: '더블저축' }, { value: '센트럴저축' }, { value: '스마트저축' },
+				{ value: '한투' }, { value: '라온저축' }, { value: '드림저축' }, { value: '대아' }, { value: '머스트' }, { value: '참저축' }, { value: '오성저축' }, { value: '대원저축' }, { value: 'SNT' },
+				{ value: '솔브' }, { value: '동원제일저축' }, { value: '조흥저축' }, { value: '진주저축' }, { value: '예가람저축' }, { value: 'JT저축' }, { value: '삼호저축' }, { value: 'NH' },
+				{ value: '대신저축' }, { value: 'IBK저축' }, { value: 'BNK저축' }, { value: 'KB저축' }, { value: '하나저축' }, { value: '친애' }, { value: '신한저축' }, { value: '웰컴저축' }, { value: 'OK저축' },
+			],
 			trait : {
 				scode_id : 'E001'
 			},
@@ -257,11 +323,12 @@ export default {
 				conditions : [],
 				joinway : [],
 				trait_set : []
-			}
+			},
+			isCheckedForm: false
     }
 	},
   methods: {
-    ...mapActions(['getReport', 'updateReport']),
+    ...mapActions(['getReport', 'updateReport', 'fetchBanks']),
 		registProduct(idx) {
 			this.productDetail.product = this.product;
 			this.productDetail.options = this.options;
@@ -329,8 +396,6 @@ export default {
   },
   created() {
 		this.getReport(this.reportID);
-		this.product.bank_name = this.report.bank_name;
-		this.product.name = this.report.product_name;
 		this.options.push(this.option);
 		this.option = {
         base_rate : '0',
@@ -346,75 +411,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-  color:#555555;
-}
-
-
-.modal-container {
-  width: 500px;
-  height: 50%;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-
-.modal-body {
-  margin: 20px 0;
-}
-
-
-.modal-default-button {
-  float: right;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.box {
-	float: right;
-	width: 160px;
-	text-align:right;
-}
-
+<style>
+@import '@/assets/css/modal.css';
 </style>

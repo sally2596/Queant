@@ -4,16 +4,16 @@ import axios from 'axios'
 
 export default {
   state: {
+    product: {},
     products: [],
     searchProducts: [],
-    product: {},
     keywords: [],
     cart: []
   },
   getters: {
+    product: state => state.product,
     products: state => state.products,
     searchProducts: state => state.searchProducts,
-    product: state => state.product,
     keywords: state => state.keywords,
     cart: state => state.cart
   },
@@ -24,7 +24,6 @@ export default {
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
     CLEAR_CART: state => state.cart = [],
     PUSH_PRODUCT_TO_CART(state, payload) {
-      console.log(payload)
 			let product = payload.product
 			if (state.cart.length===10) {
 				alert('장바구니에는 최대 10개의 상품만 담을 수 있습니다.');
@@ -72,6 +71,7 @@ export default {
         }
       })
       .then(res => {
+        console.log('모달을 키면서 상품 상세정보를 불러옵니다.')
         console.log(res)
         commit('SET_PRODUCT', res.data)
       })
