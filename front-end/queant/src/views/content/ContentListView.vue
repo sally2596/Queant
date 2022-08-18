@@ -1,23 +1,29 @@
 <template>
   <Navbar />
 
-  <section
+  <header id="title-div" >
+    <h1 class="title" id="title">자산 관리의 핵심, 퀸트</h1>
+  </header>
+
+  <!-- <section
     class="py-5 text-center container"
     id="content-header-section"
     style="margin-top: 100px; margin-bottom: -70px"
   >
     <div class="row">
       <div class="col-lg-6 col-md-8 mx-auto my-0">
-        <h1>자산 관리의 핵심, 퀸트</h1>
+        <h1 style="font-family: 'LeferiBaseType-RegularA;" class="my-5">자산 관리의 핵심, 퀸트</h1>
       </div>
     </div>
-  </section>
+  </section> -->
   <div v-if="isAdmin" class="mt-5" style="text-align: center">
     <router-link class="btn btn-success" :to="{ name: 'contentCreate' }"
       >기사 작성하기</router-link
     >
   </div>
-  <div class="album py-5">
+  <div 
+    class="album py-5"
+    id="content-header-section">
     <div class="container p-0">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div
@@ -129,4 +135,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+</style>
