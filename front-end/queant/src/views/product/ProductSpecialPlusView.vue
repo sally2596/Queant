@@ -36,38 +36,6 @@ export default {
   beforeCreate: function() {
     document.body.className = 'home_body'
   },
-    beforeCreate: function() {
-        document.body.className = 'home_body';
-    },
-    methods: {
-    deposit_OnOff: function() {
-      if (this.filter_deposit==false) {
-      this.filter_deposit = !this.filter_deposit}
-      if (this.filter_savings==true) {
-      this.filter_savings = !this.filter_savings}
-    },
-    saving_OnOff: function() {
-      if (this.filter_deposit==true) {
-      this.filter_deposit = !this.filter_deposit}
-      if (this.filter_savings==false) {
-      this.filter_savings = !this.filter_savings}
-    },
-  },
-  computed: {
-    ...mapGetters(['userInfo']),
-  },
-  data() {
-    return {
-      filter_savings:false,
-      filter_deposit:true,
-      product : {
-        memberEmail : '',
-        bankName : '',
-        productName : '',
-        referenceData : ''
-      },
-    }
-  },
   methods: {
     ...mapActions(['registReport']),
 		checkForm() {
@@ -83,7 +51,22 @@ export default {
 					alert('상품 이름을 입력해주세요.');
 				}
 			}
-    },
+    }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
+  },
+  data() {
+    return {
+      filter_savings:false,
+      filter_deposit:true,
+      product : {
+        memberEmail : '',
+        bankName : '',
+        productName : '',
+        referenceData : ''
+      },
+    }
   }
 }
 </script>
