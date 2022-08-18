@@ -103,16 +103,6 @@
           </button>
         </div>
 
-        <!-- <select 
-          @change="setGender($event)"
-          style="width: 42%;"
-          class="mb-3">
-          <option selected disabled>성별</option>
-          <option value="Female">여자</option>
-          <option value="Male">남자</option>
-          <option value="">선택안함</option>
-        </select> -->
-
         <!-- 생년월일 -->
         <input
           class="date_empty placeholder-date"
@@ -125,7 +115,6 @@
 
         <button v-else disabled style="color: darkslategrey; font-family: NanumSquareRound; opacity: 70%;">회원가입</button>
       </form>
-
     </div>
    
     <ul class="bg-bubbles">

@@ -266,7 +266,6 @@ export default {
       this.RsavingFin = this.savingFinishAmount;
     },
     portfolio: function () {
-      console.log("제발좀..잘 좀 들어가봐");
       this.summarySeries = [];
       this.savingSeries = [];
       this.depositSeries = [];

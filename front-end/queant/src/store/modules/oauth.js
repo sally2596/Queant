@@ -7,6 +7,8 @@ export default {
   getters: {},
   mutations: {},
   actions: {
+    // 구글 로그인
+    // 1. 회원이 로그인 화면에서 구글 로고를 클릭했을 때
     googleLogin() {
       axios({
         url: spring.social.google(),
@@ -19,7 +21,7 @@ export default {
         console.log(err)
       })
     },
-
+    // 2. googleLogin() 요청으로 받은 화면에서 로그인 버튼을 누르면 백엔드에게 인가코드를 넘긴다.
     getGoogleAuthorizationCode({ dispatch }, authorizationCode) {
       axios({
         url: spring.social.googlelogin(),
@@ -42,7 +44,7 @@ export default {
         router.push({ name: 'login' })
       })
     },
-
+    // 카카오 로그인
     kakaoLogin() {
       axios({
         url: spring.social.kakao(),
@@ -78,7 +80,7 @@ export default {
         router.push({ name: 'login' })
       })
     },
-    
+    // 네이버 로그인
     naverLogin() {
       axios({
         url: spring.social.naver(),

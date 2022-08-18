@@ -109,13 +109,6 @@
           </tr>
         </tbody>
       </table>
-
-      <!-- <admin-user-item
-        class="col-12 d-flex justify-content-center align-items-center"
-        v-for="user in users"
-        :key="user.email"
-        :user="user">
-      </admin-user-item> -->
     </section>
   </div>
 
@@ -139,14 +132,12 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import _ from "lodash";
-import AdminUserItem from "@/components/AdminUserItem.vue";
 import NavbarAdmin from "@/components/NavbarAdmin.vue";
 import UserChangeModal from "@/components/UserChangeModal.vue";
 
 export default {
   name: "AdminUserListView",
-  components: { AdminUserItem, NavbarAdmin, UserChangeModal },
+  components: { NavbarAdmin, UserChangeModal },
   beforeCreate: function () {
     document.body.className = "admin_body";
   },
@@ -199,15 +190,4 @@ export default {
 
 <style scoped>
 @import "../../assets/css/admin.css";
-
-/* @font-face {
-    font-family: 'LeferiBaseType-RegularA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-* {
-  font-family: LeferiBaseType-RegularA;
-} */
 </style>

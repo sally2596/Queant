@@ -1,5 +1,4 @@
 <template>
-
   <div class="wrapper d-flex justify-content-center align-items-center">
     <div class="container">
       <h1 style="font-family: NanumSquareRound;">비밀번호 변경</h1>
@@ -55,55 +54,6 @@
       <li></li>
     </ul>
   </div>   
-
-  <!-- <section class="login-form">
-    <form @submit.prevent="passwordChange(credentials)">
-
-      <div class="int-area">
-        <input
-          v-model="credentials.temporaryPassword"
-          type="password"
-          id="temporary-password"
-          autocomplete="off"
-          required>
-        <label for="temporary-password">임시 비밀번호</label>
-      </div>
-          
-      <div class="int-area">
-        <input
-          v-model="credentials.password1"
-          v-bind:class="{error : error.password1, complete:!error.password1&&credentials.password1.length!==0}"
-          type="password"
-          id="password1"
-          autocomplete="off"
-          required>
-        <label for="password1">새 비밀번호</label>
-        <div class="error-text" v-if="error.password1" style="margin-bottom:10px;">{{ error.password1 }}</div>
-      </div>
-
-      <div class="int-area">
-        <input
-          v-model="credentials.password2"
-          v-bind:class="{error : error.password2, complete:!error.password2&&credentials.password2.length!==0}"
-          type="password"
-          id="password2"
-          autocomplete="off"
-          required>
-        <label for="password2">새 비밀번호 확인</label>
-        <div class="error-text" v-if="error.password2" style="margin-bottom:0px;">{{ error.password2 }}</div>
-      </div>
-
-      <p v-if="passwordCheckedStatus === 409">임시 비밀번호를 다시 확인해주세요.</p>
-
-      <div class="btn-area">
-        변경 활성화 주석
-        <button v-if="isCheckedForm" type="submit">변경하기</button>
-        
-        변경 비활성화 주석
-        <button v-else disabled>변경하기</button>
-      </div>
-    </form>
-  </section> -->
 </template>
 
 <script>
