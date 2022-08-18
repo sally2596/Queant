@@ -72,6 +72,7 @@ export default {
         }
       })
       .then(res => {
+        console.log('모달을 키면서 상품 상세정보를 불러옵니다.')
         console.log(res)
         commit('SET_PRODUCT', res.data)
       })

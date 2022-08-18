@@ -103,9 +103,9 @@ export default {
   methods: {
     ...mapActions(["fetchProduct"]),
     openModal(product) {
-      (this.modalData = product),
-        (this.showModal = true),
-        this.fetchProduct(product.product_id);
+      this.fetchProduct(product.product_id)
+      this.modalData = product
+      this.showModal = true
     },
     changePage(page) {
       this.productIdx = (page - 1) * 10;
