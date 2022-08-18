@@ -175,6 +175,14 @@ export default {
 				
 
 			// }
+    },
+    product:function(){
+      for (let option of this.product.options) {
+        if (option.option_id === this.modalData.selected_option_id) {
+          this.payload.applied_rate = option.base_rate
+          this.payload.applied_period = option.save_term
+        }
+      }
     }
   },
   data() {
@@ -196,16 +204,6 @@ export default {
       isCheckedForm: false
     }
   },
-  created() {
-    console.log('모달이 켜졌습니다.')
-    console.log(this.product)
-    for (let option of this.product.options) {
-        if (option.option_id === this.modalData.selected_option_id) {
-          this.payload.applied_rate = option.base_rate
-          this.payload.applied_period = option.save_term
-        }
-      }
-  }
 }
 </script>
 
