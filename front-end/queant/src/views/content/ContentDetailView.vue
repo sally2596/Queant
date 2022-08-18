@@ -10,7 +10,7 @@
         <div v-html=content.content></div>
       </div>
       <div v-if="isAdmin">
-        <router-link
+        <router-link v-if="modifyAvailable"
           :to="{ name: 'contentEdit', params: { contentId } }"><button class="btn btn-sm btn-outline-secondary">수정</button></router-link>
         <button type="button" class="btn btn-sm btn-outline-secondary" @click="remove(contentId)">삭제</button>
       </div>
@@ -31,7 +31,8 @@ export default {
   },
   data() {
     return {
-      contentId: this.$route.params.contentId
+      contentId: this.$route.params.contentId,
+      modifyAvailable: false
     }
   },
   methods: {
@@ -44,6 +45,11 @@ export default {
   },
   created() {
     this.getContent(this.contentId)
+  },
+  updated () {
+    if (this.content.member_id === this.userInfo.name) {
+      this.modifyAvailable = true;
+    }
   }
 }
 </script>
