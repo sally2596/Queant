@@ -41,8 +41,10 @@
                 style="height: 300px"
               />
               <br /><br />
-              <h5 class="card-title">{{ content.title }}</h5>
-              <br /><br />
+              <h5 class="card-title" style="font-weight: bold;">{{ content.title }}</h5>
+              <br />
+              <h6 class="card-title" style="text-align: right;">{{ content.member_id }}</h6>
+              <hr>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <router-link
