@@ -283,14 +283,6 @@ export default {
       })
     },
     pushProductToPortfolio({ dispatch, getters }, payload) {
-      if (!getters.isLoggedIn) {
-        if (confirm('로그인이 필요합니다. 로그인 하시겠어요?') === true) {
-          router.push({ name: 'login' })
-        } else {
-          return
-        }
-      }
-
       if (!getters.portfolio) {
         dispatch('fetchMyPortfolio')
       }
@@ -381,60 +373,62 @@ export default {
         console.log(err)
       })}
     },
-    getFromDb({ commit, dispatch, state, getters, actions }) {
-      // 포트폴리오 초기화
-      commit('CLEAR_CPORTFOLIOS');
-      // 정보 받아오기
-      axios({
-        url: spring.portfolio.virtual(),
-        method: 'post',
-        data: {
-          member_id: getters.userInfo.member_id
-        }
-      })
-      .then(res => {
-        console.log(res.data)
-        const firstdata = res.data
-        let bringdata = []
-        // 넣을 데이터를 생성
-        for (let i = 0; i<firstdata.length; i++) {
-          bringdata.push({
-            cportfolio_cnt: i+1,
-            products: []
-          })
-        }
-        // 받아온 데이터를 다시 형식에 맞게 변경
-        for (let i = 0; i<firstdata.length; i++) {
-          for (let j = 0; j<firstdata[i].length; j++) {
-            var conditions_rate = 0
-            if (firstdata[i][j].conditions.length > 0) {
-              for (var condition of firstdata[i][j].conditions) {
-                conditions_rate += condition.special_rate
-              }
-            }
-            bringdata[i].products.push({
-              amount: firstdata[i][j].amount,
-              condition_ids: firstdata[i][j].condition_ids,
-              end_date: firstdata[i][j].end_date,
-              portfolio_no: firstdata[i][j].portfolio_no,
-              product: firstdata[i][j].product,
-              product_id: firstdata[i][j].product_id,
-              option_id: firstdata[i][j].option_id,
-              start_date: firstdata[i][j].start_date,
-              total_rate: firstdata[i][j].option.base_rate+conditions_rate,
-              isDeposit: firstdata[i][j].product.deposit,
-              term: firstdata[i][j].option.save_term,
-              rate_type: firstdata[i][j].option.rate_type,
-              save_term : firstdata[i][j].option.save_term,
+    getFromDb({ commit, getters }) {
+      if (getters.isLoggedIn) {
+        // 포트폴리오 초기화
+        commit('CLEAR_CPORTFOLIOS');
+        // 정보 받아오기
+        axios({
+          url: spring.portfolio.virtual(),
+          method: 'post',
+          data: {
+            member_id: getters.userInfo.member_id
+          }
+        })
+        .then(res => {
+          console.log(res.data)
+          const firstdata = res.data
+          let bringdata = []
+          // 넣을 데이터를 생성
+          for (let i = 0; i<firstdata.length; i++) {
+            bringdata.push({
+              cportfolio_cnt: i+1,
+              products: []
             })
           }
-        }
-        // ComparisonPortfolio를 업데이트
-        commit('UPDATE_CPORTFOLIO_FROM_DB', bringdata);
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
+          // 받아온 데이터를 다시 형식에 맞게 변경
+          for (let i = 0; i<firstdata.length; i++) {
+            for (let j = 0; j<firstdata[i].length; j++) {
+              var conditions_rate = 0
+              if (firstdata[i][j].conditions.length > 0) {
+                for (var condition of firstdata[i][j].conditions) {
+                  conditions_rate += condition.special_rate
+                }
+              }
+              bringdata[i].products.push({
+                amount: firstdata[i][j].amount,
+                condition_ids: firstdata[i][j].condition_ids,
+                end_date: firstdata[i][j].end_date,
+                portfolio_no: firstdata[i][j].portfolio_no,
+                product: firstdata[i][j].product,
+                product_id: firstdata[i][j].product_id,
+                option_id: firstdata[i][j].option_id,
+                start_date: firstdata[i][j].start_date,
+                total_rate: firstdata[i][j].option.base_rate+conditions_rate,
+                isDeposit: firstdata[i][j].product.deposit,
+                term: firstdata[i][j].option.save_term,
+                rate_type: firstdata[i][j].option.rate_type,
+                save_term : firstdata[i][j].option.save_term,
+              })
+            }
+          }
+          // ComparisonPortfolio를 업데이트
+          commit('UPDATE_CPORTFOLIO_FROM_DB', bringdata);
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+    }
   }
 };
