@@ -89,7 +89,8 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">MY 포트폴리오</button>
+          <!-- <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">MY 포트폴리오</button> -->
+           <button class="btn btn-outline-success btn-sm mx-3" @click="confirmIsLoggedIn(payload)">MY 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
         <div v-else>
@@ -107,6 +108,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { BIconXCircle } from 'bootstrap-icons-vue';
+import router from '@/router';
 export default {
   name: 'Modal',
   props: {
@@ -116,7 +118,7 @@ export default {
 		BIconXCircle
   },
   computed: {
-    ...mapGetters(['portfolios', 'product'])
+    ...mapGetters(['portfolios', 'product', 'isLoggedIn'])
   },
   methods: {
     ...mapActions(['pushProductToPortfolio']),
@@ -130,6 +132,18 @@ export default {
         }
       }
       this.PUSH_PRODUCT_TO_CART(payload)
+    },
+    confirmIsLoggedIn(payload) {
+      if (!this.isLoggedIn) {
+        if (confirm('로그인이 필요합니다. 로그인 하시겠습니까?') === true) {
+          router.push({ name: 'login' })
+        } else {
+          return
+        }
+      } else {
+        this.pushProductToPortfolio(payload)
+        this.$emit('close')
+      }
     },
     checkForm() {
       if (this.payload.amount < 1)
