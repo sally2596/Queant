@@ -60,6 +60,16 @@ body.auth {
   border-radius: 25px;
 }
 
+.btn-profile-area {margin-top: 15px;}
+.btn-profile-area button {
+  width: 60%; height: 40px;
+  background: #04AA6D;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+}
+
 .btn-edit {margin-top: 30px;}
 .btn-edit button {
   width: 40%; height: 40px;
@@ -80,7 +90,7 @@ body.auth {
   text-decoration: none;
 }
 .choose-area {
-  width: 300px; position: relative;
+  width: 400px; position: relative;
   padding:18px;
   border-bottom: 1px solid #000;
   align-items: center;
@@ -88,14 +98,14 @@ body.auth {
   justify-content: flex-end;
 }
 #profile-name {
-  
+  text-align: right;
   width: 18%;
   background-color: transparent;
   border: none;
 }
 
 #profile-email {
-  
+  text-align: right;
   width: 52%;
   background-color: transparent;
   border: none;

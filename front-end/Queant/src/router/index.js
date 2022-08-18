@@ -20,7 +20,6 @@ import PortfolioEditView from '@/views/portfolio/PortfolioEditView.vue'
 
 // profile
 import ProfileView from '@/views/profile/ProfileView.vue'
-import PasswordEditView from '@/views/profile/PasswordEditView.vue'
 
 // auth
 import LoginView from '@/views/auth/LoginView.vue'
@@ -29,7 +28,6 @@ import PasswordFindView from '@/views/auth/PasswordFindView.vue'
 
 // admin
 import AdminUserListView from '@/views/admin/AdminUserListView.vue'
-import AdminContentView from '@/views/admin/AdminContentView.vue'
 import AdminSpecialView from '@/views/admin/AdminSpecialView.vue'
 
 // products
@@ -120,11 +118,12 @@ const routes = [
     path: '/product/special',
     name: 'productSpecialPlus',
     component: ProductSpecialPlusView
-  },
+	},
   {
     path: '/product/comparison',
     name: 'productComparison',
-    component: ProductComparisonView
+    component: ProductComparisonView,
+    meta: { isLoggedIn: true }
   },
   {
     path: '/product/search/:text',
@@ -149,14 +148,15 @@ const routes = [
     meta: { isAdmin: true }
   },
   {
-    path: '/content/edit/:contentId',
-    name : 'contentEdit',
-    component: ContentEditView,
-  },
-  {
     path: '/content/:contentId',
     name: 'contentDetail',
     component: ContentDetailView
+  },
+  {
+    path: '/content/:contentId/edit',
+    name : 'contentEdit',
+    component: ContentEditView,
+    meta: { isAdmin: true }
   },
   // profile
   {
@@ -164,11 +164,6 @@ const routes = [
     name: 'profile',
     component: ProfileView,
     meta: { isLoggedIn: true }
-  },
-  {
-    path: '/passwordEditByProfile',
-    name: 'profilePasswordEdit',
-    component: PasswordEditView
   },
   // auth
   {
@@ -194,20 +189,19 @@ const routes = [
     meta: { isAdmin: true }
   },
   {
-    path: '/admin/content',
-    name: 'adminContent',
-    component: AdminContentView
-  },
-  {
     path: '/admin/special',
     name: 'adminSpecial',
-    component: AdminSpecialView
+    component: AdminSpecialView,
+    meta: { isAdmin: true }
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(){
+    return { top: 0 }
+  },
 })
 
 router.beforeEach((to, from, next) => {
@@ -216,8 +210,11 @@ router.beforeEach((to, from, next) => {
 	// $route.matched 배열에 저장된 라우터 중 meta 필드에 'isLoggedIn'가 있는지 찾는다.
 	if (to.matched.some(record => record.meta.isLoggedIn)) {
     if (!isLoggedIn) { // 로그인 되어있지 않으면 로그인 페이지로 이동
-      alert('로그인이 필요합니다.')
-      next({ name: 'login' })
+      if (confirm('로그인이 필요합니다. 로그인 하시겠어요?') === true) {
+        next({ name: 'login' })
+      } else {
+        return
+      }
     } else { // 로그인 되어 있다면 그대로 라우터 이동
       next()
     }

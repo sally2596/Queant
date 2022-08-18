@@ -1,15 +1,23 @@
 /* title 글자체 */
-
 @font-face {
-    font-family: 'jua';
-    src: url(../font/BMJUA_ttf.ttf);
+  font-family: 'LeferiBaseType-RegularA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
+
+/* @font-face {
+  font-family: "jua";
+  src: url(../font/BMJUA_ttf.ttf);
+} */
 
 #title {
   position: relative;
-  font-family: 'jua'; 
-  margin-top: 5rem;
-  padding: 1%; padding-left: 2%;
+  font-family: "LeferiBaseType-RegularA";
+  margin-top: 7rem;
+  padding: 1%;
+  padding-left: 2%;
+  text-align: center;
 }
 
 /* bank-info */
@@ -20,9 +28,15 @@
 }
 
 .bank-title {
+  font-family: "LeferiBaseType-RegularA";
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, 0%);
   justify-self: center;
-  margin-left: 45%;
+  /* margin-left: 45%; */
   width: 40%;
+  text-align: center;
 }
 /* featured banks */
 
@@ -36,7 +50,7 @@
   box-shadow: 0 5px 10px rgb(0 0 0 / 30%);
 }
 #featured_banks .row {
-  width: 100%
+  width: 100%;
 }
 .banks_ci {
   height: 5rem;
@@ -44,6 +58,33 @@
 }
 
 .banks img {
-  height: 70px; width: 200px;
+  height: 70px;
+  width: 200px;
 }
-  
+
+#featured_banks_3 {
+  width: 1080px;
+  justify-items: center;
+  display: flex;
+}
+
+#featured_banks_3 .row {
+  width: 100%;
+}
+
+.product-detail-sub-box {
+  width: 250px;
+}
+
+.product-detail-sub {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product_detail_button {
+  width: 150px;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, 0%);
+}

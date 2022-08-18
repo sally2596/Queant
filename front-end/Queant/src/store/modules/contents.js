@@ -107,8 +107,7 @@ export default {
         },
       })
       .then(res => {
-				console.log(res)
-        router.go()
+				console.log(res);
       })
       .catch(err => {
         console.log(err)

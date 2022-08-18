@@ -1,8 +1,15 @@
-
 @font-face {
+  font-family: 'LeferiBaseType-RegularA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* @font-face {
   font-family: 'jua';
   src: url(../font/BMJUA_ttf.ttf);
-}
+} */
+
 .content {
   display: flex;
   justify-content: center;
@@ -30,8 +37,14 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 60vh;
+  height: 40vh;
   position: relative;
+	max-width: 600px;
+	background-color: white;
+	margin-top: 2rem; margin-left: 1rem; margin-bottom: 1rem;
+	box-shadow: 1px 5px 10px rgb(0 0 0 / 10%);
+	margin: auto;
+	margin-top: 50px;
 }
 
 .portfolio-none {
@@ -56,8 +69,8 @@
   top: 0;
   width: 130%;
   height: 95%;
-  background: linear-gradient(to right, rgba(250, 235, 215, 0.8), rgba(30, 67, 86, 0.6)), url("../image/userimage.jpg") center top no-repeat;
-  z-index: 0;
+	background: linear-gradient(to right, rgba(250, 235, 215, 0.8), rgba(30, 67, 86, 0.6)), url("../image/userimage.jpg") center top no-repeat;
+  z-index: -10;
   border-radius: 0 0 50% 50%;
   transform: translateX(-50%) rotate(0deg);
 }
@@ -71,7 +84,7 @@
   height: 96%;
   background: lightcoral;
   opacity: 0.3;
-  z-index: 0;
+  z-index: -10;
   border-radius: 0 0 50% 50%;
   transform: translateX(-50%) translateY(18px) rotate(2deg);
 }
@@ -542,4 +555,16 @@ section {
 
 .features p:last-child {
   margin-bottom: 0;
+}
+
+/* portfolio */
+
+#portfolio-deposit-table-tr:hover {
+  background-color: #b0f6b3;
+  cursor: pointer;
+}
+
+#portfolio-saving-table-tr:hover {
+  background-color: #b0f6b3;
+  cursor: pointer;
 }

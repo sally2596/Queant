@@ -1,5 +1,6 @@
 import spring from '@/api/spring'
 import router from '@/router'
+import { faSleigh } from "@fortawesome/free-solid-svg-icons"
 import axios from 'axios'
 
 export default {
@@ -40,12 +41,13 @@ export default {
 					member_email : reportProductDto.memberEmail,
 					bank_name : reportProductDto.bankName,
 					product_name : reportProductDto.productName,
-					is_deposit : reportProductDto.isDeposit,
-					is_updated : false,
+					deposit : false,
+          reference_data : reportProductDto.referenceData,
+					updated : false,
 				}
       })
       .then(res => {
-        console.log(res)
+				console.log(res)
       })
       .catch(err => {
         console.log(err)
@@ -64,17 +66,13 @@ export default {
         console.log(err)
       })
 		},
-		updateReport({}, reportId, productDetail) {
-      axios({
-        url: spring.product.report.detail(reportId),
-				method: 'post',
-				data: {
-					product : productDetail.product,
-					options : productDetail.options,
-					conditions : productDetail.conditions,
-					joinway : productDetail.joinway
+		updateReport({ }, data) {
+      axios.post(
+        spring.product.report.regist(),
+				JSON.stringify(data), {
+					headers: { 'Content-Type': 'application/json' }
 				}
-      })
+      )
       .then(res => {
         console.log(res)
       })
@@ -82,31 +80,27 @@ export default {
         console.log(err)
       })
 		},
-		deleteReport({}, reportId) {
-      console.log(content);
-      axios({
-        url: spring.contents.delete(),
-				method: 'put',
-				data: {
-					report_id : reportId
-        },
-      })
+		deleteReport({ }, data) {
+			axios.put(
+        spring.product.report.delete(),
+				JSON.stringify(data), {
+					headers: { 'Content-Type': 'application/json' }
+				}
+      )
       .then(res => {
 				console.log(res)
-        router.push({ name: 'contents' })
       })
       .catch(err => {
         console.log(err)
       })
 		},
-		getUserReports({ commit }, memberEmail) {
-      axios({
-        url: spring.product.report.user(),
-				method: 'get',
-				data: {
-					member_email : memberEmail
-        },
-      })
+		getUserReports({ commit }, data) {
+			axios.get(
+        spring.product.report.user(),
+				JSON.stringify(data), {
+					headers: { 'Content-Type': 'application/json' }
+				}
+      )
       .then(res => {
         console.log(res)
         commit('SET_USER_REPORTS', res.data)

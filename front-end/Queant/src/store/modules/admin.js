@@ -5,9 +5,9 @@ import axios from 'axios'
 export default {
   state: {
     users: [],
-    roleUsers: [],
-    socialUsers: [],
-    totalPage: null
+    totalPage: null,
+    // roleUsers: [],
+    // socialUsers: []
   },
   getters: {
     users: state => state.users,
@@ -18,6 +18,7 @@ export default {
     SET_TOTAL_PAGE: (state, res) => state.totalPage = res
   },
   actions: {
+    // 어드민이 유저 관리를 위해 유저 정보를 가져오는 요청
     fetchUsers({ dispatch, commit, getters }, payload) {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
@@ -35,6 +36,7 @@ export default {
       })
       .then(res => {
         console.log(`${payload.page} 페이지`)
+        console.log(res.data)
         commit('SET_USERS', res.data.member_dto_list)
         commit('SET_TOTAL_PAGE', res.data.total_page)
       })
@@ -46,7 +48,8 @@ export default {
         }
       })
     },
-    editEnabled({ getters }, email) {
+    // 회원의 계정 상태가 활성화면 => 비활성화, 비활성화면 => 활성화
+    editEnabled({ dispatch, getters }, email) {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')
@@ -68,7 +71,8 @@ export default {
         console.log(err)
       })
     },
-    editRoleSet({ getters }, { email, role_set }) {
+    // 회원의 계정 권한을 변경
+    editRoleSet({ dispatch, getters }, { email, role_set }) {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
         dispatch('updateAccessToken')
@@ -76,7 +80,6 @@ export default {
       if (role_set.length === 2 && role_set[1] === 'ROLE_ADMIN') {
         role_set = ['ROLE_USER', 'ROLE_SUPER', 'ROLE_ADMIN']
       }
-      console.log(role_set)
       axios({
         url: spring.member.roles(),
         method: 'put',

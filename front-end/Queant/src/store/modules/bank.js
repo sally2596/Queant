@@ -3,16 +3,42 @@ import axios from 'axios'
 
 export default {
   state: {
-    banks: [],
-    bank: {}
+    bank: {},
+    theFirstBanks: [],
+    theSecondBanks: [],
+    theThirdBanks: []
+    // banks: [],
   },
   getters: {
-    banks: state => state.banks,
-    bank: state => state.bank
+    bank: state => state.bank,
+    theFirstBanks: state => state.theFirstBanks,
+    theSecondBanks: state => state.theSecondBanks,
+    theThirdBanks: state => state.theThirdBanks
+    // banks: state => state.banks,
   },
   mutations: {
-    SET_BANKS: (state, banks) => state.banks = banks,
-    SET_BANK: (state, bank) => state.bank = bank
+    SET_BANK: (state, bank) => state.bank = bank,
+    SET_BANKS(state, banks) {
+      for (let bank of banks) {
+        if (bank.scode_id === 'C001') {
+          if (state.theFirstBanks.find(theFirstBank => theFirstBank.bank_id === bank.bank_id))
+            console.log(theFirstBank)
+          else
+            state.theFirstBanks.push(bank)
+        } else if (bank.scode_id === 'C002') {
+          if (state.theSecondBanks.find(theSecondBank => theSecondBank.bank_id === bank.bank_id))
+            console.log(theSecondBank)
+          else
+            state.theSecondBanks.push(bank)
+        } else if (bank.scode_id === 'C003') {
+          if (state.theThirdBanks.find(theThirdBank => theThirdBank.bank_id === bank.bank_id))
+            console.log(theThirdBank)
+          else
+            state.theThirdBanks.push(bank)
+        }
+      }
+    },
+        // SET_BANKS: (state, banks) => state.banks = banks,
   },
   actions: {
     fetchBanks({ commit }) {

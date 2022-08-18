@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: 'InfinitySans-RegularA1';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
     font-weight: normal;
@@ -31,7 +31,7 @@
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 .nav_header {
   top : 0;
@@ -150,15 +150,16 @@
   align-items: center;
 }
 
-/* 모바일 화면 */
-@media (max-width: 991px) {
-  /* 검색 화면 안 보이게 */
-  #searching_place {
-    display: none;
+@media (max-width: 769px) {
+  #ProductDropdownMenu{
+    position: absolute !important;
+    left: 60% !important;
+    top: -100% !important;
   }
-  /* 토글 열었을 때 왼쪽 정렬되게 */
-  #navbar ul {
-    align-items: flex-start;
+  #ProfileDropdownMenu{
+    position: absolute !important;
+    left: 60% !important;
+    top: 0% !important;
   }
 }
 #searching_place {

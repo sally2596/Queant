@@ -20,23 +20,23 @@
       <label class="form-label" for="profile-email">이메일</label>
     </div>
 
-    <div class="choose-area">
-      <input 
-        v-model="credentials.gender"
-        type="radio"
-        value="Female"
-        class="gender-input-female"
-        id="Female-select">
-      <p class="female">여성</p>
-      <input
-        v-model="credentials.gender"
-        type="radio"
-        value="Male"
-        class="gender-input-male"
-        id="Male-select">
-      <p class="male" style="margin-right:0;">남성</p>
-      <label for="gender">성별</label>
-    </div>
+		<div class="btn-profile-area" style="border-bottom: 1px solid #000;">
+			<label for="gender" style="font-size: 18px; color: #999; margin:0px 220px 25px 10px;">성별</label>
+			<input
+				v-model="credentials.gender"
+				value="Female"
+				type="radio"
+				class="btn-check" 
+				id="Female-select">
+			<label class="btn btn-outline-success" for="Female-select">여성</label>
+			<input
+				v-model="credentials.gender"
+				value="Male"
+				type="radio"
+				class="btn-check" 
+				id="Male-select">
+			<label class="btn btn-outline-success" for="Male-select">남성</label>
+		</div>
 
     <div class="choose-area">
       <input
@@ -48,9 +48,9 @@
     
     <br>
     <div>
-      <button class="btn btn-sm btn-outline-success" @click="editUserInfo(credentials)">정보 변경하기</button>
-      <router-link to="/passwordEditByProfile" class="btn btn-sm btn-outline-success">비밀번호 변경</router-link>
-      <button class="btn btn-sm btn-outline-danger" @click="unregister(userInfo.email)">회원탈퇴</button>
+      <button class="btn btn-sm btn-outline-success" @click="confirmEditUserInfo()">정보 변경하기</button>
+      <router-link :to="{ name: 'passwordFind' }" class="btn btn-sm btn-outline-success">비밀번호 변경</router-link>
+      <button class="btn btn-sm btn-outline-danger" @click="confirmUnregister()">회원탈퇴</button>
     </div>
   </div>
 </template>
@@ -76,6 +76,20 @@ export default {
   },
   methods: {
     ...mapActions(['editUserInfo', 'unregister']),
+    confirmUnregister() {
+      if (confirm('정말 QueÆnt를 떠나시겠어요?') == true) {
+        this.unregister(this.userInfo.email)
+      } else {
+        return
+      }
+    },
+    confirmEditUserInfo() {
+      if (confirm('입력하신 정보로 변경하시겠어요?') == true) {
+        this.editUserInfo(this.credentials)
+      } else {
+        return
+      }
+    },
   },
   beforeCreate: function() {
     document.body.className = 'profile_edit_body'
@@ -83,6 +97,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import '../assets/css/user.css';
 </style>

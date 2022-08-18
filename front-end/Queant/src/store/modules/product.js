@@ -4,16 +4,16 @@ import axios from 'axios'
 
 export default {
   state: {
+    product: {},
     products: [],
     searchProducts: [],
-    product: {},
     keywords: [],
     cart: []
   },
   getters: {
+    product: state => state.product,
     products: state => state.products,
     searchProducts: state => state.searchProducts,
-    product: state => state.product,
     keywords: state => state.keywords,
     cart: state => state.cart
   },
@@ -24,23 +24,29 @@ export default {
     SET_KEYWORDS: (state, keywords) => state.keywords = keywords,
     CLEAR_CART: state => state.cart = [],
     PUSH_PRODUCT_TO_CART(state, payload) {
-      let product = payload.product
-      if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
-        alert("이미 장바구니에 담긴 상품입니다.")
+			let product = payload.product
+			if (state.cart.length===10) {
+				alert('장바구니에는 최대 10개의 상품만 담을 수 있습니다.');
+			} else if (state.cart.find(cartItem => cartItem.product.product_id === product.product_id))
+        alert('이미 장바구니에 담긴 상품입니다.')
       else {
         state.cart.push(payload)
         console.log(`${product.product_id}번 상품을 장바구니에 추가했습니다.`)
-      }
-    },
-    POP_PRODUCT_FROM_CART(state, product) {
-      for (let i = 0; i < state.cart.length; i++) {
-        if (state.cart[i].product.product_id === product.product_id) {
-          state.cart.splice(i, 1)
-          console.log(`${product.product_id}번 상품을 장바구니에서 제거했습니다.`)
-          break
+        if (confirm('장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?') === true) {
+          router.push({ name: 'productCart' })
+        } else {
+          return
         }
       }
-    }
+    },
+    // 카트에서 프로덕트 삭제
+    POP_PRODUCT_FROM_CART(state, product) {
+        let FindProduct = product
+        let deleteproductIdx = state.cart.indexOf(FindProduct)
+        console.log(deleteproductIdx)
+        state.cart.splice(deleteproductIdx, 1)
+        alert(`${product.product.name} 상품을 장바구니에서 제거했습니다.`)
+      }
   },
   actions: {
     fetchKeywords({ commit }) {
@@ -65,6 +71,7 @@ export default {
         }
       })
       .then(res => {
+        console.log('모달을 키면서 상품 상세정보를 불러옵니다.')
         console.log(res)
         commit('SET_PRODUCT', res.data)
       })
@@ -116,6 +123,11 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        if (err.response.status === 500) {
+          alert('필수 입력사항(*)을 확인해주세요.')
+        } else if (err.response.status === 404) {
+          alert('해당 조건의 상품이 존재하지 않습니다. 다른 조건으로 검색해주세요.')
+        }
       })
     },
     fetchProductsBySavingFilters({ commit }, filters) {
@@ -144,6 +156,12 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        if (err.response.status === 500) {
+          alert('필수 입력사항(*)을 확인해주세요.')
+        }
+        else if (err.response.status === 404) {
+          alert('해당 조건의 상품이 존재하지 않습니다. 다른 조건으로 검색해주세요.')
+        }
       })
     }
   }
