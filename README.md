@@ -41,9 +41,10 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 &nbsp;
 
-# 3. 기술 스택 & 버전
+# 3. 기술 스택 & 아키텍처 &버전
 <img src="./img/stacks.jpg" width="600px">
 
+<img src="./img/architecture.png" width="600px">
 ## 
 
 &nbsp;
