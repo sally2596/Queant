@@ -283,6 +283,14 @@ export default {
       })
     },
     pushProductToPortfolio({ dispatch, getters }, payload) {
+      if (!getters.isLoggedIn) {
+        if (confirm('로그인이 필요합니다. 로그인 하시겠어요?') === true) {
+          router.push({ name: 'login' })
+        } else {
+          return
+        }
+      }
+
       if (!getters.portfolio) {
         dispatch('fetchMyPortfolio')
       }

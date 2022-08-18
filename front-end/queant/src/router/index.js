@@ -20,7 +20,6 @@ import PortfolioEditView from '@/views/portfolio/PortfolioEditView.vue'
 
 // profile
 import ProfileView from '@/views/profile/ProfileView.vue'
-import PasswordEditView from '@/views/profile/PasswordEditView.vue'
 
 // auth
 import LoginView from '@/views/auth/LoginView.vue'
@@ -29,7 +28,6 @@ import PasswordFindView from '@/views/auth/PasswordFindView.vue'
 
 // admin
 import AdminUserListView from '@/views/admin/AdminUserListView.vue'
-import AdminContentView from '@/views/admin/AdminContentView.vue'
 import AdminSpecialView from '@/views/admin/AdminSpecialView.vue'
 
 // products
@@ -167,11 +165,6 @@ const routes = [
     component: ProfileView,
     meta: { isLoggedIn: true }
   },
-  {
-    path: '/passwordEditByProfile',
-    name: 'profilePasswordEdit',
-    component: PasswordEditView
-  },
   // auth
   {
     path: '/login',
@@ -193,12 +186,6 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminUserListView,
-    meta: { isAdmin: true }
-  },
-  {
-    path: '/admin/content',
-    name: 'adminContent',
-    component: AdminContentView,
     meta: { isAdmin: true }
   },
   {

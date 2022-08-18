@@ -5,19 +5,20 @@ import axios from 'axios'
 export default {
   state: {
     users: [],
-    roleUsers: [],
-    socialUsers: [],
-    totalPage: null
+    // totalPage: null,
+    // roleUsers: [],
+    // socialUsers: []
   },
   getters: {
     users: state => state.users,
-    totalPage: state => state.totalPage
+    // totalPage: state => state.totalPage
   },
   mutations: {
     SET_USERS: (state, users) => state.users = users,
-    SET_TOTAL_PAGE: (state, res) => state.totalPage = res
+    // SET_TOTAL_PAGE: (state, res) => state.totalPage = res
   },
   actions: {
+    // 어드민이 유저 관리를 위해 유저 정보를 가져오는 요청
     fetchUsers({ dispatch, commit, getters }, payload) {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
@@ -47,6 +48,7 @@ export default {
         }
       })
     },
+    // 회원의 계정 상태가 활성화면 => 비활성화, 비활성화면 => 활성화
     editEnabled({ dispatch, getters }, email) {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)
@@ -69,6 +71,7 @@ export default {
         console.log(err)
       })
     },
+    // 회원의 계정 권한을 변경
     editRoleSet({ dispatch, getters }, { email, role_set }) {
       // 리프레쉬나 액세스토큰이 만료됐으면 재발급 요청
       if (getters.isRefreshTokenExpired || getters.isAccessTokenExpired)

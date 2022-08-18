@@ -89,12 +89,11 @@
       <div class="modal-footer">
        <slot name="footer">
         <div v-if="isCheckedForm">
-          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">내 포트폴리오</button>
-          <!-- <button class="btn btn-outline-success btn-sm mx-3" @click="[changeAppliedRate(payload.condition_ids), $emit('close')]">장바구니</button> -->
+          <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToPortfolio(payload), $emit('close')]">MY 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" @click="[pushProductToCart(payload), $emit('close')]">장바구니</button>
         </div>
         <div v-else>
-          <button class="btn btn-outline-success btn-sm mx-3" disabled>내 포트폴리오</button>
+          <button class="btn btn-outline-success btn-sm mx-3" disabled>MY 포트폴리오</button>
           <button class="btn btn-outline-success btn-sm mx-3" disabled>장바구니</button>
         </div>
        </slot>
@@ -176,7 +175,7 @@ export default {
 
 			// }
     },
-    product:function(){
+    product :function(){
       for (let option of this.product.options) {
         if (option.option_id === this.modalData.selected_option_id) {
           this.payload.applied_rate = option.base_rate
@@ -203,7 +202,7 @@ export default {
       },
       isCheckedForm: false
     }
-  },
+  }
 }
 </script>
 

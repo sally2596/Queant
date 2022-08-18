@@ -58,64 +58,6 @@
       <li></li>
     </ul>
   </div>   
-
-  <!-- <section class="login-form">
-    <h1>QueÆnt</h1>
-    Login Form
-    <form @submit.prevent="login({ credentials, nextPath })">
-
-      <div class="int-area">
-        <input 
-        v-model="credentials.email"
-        v-bind:class="{error : error.email, complete:!error.email&&credentials.email.length!==0}"
-        type="text"
-        id="email"
-        autocomplete="off" required>
-        <label for="email">이메일</label>
-        <div class="error-text" v-if="error.email">{{error.email}}</div>
-      </div>
-
-      <div class="int-area">
-        <input
-        v-model="credentials.password"
-        v-bind:class="{error : error.password, complete:!error.password&&credentials.password.length!==0}"
-        type="password"
-        id="pw"
-        autocomplete="off" required>
-        <label for="pw">비밀번호</label>
-        <div class="error-text" v-if="error.password">{{error.password}}</div>
-      </div>
-
-      <p v-if="authError === 404">이메일을 다시 확인해주세요.</p>
-      <p v-else-if="authError === 409">비밀번호가 일치하지 않습니다.</p>
-      <p v-else-if="authError === 423">비활성화 계정입니다.</p>
-
-      <div class="btn-area">
-        <button :disabled="!isCheckedForm" type="submit">LOGIN</button>
-      </div>
-
-    </form>
-    <div class="caption">
-      <router-link :to="{ name: 'register' }">아직 회원이 아니신가요?</router-link>
-      <br><br>
-      <router-link :to="{ name: 'passwordFind' }">비밀번호를 잊으셨나요?</router-link>
-      <br><br>
-      <router-link :to="{ name: 'home' }">비회원으로 이용하기</router-link>
-    </div>
-
-    <div>
-      <p>Social Login</p>
-      <div class="auth-area">
-        <button @click="kakaoLogin()"><img src="@/assets/image/kakao_icon.png" alt="kakao login"> </button>
-        
-        <div id="naver_id_login">
-          <button @click="naverLogin()"><img src="@/assets/image/naver_icon.png" alt="naver login"> </button>
-        </div>
-
-        <button @click="googleLogin()"><img src="@/assets/image/google_icon.png" alt="google login"> </button>
-      </div>
-    </div>
-  </section> -->
 </template>
 
 <script>
