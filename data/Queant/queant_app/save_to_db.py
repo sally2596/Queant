@@ -682,7 +682,8 @@ def save_bank_db():
     
 def save_db_by_myself():
     conn, cur = connect_db()
-    cur.execute("INSERT INTO queant.specific_code (scode_id,code_id, scode_value) values (\"C003\",\'C\',\"기타\")")
-    cur.execute("UPDATE queant.bank SET short_name = \"상상인플러스\" ,picture = \"https://queant.s3.ap-northeast-2.amazonaws.com/banks/상상인플러스.png\" where bank_name = \"상상인플러스저축은행\"")
+    cur.execute("UPDATE queant.specific_code SET scode_value= \"특판\" where scode_id = \"E001\"")
+    cur.execute("UPDATE queant.specific_code SET scode_value= \"청약\" where scode_id = \"E002\"")
+    cur.execute("UPDATE queant.specific_code SET scode_value= \"군인\" where scode_id = \"E003\"")
     conn.commit()
     conn.close()

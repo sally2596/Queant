@@ -1,0 +1,74 @@
+[
+    {"bank": "우리은행", "name": "주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["인터넷","스마트폰","전화","영업점"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5 , 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+    {"bank": "신한은행", "name": "마이홈플랜 주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 15000000, "etc": None, "is_deposit": 0,
+     "join": ["인터넷","영업점"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5 , 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+    {"bank": "하나은행", "name": "마이홈플랜 주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 15000000, "etc": None, "is_deposit": 0,
+     "join": ["인터넷","영업점","스마트폰"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5 , 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+    {"bank": "중소기업은행", "name": "주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["인터넷","영업점","스마트폰","전화"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5 , 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+    {"bank": "중소기업은행", "name": "청년 우대형 주택청약종합저축", "age_min": 19, "age_max": 34, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["인터넷","영업점","스마트폰","전화"],
+     "option": [(1, 2.5, 1, 0, 0), (1.5, 3 , 12, 0, 0),(1.8, 3.3, 24, 0, 0)],
+     "conditions": [(["기타"], 1.5, "가입기간 2년 이상인 계좌")]
+    },
+    {"bank": "대구은행", "name": "청년우대형 주택청약종합저축", "age_min": 19, "age_max": 34, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["영업점"],
+     "option": [(1, 2.5, 1, 0, 0), (1.5, 3 , 12, 0, 0),(1.8, 3.3, 24, 0, 0)],
+     "conditions": [(["기타"], 1.5, "가입기간이 2년 이상 지난 후 해지하는 경우")]
+    },
+    {"bank": "부산은행", "name": "주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["영업점","스마트폰","인터넷"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5, 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+    {"bank": "경남은행", "name": "주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["영업점","스마트폰","인터넷"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5, 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+    {"bank": "경남은행", "name": "청년우대형 주택청약종합저축", "age_min": 19, "age_max": 34, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["영업점","스마트폰","인터넷"],
+     "option": [(1, 2.5, 1, 0, 0), (1.5, 3 , 12, 0, 0),(1.8, 3.3, 24, 0, 0)],
+     "conditions": [(["기타"], 1.5, "가입기간이 2년 이상 지난 후 해지하는 경우 또한 가입일로부터 10년이내에서 무주택인 기간에 한함")]
+    },
+    {"bank": "국민은행", "name": "주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["영업점","스마트폰","인터넷"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5, 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+    {"bank": "국민은행", "name": "청년우대형 주택청약종합저축", "age_min": 19, "age_max": 34, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["영업점","스마트폰","인터넷"],
+     "option": [(1, 2.5, 1, 0, 0), (1.5, 3 , 12, 0, 0),(1.8, 3.3, 24, 0, 0)],
+     "conditions": [(["기타"], 1.5, "가입(전환)일로부터 2년 이상 유지한 계좌에 한해 납입금액 5천만원 한도로 가입일로부터 무주택기간에 따라 최대 10년동안 적용")]
+    },
+    {"bank": "농협은행주식회사", "name": "주택청약종합저축", "age_min": None, "age_max": None, "term_min": 1, "term_max": None,
+     "budget_min": 20000, "budget_max": 500000, "etc": None, "is_deposit": 0,
+     "join": ["영업점","인터넷"],
+     "option": [(1, 1, 1, 0, 0), (1.5, 1.5, 12, 0, 0),(1.8, 1.8, 24, 0, 0)],
+     "conditions": []
+    },
+]

@@ -1,0 +1,45 @@
+[
+    {"bank": "한국산업은행", "name": "KDB Mini 정기예금", "age_min": None, "age_max": None, "term_min": 6, "term_max": 12,
+     "budget_min": 1000000, "budget_max": 10000000, "etc": None, "is_deposit": 1,
+     "join": ["인터넷","스마트폰"],
+     "option": [(0.5, 1, 6, 0, None),(1, 1.5, 12, 0, None)],
+     "conditions": [(["기타"], 0.5, "이 예금 가입시 유효한 '은행추천코드'를 등록한 경우")]
+    },
+    {"bank": "한국산업은행", "name": "데일리플러스 자유적금", "age_min": None, "age_max": None, "term_min": 12, "term_max": 36,
+     "budget_min": 10000, "budget_max": 1000000, "etc": None, "is_deposit": 0,
+     "join": ["인터넷","스마트폰","영업점"],
+     "option": [(1.9, 2.4, 12, 0, 0),(2.2, 2.7, 24, 0, 0),(2.4, 2.9, 36, 0, 0)],
+     "conditions": [(["첫거래"], 0.2, "첫거래 또는 추천인 우대"),
+                    (["인터넷","모바일"], 0.2, "인터넷뱅킹 또는 스마트뱅킹으로 가입하는 경우"),
+                    (["기타"], 0.1, "성실재태크 우대")]
+    },
+    {"bank": "한국산업은행", "name": "KDB HI 입출금통장", "age_min": 14, "age_max": None, "term_min": 12, "term_max": None,
+     "budget_min": 10000, "budget_max": None, "etc": None, "is_deposit": 1,
+     "join": ["영업점"],
+     "option": [(2.25, 2.25, 12, 0, None)],
+     "conditions": []
+    },
+    {"bank": "한국산업은행", "name": "주거래플러스 적금", "age_min": None, "age_max": None, "term_min": 12, "term_max": 36,
+     "budget_min": 10000, "budget_max": 1000000, "etc": None, "is_deposit": 0,
+     "join": ["영업점","인터넷","스마트폰"],
+     "option": [(1.0, 2.2, 12, 0, 0),(1.95, 3.15, 24, 0, 0),(2.0, 3.2, 36, 0, 0)],
+     "conditions": [(["인터넷","모바일","비대면"], 0.1, "인터넷뱅킹, 스마트폰뱅킹으로 비대면가입한 고객"),
+                    (["기타"], 0.1, "산업은행 정기예금 또는 산금채상품에 가입한 고객"),
+                    (["카드"], 0.5, "예금주 본인의 산업은행 체크카드 결제실적 월 10만원 이상 또는 자동이체 월 1건 이상"),
+                    (["기타"], 0.1, "월 건당 50만원 이상 입금실적이 있는 경우"),
+                    (["기타"], 0.1, "산업은행에서 가입한 펀드에 적립하기 위해 월 1건이상 자동 이체 등록을 한 경우")]
+    },
+    {"bank": "한국산업은행", "name": "KDBdream 자유자재 정기예금", "age_min": None, "age_max": None, "term_min": 1, "term_max": 36,
+     "budget_min": 3000000, "budget_max": None, "etc": None, "is_deposit": 1,
+     "join": ["영업점"],
+     "option": [(1.5, 1.5, 1, 0, None),(1.6, 1.6, 2, 0, None),(1.7, 1.7, 3, 0, None),(1.89, 1.89, 6, 0, None),
+                (2.18, 2.18, 12, 0, None),(2.44, 2.44, 24, 0, None),(2.69, 2.69, 36, 0, None)],
+     "conditions": []
+    },
+    {"bank": "한국산업은행", "name": "KDBdream Jump-Up정기예금", "age_min": None, "age_max": None, "term_min": 12, "term_max": 12,
+     "budget_min": 3000000, "budget_max": None, "etc": None, "is_deposit": 1,
+     "join": ["영업점","인터넷","스마트폰"],
+     "option": [(1.55, 1.55, 3, 0, None),(1.85, 1.85, 6, 0, None),(2.15, 2.15, 9, 0, None),(2.3, 2.3, 12, 0, None)],
+     "conditions": []
+    }
+]
