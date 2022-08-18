@@ -33,8 +33,7 @@
         <div id="Summary" class="container row justify">
           <div class="col-lg-6">
             <pie-chart
-              v-bind:series="summarySeries"
-              v-bind:chartOptionLabels="summaryChartOptionLabels"
+             
             ></pie-chart>
           </div>
           <div class="col-lg-6">
@@ -195,7 +194,7 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import PieChart from "@/components/PieChart.vue";
 import ColumnChart from "@/components/ColumnChart.vue";
 import { PerfectScrollbar } from "vue3-perfect-scrollbar";
@@ -376,10 +375,13 @@ export default {
 
       this.summarySeries.push(this.depositIngAmount + this.depositFinishAmount);
       this.summarySeries.push(this.savingFinishAmount + this.savingIngAmount);
+
+      this.SET_MYSUMMARIES(this.summarySeries);
     },
   },
   methods: {
     ...mapActions(["fetchMyPortfolio"]),
+    ...mapMutations(['SET_MYSUMMARIES']),
     sumDBProductRate(item) {
       let rate = 0;
       rate += item.option.base_rate;

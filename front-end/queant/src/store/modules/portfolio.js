@@ -11,6 +11,7 @@ export default {
     comparisonPortfolio: [],
     newlyAddedPortfolio: [],
     deletedPortfolio:[],
+    summarySeries:[],
     },
   getters: {
     comparisonProducts: state=> state.comparisonProducts,
@@ -18,6 +19,7 @@ export default {
     customProducts: state => state.customProducts,
     portfolios: state => state.portfolios,
     comparisonPortfolio: state => state.comparisonPortfolio,
+    summarySeries:state=>state.summarySeries,
   },
   mutations: {
     SET_CUSTOM_PRODUCTS: (state, customProducts) => state.customProducts = customProducts,
@@ -138,6 +140,10 @@ export default {
 
       state.portfolios[portfolioIdx].splice(productIdx, 1)
       console.log(`${portfolioIdx+1}번 포트폴리오의 ${productIdx+1}번 상품을 삭제했습니다.`)
+    },
+
+    SET_MYSUMMARIES(state,summaries){
+      state.summarySeries = summaries;
     },
   },
 
@@ -320,6 +326,8 @@ export default {
         console.log(err)
       })
     },
+
+    
 
     // Comparison Portfolio
 
