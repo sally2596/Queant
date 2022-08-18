@@ -583,7 +583,9 @@ def save_bank_into_db(cur, conn, data_xml, banktype_num):
             bank_type = bank_types["은행"]
         else:
             bank_type = bank_types["저축은행"]
-            
+        cur.execute(query_bank_search, bank_code)
+        if cur.fetchone()!= None:
+            continue
         new_name = change_name(bank_name)
         homepage = bank_tag[0].find("homp_url").text
         tel = change_tel(bank_tag[0].find("cal_tel").text)
