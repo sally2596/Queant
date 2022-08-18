@@ -7,8 +7,8 @@
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown" style="font-family: 'Open Sans', sans-serif;">Welcome to QueÆnt</h2>
-          <p class="animate__animated animate__fadeInUp" style="font-family: 'Open Sans', sans-serif;">Save Your Money, Safely.</p>
+          <h2 class="animate__animated animate__fadeInDown">Welcome to QueÆnt</h2>
+          <p class="animate__animated animate__fadeInUp">Save Your Money, Safely.</p>
         </div>
       </div>
 
