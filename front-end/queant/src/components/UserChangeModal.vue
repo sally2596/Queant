@@ -44,7 +44,7 @@
         <div class="d-flex justify-content-between">
           <label>권한</label>
           <div>
-            <label :for="`role-user-${modalData.email}`">ROLE_USER</label>
+            <label :for="`role-user-${modalData.email}`">User</label>
             <input
               v-model="credentials.role_set"
               type='checkbox'
@@ -54,7 +54,7 @@
           </div>
 
           <div>
-            <label :for="`role-super-${modalData.email}`">ROLE_SUPER</label>
+            <label :for="`role-super-${modalData.email}`">Manager</label>
             <input
               v-model="credentials.role_set"
               type='checkbox'
@@ -63,7 +63,7 @@
           </div>
 
           <div>
-            <label :for="`role-admin-${modalData.email}`">ROLE_ADMIN</label>
+            <label :for="`role-admin-${modalData.email}`">Admin</label>
             <input
               v-model="credentials.role_set"
               type='checkbox'

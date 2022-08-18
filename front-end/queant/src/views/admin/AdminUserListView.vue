@@ -4,7 +4,7 @@
     <h1 class="title" id="title">유저 관리</h1>
   </header>
   <!-- 검색바 & 필터 -->
-  <div class="d-flex justify-content-center align-items-center">
+  <div class="d-flex justify-content-center align-items-center" id="content-header-section">
     <!-- 이메일 검색 -->
     <div class="align-items-center">
       <input v-model="email" type="text" style="height: 30px" />
@@ -53,7 +53,7 @@
   <div id="section-float">
     <section id="adminUserList" class="container row">
       
-       <table class="rwd-table my-5">
+       <table class="rwd-table">
         <tbody>
           <tr>
             <th class="text-center">이름</th>

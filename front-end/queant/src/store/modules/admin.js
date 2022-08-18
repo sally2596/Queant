@@ -5,17 +5,17 @@ import axios from 'axios'
 export default {
   state: {
     users: [],
-    // totalPage: null,
+    totalPage: null,
     // roleUsers: [],
     // socialUsers: []
   },
   getters: {
     users: state => state.users,
-    // totalPage: state => state.totalPage
+    totalPage: state => state.totalPage
   },
   mutations: {
     SET_USERS: (state, users) => state.users = users,
-    // SET_TOTAL_PAGE: (state, res) => state.totalPage = res
+    SET_TOTAL_PAGE: (state, res) => state.totalPage = res
   },
   actions: {
     // 어드민이 유저 관리를 위해 유저 정보를 가져오는 요청
