@@ -6,6 +6,26 @@ import xml.etree.ElementTree as ET
 from pymysql import NULL
 import pymysql
 import re
+from pathlib import Path
+import os, json
+from django.core.exceptions import ImproperlyConfigured
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+secret_file = os.path.join(BASE_DIR, 'secret.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read)
+    
+def get_secret(setting, secrets = secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
 
 def max_min_join(join_member):
     min_age = None
@@ -605,7 +625,7 @@ def save_db():
     #각 데이터 별 url 앞부분
     url_deposit = ["https://finlife.fss.or.kr/finlifeapi/savingProductsSearch.xml?auth=", "https://finlife.fss.or.kr/finlifeapi/depositProductsSearch.xml?auth="]
     #발급받은 키
-    api_key = "47c0e868fdb16333d47d0e385641c3c0"
+    api_key = get_secret("API_KEY")
     #권역코드
     code_front = "&topFinGrpNo="
     code_bank = ["020000", "030300"]
@@ -666,15 +686,15 @@ def save_db():
 def save_bank_db():
     conn, cur = connect_db()
     bankcode = ["020000","030300"]
-    
+    api_key = get_secret("API_KEY")
     banktype_num = 0
-    url = "http://finlife.fss.or.kr/finlifeapi/companySearch.xml?auth=47c0e868fdb16333d47d0e385641c3c0&topFinGrpNo=" + bankcode[banktype_num]+ "&pageNo=1"
+    url = "http://finlife.fss.or.kr/finlifeapi/companySearch.xml?auth="+ api_key +"&topFinGrpNo=" + bankcode[banktype_num]+ "&pageNo=1"
     data_str = urllib.request.urlopen(url).read().decode('euc-kr')
     data_xml = ET.fromstring(data_str)
     save_bank_into_db(cur, conn, data_xml, banktype_num)
     
     banktype_num = 1
-    url = "http://finlife.fss.or.kr/finlifeapi/companySearch.xml?auth=47c0e868fdb16333d47d0e385641c3c0&topFinGrpNo=" + bankcode[banktype_num]+ "&pageNo=1"
+    url = "http://finlife.fss.or.kr/finlifeapi/companySearch.xml?auth="+ api_key +"&topFinGrpNo=" + bankcode[banktype_num]+ "&pageNo=1"
     data_str = urllib.request.urlopen(url).read().decode('euc-kr')
     data_xml = ET.fromstring(data_str)
     save_bank_into_db(cur, conn, data_xml, banktype_num)
