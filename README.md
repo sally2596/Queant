@@ -13,7 +13,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 
 # 목차
-1. 기획
+1. 서비스 소개 및 기획
 2. 주요 기능
 3. 기술 스택 & 버전
 4. 개발 환경
@@ -22,7 +22,10 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 &nbsp;
 
-# 1. 기획
+# 1. 서비스 소개 및 기획
+
+## UCC
+[![SSAFY 공통프로젝트 Queant](https://img.youtube.com/vi/ZqLSBhtxzOQ/0.jpg)](https://youtu.be/ZqLSBhtxzOQ)
 
 ## ERD
 <img src="./img/erd.jpg" width="600px">
@@ -34,106 +37,81 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 &nbsp;
 
-# 2. 주요 기능
+# 2. 서비스의 특징
+
+<img src="./img/services.jpg" width="600px">
+
+&nbsp;
+
 - 국내 시중 은행 및 저축 은행의 예,적금 정보 제공
-- 마이포트폴리오 및 가상포트폴리오를 생성하고 현금흐름 및 수익률 비교
+- 실제로 보유하고 있는 상품을 등록하고 관리
+- 은행 예,적금 상품들로 가상 포트폴리오를 생성하고 수익률을 비교/분석
 - 자산관리 관련 뉴스와 컨텐츠 제공
 
 &nbsp;
 
-# 3. 기술 스택 & 아키텍처 &버전
+# 3. 기술 스택 & 아키텍처 & 버전
+
+## 기술 스택
+
+&nbsp;
+
 <img src="./img/stacks.jpg" width="600px">
+
+&nbsp;
+
+## 아키텍처
+
+&nbsp;
 
 <img src="./img/architecture.png" width="600px">
 
-<br>
+&nbsp;
 
-## Version
+## 버전
 
-### FE:
-    "Node.js" : {
+### ⭐FrontEnd
+- Visual Studio Code 1.70.0
+- Node.js 16.16.0
+- Vue3
+- Vue/cli 5.0.4
+- Npm 8.11.0
+- Axios 0.27.2
+- Bootstrap-vue 5.1.3
+- Ckeditor5-vue 4.0.1
+- Vuex 4.0.2
+- Vue3-apexcharts 1.4.1
 
-    "node.js" : "^16.16.0",
-	"npm" : "^8.11.0"
+### ⭐BackEnd(SpringBoot)
+- IntelliJ
+- Spring boot 2.6.7
+- Spring-boot-jpa
+- Spring Security
+- Java 8
+- Junit 4.13.1
+- Mysql connector java 8.0.29
+- Json Web Token 0.11.2
+- Spring Fox BootStarter 3.0.0
+- Jsoup 1.14.3
+- ModelMapper 2.4.2
+- Spring Cloud Starter AWS 2.2.6
 
-    },
+### ⭐BackEnd(Django)
+- Python 3.10.5
+- Django-apscheduler 0.6.2
+- PyMySQL 1.0.2
+- Bs4 0.0.1
+- Gunicorn 19.6.0
+- Lxml 4.9.1
 
-    "VSCode" : {
+### ⭐CICD
+- AWS EC2
+- MariaDB
+- Docker
+- Nginx
+- Jenkins
 
-    "VSCode" : "^1.70.0",
-	"Chromium" : "^100.0.4896.160",
-	"node.js" : "^16.13.2",
-	"V8" : "^10.0.139.17-electron.0",
-	"OS" : "^Windows-NT x64 10.0.19044"
-
-    },
-
-    "Vue" : {
-
-    "name": "queant",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint"
-    },
-    "dependencies": {
-        "@ckeditor/ckeditor5-build-classic": "^35.0.1",
-        "@ckeditor/ckeditor5-vue": "^4.0.1",
-        "@fortawesome/fontawesome-svg-core": "^6.1.2",
-        "@fortawesome/free-brands-svg-icons": "^6.1.2",
-        "@fortawesome/free-regular-svg-icons": "^6.1.2",
-        "@fortawesome/free-solid-svg-icons": "^6.1.2",
-        "@fortawesome/vue-fontawesome": "^3.0.1",
-        "axios": "^0.27.2",
-        "bootstrap": "^5.1.3",
-        "bootstrap-vue": "^2.22.0",
-        "core-js": "^3.8.3",
-        "dotenv": "^16.0.1",
-        "email-validator": "^2.0.4",
-        "lodash": "^4.17.21",
-        "node-sass": "^7.0.1",
-        "password-validator": "^5.3.0",
-        "sass-loader": "^13.0.2",
-        "vue": "^3.2.13",
-        "vue-loader": "^17.0.0",
-        "vue-router": "^4.0.13",
-        "vuex": "^4.0.2",
-        "vuex-persistedstate": "^4.1.0"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.12.16",
-        "@babel/eslint-parser": "^7.12.16",
-        "@vue/cli-plugin-babel": "~5.0.0",
-        "@vue/cli-plugin-eslint": "~5.0.0",
-        "@vue/cli-plugin-router": "~5.0.0",
-        "@vue/cli-service": "~5.0.0",
-        "eslint": "^7.32.0",
-        "eslint-plugin-vue": "^8.0.3",
-        "webpack": "^5.73.0"
-    },
-    "eslintConfig": {
-        "root": true,
-        "env": {
-        "node": true
-        },
-        "extends": [
-        "plugin:vue/vue3-essential",
-        "eslint:recommended"
-        ],
-        "parserOptions": {
-        "parser": "@babel/eslint-parser"
-        },
-        "rules": {}
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not dead",
-        "not ie 11"
-    ]
-    }
+&nbsp;
 
 # 6. 팀원 소개 (SSAFY 7기 A201)
 
