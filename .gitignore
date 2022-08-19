@@ -3,7 +3,8 @@
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
+queant/settings.py
+queant/secrets.json
 db.sqlite3
 db.sqlite3-journal
 media
