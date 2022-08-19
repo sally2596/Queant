@@ -22,15 +22,15 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 # 1. 서비스 소개 및 기획
 
-## UCC
+### UCC
 [![SSAFY 공통프로젝트 Queant](https://img.youtube.com/vi/ZqLSBhtxzOQ/0.jpg)](https://youtu.be/ZqLSBhtxzOQ)
 
-## ERD
+### ERD
 <img src="./img/erd.jpg" width="600px">
 
 &nbsp;
 
-## 와이어프레임
+### 와이어프레임
 <img src="./img/figma.jpg" width="600px">
 
 &nbsp;
@@ -51,7 +51,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 # 3. 아키텍처 & 버전
 
 
-## 아키텍처
+### 아키텍처
 
 &nbsp;
 
@@ -59,9 +59,9 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 &nbsp;
 
-## 버전
+### 버전
 
-### ⭐FrontEnd
+#### ⭐FrontEnd
 - Visual Studio Code 1.70.0
 - Node.js 16.16.0
 - Vue3
@@ -73,7 +73,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 - Vuex 4.0.2
 - Vue3-apexcharts 1.4.1
 
-### ⭐BackEnd(SpringBoot)
+#### ⭐BackEnd(SpringBoot)
 - IntelliJ
 - Spring boot 2.6.7
 - Spring-boot-jpa
@@ -87,7 +87,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 - ModelMapper 2.4.2
 - Spring Cloud Starter AWS 2.2.6
 
-### ⭐BackEnd(Django)
+#### ⭐BackEnd(Django)
 - Python 3.10.5
 - Django-apscheduler 0.6.2
 - PyMySQL 1.0.2
@@ -95,7 +95,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 - Gunicorn 19.6.0
 - Lxml 4.9.1
 
-### ⭐CICD
+#### ⭐CICD
 - AWS EC2
 - MariaDB
 - Docker
