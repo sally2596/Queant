@@ -6,8 +6,6 @@ class QueantAppConfig(AppConfig):
     from . import updater
     print("Sever running!")
     
-    #save_data_manually.save_db_manually()
     updater.start()
     updater.start_bank()
     updater.start_post()
-    #updater.save_manually()
