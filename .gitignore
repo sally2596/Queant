@@ -1,3 +1,22 @@
+
+### JAVA ###
+.idea/workspace.xml
+
+back-end/Queant/src/main/resources/application.properties
+
+back-end/Queant/src/main/resources/application-GOOGLE.properties
+
+back-end/Queant/src/main/resources/.DS_Store
+
+back-end/Queant/src/main/resources/static/.DS_Store
+
+back-end/Queant/src/main/resources/application-API-KEY.properties
+
+back-end/Queant/build/.DS_Store
+
+back-end/Queant/build/libs/.DS_Store
+
+
 ### Django ###
 *.log
 *.pot
@@ -169,3 +188,4 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
+.DS_Store

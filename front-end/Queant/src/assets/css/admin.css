@@ -1,0 +1,23 @@
+.users {
+  max-width: 1080px;
+}
+
+#adminUserList {
+  display: flex;
+  max-width: 1080px;
+}
+
+#section-float {
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+#admin-userlist-pagenation {
+  display: flex;
+  justify-content: center;
+}
+
+.pages {
+  margin-right: 5px;
+}
