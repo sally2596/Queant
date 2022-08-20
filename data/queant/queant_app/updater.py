@@ -8,7 +8,7 @@ from .save_to_db import save_db_by_myself
 
 def start():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    scheduler.add_job(save_db, trigger='cron', hour=14, minute=25)
+    scheduler.add_job(save_db, trigger='cron', hour=5, minute=1)
     scheduler.start()
     
     
