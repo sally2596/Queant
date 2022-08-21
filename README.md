@@ -22,9 +22,6 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 # 1. 서비스 소개 및 기획
 
-### UCC
-[![SSAFY 공통프로젝트 Queant](https://img.youtube.com/vi/ZqLSBhtxzOQ/0.jpg)](https://youtu.be/ZqLSBhtxzOQ)
-
 ### ERD
 <img src="./img/erd.jpg" width="600px">
 
