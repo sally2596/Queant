@@ -11,15 +11,16 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 &nbsp;
 
-
+<br><br><br><br>
 # 목차
 1. 서비스 소개 및 기획
 2. 서비스의 특징
 3. 아키텍처 & 버전
 4. 팀원 소개
+5. 서비스 구동 영상 GIF
 
 &nbsp;
-
+<br><br><br><br>
 # 1. 서비스 소개 및 기획
 
 ### ERD
@@ -31,7 +32,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 <img src="./img/figma.jpg" width="600px">
 
 &nbsp;
-
+<br><br><br><br>
 # 2. 서비스의 특징
 
 <img src="./img/services.jpg" width="600px">
@@ -44,7 +45,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 - 자산관리 관련 뉴스와 컨텐츠 제공
 
 &nbsp;
-
+<br><br><br><br>
 # 3. 아키텍처 & 버전
 
 
@@ -100,7 +101,7 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 - Jenkins
 
 &nbsp;
-
+<br><br><br><br>
 # 4. 팀원 소개 (SSAFY 7기 A201)
 
 <table>
@@ -136,4 +137,18 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
     </tr>
 </table>
 
+<br><br><br><br>
+# 5. 서비스 구동 영상 GIF
 
+![1번_화면](/uploads/2e9ab2cfe1806d4fd2f9be154587166e/1번_화면.gif)
+![2번_화면](/uploads/fa4a276f61efde93c447f1fd53a42819/2번_화면.gif)
+![3번_화면](/uploads/144b8c3d254950ddcbd3e706d0f729db/3번_화면.gif)
+![4번_화면](/uploads/7594888d72405e1033001b75698bc95b/4번_화면.gif)
+![5번_화면](/uploads/f5849b3a488780ac616b52e774b0cae4/5번_화면.gif)
+![6번_화면](/uploads/0ca17158f759f1a017e3d0806c62d5e7/6번_화면.gif)
+![7번_화면](/uploads/c13591acb1e404300699588fc3de061c/7번_화면.gif)
+![8번_화면](/uploads/659d4f9a6da50c488956f9e001a1ccd6/8번_화면.gif)
+![9번_화면](/uploads/55b3caf37456d2351eb9ccb880f627b5/9번_화면.gif)
+![10번_화면](/uploads/bcc9e230565cb373b30dded50dabdad4/10번_화면.gif)
+![11번_화면](/uploads/ea11a67c94387b2b188da1cde3895f8d/11번_화면.gif)
+![12번화면_끝_](/uploads/74a510a9cfceaacbb53b657aa117fa25/12번화면_끝_.gif)
