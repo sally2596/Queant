@@ -139,16 +139,21 @@ QueÆnt에서는 국내 은행들의 예,적금 상품들의 정보를 제공하
 
 <br><br><br><br>
 # 5. 서비스 구동 영상 GIF
+![KakaoTalk_Photo_2022-08-30-20-47-38 007](https://user-images.githubusercontent.com/40703485/187448819-8fef6991-a6a6-43b5-a839-77bfe2d79114.gif)
 
-![1번_화면](/uploads/2e9ab2cfe1806d4fd2f9be154587166e/1번_화면.gif)
-![2번_화면](/uploads/fa4a276f61efde93c447f1fd53a42819/2번_화면.gif)
-![3번_화면](/uploads/144b8c3d254950ddcbd3e706d0f729db/3번_화면.gif)
-![4번_화면](/uploads/7594888d72405e1033001b75698bc95b/4번_화면.gif)
-![5번_화면](/uploads/f5849b3a488780ac616b52e774b0cae4/5번_화면.gif)
-![6번_화면](/uploads/0ca17158f759f1a017e3d0806c62d5e7/6번_화면.gif)
-![7번_화면](/uploads/c13591acb1e404300699588fc3de061c/7번_화면.gif)
-![8번_화면](/uploads/659d4f9a6da50c488956f9e001a1ccd6/8번_화면.gif)
-![9번_화면](/uploads/55b3caf37456d2351eb9ccb880f627b5/9번_화면.gif)
-![10번_화면](/uploads/bcc9e230565cb373b30dded50dabdad4/10번_화면.gif)
-![11번_화면](/uploads/ea11a67c94387b2b188da1cde3895f8d/11번_화면.gif)
-![12번화면_끝_](/uploads/74a510a9cfceaacbb53b657aa117fa25/12번화면_끝_.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-38 008](https://user-images.githubusercontent.com/40703485/187448824-29533e9b-d01a-45fe-a75c-2c3d184f6bdc.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-38 009](https://user-images.githubusercontent.com/40703485/187448827-930812ef-6ad7-4ad1-8248-c63ffc60c177.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-39 010](https://user-images.githubusercontent.com/40703485/187448832-43f9d135-3701-4afe-a2e1-5190caa1b3f6.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-39 012](https://user-images.githubusercontent.com/40703485/187448845-fe8dca57-bcf0-4673-9446-436945e314c9.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-39 011](https://user-images.githubusercontent.com/40703485/187448837-4c1dc211-573c-40de-b801-5c2a7fc0db91.gif)
+
+![KakaoTalk_Photo_2022-08-30-20-47-36 001](https://user-images.githubusercontent.com/40703485/187448776-1723e0c2-0bee-4772-ab5f-4c1e068af59e.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-36 002](https://user-images.githubusercontent.com/40703485/187448788-0c6cd394-d73c-4fd0-a625-6521ab74916d.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-37 003](https://user-images.githubusercontent.com/40703485/187448797-283a1788-97e7-4687-b069-747d545b4070.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-37 004](https://user-images.githubusercontent.com/40703485/187448806-74c661c0-e70d-4573-b190-0cef4b7f0a4b.gif)
+![KakaoTalk_Photo_2022-08-30-20-47-37 005](https://user-images.githubusercontent.com/40703485/187448808-08f8d5a2-51a1-45ba-a7f5-3a8977cd8028.gif)
+
+
+
+![KakaoTalk_Photo_2022-08-30-20-47-37 006](https://user-images.githubusercontent.com/40703485/187448812-3cc60852-5147-4075-a375-bea1744005c8.gif)
+
